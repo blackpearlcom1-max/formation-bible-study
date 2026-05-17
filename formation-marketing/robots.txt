@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://formationbible.com/sitemap.xml
