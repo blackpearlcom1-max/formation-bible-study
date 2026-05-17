@@ -170,6 +170,24 @@
     ::-webkit-scrollbar { width:6px; }
     ::-webkit-scrollbar-track { background:transparent; }
     ::-webkit-scrollbar-thumb { background:#7A5478; border-radius:3px; }
+
+    /* Chips de sugerencia */
+    .study-chip {
+      display: inline-flex; align-items: center;
+      padding: 5px 13px; border-radius: 20px;
+      border: 1px solid rgba(233,195,73,0.25);
+      background: rgba(233,195,73,0.07);
+      color: rgba(242,229,240,0.6);
+      font-family: 'Manrope', sans-serif;
+      font-size: 12px; font-weight: 500;
+      cursor: pointer; transition: all 0.15s;
+      white-space: nowrap;
+    }
+    .study-chip:hover {
+      border-color: rgba(233,195,73,0.55);
+      color: #E9C349;
+      background: rgba(233,195,73,0.12);
+    }
   </style>
 </head>
 <body class="font-body text-on-background selection:bg-primary/30 min-h-screen flex flex-col">
@@ -413,10 +431,14 @@
         <label class="block font-label text-[11px] uppercase tracking-widest text-[#f2e5f0]/40 mb-3" for="question-input" id="question-label">Tu pregunta</label>
         <div class="relative">
           <textarea id="question-input" rows="4"
-            placeholder="Ej. ¿Qué dice la Biblia sobre el perdón? ¿Quién fue Melquisedec? Explica la justificación por fe."
+            placeholder="Pregunta lo que quieras — ¿Qué significa gracia? ¿Quién fue Melquisedec? ¿Qué pasó en Génesis 1?"
             class="w-full px-4 py-3 pr-8 rounded-xl border border-[#f2e5f0]/15 bg-[#3D1540]/50 text-on-surface placeholder-[#f2e5f0]/25 font-body text-base resize-none outline-none focus:border-[#E9C349]/50 transition-colors leading-relaxed"></textarea>
           <button id="clear-question-btn" title="Borrar" class="absolute top-2 right-2 text-[#f2e5f0]/30 hover:text-[#f2e5f0]/70 transition-colors text-xl leading-none hidden">×</button>
         </div>
+
+        <!-- Chips de sugerencia -->
+        <div id="study-chips" class="flex flex-wrap gap-2 mt-3 transition-opacity duration-200"></div>
+        <p id="study-input-hint" class="hidden text-[11px] text-[#f2e5f0]/35 font-label mt-1.5 px-1">Tip: Agrega una pregunta — ej. "¿Qué significa Juan 3:16?"</p>
 
         <div class="flex items-center gap-3 mt-4">
           <select id="lang-select" class="px-4 py-3 rounded-xl border border-[#f2e5f0]/15 bg-[#3D1540]/50 text-on-surface font-body text-sm outline-none focus:border-[#E9C349]/50 cursor-pointer">
@@ -1148,6 +1170,8 @@ function showStudy(session) {
   if (!$('book-select').options.length) initBibleReader();
   // Cargar versículo del día al iniciar sesión (pestaña Leer es la predeterminada)
   loadDailyVerse();
+  // Mostrar chips de sugerencia
+  renderStudyChips();
 }
 
 // ─── Panel de Perfil ────────────────────────────────────────
@@ -1350,28 +1374,84 @@ $('dismiss-response-btn').addEventListener('click', () => {
   askAnother.classList.add('hidden');
 });
 
+// ─── Chips de Sugerencia ──────────────────────────────────────
+const STUDY_CHIPS = {
+  es: [
+    '¿Qué significa gracia?',
+    '¿Quién fue Melquisedec?',
+    'Explica Juan 3:16',
+    '¿Qué es la armadura de Dios?',
+    'Resumen de Romanos 8'
+  ],
+  en: [
+    'What does grace mean?',
+    'Who was Melchizedek?',
+    'Explain John 3:16',
+    'What is the armor of God?',
+    'Romans 8 overview'
+  ]
+};
+
+function looksLikeBareVerseRef(text) {
+  return /^[1-3]?\s?[A-Za-z]+\.?\s+\d{1,3}(:\d{1,3}(-\d{1,3})?)?$/.test(text.trim());
+}
+
+function renderStudyChips() {
+  const lang = langSelect.value || 'es';
+  const chips = STUDY_CHIPS[lang] || STUDY_CHIPS.es;
+  const container = $('study-chips');
+  if (!container) return;
+  container.innerHTML = chips.map(c =>
+    `<button class="study-chip" onclick="fillStudyChip(this)">${c}</button>`
+  ).join('');
+  container.style.opacity = '1';
+}
+
+function fillStudyChip(btn) {
+  questionInput.value = btn.textContent;
+  questionInput.focus();
+  $('study-chips').style.opacity = '0';
+  clearQuestionBtn.classList.remove('hidden');
+}
+
 // Clear question button
 const clearQuestionBtn = $('clear-question-btn');
 questionInput.addEventListener('input', () => {
   clearQuestionBtn.classList.toggle('hidden', !questionInput.value);
+  const chipsEl = $('study-chips');
+  if (chipsEl) chipsEl.style.opacity = questionInput.value ? '0' : '1';
 });
 clearQuestionBtn.addEventListener('click', () => {
   questionInput.value = '';
   clearQuestionBtn.classList.add('hidden');
+  const chipsEl = $('study-chips');
+  if (chipsEl) chipsEl.style.opacity = '1';
+  $('study-input-hint').classList.add('hidden');
   questionInput.focus();
 });
+
+// Re-render chips when language changes
+langSelect.addEventListener('change', renderStudyChips);
 
 // Ask question
 askBtn.addEventListener('click', askQuestion);
 questionInput.addEventListener('keydown', e => { if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') askQuestion(); });
 
 async function askQuestion() {
-  const raw = questionInput.value.trim();
+  let raw = questionInput.value.trim();
   if (!raw) { showToast('Por favor escribe una pregunta primero', 'error'); questionInput.focus(); return; }
   if (!currentSession) { showToast('Por favor inicia sesión primero', 'error'); return; }
   const { data: { session } } = await sb.auth.getSession();
   if (!session) { showToast('Sesión expirada — inicia sesión de nuevo', 'error'); showAuth(); return; }
   currentSession = session;
+
+  // Auto-convertir referencias simples en preguntas (ej. "Juan 3:16" → "¿Qué significa Juan 3:16?")
+  if (currentResearchMode === 'ask' && looksLikeBareVerseRef(raw)) {
+    raw = langSelect.value === 'es' ? `¿Qué significa ${raw}?` : `What does ${raw} mean?`;
+    questionInput.value = raw;
+    const hint = $('study-input-hint');
+    if (hint) { hint.classList.remove('hidden'); setTimeout(() => hint.classList.add('hidden'), 3500); }
+  }
 
   const cfg = RESEARCH_MODES[currentResearchMode] || RESEARCH_MODES.ask;
   const question = cfg.prefix + raw;
