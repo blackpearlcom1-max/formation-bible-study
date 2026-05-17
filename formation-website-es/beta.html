@@ -1,0 +1,2572 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Estudio Bíblico Formation — Beta</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <script src="https://unpkg.com/@supabase/supabase-js@2.39.0/dist/umd/supabase.js"></script>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Manrope:wght@300;400;500;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "secondary": "#e9c349",
+            "on-surface-variant": "#d2c2cc",
+            "on-surface": "#f2e5f0",
+            "surface-container-highest": "#7E3A6C",
+            "secondary-container": "#af8d11",
+            "on-secondary": "#3c2f00",
+            "primary": "#ffb4a4",
+            "primary-container": "#6e2414",
+            "surface-variant": "#7E3A6C",
+            "outline": "#c4a0c2",
+            "surface-container-lowest": "#3D1540",
+            "surface-container-high": "#703060",
+            "surface-container": "#5C2A5A",
+            "on-secondary-fixed": "#241a00",
+            "inverse-primary": "#9a4431",
+            "on-primary": "#5d1809",
+            "surface-dim": "#4A1D4D",
+            "outline-variant": "#7A5478",
+            "surface-container-low": "#4A1D4D",
+            "on-background": "#f2e5f0",
+            "surface": "#5C2A5A",
+            "background": "#5C2A5A"
+          },
+          borderRadius: {
+            DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem",
+            "2xl": "1rem", "3xl": "1.5rem", full: "9999px"
+          },
+          fontFamily: {
+            headline: ["Noto Serif", "serif"],
+            body: ["Manrope", "sans-serif"],
+            label: ["Manrope", "sans-serif"]
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    body { background-color: #5C2A5A; }
+
+    .grain-overlay {
+      pointer-events: none; position: fixed; inset: 0; z-index: 99; opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    }
+
+    #mobile-menu { display: none; }
+    #mobile-menu.open { display: flex; }
+    .nav-scrolled { background-color: rgba(61, 21, 64, 0.95) !important; }
+
+    @keyframes orbFloat1 { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(40px,-25px) scale(1.04)} 66%{transform:translate(-25px,20px) scale(0.97)} }
+    @keyframes orbFloat2 { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(-35px,28px) scale(0.96)} 66%{transform:translate(28px,-18px) scale(1.03)} }
+    @keyframes spin     { to { transform: rotate(360deg); } }
+    @keyframes shimmer  { 0%{background-position:-250% center} 100%{background-position:250% center} }
+    @keyframes fadeIn   { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:none} }
+    @keyframes chapterFade { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:none} }
+
+    .orb { position:fixed; border-radius:50%; filter:blur(90px); pointer-events:none; z-index:0; }
+    .orb-1 { width:650px; height:650px; top:-150px; left:-120px; background:radial-gradient(circle, rgba(255,180,164,0.11) 0%, transparent 70%); animation:orbFloat1 22s ease-in-out infinite; }
+    .orb-2 { width:520px; height:520px; top:28%; right:-130px; background:radial-gradient(circle, rgba(233,195,73,0.08) 0%, transparent 70%); animation:orbFloat2 28s ease-in-out infinite; }
+    .orb-3 { width:420px; height:420px; bottom:8%; left:25%; background:radial-gradient(circle, rgba(255,180,164,0.07) 0%, transparent 70%); animation:orbFloat1 34s ease-in-out infinite reverse; }
+
+    .shimmer-text {
+      background: linear-gradient(90deg, #e9c349 0%, #ffb4a4 32%, #e9c349 52%, #ffb4a4 78%, #e9c349 100%);
+      background-size:260% auto; -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+      background-clip:text; animation:shimmer 5.5s linear infinite;
+    }
+    .spinner {
+      width:16px; height:16px;
+      border:2px solid rgba(255,255,255,0.25);
+      border-top-color: currentColor;
+      border-radius:50%;
+      animation:spin .7s linear infinite;
+      display:inline-block; vertical-align:middle;
+    }
+    .fade-in { animation: fadeIn 0.45s ease forwards; }
+
+    /* Tab system */
+    .tab-btn {
+      padding: 10px 22px; border-radius: 10px 10px 0 0;
+      font-family: 'Manrope', sans-serif; font-size: 13px; font-weight: 600;
+      cursor: pointer; border: none; transition: all 0.2s; letter-spacing: 0.02em;
+      color: rgba(242,229,240,0.45); background: transparent;
+    }
+    .tab-btn:hover { color: rgba(242,229,240,0.75); }
+    .tab-btn.active { color: #E9C349; background: rgba(233,195,73,0.08); border-bottom: 2px solid #E9C349; }
+
+    /* Bible reader */
+    .verse-block { padding: 3px 8px; border-radius: 6px; cursor: pointer; transition: background 0.15s; line-height: 1.85; }
+    .verse-block:hover { background: rgba(255,180,164,0.08); }
+    .verse-block.highlighted { outline: 2px solid rgba(233,195,73,0.5); outline-offset: 1px; }
+
+    /* Resaltados y marcas inductivas */
+    .hl-swatch {
+      width: 17px; height: 17px; border-radius: 50%;
+      border: 2.5px solid transparent; cursor: pointer;
+      transition: all 0.15s; flex-shrink: 0; display: inline-block;
+    }
+    .hl-swatch:hover { transform: scale(1.3); border-color: rgba(242,229,240,0.6); }
+    .hl-swatch.active { border-color: #f2e5f0; transform: scale(1.2); box-shadow: 0 0 5px rgba(242,229,240,0.5); }
+    .markup-btn { font-weight: 700; min-width: 30px; text-align: center; }
+    .markup-btn.active-markup {
+      background: rgba(233,195,73,0.18) !important;
+      border-color: rgba(233,195,73,0.5) !important;
+      color: #E9C349 !important;
+    }
+    .verse-num { color: #E9C349; font-size: 10px; font-weight: 700; vertical-align: super; margin-right: 3px; font-family: 'Manrope', sans-serif; }
+    .verse-text { font-family: 'Noto Serif', serif; font-size: 16.5px; line-height: 1.85; color: #f2e5f0; }
+    .reader-select { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); color: #f2e5f0; border-radius: 8px; padding: 7px 11px; font-size: 13px; font-family: 'Manrope', sans-serif; cursor: pointer; }
+    .reader-select option { background: #2A0E2D; }
+    .reader-select:focus { outline: none; border-color: #FFB4A4; }
+    .reader-btn { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); color: rgba(242,229,240,0.7); border-radius: 8px; padding: 7px 13px; font-size: 13px; font-family: 'Manrope', sans-serif; cursor: pointer; transition: all 0.15s; }
+    .reader-btn:hover { background: rgba(255,255,255,0.12); color: #f2e5f0; }
+
+    .research-mode-btn {
+      padding: 6px 14px;
+      border-radius: 20px;
+      border: 1px solid rgba(242,229,240,0.15);
+      background: rgba(255,255,255,0.05);
+      color: rgba(242,229,240,0.5);
+      font-family: 'Manrope', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+    .research-mode-btn:hover { border-color: rgba(233,195,73,0.35); color: rgba(242,229,240,0.85); }
+    .research-mode-btn.active {
+      background: rgba(233,195,73,0.15);
+      border-color: rgba(233,195,73,0.5);
+      color: #E9C349;
+    }
+    .chapter-fade { animation: chapterFade 0.35s ease forwards; }
+
+    #toast {
+      position:fixed; bottom:28px; left:50%;
+      transform:translateX(-50%) translateY(80px);
+      background:#3D1540; border:1px solid rgba(233,195,73,0.3);
+      border-radius:12px; padding:11px 22px;
+      font-family:'Manrope',sans-serif; font-size:.88rem;
+      color:#f2e5f0; box-shadow:0 8px 32px rgba(0,0,0,0.5);
+      transition:transform .3s ease; z-index:200; white-space:nowrap;
+    }
+    #toast.show { transform:translateX(-50%) translateY(0); }
+    #toast.success { border-color:rgba(100,220,120,0.4); color:#6ddc86; }
+    #toast.error   { border-color:rgba(255,100,100,0.4); color:#ff7c7c; }
+
+    .verse-card {
+      background: rgba(110,60,108,0.35);
+      border: 1px solid rgba(196,160,194,0.2);
+      border-radius: 12px;
+      padding: 14px 18px;
+    }
+    ::-webkit-scrollbar { width:6px; }
+    ::-webkit-scrollbar-track { background:transparent; }
+    ::-webkit-scrollbar-thumb { background:#7A5478; border-radius:3px; }
+  </style>
+</head>
+<body class="font-body text-on-background selection:bg-primary/30 min-h-screen flex flex-col">
+
+<div class="grain-overlay"></div>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+
+<!-- ── Navegación ──────────────────────────────────────────── -->
+<nav id="main-nav" class="fixed top-0 w-full z-50 bg-[#3D1540]/80 backdrop-blur-xl shadow-[0_20px_40px_-5px_rgba(61,21,64,0.3)] transition-colors duration-300">
+  <div class="flex justify-between items-center w-full px-8 py-4 max-w-7xl mx-auto">
+    <a href="index.html" class="text-2xl font-headline font-black text-[#FFB4A4] no-underline">Formación Bíblica</a>
+    <div class="hidden md:flex items-center space-x-8">
+      <a href="index.html" class="text-[#f2e5f0]/60 font-medium font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4] transition-colors duration-300">Inicio</a>
+      <a href="features.html" class="text-[#f2e5f0]/60 font-medium font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4] transition-colors duration-300">Características</a>
+      <a href="pricing.html" class="text-[#f2e5f0]/60 font-medium font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4] transition-colors duration-300">Precios</a>
+      <a href="about.html" class="text-[#f2e5f0]/60 font-medium font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4] transition-colors duration-300">Acerca de</a>
+      <span class="text-[#E9C349] font-bold font-label uppercase tracking-widest text-xs border-b-2 border-[#E9C349] pb-1">Beta</span>
+    </div>
+    <div class="flex items-center gap-3">
+      <div id="nav-user-info" class="hidden items-center gap-3">
+        <span id="nav-user-email" class="text-[#f2e5f0]/50 text-xs font-label max-w-[160px] truncate hidden md:block"></span>
+        <button id="nav-sign-out" class="hidden" aria-hidden="true"></button>
+        <button onclick="openProfilePanel()" id="nav-avatar-btn" title="Perfil y Configuración"
+          class="w-8 h-8 rounded-full flex items-center justify-center text-[#f2e5f0] text-xs font-bold font-label hover:ring-2 hover:ring-[#E9C349]/50 transition-all flex-shrink-0"
+          style="background:#7E3A6C;">
+          <span id="nav-avatar-initials">?</span>
+        </button>
+      </div>
+      <button onclick="document.getElementById('magic-email').scrollIntoView({behavior:'smooth',block:'center'}); setTimeout(()=>document.getElementById('magic-email').focus(),400);" id="nav-join-btn" class="bg-gradient-to-br from-[#FFB4A4] to-[#6E2414] text-[#5D1809] px-5 py-2 rounded-full font-bold text-sm hover:brightness-110 transition-all shadow-lg">
+        Únete →
+      </button>
+    </div>
+    <button id="nav-toggle" class="md:hidden text-on-surface ml-4" aria-label="Menú">
+      <span class="material-symbols-outlined">menu</span>
+    </button>
+  </div>
+  <div id="mobile-menu" class="flex-col px-8 pb-6 space-y-4 bg-[#3D1540]/95 backdrop-blur-xl md:hidden">
+    <a href="index.html" class="block text-[#f2e5f0]/60 font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4]">Inicio</a>
+    <a href="features.html" class="block text-[#f2e5f0]/60 font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4]">Características</a>
+    <a href="pricing.html" class="block text-[#f2e5f0]/60 font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4]">Precios</a>
+    <a href="about.html" class="block text-[#f2e5f0]/60 font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4]">Acerca de</a>
+    <span class="block text-[#E9C349] font-label uppercase tracking-widest text-xs font-bold">Beta ✦</span>
+  </div>
+</nav>
+
+<!-- ── Contenido Principal ──────────────────────────────────── -->
+<main class="flex-1 pt-24 pb-20 px-4 relative z-10">
+
+  <!-- PANTALLA DE AUTH -->
+  <div id="auth-screen" class="max-w-md mx-auto mt-16">
+    <div class="text-center mb-10">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#f2e5f0]/20 font-label text-[10px] uppercase tracking-[0.2em] text-[#f2e5f0]/50 mb-6">
+        <span class="text-[#E9C349]">✦</span> Acceso Beta
+      </div>
+      <h1 class="font-headline text-4xl font-bold text-on-surface mb-3">Formación Bíblica</h1>
+      <p class="text-on-surface-variant leading-relaxed text-sm">Herramientas de estudio bíblico fundamentadas en las Escrituras, diseñadas para apoyar tu ministerio.<br>Inicia sesión para acceder a tu sesión beta.</p>
+    </div>
+
+    <div class="bg-[#4A1D4D]/70 backdrop-blur-xl border border-[#f2e5f0]/10 rounded-3xl p-8 shadow-2xl">
+      <button id="google-btn" class="w-full flex items-center justify-center gap-3 px-5 py-3.5 rounded-xl border border-[#f2e5f0]/20 bg-[#3D1540]/60 text-on-surface font-label font-semibold text-sm hover:border-[#FFB4A4]/50 hover:bg-[#3D1540]/80 transition-all duration-200">
+        <svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+          <path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844a4.14 4.14 0 01-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z" fill="#4285F4"/>
+          <path d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 009 18z" fill="#34A853"/>
+          <path d="M3.964 10.71A5.41 5.41 0 013.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 000 9c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05"/>
+          <path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 00.957 4.958L3.964 6.29C4.672 4.163 6.656 3.58 9 3.58z" fill="#EA4335"/>
+        </svg>
+        Continuar con Google
+      </button>
+
+      <div class="flex items-center gap-3 my-5">
+        <div class="flex-1 h-px bg-[#f2e5f0]/10"></div>
+        <span class="text-[#f2e5f0]/30 font-label text-xs uppercase tracking-widest">o</span>
+        <div class="flex-1 h-px bg-[#f2e5f0]/10"></div>
+      </div>
+
+      <label class="block font-label text-[11px] uppercase tracking-widest text-[#f2e5f0]/40 mb-2" for="magic-email">Correo electrónico</label>
+      <input id="magic-email" type="email" placeholder="tu@correo.com" autocomplete="email"
+        class="w-full px-4 py-3 rounded-xl border border-[#f2e5f0]/15 bg-[#3D1540]/50 text-on-surface placeholder-[#f2e5f0]/25 font-body text-sm outline-none focus:border-[#E9C349]/50 transition-colors" />
+      <button id="magic-btn" class="w-full mt-3 px-5 py-3.5 rounded-xl bg-gradient-to-br from-[#E9C349] to-[#af8d11] text-[#241a00] font-label font-bold text-sm tracking-wide hover:brightness-110 transition-all shadow-lg shadow-[#E9C349]/10">
+        Enviar enlace mágico
+      </button>
+
+      <p class="mt-5 text-center text-[#f2e5f0]/30 font-label text-[11px] leading-relaxed">
+        Al continuar aceptas nuestros <a href="terms.html" class="underline hover:text-[#FFB4A4]">Términos</a>.<br>Sin contraseña — te enviaremos un enlace seguro de inicio de sesión.
+      </p>
+    </div>
+  </div>
+
+  <!-- PANTALLA DE ESTUDIO (mostrar al iniciar sesión) -->
+  <div id="study-screen" class="hidden max-w-3xl mx-auto">
+
+    <!-- Encabezado -->
+    <div class="text-center mb-6 mt-6">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#f2e5f0]/20 font-label text-[10px] uppercase tracking-[0.2em] text-[#f2e5f0]/50 mb-4">
+        <span class="text-[#E9C349]">✦</span> Beta · Compañero del Ministerio
+      </div>
+      <h1 class="font-headline text-3xl md:text-4xl font-bold text-on-surface mb-2">Formación Bíblica</h1>
+      <p class="text-on-surface-variant text-sm leading-relaxed max-w-xl mx-auto">Lee las Escrituras, haz cualquier pregunta bíblica y recibe respuestas teológicamente fundamentadas — con referencias cruzadas y arraigadas en la Palabra.</p>
+    </div>
+
+    <!-- Barra de pestañas -->
+    <div class="flex gap-1 border-b border-[#f2e5f0]/10 mb-6">
+      <button class="tab-btn active" id="tab-read" onclick="switchTab('read')">📖 Leer</button>
+      <button class="tab-btn" id="tab-ask" onclick="switchTab('ask')">✨ Pregunta a la Palabra</button>
+      <button class="tab-btn" id="tab-notes" onclick="switchTab('notes')">📓 Notas de Estudio</button>
+      <button class="tab-btn" id="tab-plans" onclick="switchTab('plans')">📅 Plan de Lectura</button>
+      <button class="tab-btn" id="tab-groups" onclick="switchTab('groups')">👥 Grupos</button>
+      <button class="tab-btn" id="tab-progress" onclick="switchTab('progress')">📊 Progreso</button>
+    </div>
+
+    <!-- ══ PESTAÑA LEER ══ -->
+    <div id="tab-content-read">
+
+      <!-- Verso del Día -->
+      <div id="daily-verse-card" class="hidden bg-[#4A1D4D]/70 backdrop-blur-xl border border-[#f2e5f0]/10 rounded-2xl p-5 mb-4 shadow-xl">
+        <div class="flex items-start justify-between mb-3">
+          <div>
+            <div class="font-label text-[10px] uppercase tracking-widest text-[#f2e5f0]/35 mb-1" id="daily-date"></div>
+            <div class="font-label text-xs font-bold text-[#E9C349] uppercase tracking-widest" id="daily-ref">Verso del Día</div>
+          </div>
+          <button onclick="dismissDailyVerse()" class="text-[#f2e5f0]/30 hover:text-[#f2e5f0]/60 transition-colors text-xl leading-none ml-4 mt-0.5" title="Descartar por hoy">×</button>
+        </div>
+        <p id="daily-text" class="font-headline italic text-[#f2e5f0]/90 text-base leading-relaxed mb-3"></p>
+        <div id="daily-devotional-wrap" class="hidden border-t border-[#f2e5f0]/10 pt-3 mt-1">
+          <p id="daily-devotional" class="font-body text-sm text-[#f2e5f0]/65 leading-relaxed"></p>
+        </div>
+        <div class="flex items-center gap-3 mt-3">
+          <button onclick="toggleDevotion()" id="daily-expand-btn"
+            class="font-label text-xs text-[#E9C349]/70 hover:text-[#E9C349] transition-colors flex items-center gap-1">
+            ▾ Leer reflexión
+          </button>
+          <button onclick="goToDailyChapter()" class="ml-auto reader-btn text-xs px-3 py-1.5">Leer Capítulo →</button>
+        </div>
+        <div id="daily-loading" class="hidden flex items-center gap-2 text-[#f2e5f0]/40 text-xs font-label mt-2">
+          <span class="spinner"></span> Cargando el verso del día…
+        </div>
+      </div>
+
+      <!-- Barra de herramientas -->
+      <div class="bg-[#3D1540]/80 backdrop-blur-xl border border-[#f2e5f0]/10 rounded-2xl px-4 py-3 mb-4 flex flex-wrap items-center gap-3">
+        <select id="book-select" onchange="onBookChange()" class="reader-select flex-1 min-w-36 max-w-52"></select>
+        <select id="chapter-select" onchange="loadChapter()" class="reader-select w-20"></select>
+        <select id="translation-select" onchange="loadChapter()" class="reader-select w-20">
+          <option value="RVR1909">RVR1909</option>
+          <option value="ONBV">ONBV</option>
+        </select>
+        <div class="flex gap-2">
+          <button onclick="prevChapter()" class="reader-btn">◀</button>
+          <button onclick="nextChapter()" class="reader-btn">▶</button>
+        </div>
+      </div>
+
+      <!-- Visor de capítulo -->
+      <div class="bg-[#4A1D4D]/70 backdrop-blur-xl border border-[#f2e5f0]/10 rounded-3xl shadow-2xl overflow-hidden">
+        <div id="chapter-header" class="hidden px-6 py-4 border-b border-[#f2e5f0]/10 flex items-baseline gap-3">
+          <h2 id="chapter-title" class="font-headline text-xl font-bold text-on-surface"></h2>
+          <span id="chapter-subtitle" class="text-[#FFB4A4] text-xs font-label uppercase tracking-widest"></span>
+        </div>
+        <div id="chapter-loading" class="hidden text-center py-16 px-6">
+          <div class="spinner mx-auto mb-3" style="width:24px;height:24px;border-color:rgba(255,180,164,0.25);border-top-color:#FFB4A4"></div>
+          <p class="text-[#FFB4A4] text-sm font-label">Cargando capítulo…</p>
+        </div>
+        <div id="chapter-error" class="hidden px-6 py-10 text-center">
+          <p class="text-[#ff7c7c] text-sm mb-3" id="chapter-error-msg"></p>
+          <button onclick="loadChapter()" class="reader-btn text-xs">Reintentar</button>
+        </div>
+        <div id="chapter-placeholder" class="text-center py-16 px-6">
+          <div class="text-5xl mb-4">📖</div>
+          <h2 class="font-headline text-xl text-on-surface mb-2">Comenzar a leer</h2>
+          <p class="text-[#FFB4A4] text-sm">Selecciona un libro y capítulo arriba para comenzar.</p>
+        </div>
+        <div id="chapter-content" class="px-6 py-6 space-y-0.5 chapter-fade"></div>
+      </div>
+
+      <!-- Barra de acción de versículo -->
+      <div id="verse-actions" class="hidden mt-3 bg-[#2A0E2D]/90 backdrop-blur-xl border border-[#f2e5f0]/10 rounded-2xl px-5 py-4 space-y-3">
+        <!-- Fila 1: Referencia + cerrar -->
+        <div class="flex items-center gap-2">
+          <span id="verse-action-ref" class="text-[#E9C349] text-sm font-semibold flex-1"></span>
+          <button onclick="studySelectedVerse()" class="reader-btn text-xs">✨ Estudiar</button>
+          <button onclick="clearVerseSelection()" class="reader-btn text-xs text-[#f2e5f0]/40">✕</button>
+        </div>
+        <!-- Fila 2: Resaltar -->
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="text-[#f2e5f0]/35 text-[11px] uppercase tracking-wider font-semibold w-16">Resaltar</span>
+          <div class="flex items-center gap-1.5">
+            <button class="hl-swatch" data-color="yellow"  style="background:#E9C349" onclick="applyHighlight('yellow')"  title="Amarillo"></button>
+            <button class="hl-swatch" data-color="green"   style="background:#50c878" onclick="applyHighlight('green')"   title="Verde"></button>
+            <button class="hl-swatch" data-color="blue"    style="background:#6EB4F0" onclick="applyHighlight('blue')"    title="Azul"></button>
+            <button class="hl-swatch" data-color="pink"    style="background:#FF90B3" onclick="applyHighlight('pink')"    title="Rosa"></button>
+            <button class="hl-swatch" data-color="purple"  style="background:#B482FF" onclick="applyHighlight('purple')"  title="Morado"></button>
+          </div>
+          <button id="remove-highlight-btn" class="hidden text-[#f2e5f0]/30 hover:text-[#ff7c7c] text-[11px] px-2 py-0.5 rounded border border-[#f2e5f0]/10 hover:border-[#ff7c7c]/30 transition-colors" onclick="removeHighlight()">✕ quitar</button>
+        </div>
+        <!-- Fila 3: Marcas inductivas -->
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="text-[#f2e5f0]/35 text-[11px] uppercase tracking-wider font-semibold w-16">Marcar</span>
+          <div class="flex items-center gap-1.5">
+            <button id="markup-underline" class="markup-btn reader-btn text-xs px-2.5 py-1" onclick="applyMarkup('underline')" title="Subrayar — verdad clave">U̲</button>
+            <button id="markup-box"       class="markup-btn reader-btn text-xs px-2.5 py-1" onclick="applyMarkup('box')"       title="Cuadro — mandato/instrucción">□</button>
+            <button id="markup-circle"    class="markup-btn reader-btn text-xs px-2.5 py-1" onclick="applyMarkup('circle')"    title="Círculo — nombre/término clave">○</button>
+            <button id="markup-arrow"     class="markup-btn reader-btn text-xs px-2.5 py-1" onclick="applyMarkup('arrow')"     title="Flecha — versículo clave">→</button>
+          </div>
+          <button id="remove-markup-btn" class="hidden text-[#f2e5f0]/30 hover:text-[#ff7c7c] text-[11px] px-2 py-0.5 rounded border border-[#f2e5f0]/10 hover:border-[#ff7c7c]/30 transition-colors" onclick="removeMarkup()">✕ quitar</button>
+        </div>
+        <!-- Fila 4: Nota de versículo -->
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="text-[#f2e5f0]/35 text-[11px] uppercase tracking-wider font-semibold w-16">Nota</span>
+          <button id="toggle-note-btn" class="reader-btn text-xs px-2.5 py-1" onclick="toggleVerseNote()">📝 Añadir nota</button>
+          <span id="note-saved-badge" class="hidden text-[10px] text-[#50c878] font-semibold">✓ guardada</span>
+        </div>
+        <!-- Editor de nota (oculto por defecto) -->
+        <div id="verse-note-editor" class="hidden pt-1">
+          <textarea id="verse-note-input" rows="2" placeholder="Escribe tu nota para este versículo…"
+            class="w-full px-3 py-2 rounded-lg border border-[#f2e5f0]/15 bg-[#3D1540]/60 text-on-surface placeholder-[#f2e5f0]/25 font-body text-sm resize-none outline-none focus:border-[#E9C349]/50 transition-colors"></textarea>
+          <div class="flex gap-2 mt-1.5">
+            <button onclick="saveVerseNote()" class="reader-btn text-xs px-3 py-1">Guardar</button>
+            <button id="delete-note-btn" class="hidden reader-btn text-xs px-3 py-1 text-[#ff7c7c]" onclick="deleteVerseNote()">Eliminar</button>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /tab-content-read -->
+
+    <!-- ══ PESTAÑA PREGUNTAR ══ -->
+    <div id="tab-content-ask" class="hidden">
+
+      <!-- Selector de Modo de Investigación -->
+      <div class="flex gap-2 flex-wrap mb-5" id="research-modes">
+        <button class="research-mode-btn active" data-mode="ask">✨ Preguntar</button>
+        <button class="research-mode-btn" data-mode="xref">🔗 Referencias Cruzadas</button>
+        <button class="research-mode-btn" data-mode="context">📜 Contexto</button>
+        <button class="research-mode-btn" data-mode="themes">⛪ Temas</button>
+        <button class="research-mode-btn" data-mode="outline">📋 Esquema</button>
+      </div>
+
+      <!-- Tarjeta de pregunta -->
+      <div class="bg-[#4A1D4D]/70 backdrop-blur-xl border border-[#f2e5f0]/10 rounded-3xl p-6 md:p-8 shadow-2xl mb-6">
+        <label class="block font-label text-[11px] uppercase tracking-widest text-[#f2e5f0]/40 mb-3" for="question-input" id="question-label">Tu pregunta</label>
+        <div class="relative">
+          <textarea id="question-input" rows="4"
+            placeholder="Ej. ¿Qué dice la Biblia sobre el perdón? ¿Quién fue Melquisedec? Explica la justificación por fe."
+            class="w-full px-4 py-3 pr-8 rounded-xl border border-[#f2e5f0]/15 bg-[#3D1540]/50 text-on-surface placeholder-[#f2e5f0]/25 font-body text-base resize-none outline-none focus:border-[#E9C349]/50 transition-colors leading-relaxed"></textarea>
+          <button id="clear-question-btn" title="Borrar" class="absolute top-2 right-2 text-[#f2e5f0]/30 hover:text-[#f2e5f0]/70 transition-colors text-xl leading-none hidden">×</button>
+        </div>
+
+        <div class="flex items-center gap-3 mt-4">
+          <select id="lang-select" class="px-4 py-3 rounded-xl border border-[#f2e5f0]/15 bg-[#3D1540]/50 text-on-surface font-body text-sm outline-none focus:border-[#E9C349]/50 cursor-pointer">
+            <option value="es">🇪🇸 Español</option>
+            <option value="en">🇺🇸 English</option>
+          </select>
+          <button id="ask-btn" class="flex-1 flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-br from-[#E8816A] to-[#6E2414] text-white font-label font-bold text-sm tracking-wide hover:brightness-110 transition-all shadow-lg shadow-[#E8816A]/20 disabled:opacity-50 disabled:cursor-not-allowed">
+            <span id="ask-btn-label">Pregunta a la Palabra</span>
+          </button>
+        </div>
+        <div id="error-box" class="hidden mt-4 px-4 py-3 rounded-xl bg-[#ff4a4a]/10 border border-[#ff4a4a]/30 text-[#ff7c7c] font-body text-sm"></div>
+      </div>
+
+      <!-- Área de respuesta -->
+      <div id="response-area" class="hidden space-y-4">
+        <div class="bg-[#4A1D4D]/70 backdrop-blur-xl border border-[#f2e5f0]/10 rounded-3xl overflow-hidden shadow-2xl">
+          <div class="px-6 py-4 border-b border-[#f2e5f0]/10 flex items-center justify-between">
+            <span class="text-[#E9C349] font-label text-xs uppercase tracking-widest font-bold">✦ Respuesta</span>
+            <button id="dismiss-response-btn" title="Cerrar" class="text-[#f2e5f0]/30 hover:text-[#f2e5f0]/70 transition-colors text-xl leading-none">×</button>
+          </div>
+          <div id="answer-text" class="px-6 py-5 text-on-surface leading-relaxed font-body text-[.97rem]"></div>
+        </div>
+
+        <div id="summary-section" class="bg-[#703060]/40 backdrop-blur-xl border border-[#f2e5f0]/10 rounded-3xl overflow-hidden shadow-xl">
+          <div class="px-6 py-4 border-b border-[#f2e5f0]/10">
+            <span class="text-[#FFB4A4] font-label text-xs uppercase tracking-widest font-bold">◎ Resumen</span>
+          </div>
+          <div id="summary-text" class="px-6 py-5 text-on-surface-variant leading-relaxed font-body text-sm italic"></div>
+        </div>
+
+        <div id="verses-section" class="bg-[#4A1D4D]/70 backdrop-blur-xl border border-[#f2e5f0]/10 rounded-3xl overflow-hidden shadow-2xl">
+          <div class="px-6 py-4 border-b border-[#f2e5f0]/10">
+            <span class="text-[#E9C349] font-label text-xs uppercase tracking-widest font-bold">📖 Referencias Bíblicas</span>
+          </div>
+          <div id="verses-grid" class="px-6 py-5 space-y-3"></div>
+        </div>
+
+        <div id="verification-section" class="bg-[#4A1D4D]/70 backdrop-blur-xl border border-[#f2e5f0]/10 rounded-3xl overflow-hidden shadow-xl">
+          <div class="px-6 py-4 border-b border-[#f2e5f0]/10">
+            <span class="text-[#FFB4A4] font-label text-xs uppercase tracking-widest font-bold">✔ Verificación</span>
+          </div>
+          <div class="px-6 py-5 flex items-start gap-3">
+            <span id="verification-icon" class="text-lg flex-shrink-0 mt-0.5">🟡</span>
+            <span id="verification-text" class="text-on-surface-variant font-body text-sm leading-relaxed"></span>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between px-2 pb-2">
+          <span id="cached-indicator"></span>
+          <button id="flag-btn" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[#f2e5f0]/15 text-[#f2e5f0]/40 font-label text-xs hover:border-[#ff7c7c]/50 hover:text-[#ff7c7c] transition-colors">
+            ⚑ Reportar esta respuesta
+          </button>
+        </div>
+      </div>
+
+      <div id="ask-another" class="hidden text-center mt-2">
+        <button id="ask-another-btn" class="text-[#E9C349]/60 font-label text-xs uppercase tracking-widest hover:text-[#E9C349] transition-colors">
+          ↑ Hacer otra pregunta
+        </button>
+      </div>
+
+    </div><!-- /tab-content-ask -->
+
+    <!-- ══ PESTAÑA NOTAS ══ -->
+    <div id="tab-content-notes" class="hidden">
+
+      <!-- Formulario nueva nota -->
+      <div class="bg-[#4A1D4D]/70 backdrop-blur-xl border border-[#f2e5f0]/10 rounded-3xl p-6 mb-6 shadow-2xl">
+        <label class="block font-label text-[11px] uppercase tracking-widest text-[#f2e5f0]/40 mb-3">Nueva Nota de Estudio</label>
+        <input id="study-note-title" type="text" placeholder="Título (ej. Romanos 8 — Espíritu vs. Carne)"
+          class="w-full px-4 py-2.5 mb-3 rounded-xl border border-[#f2e5f0]/15 bg-[#3D1540]/50 text-on-surface placeholder-[#f2e5f0]/25 font-body text-sm outline-none focus:border-[#E9C349]/50 transition-colors" />
+        <textarea id="study-note-body" rows="4" placeholder="Escribe tu nota de estudio, observación o comentario…"
+          class="w-full px-4 py-3 rounded-xl border border-[#f2e5f0]/15 bg-[#3D1540]/50 text-on-surface placeholder-[#f2e5f0]/25 font-body text-sm resize-none outline-none focus:border-[#E9C349]/50 transition-colors leading-relaxed"></textarea>
+        <button onclick="saveStudyNote()" class="mt-3 px-5 py-2.5 rounded-xl bg-gradient-to-br from-[#E8816A] to-[#6E2414] text-white font-label font-bold text-sm hover:brightness-110 transition-all">Guardar Nota</button>
+      </div>
+
+      <div id="study-notes-loading" class="hidden text-center py-8 text-[#f2e5f0]/40 text-sm">Cargando notas…</div>
+      <div id="study-notes-empty" class="hidden text-center py-8 text-[#f2e5f0]/30 text-sm">Aún no tienes notas de estudio. ¡Escribe tu primera arriba!</div>
+      <div id="study-notes-list" class="space-y-4"></div>
+
+    </div><!-- /tab-content-notes -->
+
+    <!-- ══ PESTAÑA PLAN DE LECTURA ══ -->
+    <div id="tab-content-plans" class="hidden">
+
+      <!-- Selector de plan (visible cuando no hay plan activo) -->
+      <div id="plan-picker">
+        <p class="text-[#f2e5f0]/50 font-body text-sm mb-6 text-center">Elige un plan de lectura para comenzar.</p>
+        <div id="plan-cards" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
+      </div>
+
+      <!-- Vista del plan activo -->
+      <div id="plan-active" class="hidden space-y-5">
+
+        <!-- Encabezado del plan -->
+        <div class="bg-[#4A1D4D]/70 backdrop-blur-xl border border-[#f2e5f0]/10 rounded-3xl p-5 shadow-2xl">
+          <div class="flex items-start justify-between mb-3">
+            <div>
+              <div id="plan-active-name" class="font-label text-xs uppercase tracking-widest text-[#E9C349] font-bold mb-1"></div>
+              <div id="plan-active-desc" class="text-[#f2e5f0]/50 text-xs"></div>
+            </div>
+            <button onclick="abandonPlan()" class="text-[#f2e5f0]/25 hover:text-[#ff7c7c] text-[11px] transition-colors">Cambiar plan</button>
+          </div>
+          <!-- Barra de progreso -->
+          <div class="h-1.5 bg-[#f2e5f0]/10 rounded-full overflow-hidden mb-1">
+            <div id="plan-progress-bar" class="h-full bg-gradient-to-r from-[#E9C349] to-[#50c878] rounded-full transition-all duration-500" style="width:0%"></div>
+          </div>
+          <div id="plan-progress-text" class="text-[10px] text-[#f2e5f0]/35 mt-1"></div>
+        </div>
+
+        <!-- Lectura de hoy -->
+        <div class="bg-[#4A1D4D]/70 backdrop-blur-xl border border-[#f2e5f0]/10 rounded-3xl p-5 shadow-xl">
+          <div class="font-label text-[11px] uppercase tracking-widest text-[#FFB4A4] font-bold mb-3">📖 Lectura de Hoy</div>
+          <div id="plan-today" class="space-y-2"></div>
+        </div>
+
+        <!-- Próximas lecturas -->
+        <div class="bg-[#4A1D4D]/70 backdrop-blur-xl border border-[#f2e5f0]/10 rounded-3xl p-5 shadow-xl">
+          <div class="font-label text-[11px] uppercase tracking-widest text-[#f2e5f0]/40 font-bold mb-3">Próximas Lecturas</div>
+          <div id="plan-upcoming" class="space-y-1.5"></div>
+        </div>
+
+      </div>
+    </div><!-- /tab-content-plans -->
+
+    <!-- ══ PESTAÑA GRUPOS ══ -->
+    <div id="tab-content-groups" class="hidden">
+
+      <!-- Sin grupo -->
+      <div id="groups-landing">
+        <p class="text-[#f2e5f0]/50 font-body text-sm mb-6 text-center">Estudia la Palabra juntos — crea un grupo o únete con un código.</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+          <div class="bg-[#4A1D4D]/70 border border-[#f2e5f0]/10 rounded-2xl p-5">
+            <div class="text-2xl mb-3">✨</div>
+            <div class="font-label text-xs uppercase tracking-widest text-[#E9C349] font-bold mb-2">Crear un Grupo</div>
+            <input id="group-name-input" type="text" maxlength="40" placeholder="Nombre del grupo…"
+              class="w-full px-3 py-2.5 rounded-xl border border-[#f2e5f0]/15 bg-[#3D1540]/50 text-on-surface placeholder-[#f2e5f0]/25 font-body text-sm outline-none focus:border-[#E9C349]/50 mb-3" />
+            <button onclick="createGroup()" class="w-full py-2.5 rounded-xl bg-gradient-to-br from-[#E8816A] to-[#6E2414] text-white font-label font-bold text-xs hover:brightness-110 transition-all">Crear Grupo</button>
+          </div>
+          <div class="bg-[#4A1D4D]/70 border border-[#f2e5f0]/10 rounded-2xl p-5">
+            <div class="text-2xl mb-3">🔗</div>
+            <div class="font-label text-xs uppercase tracking-widest text-[#E9C349] font-bold mb-2">Unirse a un Grupo</div>
+            <input id="invite-code-input" type="text" maxlength="6" placeholder="Código de invitación…"
+              class="w-full px-3 py-2.5 rounded-xl border border-[#f2e5f0]/15 bg-[#3D1540]/50 text-on-surface placeholder-[#f2e5f0]/25 font-body text-sm outline-none focus:border-[#E9C349]/50 mb-3 uppercase tracking-widest" />
+            <button onclick="joinGroup()" class="w-full py-2.5 rounded-xl bg-gradient-to-br from-[#E8816A] to-[#6E2414] text-white font-label font-bold text-xs hover:brightness-110 transition-all">Unirse</button>
+          </div>
+        </div>
+        <div id="my-groups-list" class="space-y-2"></div>
+      </div>
+
+      <!-- Panel del grupo -->
+      <div id="group-dashboard" class="hidden">
+        <div class="bg-[#4A1D4D]/70 border border-[#f2e5f0]/10 rounded-2xl p-4 mb-4 flex items-center justify-between">
+          <div>
+            <div id="group-dash-name" class="font-label text-sm font-bold text-[#E9C349]"></div>
+            <div class="flex items-center gap-2 mt-1">
+              <span class="font-label text-[10px] uppercase tracking-widest text-[#f2e5f0]/35">Código:</span>
+              <span id="group-dash-code" class="font-mono text-xs text-[#f2e5f0]/60 tracking-widest"></span>
+              <button onclick="copyInviteCode()" class="text-[#f2e5f0]/30 hover:text-[#E9C349] text-xs transition-colors">⎘</button>
+            </div>
+          </div>
+          <button onclick="showGroupsLanding()" class="text-[#f2e5f0]/25 hover:text-[#f2e5f0] text-xs transition-colors">← Grupos</button>
+        </div>
+
+        <div class="flex gap-1 border-b border-[#f2e5f0]/10 mb-5">
+          <button class="tab-btn active" id="gtab-notes"   onclick="switchGroupTab('notes')">📝 Notas</button>
+          <button class="tab-btn" id="gtab-plan"    onclick="switchGroupTab('plan')">📅 Plan</button>
+          <button class="tab-btn" id="gtab-prayer"  onclick="switchGroupTab('prayer')">🙏 Oración</button>
+          <button class="tab-btn" id="gtab-members" onclick="switchGroupTab('members')">👥 Miembros</button>
+        </div>
+
+        <div id="gtab-content-notes">
+          <div class="flex gap-2 mb-4">
+            <textarea id="group-note-input" rows="2" placeholder="Comparte un pensamiento con el grupo…"
+              class="flex-1 px-3 py-2.5 rounded-xl border border-[#f2e5f0]/15 bg-[#3D1540]/50 text-on-surface placeholder-[#f2e5f0]/25 font-body text-sm outline-none focus:border-[#E9C349]/50 resize-none"></textarea>
+            <button onclick="postGroupNote()" class="self-end px-4 py-2.5 rounded-xl bg-gradient-to-br from-[#E8816A] to-[#6E2414] text-white font-label font-bold text-xs hover:brightness-110 transition-all">Publicar</button>
+          </div>
+          <div id="group-notes-list" class="space-y-3"></div>
+          <div id="group-notes-empty" class="hidden text-center py-8 text-[#f2e5f0]/30 text-sm">Aún no hay notas — ¡sé el primero en compartir!</div>
+        </div>
+
+        <div id="gtab-content-plan" class="hidden">
+          <div id="group-plan-picker" class="hidden">
+            <p class="text-[#f2e5f0]/50 text-sm mb-4 text-center">Como administrador, elige un plan de lectura para el grupo.</p>
+            <div id="group-plan-cards" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
+          </div>
+          <div id="group-plan-active">
+            <div class="bg-[#4A1D4D]/70 border border-[#f2e5f0]/10 rounded-2xl p-5 mb-4">
+              <div id="group-plan-name" class="font-label text-xs uppercase tracking-widest text-[#E9C349] font-bold mb-1"></div>
+              <div id="group-plan-desc" class="text-[#f2e5f0]/50 text-xs mb-3"></div>
+              <div class="font-label text-[11px] uppercase tracking-widest text-[#FFB4A4] font-bold mb-2">📖 Lectura de Hoy</div>
+              <div id="group-plan-today" class="space-y-1.5"></div>
+            </div>
+          </div>
+          <div id="group-no-plan" class="text-center py-8 text-[#f2e5f0]/30 text-sm">No hay plan de lectura aún. El administrador puede elegir uno.</div>
+        </div>
+
+        <div id="gtab-content-prayer" class="hidden">
+          <div class="flex gap-2 mb-4">
+            <textarea id="prayer-req-input" rows="2" placeholder="Comparte un pedido de oración…"
+              class="flex-1 px-3 py-2.5 rounded-xl border border-[#f2e5f0]/15 bg-[#3D1540]/50 text-on-surface placeholder-[#f2e5f0]/25 font-body text-sm outline-none focus:border-[#E9C349]/50 resize-none"></textarea>
+            <button onclick="postPrayerRequest()" class="self-end px-4 py-2.5 rounded-xl bg-gradient-to-br from-[#E8816A] to-[#6E2414] text-white font-label font-bold text-xs hover:brightness-110 transition-all">Publicar</button>
+          </div>
+          <div id="prayer-list" class="space-y-3"></div>
+          <div id="prayer-empty" class="hidden text-center py-8 text-[#f2e5f0]/30 text-sm">Aún no hay pedidos de oración — el grupo está aquí para orar contigo.</div>
+        </div>
+
+        <div id="gtab-content-members" class="hidden">
+          <div id="group-members-list" class="space-y-2"></div>
+          <button id="leave-group-btn" onclick="leaveGroupConfirm()" class="mt-6 w-full py-2.5 rounded-xl border border-[#ff7c7c]/30 text-[#ff7c7c]/60 font-label font-bold text-xs hover:border-[#ff7c7c]/60 hover:text-[#ff7c7c] transition-all">Salir del Grupo</button>
+        </div>
+      </div>
+    </div><!-- /tab-content-groups -->
+
+    <!-- ══ PESTAÑA PROGRESO ══ -->
+    <div id="tab-content-progress" class="hidden">
+
+      <div id="progress-loading" class="flex items-center gap-2 text-[#f2e5f0]/40 text-sm font-label py-10 justify-center">
+        <span class="spinner"></span> Cargando tus estadísticas…
+      </div>
+
+      <div id="progress-content" class="hidden">
+
+        <div class="mb-5">
+          <h2 class="font-headline text-xl text-[#f2e5f0]/90" id="progress-greeting">Tu Progreso</h2>
+          <p class="font-label text-xs text-[#f2e5f0]/35 mt-1" id="progress-member-since"></p>
+        </div>
+
+        <!-- Racha -->
+        <div class="bg-gradient-to-br from-[#6E2414]/50 to-[#FFB4A4]/10 border border-[#FFB4A4]/20 rounded-2xl p-5 mb-4 flex items-center gap-5 shadow-lg">
+          <div class="text-5xl leading-none select-none">🔥</div>
+          <div>
+            <div class="font-headline text-4xl text-[#FFB4A4] leading-none" id="progress-streak">0</div>
+            <div class="font-label text-[10px] uppercase tracking-widest text-[#f2e5f0]/50 mt-1">Días Seguidos</div>
+            <div class="font-body text-xs text-[#f2e5f0]/35 mt-1" id="progress-streak-sub"></div>
+          </div>
+        </div>
+
+        <!-- Estadísticas -->
+        <div class="grid grid-cols-2 gap-3 mb-4">
+          <div class="bg-[#4A1D4D]/60 border border-[#f2e5f0]/10 rounded-2xl p-4">
+            <div class="text-2xl mb-2">📖</div>
+            <div class="font-headline text-2xl text-[#f2e5f0]" id="stat-chapters">—</div>
+            <div class="font-label text-[10px] uppercase tracking-widest text-[#f2e5f0]/40 mt-1">Capítulos Leídos</div>
+          </div>
+          <div class="bg-[#4A1D4D]/60 border border-[#f2e5f0]/10 rounded-2xl p-4">
+            <div class="text-2xl mb-2">📝</div>
+            <div class="font-headline text-2xl text-[#f2e5f0]" id="stat-notes">—</div>
+            <div class="font-label text-[10px] uppercase tracking-widest text-[#f2e5f0]/40 mt-1">Notas de Estudio</div>
+          </div>
+          <div class="bg-[#4A1D4D]/60 border border-[#f2e5f0]/10 rounded-2xl p-4">
+            <div class="text-2xl mb-2">✨</div>
+            <div class="font-headline text-2xl text-[#f2e5f0]" id="stat-highlights">—</div>
+            <div class="font-label text-[10px] uppercase tracking-widest text-[#f2e5f0]/40 mt-1">Destacados</div>
+          </div>
+          <div class="bg-[#4A1D4D]/60 border border-[#f2e5f0]/10 rounded-2xl p-4">
+            <div class="text-2xl mb-2">👥</div>
+            <div class="font-headline text-2xl text-[#f2e5f0]" id="stat-groups">—</div>
+            <div class="font-label text-[10px] uppercase tracking-widest text-[#f2e5f0]/40 mt-1">Grupos Unidos</div>
+          </div>
+        </div>
+
+        <!-- Plan activo -->
+        <div id="progress-plan-wrap" class="hidden bg-[#4A1D4D]/60 border border-[#f2e5f0]/10 rounded-2xl p-5 mb-4">
+          <div class="flex items-center justify-between mb-1">
+            <div>
+              <div class="font-label text-[10px] uppercase tracking-widest text-[#f2e5f0]/40">Plan Activo</div>
+              <div class="font-label text-sm font-semibold text-[#f2e5f0]/80 mt-0.5" id="progress-plan-name"></div>
+            </div>
+            <div class="text-right">
+              <div class="font-headline text-xl text-[#E9C349]" id="progress-plan-pct"></div>
+              <div class="font-label text-[10px] text-[#f2e5f0]/35 mt-0.5" id="progress-plan-sub"></div>
+            </div>
+          </div>
+          <div class="w-full bg-[#f2e5f0]/10 rounded-full h-2 mt-3 overflow-hidden">
+            <div id="progress-plan-bar"
+              class="bg-gradient-to-r from-[#E9C349] to-[#FFB4A4] h-2 rounded-full transition-all duration-700"
+              style="width:0%"></div>
+          </div>
+        </div>
+
+        <!-- Versículo de aliento -->
+        <div class="bg-[#4A1D4D]/40 border border-[#f2e5f0]/8 rounded-2xl p-5">
+          <p class="font-headline italic text-[#f2e5f0]/50 text-sm text-center leading-relaxed" id="progress-verse-quote"></p>
+        </div>
+
+      </div>
+    </div><!-- /tab-content-progress -->
+
+  </div><!-- /study-screen -->
+</main>
+
+<!-- ── Pie de página ──────────────────────────────────────── -->
+<footer class="relative z-10 border-t border-[#f2e5f0]/10 py-8 px-8 mt-auto">
+  <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+    <p class="font-label text-[#f2e5f0]/30 text-xs">© 2026 Berean Defense LLC · Estudio Bíblico Formation Beta</p>
+    <nav class="flex flex-wrap gap-5 justify-center">
+      <a href="privacy_policy.html" class="font-label text-[11px] text-[#f2e5f0]/30 hover:text-[#FFB4A4] transition-colors uppercase tracking-widest">Privacidad</a>
+      <a href="terms.html" class="font-label text-[11px] text-[#f2e5f0]/30 hover:text-[#FFB4A4] transition-colors uppercase tracking-widest">Términos</a>
+      <a href="contact.html" class="font-label text-[11px] text-[#f2e5f0]/30 hover:text-[#FFB4A4] transition-colors uppercase tracking-widest">Contacto</a>
+      <a href="ai_disclaimer.html" class="font-label text-[11px] text-[#f2e5f0]/30 hover:text-[#FFB4A4] transition-colors uppercase tracking-widest">Aviso sobre IA</a>
+    </nav>
+  </div>
+</footer>
+
+<div id="toast"></div>
+
+<!-- ── Panel de Perfil / Configuración ───────────────────── -->
+<div id="profile-overlay" class="fixed inset-0 bg-black/50 z-50 hidden backdrop-blur-sm" onclick="closeProfilePanel()"></div>
+<div id="profile-panel"
+  class="fixed top-0 right-0 h-full w-80 bg-[#3D1540] border-l border-[#f2e5f0]/10 shadow-2xl z-[60] flex flex-col overflow-y-auto"
+  style="transform:translateX(100%);transition:transform .3s ease;">
+
+  <!-- Encabezado -->
+  <div class="flex items-center justify-between px-5 py-4 border-b border-[#f2e5f0]/10 flex-shrink-0">
+    <h2 class="font-label text-xs font-bold uppercase tracking-widest text-[#f2e5f0]/60">Perfil y Configuración</h2>
+    <button onclick="closeProfilePanel()" class="text-[#f2e5f0]/40 hover:text-[#f2e5f0]/80 transition-colors text-2xl leading-none">×</button>
+  </div>
+
+  <!-- Avatar -->
+  <div class="flex flex-col items-center py-6 border-b border-[#f2e5f0]/10 flex-shrink-0">
+    <div id="profile-avatar-circle"
+      class="w-16 h-16 rounded-full flex items-center justify-center text-xl font-bold font-label text-[#f2e5f0] mb-2 shadow-lg"
+      style="background:#7E3A6C;">
+      <span id="profile-avatar-initials">?</span>
+    </div>
+    <p id="profile-display-name-label" class="text-[#f2e5f0]/80 text-sm font-label font-semibold mt-1"></p>
+    <p id="profile-email-label" class="text-[#f2e5f0]/35 text-xs font-label mt-0.5"></p>
+  </div>
+
+  <!-- Formulario -->
+  <div class="p-5 flex flex-col gap-4 flex-1">
+    <!-- Nombre -->
+    <div>
+      <label class="font-label text-[10px] uppercase tracking-widest text-[#f2e5f0]/40 mb-1.5 block">Nombre para Mostrar</label>
+      <input id="profile-name-input" type="text" placeholder="Tu nombre" maxlength="40"
+        class="w-full bg-[#4A1D4D]/60 border border-[#f2e5f0]/15 rounded-xl px-3 py-2.5 text-[#f2e5f0] text-sm font-body placeholder-[#f2e5f0]/25 focus:outline-none focus:border-[#E9C349]/50 transition-colors"/>
+    </div>
+
+    <!-- Traducción predeterminada -->
+    <div>
+      <label class="font-label text-[10px] uppercase tracking-widest text-[#f2e5f0]/40 mb-1.5 block">Traducción Predeterminada</label>
+      <select id="profile-translation-select"
+        class="w-full bg-[#4A1D4D]/60 border border-[#f2e5f0]/15 rounded-xl px-3 py-2.5 text-[#f2e5f0] text-sm font-body focus:outline-none focus:border-[#E9C349]/50 transition-colors">
+        <option value="RVR1909">RVR1909 — Reina-Valera 1909</option>
+        <option value="ONBV">ONBV — O Novo Testamento Bíblia Viva</option>
+        <option value="BSB">BSB — Berean Standard Bible</option>
+        <option value="KJV">KJV — King James Version</option>
+      </select>
+    </div>
+
+    <!-- Guardar -->
+    <button onclick="saveProfile()" id="profile-save-btn"
+      class="w-full bg-gradient-to-br from-[#FFB4A4] to-[#6E2414] text-[#5D1809] font-bold font-label text-sm py-2.5 rounded-xl hover:brightness-110 transition-all disabled:opacity-50">
+      Guardar Cambios
+    </button>
+    <p id="profile-save-msg" class="hidden text-center text-xs font-label text-[#E9C349]">✓ Guardado correctamente</p>
+
+    <!-- Idioma -->
+    <div class="border-t border-[#f2e5f0]/10 pt-4">
+      <p class="font-label text-[10px] uppercase tracking-widest text-[#f2e5f0]/30 mb-3">Idioma</p>
+      <a href="../formation-website/beta.html"
+        class="flex items-center gap-2 text-sm font-label text-[#f2e5f0]/55 hover:text-[#E9C349] transition-colors">
+        🌐 Cambiar a English
+      </a>
+    </div>
+
+    <!-- Cuenta -->
+    <div class="border-t border-[#f2e5f0]/10 pt-4 flex flex-col gap-3">
+      <p class="font-label text-[10px] uppercase tracking-widest text-[#f2e5f0]/30">Cuenta</p>
+      <button onclick="sendPasswordReset()"
+        class="text-left text-sm font-label text-[#f2e5f0]/55 hover:text-[#f2e5f0]/90 transition-colors flex items-center gap-2">
+        🔑 Cambiar Contraseña
+      </button>
+      <button onclick="signOutFromPanel()"
+        class="text-left text-sm font-label text-[#FFB4A4]/70 hover:text-[#FFB4A4] transition-colors flex items-center gap-2">
+        ↩ Cerrar Sesión
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ── Popup Léxico ──────────────────────────────────────── -->
+<div id="lexicon-overlay" class="hidden fixed inset-0 z-[150] flex items-end justify-center p-4 bg-black/40 backdrop-blur-sm" onclick="closeLexicon(event)">
+  <div class="w-full max-w-lg bg-[#2A0E2D] border border-[#f2e5f0]/15 rounded-3xl shadow-2xl p-6 mb-4 animate-[fadeIn_0.25s_ease_forwards]">
+    <div class="flex items-start justify-between mb-4">
+      <div>
+        <span id="lex-word" class="font-headline text-2xl font-bold text-[#f2e5f0]"></span>
+        <span id="lex-transliteration" class="ml-2 text-sm text-[#f2e5f0]/50 italic"></span>
+      </div>
+      <button onclick="closeLexicon()" class="text-[#f2e5f0]/30 hover:text-[#f2e5f0]/70 text-2xl leading-none ml-4">×</button>
+    </div>
+    <div id="lex-loading" class="hidden py-2 text-sm text-[#f2e5f0]/40"><span class="spinner mr-2" style="border-top-color:#E9C349"></span>Buscando…</div>
+    <div id="lex-body" class="hidden">
+      <div id="lex-strongs" class="text-[10px] uppercase tracking-widest text-[#E9C349] font-bold mb-2"></div>
+      <p id="lex-definition" class="text-on-surface-variant font-body text-sm leading-relaxed mb-4"></p>
+    </div>
+    <div class="flex flex-wrap gap-2 pt-3 border-t border-[#f2e5f0]/10">
+      <span class="text-[10px] uppercase tracking-widest text-[#f2e5f0]/30 font-semibold self-center mr-1">Estudia más →</span>
+      <a id="lex-biblehub-link" href="#" target="_blank" rel="noopener" class="reader-btn text-xs px-3 py-1.5">BibleHub</a>
+      <a id="lex-blb-link" href="#" target="_blank" rel="noopener" class="reader-btn text-xs px-3 py-1.5">Blue Letter Bible</a>
+      <a id="lex-step-link" href="#" target="_blank" rel="noopener" class="reader-btn text-xs px-3 py-1.5">STEPBible</a>
+    </div>
+  </div>
+</div>
+
+<script>
+const SUPABASE_URL  = 'https://tdlaxuquplqejvijqiow.supabase.co';
+const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRkbGF4dXF1cGxxZWp2aWpxaW93Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgxMTQ5NDksImV4cCI6MjA5MzY5MDk0OX0._-I3akq5PV0JqCdSV3mSMP03g1VRmWxxROsDo5UpaaY';
+const BACKEND_URL   = 'https://formation-backend-production.up.railway.app';
+
+const { createClient } = supabase;
+const sb = createClient(SUPABASE_URL, SUPABASE_ANON, {
+  auth: { flowType: 'implicit' }
+});
+let currentSession = null, lastAnswerId = null, selectedVerse = null;
+let currentChapterCtx = null, chapterAnnotations = {};
+
+// ─── Libros de la Biblia ────────────────────────────────────
+const BOOKS = [
+  {id:'GEN',name:'Génesis',ch:50},{id:'EXO',name:'Éxodo',ch:40},{id:'LEV',name:'Levítico',ch:27},
+  {id:'NUM',name:'Números',ch:36},{id:'DEU',name:'Deuteronomio',ch:34},{id:'JOS',name:'Josué',ch:24},
+  {id:'JDG',name:'Jueces',ch:21},{id:'RUT',name:'Rut',ch:4},{id:'1SA',name:'1 Samuel',ch:31},
+  {id:'2SA',name:'2 Samuel',ch:24},{id:'1KI',name:'1 Reyes',ch:22},{id:'2KI',name:'2 Reyes',ch:25},
+  {id:'1CH',name:'1 Crónicas',ch:29},{id:'2CH',name:'2 Crónicas',ch:36},{id:'EZR',name:'Esdras',ch:10},
+  {id:'NEH',name:'Nehemías',ch:13},{id:'EST',name:'Ester',ch:10},{id:'JOB',name:'Job',ch:42},
+  {id:'PSA',name:'Salmos',ch:150},{id:'PRO',name:'Proverbios',ch:31},{id:'ECC',name:'Eclesiastés',ch:12},
+  {id:'SNG',name:'Cantares',ch:8},{id:'ISA',name:'Isaías',ch:66},{id:'JER',name:'Jeremías',ch:52},
+  {id:'LAM',name:'Lamentaciones',ch:5},{id:'EZK',name:'Ezequiel',ch:48},{id:'DAN',name:'Daniel',ch:12},
+  {id:'HOS',name:'Oseas',ch:14},{id:'JOL',name:'Joel',ch:3},{id:'AMO',name:'Amós',ch:9},
+  {id:'OBA',name:'Abdías',ch:1},{id:'JON',name:'Jonás',ch:4},{id:'MIC',name:'Miqueas',ch:7},
+  {id:'NAM',name:'Nahúm',ch:3},{id:'HAB',name:'Habacuc',ch:3},{id:'ZEP',name:'Sofonías',ch:3},
+  {id:'HAG',name:'Hageo',ch:2},{id:'ZEC',name:'Zacarías',ch:14},{id:'MAL',name:'Malaquías',ch:4},
+  {id:'MAT',name:'Mateo',ch:28},{id:'MRK',name:'Marcos',ch:16},{id:'LUK',name:'Lucas',ch:24},
+  {id:'JHN',name:'Juan',ch:21},{id:'ACT',name:'Hechos',ch:28},{id:'ROM',name:'Romanos',ch:16},
+  {id:'1CO',name:'1 Corintios',ch:16},{id:'2CO',name:'2 Corintios',ch:13},{id:'GAL',name:'Gálatas',ch:6},
+  {id:'EPH',name:'Efesios',ch:6},{id:'PHP',name:'Filipenses',ch:4},{id:'COL',name:'Colosenses',ch:4},
+  {id:'1TH',name:'1 Tesalonicenses',ch:5},{id:'2TH',name:'2 Tesalonicenses',ch:3},{id:'1TI',name:'1 Timoteo',ch:6},
+  {id:'2TI',name:'2 Timoteo',ch:4},{id:'TIT',name:'Tito',ch:3},{id:'PHM',name:'Filemón',ch:1},
+  {id:'HEB',name:'Hebreos',ch:13},{id:'JAS',name:'Santiago',ch:5},{id:'1PE',name:'1 Pedro',ch:5},
+  {id:'2PE',name:'2 Pedro',ch:3},{id:'1JN',name:'1 Juan',ch:5},{id:'2JN',name:'2 Juan',ch:1},
+  {id:'3JN',name:'3 Juan',ch:1},{id:'JUD',name:'Judas',ch:1},{id:'REV',name:'Apocalipsis',ch:22},
+];
+
+const $ = id => document.getElementById(id);
+const authScreen = $('auth-screen'), studyScreen = $('study-screen');
+const navUserInfo = $('nav-user-info'), navUserEmail = $('nav-user-email');
+const navJoinBtn = $('nav-join-btn'), navSignOut = $('nav-sign-out');
+const googleBtn = $('google-btn'), magicEmail = $('magic-email'), magicBtn = $('magic-btn');
+const questionInput = $('question-input'), langSelect = $('lang-select');
+const askBtn = $('ask-btn'), askBtnLabel = $('ask-btn-label'), errorBox = $('error-box');
+const responseArea = $('response-area'), answerText = $('answer-text');
+const summaryText = $('summary-text'), summarySection = $('summary-section');
+const versesGrid = $('verses-grid'), versesSection = $('verses-section');
+const verificationText = $('verification-text'), verificationIcon = $('verification-icon');
+const verificationSection = $('verification-section'), cachedIndicator = $('cached-indicator');
+const flagBtn = $('flag-btn'), askAnother = $('ask-another'), toast = $('toast');
+
+// ─── Pestañas ──────────────────────────────────────────────
+function switchTab(name) {
+  ['read','ask','notes','plans','groups','progress'].forEach(t => {
+    $('tab-content-' + t).classList.toggle('hidden', t !== name);
+    $('tab-' + t).classList.toggle('active', t === name);
+  });
+  if (name === 'read') { if (!$('book-select').options.length) initBibleReader(); loadDailyVerse(); }
+  if (name === 'notes') loadStudyNotes();
+  if (name === 'plans') initPlansTab();
+  if (name === 'groups') initGroupsTab();
+  if (name === 'progress') initProgressTab();
+}
+
+// ─── Verso del Día ─────────────────────────────────────────
+const LS_DAILY_DISMISSED = 'fbs_daily_dismissed';
+let dailyVerseData = null;
+
+async function loadDailyVerse() {
+  const card = $('daily-verse-card');
+  if (!card) return;
+  // Check if dismissed today
+  const today = new Date().toISOString().slice(0, 10);
+  if (localStorage.getItem(LS_DAILY_DISMISSED) === today) return;
+  // Already loaded
+  if (dailyVerseData) { card.classList.remove('hidden'); return; }
+  // Show loading
+  card.classList.remove('hidden');
+  $('daily-loading').classList.remove('hidden');
+  $('daily-text').textContent = '';
+  $('daily-ref').textContent = 'Verso del Día';
+  try {
+    const session = (await sb.auth.getSession()).data.session;
+    if (!session) { card.classList.add('hidden'); return; }
+    const res = await fetch(`${BACKEND_URL}/api/study/daily?lang=es`, {
+      headers: { 'Authorization': `Bearer ${session.access_token}` }
+    });
+    if (!res.ok) throw new Error('fetch failed');
+    dailyVerseData = await res.json();
+    // Render
+    const dateStr = new Date(dailyVerseData.date + 'T12:00:00').toLocaleDateString('es-ES', {
+      weekday: 'long', month: 'long', day: 'numeric'
+    });
+    $('daily-date').textContent = dateStr;
+    $('daily-ref').textContent = dailyVerseData.reference;
+    $('daily-text').textContent = dailyVerseData.text;
+    $('daily-devotional').textContent = dailyVerseData.devotional;
+  } catch (e) {
+    card.classList.add('hidden');
+  } finally {
+    $('daily-loading').classList.add('hidden');
+  }
+}
+
+function toggleDevotion() {
+  const wrap = $('daily-devotional-wrap');
+  const btn  = $('daily-expand-btn');
+  const open = wrap.classList.toggle('hidden');
+  btn.textContent = open ? '▾ Leer reflexión' : '▴ Ocultar reflexión';
+}
+
+function dismissDailyVerse() {
+  const today = new Date().toISOString().slice(0, 10);
+  localStorage.setItem(LS_DAILY_DISMISSED, today);
+  $('daily-verse-card').classList.add('hidden');
+}
+
+function goToDailyChapter() {
+  if (!dailyVerseData) return;
+  const bookSel = $('book-select');
+  if (!bookSel.options.length) initBibleReader();
+  bookSel.value = dailyVerseData.bookId;
+  populateChapters(BOOKS.find(b => b.id === dailyVerseData.bookId)?.ch || 1, dailyVerseData.chapter);
+  loadChapter();
+}
+
+// ─── Lector Bíblico ────────────────────────────────────────
+function initBibleReader() {
+  const bookSel = $('book-select');
+  BOOKS.forEach(b => {
+    const opt = document.createElement('option');
+    opt.value = b.id; opt.textContent = b.name;
+    bookSel.appendChild(opt);
+  });
+  const last = JSON.parse(localStorage.getItem('fbs_es_beta_pos') || 'null');
+  if (last) {
+    bookSel.value = last.bookId || 'GEN';
+    populateChapters(last.chapters || 50, last.chapter || 1);
+    $('translation-select').value = last.translation || 'RVR1909';
+    // If saved translation is no longer a valid option, fall back to first option
+    if (!$('translation-select').value) $('translation-select').selectedIndex = 0;
+    loadChapter();
+  } else {
+    bookSel.value = 'GEN';
+    populateChapters(50, 1);
+    loadChapter();
+  }
+}
+
+function getCurrentBook() {
+  const id = $('book-select').value;
+  return BOOKS.find(b => b.id === id) || BOOKS[0];
+}
+
+function onBookChange() {
+  const book = getCurrentBook();
+  populateChapters(book.ch, 1);
+  loadChapter();
+}
+
+function populateChapters(count, selected = 1) {
+  const sel = $('chapter-select');
+  sel.innerHTML = '';
+  for (let i = 1; i <= count; i++) {
+    const opt = document.createElement('option');
+    opt.value = i; opt.textContent = i;
+    if (i === selected) opt.selected = true;
+    sel.appendChild(opt);
+  }
+}
+
+function prevChapter() {
+  const sel = $('chapter-select');
+  const cur = parseInt(sel.value);
+  if (cur > 1) { sel.value = cur - 1; loadChapter(); return; }
+  const bookSel = $('book-select');
+  const idx = BOOKS.findIndex(b => b.id === bookSel.value);
+  if (idx > 0) { bookSel.value = BOOKS[idx-1].id; populateChapters(BOOKS[idx-1].ch, BOOKS[idx-1].ch); loadChapter(); }
+}
+
+function nextChapter() {
+  const sel = $('chapter-select');
+  const cur = parseInt(sel.value);
+  const book = getCurrentBook();
+  if (cur < book.ch) { sel.value = cur + 1; loadChapter(); return; }
+  const bookSel = $('book-select');
+  const idx = BOOKS.findIndex(b => b.id === bookSel.value);
+  if (idx < BOOKS.length - 1) { bookSel.value = BOOKS[idx+1].id; populateChapters(BOOKS[idx+1].ch, 1); loadChapter(); }
+}
+
+async function loadChapter() {
+  const book = getCurrentBook();
+  const chapter = parseInt($('chapter-select').value) || 1;
+  const translation = $('translation-select').value;
+  const chapterId = `${book.id}.${chapter}`;
+  clearVerseSelection();
+  $('chapter-placeholder').classList.add('hidden');
+  $('chapter-loading').classList.remove('hidden');
+  $('chapter-content').innerHTML = '';
+  $('chapter-error').classList.add('hidden');
+  $('chapter-header').classList.add('hidden');
+  try {
+    const res = await fetch(`${BACKEND_URL}/api/bible/chapter/${translation}/${chapterId}`, {
+      headers: { 'Accept-Language': 'es' }
+    });
+    if (!res.ok) throw new Error(`Error del servidor ${res.status}`);
+    const data = await res.json();
+    renderChapter(book.name, chapter, translation, data.chapter?.content || '');
+    localStorage.setItem('fbs_es_beta_pos', JSON.stringify({ bookId: book.id, chapters: book.ch, chapter, translation }));
+  } catch (err) {
+    $('chapter-loading').classList.add('hidden');
+    $('chapter-error').classList.remove('hidden');
+    $('chapter-error-msg').textContent = `No se pudo cargar el capítulo. ${err.message}`;
+  }
+}
+
+function parseVerses(text) {
+  if (!text) return [];
+  if (/\[\d{1,3}\]/.test(text)) {
+    const parts = text.split(/\s*\[(\d{1,3})\]\s*/);
+    const verses = [];
+    for (let i = 1; i + 1 < parts.length; i += 2) {
+      const num = parseInt(parts[i]);
+      const raw = parts[i + 1] || '';
+      const cleaned = raw.split('\n').map(l => l.trim())
+        .filter(l => l.length > 0 && (l.length > 40 || /[.!?,;:'")\]—–]$/.test(l) || /^\(/.test(l)))
+        .join(' ').replace(/\s{2,}/g, ' ').trim();
+      if (cleaned) verses.push({ num, text: cleaned });
+    }
+    if (verses.length > 0) return verses;
+  }
+  const parts = text.trim().split(/(?=\b\d{1,3}\s)/);
+  const verses = [];
+  for (const part of parts) {
+    const m = part.match(/^(\d{1,3})\s+([\s\S]+)/);
+    if (m) verses.push({ num: parseInt(m[1]), text: m[2].trim() });
+  }
+  return verses.length > 0 ? verses : [{ num: 0, text: text.trim() }];
+}
+
+function escHtml(s) {
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function renderChapter(bookName, chapter, translation, rawText) {
+  $('chapter-loading').classList.add('hidden');
+  $('chapter-header').classList.remove('hidden');
+  $('chapter-title').textContent = `${bookName} ${chapter}`;
+  $('chapter-subtitle').textContent = translation;
+  const verses = parseVerses(rawText);
+  const container = $('chapter-content');
+  container.innerHTML = '';
+  container.classList.remove('chapter-fade');
+  void container.offsetWidth;
+  container.classList.add('chapter-fade');
+  const bookId = getCurrentBook().id;
+  verses.forEach(v => {
+    const block = document.createElement('div');
+    block.className = 'verse-block';
+    block.dataset.verse = v.num;
+    block.innerHTML = v.num > 0
+      ? `<sup class="verse-num">${v.num}</sup><span class="verse-text">${escHtml(v.text)}</span>`
+      : `<span class="verse-text">${escHtml(v.text)}</span>`;
+    if (v.num > 0) block.onclick = () => selectVerse(bookName, bookId, chapter, v.num, translation, v.text);
+    container.appendChild(block);
+  });
+  currentChapterCtx = { bookId, chapter, translation };
+  chapterAnnotations = {};
+  loadChapterAnnotations();
+}
+
+function selectVerse(bookName, bookId, chapter, verseNum, translation, text) {
+  document.querySelectorAll('.verse-block.highlighted').forEach(el => el.classList.remove('highlighted'));
+  const sel = document.querySelector(`.verse-block[data-verse="${verseNum}"]`);
+  if (sel) sel.classList.add('highlighted');
+  selectedVerse = { bookId, bookName, chapter, verseNum, translation, text };
+  $('verse-action-ref').textContent = `${bookName} ${chapter}:${verseNum} (${translation})`;
+  $('verse-actions').classList.remove('hidden');
+  updateActionBarAnnotationState();
+}
+
+function clearVerseSelection() {
+  document.querySelectorAll('.verse-block.highlighted').forEach(el => el.classList.remove('highlighted'));
+  selectedVerse = null;
+  $('verse-actions').classList.add('hidden');
+}
+
+function studySelectedVerse() {
+  if (!selectedVerse) return;
+  const ref = `${selectedVerse.bookName} ${selectedVerse.chapter}:${selectedVerse.verseNum}`;
+  $('question-input').value = `¿Qué significa ${ref}? "${selectedVerse.text}"`;
+  switchTab('ask');
+  setTimeout(() => $('question-input').focus(), 100);
+}
+
+// ─── Toast ─────────────────────────────────────────────────
+function showToast(msg, type='') {
+  toast.textContent = msg; toast.className = 'show ' + type;
+  clearTimeout(toast._t); toast._t = setTimeout(() => { toast.className=''; }, 3200);
+}
+
+// ─── Auth ──────────────────────────────────────────────────
+function showAuth() {
+  authScreen.classList.remove('hidden'); studyScreen.classList.add('hidden');
+  navUserInfo.classList.remove('flex'); navUserInfo.classList.add('hidden');
+  navJoinBtn.classList.remove('hidden');
+}
+
+function showStudy(session) {
+  currentSession = session;
+  authScreen.classList.add('hidden'); studyScreen.classList.remove('hidden');
+  navUserInfo.classList.remove('hidden'); navUserInfo.classList.add('flex');
+  navJoinBtn.classList.add('hidden');
+  const meta = session.user.user_metadata || {};
+  const displayName = meta.display_name || meta.full_name || '';
+  const email = session.user.email || '';
+  navUserEmail.textContent = displayName || email || 'Conectado';
+  const initials = getInitials(displayName, email);
+  const color    = getAvatarColor(email);
+  $('nav-avatar-initials').textContent = initials;
+  $('nav-avatar-btn').style.background = color;
+  if (!$('book-select').options.length) initBibleReader();
+  // Cargar versículo del día al iniciar sesión (pestaña Leer es la predeterminada)
+  loadDailyVerse();
+}
+
+// ─── Panel de Perfil ────────────────────────────────────────
+function getInitials(name, email) {
+  if (name && name.trim()) {
+    const parts = name.trim().split(/\s+/);
+    return (parts[0][0] + (parts[1]?.[0] || '')).toUpperCase();
+  }
+  return ((email || '?')[0]).toUpperCase();
+}
+
+function getAvatarColor(str) {
+  const palette = ['#7E3A6C','#5C6E2A','#2A5C6E','#6E2A2A','#2A3A6E','#6E5C2A','#4A2A6E'];
+  let hash = 0;
+  for (let i = 0; i < (str || '').length; i++) hash = str.charCodeAt(i) + ((hash << 5) - hash);
+  return palette[Math.abs(hash) % palette.length];
+}
+
+function openProfilePanel() {
+  const session = currentSession;
+  if (!session) return;
+  const meta  = session.user.user_metadata || {};
+  const email = session.user.email || '';
+  const name  = meta.display_name || meta.full_name || '';
+  const trans = meta.default_translation || 'RVR1909';
+
+  $('profile-name-input').value = name;
+  $('profile-translation-select').value = trans;
+  $('profile-email-label').textContent = email;
+  $('profile-display-name-label').textContent = name || email;
+
+  const initials = getInitials(name, email);
+  const color    = getAvatarColor(email);
+  $('profile-avatar-initials').textContent = initials;
+  $('profile-avatar-circle').style.background = color;
+  $('profile-save-msg').classList.add('hidden');
+
+  $('profile-overlay').classList.remove('hidden');
+  setTimeout(() => { $('profile-panel').style.transform = 'translateX(0)'; }, 10);
+}
+
+function closeProfilePanel() {
+  $('profile-panel').style.transform = 'translateX(100%)';
+  setTimeout(() => { $('profile-overlay').classList.add('hidden'); }, 300);
+}
+
+async function saveProfile() {
+  const name  = $('profile-name-input').value.trim();
+  const trans = $('profile-translation-select').value;
+  const btn   = $('profile-save-btn');
+  btn.disabled = true; btn.textContent = 'Guardando…';
+  try {
+    const { data, error } = await sb.auth.updateUser({ data: { display_name: name, default_translation: trans } });
+    if (error) throw error;
+    if (data?.user) currentSession = { ...currentSession, user: data.user };
+    const email    = currentSession?.user?.email || '';
+    const initials = getInitials(name, email);
+    const color    = getAvatarColor(email);
+    $('nav-avatar-initials').textContent = initials;
+    $('nav-avatar-btn').style.background = color;
+    $('profile-avatar-initials').textContent = initials;
+    $('profile-avatar-circle').style.background = color;
+    $('profile-display-name-label').textContent = name || email;
+    navUserEmail.textContent = name || email;
+    $('profile-save-msg').classList.remove('hidden');
+    setTimeout(() => $('profile-save-msg').classList.add('hidden'), 3000);
+  } catch (e) {
+    showToast('No se pudo guardar: ' + e.message, 'error');
+  } finally {
+    btn.disabled = false; btn.textContent = 'Guardar Cambios';
+  }
+}
+
+async function sendPasswordReset() {
+  const email = currentSession?.user?.email;
+  if (!email) return;
+  const { error } = await sb.auth.resetPasswordForEmail(email);
+  if (error) showToast('No se pudo enviar el correo: ' + error.message, 'error');
+  else showToast('Correo de restablecimiento enviado — revisa tu bandeja', 'success');
+}
+
+function signOutFromPanel() {
+  closeProfilePanel();
+  setTimeout(async () => {
+    await sb.auth.signOut();
+    responseArea.classList.add('hidden');
+    askAnother.classList.add('hidden');
+    showAuth();
+  }, 350);
+}
+
+sb.auth.onAuthStateChange((_e, session) => { session ? showStudy(session) : showAuth(); });
+(async () => {
+  const { data: { session } } = await sb.auth.getSession();
+  session ? showStudy(session) : showAuth();
+})();
+
+// Nav scroll
+window.addEventListener('scroll', () => $('main-nav').classList.toggle('nav-scrolled', window.scrollY > 20));
+
+// Mobile menu
+$('nav-toggle').addEventListener('click', () => $('mobile-menu').classList.toggle('open'));
+
+// Google OAuth
+googleBtn.addEventListener('click', async () => {
+  googleBtn.disabled = true;
+  googleBtn.innerHTML = '<span class="spinner mr-2" style="border-top-color:#FFB4A4"></span>Redirigiendo…';
+  const { error } = await sb.auth.signInWithOAuth({
+    provider: 'google',
+    options: { redirectTo: window.location.origin + '/beta' }
+  });
+  if (error) {
+    showToast('Error con Google: ' + error.message, 'error');
+    googleBtn.disabled = false;
+    googleBtn.innerHTML = `<svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg"><path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844a4.14 4.14 0 01-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z" fill="#4285F4"/><path d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 009 18z" fill="#34A853"/><path d="M3.964 10.71A5.41 5.41 0 013.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 000 9c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05"/><path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 00.957 4.958L3.964 6.29C4.672 4.163 6.656 3.58 9 3.58z" fill="#EA4335"/></svg> Continuar con Google`;
+  }
+});
+
+// Magic link
+magicBtn.addEventListener('click', sendMagicLink);
+magicEmail.addEventListener('keydown', e => { if (e.key === 'Enter') sendMagicLink(); });
+async function sendMagicLink() {
+  const email = magicEmail.value.trim();
+  if (!email || !email.includes('@')) { showToast('Por favor ingresa un correo válido', 'error'); magicEmail.focus(); return; }
+  magicBtn.disabled = true;
+  magicBtn.innerHTML = '<span class="spinner mr-1" style="border-top-color:#241a00"></span> Enviando…';
+  const { error } = await sb.auth.signInWithOtp({ email, options: { emailRedirectTo: window.location.origin + '/beta' } });
+  if (error) {
+    showToast('Error: ' + error.message, 'error'); magicBtn.disabled = false; magicBtn.textContent = 'Enviar enlace mágico';
+  } else {
+    magicBtn.textContent = '✓ ¡Revisa tu correo!'; showToast('Enlace enviado — revisa tu bandeja de entrada', 'success');
+  }
+}
+
+// Sign out
+navSignOut.addEventListener('click', async () => {
+  await sb.auth.signOut(); responseArea.classList.add('hidden'); askAnother.classList.add('hidden'); showAuth();
+});
+
+// ─── Modos de Investigación ─────────────────────────────────
+const RESEARCH_MODES = {
+  ask: {
+    labelText:   'Tu pregunta',
+    placeholder: 'Ej. ¿Qué dice la Biblia sobre el perdón? ¿Quién fue Melquisedec? Explica la justificación por fe.',
+    btnLabel:    'Pregunta a la Palabra',
+    answerHeader:'✦ Respuesta',
+    prefix:      ''
+  },
+  xref: {
+    labelText:   'Pasaje o versículo',
+    placeholder: 'Ej. Juan 3:16  •  Romanos 8  •  El Sermón del Monte',
+    btnLabel:    'Buscar Referencias Cruzadas',
+    answerHeader:'🔗 Referencias Cruzadas',
+    prefix:      'Encuentra todas las referencias cruzadas y pasajes bíblicos relacionados temáticamente con el siguiente versículo o pasaje. Lista cada referencia, explica la conexión y agrúpalas por tema cuando sea posible: '
+  },
+  context: {
+    labelText:   'Pasaje o tema',
+    placeholder: 'Ej. Daniel en el foso de los leones  •  Efesios 6  •  El Éxodo',
+    btnLabel:    'Explorar Contexto',
+    answerHeader:'📜 Contexto Histórico y Cultural',
+    prefix:      'Proporciona un rico trasfondo histórico, cultural y geográfico para el siguiente pasaje o tema bíblico. Cubre el período de tiempo, costumbres relevantes, clima político, geografía y cómo lo habría entendido la audiencia original: '
+  },
+  themes: {
+    labelText:   'Pasaje o libro',
+    placeholder: 'Ej. Romanos 1-8  •  El Evangelio de Juan  •  Salmo 23',
+    btnLabel:    'Identificar Temas',
+    answerHeader:'⛪ Temas Teológicos',
+    prefix:      'Identifica y explica los principales temas teológicos presentes en el siguiente pasaje o libro bíblico. Para cada tema, proporciona versículos de apoyo y explica su importancia en el contexto más amplio de las Escrituras: '
+  },
+  outline: {
+    labelText:   'Pasaje o texto',
+    placeholder: 'Ej. Mateo 5:1-12  •  Filipenses 4  •  Génesis 1',
+    btnLabel:    'Crear Esquema',
+    answerHeader:'📋 Esquema de Estudio',
+    prefix:      'Crea un esquema detallado de sermón o estudio bíblico para el siguiente pasaje. Incluye un título, puntos principales con sub-puntos, referencias cruzadas relevantes, preguntas de aplicación y una conclusión: '
+  }
+};
+
+let currentResearchMode = 'ask';
+
+document.querySelectorAll('.research-mode-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    currentResearchMode = btn.dataset.mode;
+    document.querySelectorAll('.research-mode-btn').forEach(b => b.classList.toggle('active', b === btn));
+    const cfg = RESEARCH_MODES[currentResearchMode];
+    $('question-label').textContent = cfg.labelText;
+    questionInput.placeholder = cfg.placeholder;
+    askBtnLabel.textContent = cfg.btnLabel;
+    responseArea.classList.add('hidden');
+    askAnother.classList.add('hidden');
+  });
+});
+
+// Ask another
+$('ask-another-btn').addEventListener('click', () => { questionInput.focus(); questionInput.select(); });
+
+// Dismiss response
+$('dismiss-response-btn').addEventListener('click', () => {
+  responseArea.classList.add('hidden');
+  askAnother.classList.add('hidden');
+});
+
+// Clear question button
+const clearQuestionBtn = $('clear-question-btn');
+questionInput.addEventListener('input', () => {
+  clearQuestionBtn.classList.toggle('hidden', !questionInput.value);
+});
+clearQuestionBtn.addEventListener('click', () => {
+  questionInput.value = '';
+  clearQuestionBtn.classList.add('hidden');
+  questionInput.focus();
+});
+
+// Ask question
+askBtn.addEventListener('click', askQuestion);
+questionInput.addEventListener('keydown', e => { if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') askQuestion(); });
+
+async function askQuestion() {
+  const raw = questionInput.value.trim();
+  if (!raw) { showToast('Por favor escribe una pregunta primero', 'error'); questionInput.focus(); return; }
+  if (!currentSession) { showToast('Por favor inicia sesión primero', 'error'); return; }
+  const { data: { session } } = await sb.auth.getSession();
+  if (!session) { showToast('Sesión expirada — inicia sesión de nuevo', 'error'); showAuth(); return; }
+  currentSession = session;
+
+  const cfg = RESEARCH_MODES[currentResearchMode] || RESEARCH_MODES.ask;
+  const question = cfg.prefix + raw;
+
+  const answerHeaderEl = document.querySelector('#response-area .text-\\[\\#E9C349\\].font-label.text-xs');
+  if (answerHeaderEl) answerHeaderEl.textContent = cfg.answerHeader;
+
+  setLoading(true);
+  errorBox.classList.add('hidden');
+  responseArea.classList.add('hidden');
+  askAnother.classList.add('hidden');
+  lastAnswerId = null;
+  try {
+    const res = await fetch(`${BACKEND_URL}/api/study/ask`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${session.access_token}` },
+      body: JSON.stringify({ question, lang: langSelect.value })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || data.message || `Error del servidor ${res.status}`);
+    renderResponse(data);
+  } catch (err) {
+    errorBox.textContent = '⚠ ' + err.message; errorBox.classList.remove('hidden');
+  } finally {
+    setLoading(false);
+  }
+}
+
+function setLoading(on) {
+  askBtn.disabled = on;
+  const cfg = RESEARCH_MODES[currentResearchMode] || RESEARCH_MODES.ask;
+  askBtnLabel.innerHTML = on
+    ? '<span class="spinner mr-2" style="border-top-color:#fff"></span>Estudiando las Escrituras…'
+    : cfg.btnLabel;
+}
+
+function formatText(txt) {
+  return escHtml(txt)
+    .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+    .replace(/\n\n/g,'</p><p class="mt-3">')
+    .replace(/\n/g,'<br>');
+}
+
+function renderResponse(data) {
+  answerText.innerHTML = '<p>' + formatText(data.answer || 'No se recibió respuesta.') + '</p>';
+
+  if (data.summary) { summaryText.textContent = data.summary; summarySection.classList.remove('hidden'); }
+  else summarySection.classList.add('hidden');
+
+  versesGrid.innerHTML = '';
+  const verses = data.verses || [];
+  if (verses.length > 0) {
+    verses.forEach(v => {
+      const el = document.createElement('div');
+      el.className = 'verse-card';
+      el.innerHTML = `<div class="font-label text-[11px] uppercase tracking-widest text-[#E9C349] font-bold mb-2">${escHtml(v.reference||v.ref||'')}</div>${(v.text||v.content) ? `<div class="text-on-surface-variant font-body text-sm leading-relaxed">${escHtml(v.text||v.content)}</div>` : ''}`;
+      versesGrid.appendChild(el);
+    });
+    versesSection.classList.remove('hidden');
+  } else versesSection.classList.add('hidden');
+
+  if (data.verification || data.verified !== undefined) {
+    const rawV = data.verification;
+    const vText = (rawV
+      ? (typeof rawV === 'string' ? rawV : (rawV.summary || rawV.text || rawV.message || rawV.content || JSON.stringify(rawV)))
+      : (data.verified ? 'Verificado teológicamente con las Escrituras.' : 'No se pudo verificar completamente — revisa con discernimiento.'));
+    verificationIcon.textContent = (data.verified !== false && !String(vText).toLowerCase().includes('no se pudo')) ? '🟢' : '🟡';
+    verificationText.textContent = vText;
+    verificationSection.classList.remove('hidden');
+  } else verificationSection.classList.add('hidden');
+
+  cachedIndicator.innerHTML = data.cached
+    ? '<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#3fb950]/10 border border-[#3fb950]/25 text-[#3fb950] font-label text-[10px] font-bold uppercase tracking-widest">⚡ Caché</span>'
+    : '';
+
+  if (data.id || data.answer_id) lastAnswerId = data.id || data.answer_id;
+  responseArea.classList.remove('hidden');
+  responseArea.classList.add('fade-in');
+  askAnother.classList.remove('hidden');
+  setTimeout(() => responseArea.scrollIntoView({ behavior:'smooth', block:'start' }), 100);
+}
+
+// ─── Resaltados y Marcas Inductivas ────────────────────────
+const HIGHLIGHT_COLORS = {
+  yellow: 'rgba(233,195,73,0.25)',
+  green:  'rgba(80,200,120,0.25)',
+  blue:   'rgba(110,180,240,0.25)',
+  pink:   'rgba(255,144,179,0.25)',
+  purple: 'rgba(180,130,255,0.25)',
+};
+const MARKUP_STYLES = {
+  underline: el => { el.style.borderBottom = '2.5px solid #E9C349'; el.style.borderRadius = '0'; },
+  box:       el => { el.style.outline = '2px solid #FFB4A4'; el.style.outlineOffset = '2px'; el.style.borderRadius = '4px'; },
+  circle:    el => { el.style.outline = '2.5px solid #50c878'; el.style.outlineOffset = '4px'; el.style.borderRadius = '22px'; },
+  arrow:     el => { el.style.borderLeft = '3.5px solid #6EB4F0'; el.style.paddingLeft = '10px'; },
+};
+
+function clearVerseAnnotationStyles(el) {
+  el.style.background = '';
+  el.style.borderBottom = '';
+  el.style.borderLeft = '';
+  el.style.paddingLeft = '';
+  el.style.outline = '';
+  el.style.outlineOffset = '';
+  el.style.borderRadius = '';
+}
+
+async function loadChapterAnnotations() {
+  if (!currentChapterCtx || !currentSession) return;
+  const { bookId, chapter, translation } = currentChapterCtx;
+  try {
+    const { data: { session } } = await sb.auth.getSession();
+    if (!session) return;
+    const params = new URLSearchParams({ book_id: bookId, chapter: String(chapter), bible_id: translation });
+    const res = await fetch(`${BACKEND_URL}/api/user/verse-notes?${params}`, {
+      headers: { 'Authorization': `Bearer ${session.access_token}` }
+    });
+    if (!res.ok) return;
+    const payload = await res.json();
+    const notes = Array.isArray(payload) ? payload : (payload.notes || []);
+    chapterAnnotations = {};
+    for (const n of notes) {
+      const v = n.verse;
+      if (!chapterAnnotations[v]) chapterAnnotations[v] = {};
+      if (n.note === '__highlight__') {
+        chapterAnnotations[v].highlight = { id: n.id, color: n.color };
+      } else if (typeof n.note === 'string' && n.note.startsWith('__markup__')) {
+        const type = n.note.slice(10, -2);
+        chapterAnnotations[v].markup = { id: n.id, type };
+      } else if (typeof n.note === 'string' && n.note.length > 0) {
+        chapterAnnotations[v].textNote = { id: n.id, text: n.note };
+      }
+    }
+    applyAnnotationsToDOM();
+    for (const [verseNum, ann] of Object.entries(chapterAnnotations)) {
+      if (ann.textNote) markVerseHasNote(Number(verseNum), true);
+    }
+  } catch(e) { console.warn('loadChapterAnnotations:', e); }
+}
+
+function applyAnnotationsToDOM() {
+  document.querySelectorAll('.verse-block').forEach(el => clearVerseAnnotationStyles(el));
+  for (const [verseNum, ann] of Object.entries(chapterAnnotations)) {
+    const el = document.querySelector(`.verse-block[data-verse="${verseNum}"]`);
+    if (!el) continue;
+    if (ann.highlight) {
+      el.style.background = HIGHLIGHT_COLORS[ann.highlight.color] || HIGHLIGHT_COLORS.yellow;
+    }
+    if (ann.markup && MARKUP_STYLES[ann.markup.type]) {
+      MARKUP_STYLES[ann.markup.type](el);
+    }
+  }
+}
+
+function updateActionBarAnnotationState() {
+  if (!selectedVerse) return;
+  const { verseNum } = selectedVerse;
+  const ann = chapterAnnotations[verseNum] || {};
+  const hasHL = !!ann.highlight;
+  $('remove-highlight-btn').classList.toggle('hidden', !hasHL);
+  document.querySelectorAll('.hl-swatch').forEach(s => {
+    s.classList.toggle('active', hasHL && s.dataset.color === ann.highlight?.color);
+  });
+  const hasMarkup = !!ann.markup;
+  $('remove-markup-btn').classList.toggle('hidden', !hasMarkup);
+  ['underline','box','circle','arrow'].forEach(t => {
+    const btn = $(`markup-${t}`);
+    if (btn) btn.classList.toggle('active-markup', hasMarkup && ann.markup?.type === t);
+  });
+  const hasNote = !!ann.textNote;
+  $('toggle-note-btn').textContent = hasNote ? '📝 Editar nota' : '📝 Añadir nota';
+  $('note-saved-badge').classList.toggle('hidden', !hasNote);
+  $('verse-note-editor').classList.add('hidden');
+}
+
+async function applyHighlight(colorName) {
+  if (!selectedVerse || !currentSession) return;
+  const { bookId, chapter, verseNum, translation } = selectedVerse;
+  const ann = chapterAnnotations[verseNum] || {};
+  const existing = ann.highlight;
+  try {
+    const { data: { session } } = await sb.auth.getSession();
+    if (!session) { showToast('Sesión expirada — inicia sesión de nuevo', 'error'); return; }
+    if (existing) {
+      const res = await fetch(`${BACKEND_URL}/api/user/verse-notes/${existing.id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${session.access_token}` },
+        body: JSON.stringify({ color: colorName })
+      });
+      if (!res.ok) throw new Error('Update failed');
+      chapterAnnotations[verseNum].highlight.color = colorName;
+    } else {
+      const res = await fetch(`${BACKEND_URL}/api/user/verse-notes`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${session.access_token}` },
+        body: JSON.stringify({ bible_id: translation, book_id: bookId, chapter: Number(chapter), verse: verseNum, note: '__highlight__', color: colorName })
+      });
+      if (!res.ok) throw new Error('Save failed');
+      const data = await res.json();
+      if (!chapterAnnotations[verseNum]) chapterAnnotations[verseNum] = {};
+      chapterAnnotations[verseNum].highlight = { id: data.id || data.note?.id || data.data?.id, color: colorName };
+    }
+    applyAnnotationsToDOM();
+    updateActionBarAnnotationState();
+    showToast(existing ? 'Resaltado actualizado' : '¡Versículo resaltado!', 'success');
+  } catch(e) { showToast('No se pudo guardar el resaltado', 'error'); console.error(e); }
+}
+
+async function removeHighlight() {
+  if (!selectedVerse) return;
+  const { verseNum } = selectedVerse;
+  const existing = chapterAnnotations[verseNum]?.highlight;
+  if (!existing) return;
+  try {
+    const { data: { session } } = await sb.auth.getSession();
+    const res = await fetch(`${BACKEND_URL}/api/user/verse-notes/${existing.id}`, {
+      method: 'DELETE', headers: { 'Authorization': `Bearer ${session.access_token}` }
+    });
+    if (!res.ok) throw new Error('Delete failed');
+    delete chapterAnnotations[verseNum].highlight;
+    applyAnnotationsToDOM();
+    updateActionBarAnnotationState();
+    showToast('Resaltado eliminado', 'success');
+  } catch(e) { showToast('No se pudo eliminar el resaltado', 'error'); }
+}
+
+async function applyMarkup(type) {
+  if (!selectedVerse || !currentSession) return;
+  const { bookId, chapter, verseNum, translation } = selectedVerse;
+  const ann = chapterAnnotations[verseNum] || {};
+  const existing = ann.markup;
+  if (existing?.type === type) return removeMarkup();
+  try {
+    const { data: { session } } = await sb.auth.getSession();
+    if (!session) { showToast('Sesión expirada — inicia sesión de nuevo', 'error'); return; }
+    if (existing) {
+      const res = await fetch(`${BACKEND_URL}/api/user/verse-notes/${existing.id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${session.access_token}` },
+        body: JSON.stringify({ note: `__markup__${type}__` })
+      });
+      if (!res.ok) throw new Error('Update failed');
+      chapterAnnotations[verseNum].markup = { id: existing.id, type };
+    } else {
+      const res = await fetch(`${BACKEND_URL}/api/user/verse-notes`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${session.access_token}` },
+        body: JSON.stringify({ bible_id: translation, book_id: bookId, chapter: Number(chapter), verse: verseNum, note: `__markup__${type}__`, color: type })
+      });
+      if (!res.ok) throw new Error('Save failed');
+      const data = await res.json();
+      if (!chapterAnnotations[verseNum]) chapterAnnotations[verseNum] = {};
+      chapterAnnotations[verseNum].markup = { id: data.id || data.note?.id || data.data?.id, type };
+    }
+    applyAnnotationsToDOM();
+    updateActionBarAnnotationState();
+    const labels = { underline: 'Subrayado', box: 'Enmarcado', circle: 'Encerrado', arrow: 'Versículo clave marcado' };
+    showToast(labels[type] || 'Marca aplicada', 'success');
+  } catch(e) { showToast('No se pudo guardar la marca', 'error'); console.error(e); }
+}
+
+async function removeMarkup() {
+  if (!selectedVerse) return;
+  const { verseNum } = selectedVerse;
+  const existing = chapterAnnotations[verseNum]?.markup;
+  if (!existing) return;
+  try {
+    const { data: { session } } = await sb.auth.getSession();
+    const res = await fetch(`${BACKEND_URL}/api/user/verse-notes/${existing.id}`, {
+      method: 'DELETE', headers: { 'Authorization': `Bearer ${session.access_token}` }
+    });
+    if (!res.ok) throw new Error('Delete failed');
+    delete chapterAnnotations[verseNum].markup;
+    applyAnnotationsToDOM();
+    updateActionBarAnnotationState();
+    showToast('Marca eliminada', 'success');
+  } catch(e) { showToast('No se pudo eliminar la marca', 'error'); }
+}
+
+// ─── Notas de Versículo ─────────────────────────────────────
+function toggleVerseNote() {
+  const editor = $('verse-note-editor');
+  const isHidden = editor.classList.contains('hidden');
+  editor.classList.toggle('hidden', !isHidden);
+  if (isHidden) {
+    const ann = chapterAnnotations[selectedVerse?.verseNum] || {};
+    const note = ann.textNote;
+    $('verse-note-input').value = note?.text || '';
+    $('delete-note-btn').classList.toggle('hidden', !note);
+    $('verse-note-input').focus();
+  }
+}
+
+async function saveVerseNote() {
+  if (!selectedVerse) return;
+  const { bookId, chapter, verseNum, translation } = selectedVerse;
+  const text = $('verse-note-input').value.trim();
+  if (!text) { deleteVerseNote(); return; }
+  try {
+    const { data: { session } } = await sb.auth.getSession();
+    const ann = chapterAnnotations[verseNum] || {};
+    const existing = ann.textNote;
+    if (existing) {
+      const res = await fetch(`${BACKEND_URL}/api/user/verse-notes/${existing.id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${session.access_token}` },
+        body: JSON.stringify({ note: text })
+      });
+      if (!res.ok) throw new Error('Update failed');
+      chapterAnnotations[verseNum].textNote.text = text;
+    } else {
+      const res = await fetch(`${BACKEND_URL}/api/user/verse-notes`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${session.access_token}` },
+        body: JSON.stringify({ bible_id: translation, book_id: bookId, chapter: Number(chapter), verse: verseNum, note: text, color: 'none' })
+      });
+      if (!res.ok) throw new Error('Save failed');
+      const data = await res.json();
+      if (!chapterAnnotations[verseNum]) chapterAnnotations[verseNum] = {};
+      chapterAnnotations[verseNum].textNote = { id: data.note?.id || data.id, text };
+    }
+    $('note-saved-badge').classList.remove('hidden');
+    $('delete-note-btn').classList.remove('hidden');
+    markVerseHasNote(verseNum, true);
+    showToast('Nota guardada', 'success');
+  } catch(e) { showToast('No se pudo guardar la nota', 'error'); }
+}
+
+async function deleteVerseNote() {
+  if (!selectedVerse) return;
+  const { verseNum } = selectedVerse;
+  const existing = chapterAnnotations[verseNum]?.textNote;
+  if (!existing) { $('verse-note-editor').classList.add('hidden'); return; }
+  try {
+    const { data: { session } } = await sb.auth.getSession();
+    const res = await fetch(`${BACKEND_URL}/api/user/verse-notes/${existing.id}`, {
+      method: 'DELETE', headers: { 'Authorization': `Bearer ${session.access_token}` }
+    });
+    if (!res.ok) throw new Error('Delete failed');
+    delete chapterAnnotations[verseNum].textNote;
+    $('verse-note-input').value = '';
+    $('note-saved-badge').classList.add('hidden');
+    $('delete-note-btn').classList.add('hidden');
+    markVerseHasNote(verseNum, false);
+    showToast('Nota eliminada', 'success');
+  } catch(e) { showToast('No se pudo eliminar la nota', 'error'); }
+}
+
+function markVerseHasNote(verseNum, hasNote) {
+  const block = document.querySelector(`.verse-block[data-verse="${verseNum}"]`);
+  if (!block) return;
+  let dot = block.querySelector('.note-dot');
+  if (hasNote && !dot) {
+    dot = document.createElement('span');
+    dot.className = 'note-dot';
+    dot.style.cssText = 'display:inline-block;width:5px;height:5px;border-radius:50%;background:#50c878;margin-left:3px;vertical-align:middle;flex-shrink:0;';
+    block.appendChild(dot);
+  } else if (!hasNote && dot) {
+    dot.remove();
+  }
+}
+
+// ─── Plan de Lectura ────────────────────────────────────────
+
+function chaptersForBooks(bookIds) {
+  const result = [];
+  for (const id of bookIds) {
+    const b = BOOKS.find(x => x.id === id);
+    if (!b) continue;
+    for (let c = 1; c <= b.ch; c++) result.push({ bookId: b.id, bookName: b.name, chapter: c });
+  }
+  return result;
+}
+
+function groupIntoDays(chapters, days) {
+  const perDay = chapters.length / days;
+  const groups = [];
+  for (let d = 0; d < days; d++) {
+    const start = Math.round(d * perDay);
+    const end   = Math.round((d + 1) * perDay);
+    groups.push(chapters.slice(start, end));
+  }
+  return groups;
+}
+
+const OT_IDS = ['GEN','EXO','LEV','NUM','DEU','JOS','JDG','RUT','1SA','2SA','1KI','2KI','1CH','2CH','EZR','NEH','EST','JOB','PSA','PRO','ECC','SNG','ISA','JER','LAM','EZK','DAN','HOS','JOL','AMO','OBA','JON','MIC','NAM','HAB','ZEP','HAG','ZEC','MAL'];
+const NT_IDS = ['MAT','MRK','LUK','JHN','ACT','ROM','1CO','2CO','GAL','EPH','PHP','COL','1TH','2TH','1TI','2TI','TIT','PHM','HEB','JAS','1PE','2PE','1JN','2JN','3JN','JUD','REV'];
+
+const READING_PLANS = [
+  {
+    id: 'bible-year',
+    name: 'La Biblia en un Año',
+    description: 'Los 66 libros — AT y NT — en 365 días',
+    emoji: '📖',
+    days: 365,
+    get schedule() { return groupIntoDays(chaptersForBooks([...OT_IDS, ...NT_IDS]), 365); }
+  },
+  {
+    id: 'nt-90',
+    name: 'Nuevo Testamento en 90 Días',
+    description: 'Los 27 libros del NT en 3 meses',
+    emoji: '✝️',
+    days: 90,
+    get schedule() { return groupIntoDays(chaptersForBooks(NT_IDS), 90); }
+  },
+  {
+    id: 'psalms-30',
+    name: 'Salmos en 30 Días',
+    description: '5 salmos al día durante un mes de adoración',
+    emoji: '🎵',
+    days: 30,
+    get schedule() { return groupIntoDays(chaptersForBooks(['PSA']), 30); }
+  },
+  {
+    id: 'proverbs-31',
+    name: 'Proverbios en 31 Días',
+    description: 'Un capítulo de sabiduría cada día',
+    emoji: '🌿',
+    days: 31,
+    get schedule() { return groupIntoDays(chaptersForBooks(['PRO']), 31); }
+  },
+];
+
+const LS_PLAN   = 'fbs_active_plan';
+const LS_DONE   = 'fbs_plan_done';
+const LS_STREAK = 'fbs_streak';
+
+// ─── Racha de lectura ───────────────────────────────────────
+function updateStreak() {
+  const today = new Date().toISOString().slice(0, 10);
+  let s = {};
+  try { s = JSON.parse(localStorage.getItem(LS_STREAK)) || {}; } catch {}
+  if (s.last === today) return;
+  const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+  s = { count: s.last === yesterday ? (s.count || 1) + 1 : 1, last: today };
+  localStorage.setItem(LS_STREAK, JSON.stringify(s));
+}
+
+function getStreakCount() {
+  try {
+    const s = JSON.parse(localStorage.getItem(LS_STREAK)) || {};
+    const today = new Date().toISOString().slice(0, 10);
+    const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+    if (s.last !== today && s.last !== yesterday) return 0;
+    return s.count || 0;
+  } catch { return 0; }
+}
+
+function getActivePlan() {
+  try { return JSON.parse(localStorage.getItem(LS_PLAN)); } catch { return null; }
+}
+function getCompletedSet() {
+  try { return new Set(JSON.parse(localStorage.getItem(LS_DONE)) || []); } catch { return new Set(); }
+}
+function saveCompletedSet(set) {
+  localStorage.setItem(LS_DONE, JSON.stringify([...set]));
+}
+
+function initPlansTab() {
+  const active = getActivePlan();
+  if (active) {
+    renderActivePlan(active);
+  } else {
+    renderPlanPicker();
+  }
+}
+
+function renderPlanPicker() {
+  $('plan-picker').classList.remove('hidden');
+  $('plan-active').classList.add('hidden');
+  const container = $('plan-cards');
+  container.innerHTML = '';
+  READING_PLANS.forEach(plan => {
+    const card = document.createElement('div');
+    card.className = 'bg-[#4A1D4D]/70 border border-[#f2e5f0]/10 rounded-2xl p-5 cursor-pointer hover:border-[#E9C349]/40 hover:bg-[#5C2A5A]/70 transition-all';
+    card.innerHTML = `
+      <div class="text-3xl mb-3">${plan.emoji}</div>
+      <div class="font-label text-xs uppercase tracking-widest text-[#E9C349] font-bold mb-1">${plan.name}</div>
+      <div class="text-[#f2e5f0]/50 text-xs mb-4">${plan.description}</div>
+      <div class="text-[#f2e5f0]/30 text-[10px] mb-4">${plan.days} días</div>
+      <button onclick="startPlan('${plan.id}')" class="w-full py-2.5 rounded-xl bg-gradient-to-br from-[#E8816A] to-[#6E2414] text-white font-label font-bold text-xs hover:brightness-110 transition-all">Iniciar Plan</button>
+    `;
+    container.appendChild(card);
+  });
+}
+
+function startPlan(planId) {
+  localStorage.setItem(LS_PLAN, JSON.stringify({ planId, startDate: new Date().toISOString().slice(0,10) }));
+  localStorage.removeItem(LS_DONE);
+  renderActivePlan({ planId, startDate: new Date().toISOString().slice(0,10) });
+}
+
+function abandonPlan() {
+  if (!confirm('¿Cambiar a otro plan? Tu progreso se reiniciará.')) return;
+  localStorage.removeItem(LS_PLAN);
+  localStorage.removeItem(LS_DONE);
+  renderPlanPicker();
+}
+
+function renderActivePlan({ planId, startDate }) {
+  const plan = READING_PLANS.find(p => p.id === planId);
+  if (!plan) { renderPlanPicker(); return; }
+
+  $('plan-picker').classList.add('hidden');
+  $('plan-active').classList.remove('hidden');
+  $('plan-active-name').textContent = `${plan.emoji} ${plan.name}`;
+  $('plan-active-desc').textContent = plan.description;
+
+  const schedule = plan.schedule;
+  const completed = getCompletedSet();
+  const start = new Date(startDate);
+  const today = new Date();
+  today.setHours(0,0,0,0);
+  start.setHours(0,0,0,0);
+  const dayIndex = Math.max(0, Math.min(Math.floor((today - start) / 86400000), plan.days - 1));
+
+  const doneCount = schedule.filter(dayChaps => dayChaps.every(c => completed.has(`${c.bookId}.${c.chapter}`))).length;
+  const pct = Math.round((doneCount / plan.days) * 100);
+  $('plan-progress-bar').style.width = pct + '%';
+  $('plan-progress-text').textContent = `${doneCount} de ${plan.days} días completados (${pct}%)`;
+
+  renderDayReading($('plan-today'), schedule[dayIndex], dayIndex, completed, true);
+
+  const upcomingEl = $('plan-upcoming');
+  upcomingEl.innerHTML = '';
+  for (let i = 1; i <= 5; i++) {
+    const idx = dayIndex + i;
+    if (idx >= plan.days) break;
+    renderDayReading(upcomingEl, schedule[idx], idx, completed, false);
+  }
+}
+
+function renderDayReading(container, dayChapters, dayIndex, completed, isToday) {
+  if (!dayChapters || dayChapters.length === 0) return;
+  const allDone = dayChapters.every(c => completed.has(`${c.bookId}.${c.chapter}`));
+  const row = document.createElement('div');
+  row.className = `flex items-center gap-3 py-2 ${isToday ? '' : 'opacity-60'}`;
+
+  const label = dayChapters.map(c => `${c.bookName} ${c.chapter}`).join(', ');
+  row.innerHTML = `
+    <span class="text-sm ${allDone ? 'text-[#50c878]' : 'text-[#f2e5f0]'} flex-1 font-body">${allDone ? '✓ ' : ''}${label}</span>
+    ${isToday && !allDone
+      ? `<button onclick="readNow('${dayChapters[0].bookId}','${dayChapters[0].chapter}')" class="reader-btn text-xs px-2.5 py-1">Leer Ahora</button>
+         <button onclick="markDayComplete(${dayIndex})" class="reader-btn text-xs px-2.5 py-1 text-[#50c878]">✓ Hecho</button>`
+      : isToday && allDone
+        ? `<span class="text-[#50c878] text-xs font-semibold">¡Completado!</span>`
+        : ''
+    }
+  `;
+  container.appendChild(row);
+}
+
+function markDayComplete(dayIndex) {
+  const active = getActivePlan();
+  if (!active) return;
+  const plan = READING_PLANS.find(p => p.id === active.planId);
+  if (!plan) return;
+  const schedule = plan.schedule;
+  const dayChapters = schedule[dayIndex];
+  const completed = getCompletedSet();
+  dayChapters.forEach(c => completed.add(`${c.bookId}.${c.chapter}`));
+  saveCompletedSet(completed);
+  updateStreak();
+  showToast('¡Día completado!', 'success');
+  renderActivePlan(active);
+}
+
+function readNow(bookId, chapter) {
+  const bookSel = $('book-select');
+  if (!bookSel.options.length) initBibleReader();
+  bookSel.value = bookId;
+  const book = BOOKS.find(b => b.id === bookId);
+  if (book) populateChapters(book.ch, parseInt(chapter));
+  $('translation-select').value = $('translation-select').value || 'RVR';
+  loadChapter();
+  switchTab('read');
+}
+
+// ─── Grupos de Estudio ──────────────────────────────────────
+
+let currentGroupId   = null;
+let currentGroupRole = 'member';
+let currentGroupData = null;
+
+async function groupFetch(path, method = 'GET', body = null) {
+  const { data: { session } } = await sb.auth.getSession();
+  if (!session) throw new Error('No has iniciado sesión');
+  const opts = {
+    method,
+    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${session.access_token}` }
+  };
+  if (body) opts.body = JSON.stringify(body);
+  const res = await fetch(`${BACKEND_URL}/api/groups${path}`, opts);
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.error || `Error del servidor ${res.status}`);
+  return data;
+}
+
+async function initGroupsTab() {
+  $('groups-landing').classList.remove('hidden');
+  $('group-dashboard').classList.add('hidden');
+  await loadMyGroups();
+}
+
+async function loadMyGroups() {
+  try {
+    const { groups } = await groupFetch('/');
+    const list = $('my-groups-list');
+    list.innerHTML = '';
+    if (!groups || groups.length === 0) {
+      list.innerHTML = '<p class="text-center text-[#f2e5f0]/25 text-xs py-4">Aún no te has unido a ningún grupo.</p>';
+      return;
+    }
+    groups.forEach(g => {
+      const el = document.createElement('div');
+      el.className = 'flex items-center justify-between bg-[#4A1D4D]/50 border border-[#f2e5f0]/10 rounded-xl px-4 py-3 cursor-pointer hover:border-[#E9C349]/30 transition-all';
+      el.innerHTML = `
+        <div>
+          <div class="font-label text-sm font-bold text-[#f2e5f0]">${escHtml(g.name)}</div>
+          <div class="font-mono text-[10px] text-[#f2e5f0]/35 tracking-widest mt-0.5">${g.invite_code} · ${g.my_role === 'admin' ? 'administrador' : 'miembro'}</div>
+        </div>
+        <span class="text-[#f2e5f0]/30 text-lg">›</span>
+      `;
+      el.addEventListener('click', () => openGroup(g.id));
+      list.appendChild(el);
+    });
+  } catch (err) {
+    showToast('No se pudieron cargar los grupos: ' + err.message, 'error');
+  }
+}
+
+async function createGroup() {
+  const name = $('group-name-input').value.trim();
+  if (!name) { showToast('Ingresa el nombre del grupo', 'error'); return; }
+  try {
+    const { group } = await groupFetch('/', 'POST', { name });
+    $('group-name-input').value = '';
+    showToast(`¡Grupo "${group.name}" creado!`, 'success');
+    await openGroup(group.id);
+  } catch (err) {
+    showToast('Error: ' + err.message, 'error');
+  }
+}
+
+async function joinGroup() {
+  const code = $('invite-code-input').value.trim().toUpperCase();
+  if (!code) { showToast('Ingresa el código de invitación', 'error'); return; }
+  try {
+    const { group } = await groupFetch('/join', 'POST', { invite_code: code });
+    $('invite-code-input').value = '';
+    showToast(`¡Te uniste a "${group.name}"!`, 'success');
+    await openGroup(group.id);
+  } catch (err) {
+    showToast('Error: ' + err.message, 'error');
+  }
+}
+
+async function openGroup(groupId) {
+  try {
+    const { group } = await groupFetch(`/${groupId}`);
+    currentGroupId   = group.id;
+    currentGroupRole = group.my_role;
+    currentGroupData = group;
+    $('group-dash-name').textContent = group.name;
+    $('group-dash-code').textContent = group.invite_code;
+    $('groups-landing').classList.add('hidden');
+    $('group-dashboard').classList.remove('hidden');
+    switchGroupTab('notes');
+  } catch (err) {
+    showToast('Error: ' + err.message, 'error');
+  }
+}
+
+function showGroupsLanding() {
+  $('group-dashboard').classList.add('hidden');
+  $('groups-landing').classList.remove('hidden');
+  currentGroupId = null;
+  loadMyGroups();
+}
+
+function copyInviteCode() {
+  if (!currentGroupData) return;
+  navigator.clipboard.writeText(currentGroupData.invite_code).then(() => showToast('¡Código copiado!', 'success'));
+}
+
+function switchGroupTab(name) {
+  ['notes','plan','prayer','members'].forEach(t => {
+    $('gtab-content-' + t).classList.toggle('hidden', t !== name);
+    $('gtab-' + t).classList.toggle('active', t === name);
+  });
+  if (name === 'notes')   loadGroupNotes();
+  if (name === 'plan')    loadGroupPlan();
+  if (name === 'prayer')  loadPrayerRequests();
+  if (name === 'members') loadGroupMembers();
+}
+
+async function loadGroupNotes() {
+  if (!currentGroupId) return;
+  try {
+    const { notes } = await groupFetch(`/${currentGroupId}/notes`);
+    const list = $('group-notes-list');
+    list.innerHTML = '';
+    if (!notes || notes.length === 0) {
+      $('group-notes-empty').classList.remove('hidden'); return;
+    }
+    $('group-notes-empty').classList.add('hidden');
+    notes.forEach(n => {
+      const el = document.createElement('div');
+      el.className = 'bg-[#4A1D4D]/60 border border-[#f2e5f0]/10 rounded-xl px-4 py-3';
+      const ts = new Date(n.created_at).toLocaleDateString('es-ES', { month: 'short', day: 'numeric' });
+      el.innerHTML = `
+        <div class="flex items-center justify-between mb-1">
+          <span class="font-label text-[10px] font-bold text-[#E9C349] uppercase tracking-wider">${escHtml(n.display_name || 'Miembro')}</span>
+          <span class="text-[#f2e5f0]/25 text-[10px]">${ts}</span>
+        </div>
+        <p class="font-body text-sm text-[#f2e5f0]/80 leading-relaxed">${escHtml(n.content)}</p>
+      `;
+      list.appendChild(el);
+    });
+  } catch (err) {
+    showToast('No se pudieron cargar las notas', 'error');
+  }
+}
+
+async function postGroupNote() {
+  const content = $('group-note-input').value.trim();
+  if (!content) return;
+  try {
+    const displayName = currentSession?.user?.user_metadata?.display_name || currentSession?.user?.email?.split('@')[0] || 'Miembro';
+    await groupFetch(`/${currentGroupId}/notes`, 'POST', { content, display_name: displayName });
+    $('group-note-input').value = '';
+    showToast('¡Nota publicada!', 'success');
+    await loadGroupNotes();
+  } catch (err) {
+    showToast('Error: ' + err.message, 'error');
+  }
+}
+
+async function loadPrayerRequests() {
+  if (!currentGroupId) return;
+  try {
+    const { requests } = await groupFetch(`/${currentGroupId}/prayer`);
+    const list = $('prayer-list');
+    list.innerHTML = '';
+    if (!requests || requests.length === 0) {
+      $('prayer-empty').classList.remove('hidden'); return;
+    }
+    $('prayer-empty').classList.add('hidden');
+    requests.forEach(r => {
+      const el = document.createElement('div');
+      el.className = `bg-[#4A1D4D]/60 border rounded-xl px-4 py-3 ${r.answered ? 'border-[#50c878]/30' : 'border-[#f2e5f0]/10'}`;
+      const ts = new Date(r.created_at).toLocaleDateString('es-ES', { month: 'short', day: 'numeric' });
+      el.innerHTML = `
+        <div class="flex items-center justify-between mb-1">
+          <span class="font-label text-[10px] font-bold text-[#E9C349] uppercase tracking-wider">${escHtml(r.display_name || 'Miembro')}</span>
+          <div class="flex items-center gap-2">
+            <span class="text-[#f2e5f0]/25 text-[10px]">${ts}</span>
+            ${r.answered
+              ? '<span class="text-[#50c878] text-[10px] font-bold">✓ Respondida</span>'
+              : `<button onclick="markAnswered('${r.id}')" class="text-[#f2e5f0]/30 hover:text-[#50c878] text-[10px] transition-colors">🙏 Marcar respondida</button>`
+            }
+          </div>
+        </div>
+        <p class="font-body text-sm text-[#f2e5f0]/80 leading-relaxed">${escHtml(r.content)}</p>
+      `;
+      list.appendChild(el);
+    });
+  } catch (err) {
+    showToast('No se pudieron cargar los pedidos', 'error');
+  }
+}
+
+async function postPrayerRequest() {
+  const content = $('prayer-req-input').value.trim();
+  if (!content) return;
+  try {
+    const displayName = currentSession?.user?.user_metadata?.display_name || currentSession?.user?.email?.split('@')[0] || 'Miembro';
+    await groupFetch(`/${currentGroupId}/prayer`, 'POST', { content, display_name: displayName });
+    $('prayer-req-input').value = '';
+    showToast('Pedido de oración publicado 🙏', 'success');
+    await loadPrayerRequests();
+  } catch (err) {
+    showToast('Error: ' + err.message, 'error');
+  }
+}
+
+async function markAnswered(requestId) {
+  try {
+    await groupFetch(`/${currentGroupId}/prayer/${requestId}`, 'PATCH');
+    showToast('¡Gloria a Dios! Marcada como respondida ✓', 'success');
+    await loadPrayerRequests();
+  } catch (err) {
+    showToast('Error: ' + err.message, 'error');
+  }
+}
+
+async function loadGroupMembers() {
+  if (!currentGroupData) return;
+  const list = $('group-members-list');
+  list.innerHTML = '';
+  const members = currentGroupData.members || [];
+  members.forEach(m => {
+    const el = document.createElement('div');
+    el.className = 'flex items-center justify-between bg-[#4A1D4D]/40 border border-[#f2e5f0]/8 rounded-xl px-4 py-2.5';
+    const name = m.user_profiles?.display_name || 'Miembro';
+    el.innerHTML = `
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-full bg-[#7E3A6C]/60 flex items-center justify-center text-xs font-bold text-[#E9C349]">${escHtml(name.charAt(0).toUpperCase())}</div>
+        <span class="font-body text-sm text-[#f2e5f0]/80">${escHtml(name)}</span>
+      </div>
+      <span class="font-label text-[10px] uppercase tracking-wider ${m.role === 'admin' ? 'text-[#E9C349]' : 'text-[#f2e5f0]/30'}">${m.role === 'admin' ? 'administrador' : 'miembro'}</span>
+    `;
+    list.appendChild(el);
+  });
+  $('leave-group-btn').classList.toggle('hidden', false);
+}
+
+async function leaveGroupConfirm() {
+  if (!confirm('¿Salir del grupo? Puedes volver a unirte con el código de invitación.')) return;
+  try {
+    await groupFetch(`/${currentGroupId}/leave`, 'DELETE');
+    showToast('Saliste del grupo', 'success');
+    showGroupsLanding();
+  } catch (err) {
+    showToast('Error: ' + err.message, 'error');
+  }
+}
+
+async function loadGroupPlan() {
+  if (!currentGroupId) return;
+  try {
+    const { plan } = await groupFetch(`/${currentGroupId}/plan`);
+    $('group-no-plan').classList.add('hidden');
+    $('group-plan-picker').classList.add('hidden');
+    $('group-plan-active').classList.add('hidden');
+
+    if (!plan || !plan.plan_id) {
+      if (currentGroupRole === 'admin') {
+        renderGroupPlanPicker();
+      } else {
+        $('group-no-plan').classList.remove('hidden');
+      }
+      return;
+    }
+
+    const planDef = READING_PLANS.find(p => p.id === plan.plan_id);
+    if (!planDef) { $('group-no-plan').classList.remove('hidden'); return; }
+
+    $('group-plan-active').classList.remove('hidden');
+    $('group-plan-name').textContent = `${planDef.emoji} ${planDef.name}`;
+    $('group-plan-desc').textContent = planDef.description;
+
+    const schedule = planDef.schedule;
+    const start = new Date(plan.plan_start);
+    const today = new Date();
+    today.setHours(0,0,0,0);
+    start.setHours(0,0,0,0);
+    const dayIndex = Math.max(0, Math.min(Math.floor((today - start) / 86400000), planDef.days - 1));
+    const dayChapters = schedule[dayIndex] || [];
+
+    const todayEl = $('group-plan-today');
+    todayEl.innerHTML = '';
+    if (dayChapters.length === 0) {
+      todayEl.innerHTML = '<p class="text-[#f2e5f0]/30 text-sm">Sin lectura para hoy.</p>';
+    } else {
+      const label = dayChapters.map(c => `${c.bookName} ${c.chapter}`).join(', ');
+      todayEl.innerHTML = `
+        <div class="flex items-center justify-between">
+          <span class="font-body text-sm text-[#f2e5f0]/80">${escHtml(label)}</span>
+          <button onclick="readNow('${dayChapters[0].bookId}','${dayChapters[0].chapter}')" class="reader-btn text-xs px-3 py-1">Leer Ahora</button>
+        </div>
+      `;
+    }
+
+    if (currentGroupRole === 'admin') {
+      const changeBtn = document.createElement('button');
+      changeBtn.className = 'mt-4 text-[#f2e5f0]/25 hover:text-[#f2e5f0]/60 text-xs transition-colors';
+      changeBtn.textContent = 'Cambiar plan';
+      changeBtn.onclick = renderGroupPlanPicker;
+      $('group-plan-active').appendChild(changeBtn);
+    }
+  } catch (err) {
+    showToast('No se pudo cargar el plan del grupo', 'error');
+  }
+}
+
+function renderGroupPlanPicker() {
+  $('group-plan-active').classList.add('hidden');
+  $('group-no-plan').classList.add('hidden');
+  $('group-plan-picker').classList.remove('hidden');
+  const container = $('group-plan-cards');
+  container.innerHTML = '';
+  READING_PLANS.forEach(plan => {
+    const card = document.createElement('div');
+    card.className = 'bg-[#4A1D4D]/70 border border-[#f2e5f0]/10 rounded-xl p-4 cursor-pointer hover:border-[#E9C349]/40 transition-all';
+    card.innerHTML = `
+      <div class="text-2xl mb-2">${plan.emoji}</div>
+      <div class="font-label text-xs uppercase tracking-widest text-[#E9C349] font-bold mb-1">${plan.name}</div>
+      <div class="text-[#f2e5f0]/40 text-xs mb-3">${plan.description}</div>
+      <button onclick="setGroupPlan('${plan.id}')" class="w-full py-2 rounded-lg bg-gradient-to-br from-[#E8816A] to-[#6E2414] text-white font-label font-bold text-xs hover:brightness-110 transition-all">Elegir</button>
+    `;
+    container.appendChild(card);
+  });
+}
+
+async function setGroupPlan(planId) {
+  try {
+    await groupFetch(`/${currentGroupId}/plan`, 'PUT', {
+      plan_id: planId,
+      plan_start: new Date().toISOString().slice(0,10)
+    });
+    showToast('¡Plan del grupo establecido!', 'success');
+    await loadGroupPlan();
+  } catch (err) {
+    showToast('Error: ' + err.message, 'error');
+  }
+}
+
+// ─── Panel de Progreso ──────────────────────────────────────
+const PROGRESS_QUOTES = [
+  '"Tu palabra es una lámpara a mis pies y una luz en mi camino." — Salmo 119:105',
+  '"Procura con diligencia presentarte a Dios aprobado." — 2 Timoteo 2:15',
+  '"Bienaventurado el que lee las palabras de esta profecía." — Apocalipsis 1:3',
+  '"La hierba se seca… pero la palabra de nuestro Dios permanece para siempre." — Isaías 40:8',
+  '"En mi corazón he guardado tus dichos." — Salmo 119:11',
+  '"La fe es por el oír, y el oír, por la palabra de Dios." — Romanos 10:17',
+  '"No sólo de pan vivirá el hombre, sino de toda palabra que sale de la boca de Dios." — Mateo 4:4',
+];
+
+async function initProgressTab() {
+  $('progress-loading').classList.remove('hidden');
+  $('progress-content').classList.add('hidden');
+  try {
+    const meta = currentSession?.user?.user_metadata || {};
+    const name = meta.display_name || meta.full_name || '';
+    $('progress-greeting').textContent = name ? `Progreso de ${name}` : 'Tu Progreso';
+
+    const createdAt = currentSession?.user?.created_at;
+    if (createdAt) {
+      const since = new Date(createdAt).toLocaleDateString('es-ES', { month: 'long', year: 'numeric' });
+      $('progress-member-since').textContent = `Miembro desde ${since}`;
+    }
+
+    const streak = getStreakCount();
+    $('progress-streak').textContent = streak;
+    $('progress-streak-sub').textContent =
+      streak === 0 ? 'Completa una lectura para comenzar tu racha' :
+      streak === 1 ? '¡Buen comienzo — regresa mañana!' :
+      `¡${streak} días seguidos — sigue adelante!`;
+
+    const completed = getCompletedSet();
+    $('stat-chapters').textContent = completed.size;
+
+    const session = (await sb.auth.getSession()).data.session;
+    if (!session) return;
+    const hdrs = { Authorization: `Bearer ${session.access_token}` };
+
+    const [studyRes, verseRes, groupRes] = await Promise.all([
+      fetch(`${BACKEND_URL}/api/user/study-notes?limit=500`, { headers: hdrs }).then(r => r.json()).catch(() => ({ notes: [] })),
+      fetch(`${BACKEND_URL}/api/user/verse-notes`, { headers: hdrs }).then(r => r.json()).catch(() => ({ notes: [] })),
+      fetch(`${BACKEND_URL}/api/groups`, { headers: hdrs }).then(r => r.json()).catch(() => ({ groups: [] })),
+    ]);
+
+    $('stat-notes').textContent = studyRes.notes?.length ?? 0;
+    $('stat-highlights').textContent = verseRes.notes?.length ?? 0;
+    $('stat-groups').textContent = groupRes.groups?.length ?? 0;
+
+    const active = getActivePlan();
+    if (active) {
+      const plan = READING_PLANS.find(p => p.id === active.planId);
+      if (plan) {
+        const totalChapters = plan.schedule.flat().length;
+        const done = completed.size;
+        const pct = Math.min(100, Math.round((done / totalChapters) * 100));
+        $('progress-plan-name').textContent = plan.name;
+        $('progress-plan-pct').textContent = `${pct}%`;
+        $('progress-plan-sub').textContent = `${done} de ${totalChapters} capítulos`;
+        setTimeout(() => { $('progress-plan-bar').style.width = pct + '%'; }, 120);
+        $('progress-plan-wrap').classList.remove('hidden');
+      }
+    } else {
+      $('progress-plan-wrap').classList.add('hidden');
+    }
+
+    const qi = Math.floor(Date.now() / 86400000) % PROGRESS_QUOTES.length;
+    $('progress-verse-quote').textContent = PROGRESS_QUOTES[qi];
+
+  } catch (e) {
+    console.error('Error en pestaña de progreso:', e);
+  } finally {
+    $('progress-loading').classList.add('hidden');
+    $('progress-content').classList.remove('hidden');
+  }
+}
+
+// ─── Léxico de Palabras ─────────────────────────────────────
+document.addEventListener('dblclick', e => {
+  const span = e.target.closest('.verse-text');
+  if (!span) return;
+  const sel = window.getSelection();
+  let word = sel?.toString().trim();
+  if (!word) word = getWordAtPoint(e.clientX, e.clientY);
+  if (!word) return;
+  word = word.replace(/[^a-zA-ZÀ-ÿ''-]/g, '').trim();
+  if (word.length < 2) return;
+  openLexicon(word);
+});
+
+function getWordAtPoint(x, y) {
+  if (!document.caretRangeFromPoint) return null;
+  const range = document.caretRangeFromPoint(x, y);
+  if (!range) return null;
+  range.expand('word');
+  return range.toString().trim();
+}
+
+function openLexicon(word) {
+  const enc = encodeURIComponent(word.toLowerCase());
+  $('lex-word').textContent = word;
+  $('lex-transliteration').textContent = '';
+  $('lex-strongs').textContent = '';
+  $('lex-definition').textContent = '';
+  $('lex-body').classList.add('hidden');
+  $('lex-loading').classList.remove('hidden');
+  $('lex-biblehub-link').href = `https://biblehub.com/search.php?q=${enc}`;
+  $('lex-blb-link').href = `https://www.blueletterbible.org/search/search.cfm?Criteria=${enc}&t=KJV`;
+  $('lex-step-link').href = `https://www.stepbible.org/?q=version=ESV|reference=Gen.1|strong=H${enc}`;
+  $('lexicon-overlay').classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+  fetchLexiconData(word);
+}
+
+async function fetchLexiconData(word) {
+  try {
+    const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(word.toLowerCase())}`);
+    $('lex-loading').classList.add('hidden');
+    if (res.ok) {
+      const data = await res.json();
+      const meanings = data[0]?.meanings || [];
+      const defs = meanings.flatMap(m => m.definitions.slice(0,1).map(d => `(${m.partOfSpeech}) ${d.definition}`));
+      if (defs.length > 0) {
+        $('lex-strongs').textContent = 'Léxico Inglés';
+        $('lex-definition').textContent = defs.slice(0, 2).join(' • ');
+        $('lex-body').classList.remove('hidden');
+      } else {
+        showLexiconFallback(word);
+      }
+    } else {
+      showLexiconFallback(word);
+    }
+  } catch(e) {
+    $('lex-loading').classList.add('hidden');
+    showLexiconFallback(word);
+  }
+}
+
+function showLexiconFallback(word) {
+  $('lex-strongs').textContent = 'Estudio en Idioma Original';
+  $('lex-definition').textContent = `Usa los enlaces para buscar "${word}" en la Concordancia Strong's y herramientas interlineales.`;
+  $('lex-body').classList.remove('hidden');
+}
+
+function closeLexicon(e) {
+  if (e && e.target !== $('lexicon-overlay')) return;
+  $('lexicon-overlay').classList.add('hidden');
+  document.body.style.overflow = '';
+}
+
+// ─── Notas de Estudio ──────────────────────────────────────
+async function loadStudyNotes() {
+  if (!currentSession) return;
+  $('study-notes-loading').classList.remove('hidden');
+  $('study-notes-empty').classList.add('hidden');
+  $('study-notes-list').innerHTML = '';
+  try {
+    const { data: { session } } = await sb.auth.getSession();
+    if (!session) return;
+    const res = await fetch(`${BACKEND_URL}/api/user/study-notes`, {
+      headers: { 'Authorization': `Bearer ${session.access_token}` }
+    });
+    if (!res.ok) throw new Error('Load failed');
+    const { notes } = await res.json();
+    $('study-notes-loading').classList.add('hidden');
+    if (!notes || notes.length === 0) {
+      $('study-notes-empty').classList.remove('hidden');
+    } else {
+      notes.forEach(n => renderStudyNoteCard(n));
+    }
+  } catch(e) {
+    $('study-notes-loading').classList.add('hidden');
+    showToast('No se pudieron cargar las notas', 'error');
+  }
+}
+
+function renderStudyNoteCard(note) {
+  const list = $('study-notes-list');
+  const el = document.createElement('div');
+  el.id = `study-note-${note.id}`;
+  el.className = 'bg-[#4A1D4D]/70 backdrop-blur-xl border border-[#f2e5f0]/10 rounded-2xl p-5 shadow-xl';
+  el.innerHTML = `
+    <div class="flex items-start justify-between gap-3 mb-2">
+      <div class="font-label text-[11px] uppercase tracking-widest text-[#E9C349] font-bold">${escHtml(note.title || 'Sin título')}</div>
+      <div class="flex gap-1.5 flex-shrink-0">
+        <button onclick="editStudyNote('${note.id}')" class="reader-btn text-[11px] px-2 py-0.5">Editar</button>
+        <button onclick="deleteStudyNote('${note.id}')" class="reader-btn text-[11px] px-2 py-0.5 text-[#ff7c7c]">Eliminar</button>
+      </div>
+    </div>
+    <p class="text-on-surface-variant font-body text-sm leading-relaxed whitespace-pre-wrap">${escHtml(note.content || '')}</p>
+    <p class="text-[#f2e5f0]/25 text-[10px] mt-3">${new Date(note.created_at).toLocaleDateString('es')}</p>
+  `;
+  list.appendChild(el);
+}
+
+async function saveStudyNote() {
+  const title = $('study-note-title').value.trim();
+  const content = $('study-note-body').value.trim();
+  if (!content) { showToast('Por favor escribe algo primero', 'error'); return; }
+  if (!currentSession) return;
+  try {
+    const { data: { session } } = await sb.auth.getSession();
+    const res = await fetch(`${BACKEND_URL}/api/user/study-notes`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${session.access_token}` },
+      body: JSON.stringify({ title: title || 'Sin título', content })
+    });
+    if (!res.ok) throw new Error('Save failed');
+    const data = await res.json();
+    $('study-note-title').value = '';
+    $('study-note-body').value = '';
+    $('study-notes-empty').classList.add('hidden');
+    renderStudyNoteCard(data.note || data);
+    const list = $('study-notes-list');
+    list.insertBefore(list.lastElementChild, list.firstElementChild);
+    showToast('¡Nota guardada!', 'success');
+  } catch(e) { showToast('No se pudo guardar la nota', 'error'); }
+}
+
+function editStudyNote(id) {
+  const card = $(`study-note-${id}`);
+  if (!card) return;
+  const title = card.querySelector('.font-label').textContent;
+  const content = card.querySelector('p.text-on-surface-variant').textContent;
+  $('study-note-title').value = title === 'Sin título' ? '' : title;
+  $('study-note-body').value = content;
+  $('study-note-body').dataset.editId = id;
+  $('study-note-body').focus();
+}
+
+async function updateStudyNote(id) {
+  const title = $('study-note-title').value.trim();
+  const content = $('study-note-body').value.trim();
+  if (!content) return;
+  try {
+    const { data: { session } } = await sb.auth.getSession();
+    const res = await fetch(`${BACKEND_URL}/api/user/study-notes/${id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${session.access_token}` },
+      body: JSON.stringify({ title: title || 'Sin título', content })
+    });
+    if (!res.ok) throw new Error('Update failed');
+    await loadStudyNotes();
+    $('study-note-title').value = '';
+    $('study-note-body').value = '';
+    showToast('Nota actualizada', 'success');
+  } catch(e) { showToast('No se pudo actualizar la nota', 'error'); }
+}
+
+async function deleteStudyNote(id) {
+  if (!confirm('¿Eliminar esta nota de estudio?')) return;
+  try {
+    const { data: { session } } = await sb.auth.getSession();
+    const res = await fetch(`${BACKEND_URL}/api/user/study-notes/${id}`, {
+      method: 'DELETE', headers: { 'Authorization': `Bearer ${session.access_token}` }
+    });
+    if (!res.ok) throw new Error('Delete failed');
+    $(`study-note-${id}`)?.remove();
+    if (!$('study-notes-list').children.length) $('study-notes-empty').classList.remove('hidden');
+    showToast('Nota eliminada', 'success');
+  } catch(e) { showToast('No se pudo eliminar la nota', 'error'); }
+}
+
+flagBtn.addEventListener('click', async () => {
+  if (flagBtn.dataset.flagged) return;
+  flagBtn.dataset.flagged = '1';
+  flagBtn.textContent = '⚑ Reportado';
+  showToast('Respuesta reportada — gracias por tu comentario', 'success');
+  if (!lastAnswerId || !currentSession) return;
+  try {
+    await fetch(`${BACKEND_URL}/api/study/flag`, {
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':`Bearer ${currentSession.access_token}`},
+      body: JSON.stringify({ answer_id: lastAnswerId })
+    });
+  } catch(_) {}
+});
+</script>
+</body>
+</html>

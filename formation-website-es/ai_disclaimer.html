@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html class="dark" lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Divulgación de IA — Formación Bíblica</title>
+  <meta name="description" content="Conoce cómo Formation Bible Study usa inteligencia artificial para mejorar tu experiencia de estudio bíblico, sus limitaciones y cómo protegemos tu privacidad."/>
+  <link rel="canonical" href="https://formacion-biblica.com/ai_disclaimer"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://formacion-biblica.com/ai_disclaimer"/>
+  <meta property="og:title" content="Divulgación de IA — Formation Bible Study"/>
+  <meta property="og:site_name" content="Formación Bíblica"/>
+  <meta property="og:locale" content="es_ES"/>
+  <meta name="robots" content="index, follow"/>
+  <meta name="author" content="Berean Defense LLC"/>
+
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Manrope:wght@300;400;500;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "secondary": "#e9c349",
+            "on-surface-variant": "#d2c2cc",
+            "on-surface": "#f2e5f0",
+            "surface-container-highest": "#7E3A6C",
+            "secondary-container": "#af8d11",
+            "on-secondary": "#3c2f00",
+            "primary": "#ffb4a4",
+            "primary-container": "#6e2414",
+            "surface-variant": "#7E3A6C",
+            "outline": "#c4a0c2",
+            "surface-container-lowest": "#3D1540",
+            "surface-container-high": "#703060",
+            "surface-container": "#5C2A5A",
+            "on-primary": "#5d1809",
+            "surface-dim": "#4A1D4D",
+            "surface-container-low": "#4A1D4D",
+            "on-background": "#f2e5f0",
+            "surface": "#5C2A5A",
+            "background": "#5C2A5A",
+            "on-primary-container": "#f58b73",
+            "surface-bright": "#8A4478"
+          },
+          fontFamily: {
+            headline: ["Noto Serif", "serif"],
+            body: ["Manrope", "sans-serif"],
+            label: ["Manrope", "sans-serif"]
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    body { background-color: #5C2A5A; }
+    .grain-overlay { pointer-events: none; position: fixed; inset: 0; z-index: 99; opacity: 0.04; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"); }
+    #mobile-menu { display: none; }
+    #mobile-menu.open { display: flex; }
+    .nav-scrolled { background-color: rgba(61, 21, 64, 0.95) !important; }
+    @keyframes orbFloat1 { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(40px,-25px) scale(1.04)} 66%{transform:translate(-25px,20px) scale(0.97)} }
+    @keyframes orbFloat2 { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(-35px,28px) scale(0.96)} 66%{transform:translate(28px,-18px) scale(1.03)} }
+    .orb { position:fixed; border-radius:50%; filter:blur(90px); pointer-events:none; z-index:0; }
+    .orb-1 { width:650px; height:650px; top:-150px; left:-120px; background:radial-gradient(circle, rgba(255,180,164,0.11) 0%, transparent 70%); animation:orbFloat1 22s ease-in-out infinite; }
+    .orb-2 { width:520px; height:520px; top:28%; right:-130px; background:radial-gradient(circle, rgba(233,195,73,0.08) 0%, transparent 70%); animation:orbFloat2 28s ease-in-out infinite; }
+    .orb-3 { width:420px; height:420px; bottom:8%; left:25%; background:radial-gradient(circle, rgba(255,180,164,0.07) 0%, transparent 70%); animation:orbFloat1 34s ease-in-out infinite reverse; }
+    [data-animate] { opacity:0; transition: opacity 0.8s cubic-bezier(0.25,0.46,0.45,0.94), transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94); }
+    [data-animate="fade-up"] { transform:translateY(34px); }
+    [data-animate].is-visible { opacity:1; transform:none; }
+    .legal-section { background:rgba(255,255,255,0.03); border:1px solid rgba(242,229,240,0.08); border-radius:16px; padding:32px; margin-bottom:16px; }
+    .legal-section h2 { font-family:'Noto Serif',serif; font-size:1.25rem; font-weight:700; color:#FFB4A4; margin-bottom:16px; }
+    .legal-section p, .legal-section li { color:rgba(242,229,240,0.7); font-size:0.9rem; line-height:1.8; }
+    .legal-section ul { list-style:disc; padding-left:1.5rem; margin-top:0.5rem; }
+    .legal-section li { margin-bottom:0.25rem; }
+    .plan-table { width:100%; border-collapse:collapse; margin-top:1rem; }
+    .plan-table th { background:rgba(255,180,164,0.12); color:#FFB4A4; font-family:'Noto Serif',serif; font-size:0.85rem; font-weight:700; padding:12px 16px; text-align:left; border-bottom:1px solid rgba(242,229,240,0.15); }
+    .plan-table td { color:rgba(242,229,240,0.7); font-size:0.875rem; padding:12px 16px; border-bottom:1px solid rgba(242,229,240,0.06); }
+    .plan-table tr:hover td { background:rgba(255,255,255,0.03); }
+    .plan-badge { display:inline-block; padding:2px 10px; border-radius:999px; font-size:0.7rem; font-weight:700; font-family:'Manrope',sans-serif; text-transform:uppercase; letter-spacing:0.05em; }
+    .badge-free { background:rgba(242,229,240,0.1); color:#d2c2cc; }
+    .badge-formation { background:rgba(255,180,164,0.15); color:#FFB4A4; }
+    .badge-plus { background:rgba(233,195,73,0.15); color:#e9c349; }
+    .badge-pro { background:rgba(175,141,17,0.25); color:#e9c349; }
+    .warning-box { background:rgba(233,195,73,0.07); border:1px solid rgba(233,195,73,0.2); border-radius:12px; padding:20px; margin-top:16px; }
+    .warning-box p { color:rgba(233,195,73,0.85); font-size:0.875rem; line-height:1.7; }
+  </style>
+</head>
+<body class="font-body text-on-background selection:bg-primary/30">
+<div class="grain-overlay"></div>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+
+<!-- Navegación -->
+<nav id="main-nav" class="fixed top-0 w-full z-50 bg-[#3D1540]/80 backdrop-blur-xl shadow-[0_20px_40px_-5px_rgba(61,21,64,0.3)]">
+  <div class="flex justify-between items-center w-full px-8 py-4 max-w-7xl mx-auto">
+    <a href="index.html" class="text-2xl font-headline font-black text-[#FFB4A4] no-underline">Formación Bíblica</a>
+    <div class="hidden md:flex items-center space-x-8">
+      <a href="index.html" class="text-[#f2e5f0]/60 font-medium font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4] transition-colors duration-300">Inicio</a>
+      <a href="features.html" class="text-[#f2e5f0]/60 font-medium font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4] transition-colors duration-300">Características</a>
+      <a href="pricing.html" class="text-[#f2e5f0]/60 font-medium font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4] transition-colors duration-300">Precios</a>
+    </div>
+    <a href="signup.html" class="bg-gradient-to-br from-[#FFB4A4] to-[#6E2414] text-[#5D1809] px-6 py-2.5 rounded-full font-bold text-sm hover:brightness-110 transition-all shadow-lg">
+      Únete a la Lista →
+    </a>
+    <button id="nav-toggle" class="md:hidden text-on-surface ml-4" aria-label="Menú">
+      <span class="material-symbols-outlined">menu</span>
+    </button>
+  </div>
+  <div id="mobile-menu" class="flex-col px-8 pb-6 space-y-4 bg-[#3D1540]/95 backdrop-blur-xl md:hidden">
+    <a href="index.html" class="block text-[#f2e5f0]/60 font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4]">Inicio</a>
+    <a href="features.html" class="block text-[#f2e5f0]/60 font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4]">Características</a>
+    <a href="pricing.html" class="block text-[#f2e5f0]/60 font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4]">Precios</a>
+    <a href="signup.html" class="block text-[#E8816A] font-label uppercase tracking-widest text-xs font-bold">Únete a la Lista →</a>
+  </div>
+</nav>
+
+<main class="pt-24 relative z-10">
+  <!-- Hero -->
+  <section class="max-w-4xl mx-auto px-8 py-20 text-center">
+    <p class="font-label text-sm uppercase tracking-widest text-secondary mb-4" data-animate="fade-up">Transparencia</p>
+    <h1 class="font-headline text-4xl md:text-5xl font-black text-on-surface mb-6" data-animate="fade-up">Divulgación de IA</h1>
+    <p class="font-label text-sm text-outline mb-6" data-animate="fade-up">Última actualización: 30 de abril de 2026</p>
+    <p class="text-on-surface-variant text-base leading-relaxed max-w-2xl mx-auto" data-animate="fade-up">
+      Formation Bible Study usa inteligencia artificial para mejorar tu experiencia de estudio bíblico. Aquí está exactamente cómo — y sus limitaciones.
+    </p>
+  </section>
+
+  <!-- Content -->
+  <section class="max-w-4xl mx-auto px-8 pb-24">
+
+    <div class="legal-section" data-animate="fade-up">
+      <h2>1. ¿Qué es la IA de Formation Bible Study?</h2>
+      <p>Formation Bible Study incorpora un Asistente de Estudio de IA (denominado internamente como "Scholar") diseñado específicamente para enriquecer el estudio inductivo de las Escrituras. A diferencia de los asistentes de IA de propósito general, el Asistente de Estudio de Formation Bible Study está contextualizado y orientado hacia el análisis bíblico, la teología histórica y el método inductivo de estudio de la Biblia (Observación, Interpretación, Aplicación).</p>
+      <p style="margin-top:0.75rem;">La IA de Formation Bible Study está construida sobre un modelo de lenguaje de gran escala (LLM) proporcionado por un tercero de confianza e integrado en la plataforma de Formation Bible Study a través de una API segura. El Asistente de Estudio puede procesar preguntas sobre pasajes bíblicos, contexto histórico, idiomas originales (griego y hebreo), comentarios teológicos y aplicación práctica de las Escrituras.</p>
+      <p style="margin-top:0.75rem;">El Asistente de IA es una herramienta de apoyo al estudio, no un reemplazo del discipulado personal, la guía pastoral ni el estudio personal de las Escrituras. Berean Defense LLC está comprometida con la transparencia total sobre cómo funciona esta tecnología.</p>
+    </div>
+
+    <div class="legal-section" data-animate="fade-up">
+      <h2>2. En qué puede ayudarte la IA</h2>
+      <p>El Asistente de Estudio de Formation Bible Study está diseñado para asistirle en las siguientes áreas del estudio bíblico:</p>
+      <ul>
+        <li><strong style="color:#f2e5f0;">Análisis de texto bíblico:</strong> Explicar el significado de palabras en los idiomas originales (griego koiné, hebreo y arameo), la estructura gramatical y el contexto literario de pasajes específicos.</li>
+        <li><strong style="color:#f2e5f0;">Contexto histórico-cultural:</strong> Proporcionar información sobre el trasfondo histórico, geográfico y cultural del período bíblico relevante para el texto en estudio.</li>
+        <li><strong style="color:#f2e5f0;">Referencias cruzadas:</strong> Identificar y explicar pasajes paralelos o temas relacionados a lo largo del canon bíblico.</li>
+        <li><strong style="color:#f2e5f0;">Comentarios y perspectivas teológicas:</strong> Resumir perspectivas de comentaristas históricos reconocidos sobre un pasaje dado.</li>
+        <li><strong style="color:#f2e5f0;">Preguntas de estudio inductivo:</strong> Generar preguntas de observación, interpretación y aplicación para guiar su estudio personal o en grupo.</li>
+        <li><strong style="color:#f2e5f0;">Explicación de doctrinas:</strong> Explicar conceptos teológicos y doctrinas históricas dentro del contexto del protestantismo histórico.</li>
+        <li><strong style="color:#f2e5f0;">Guía de planes de lectura:</strong> Ayudar a comprender secciones difíciles dentro de los planes de lectura bíblica.</li>
+      </ul>
+    </div>
+
+    <div class="legal-section" data-animate="fade-up">
+      <h2>3. Lo que la IA NO puede hacer</h2>
+      <p>Es igualmente importante ser transparente sobre las limitaciones fundamentales del Asistente de Estudio de IA:</p>
+
+      <div class="warning-box">
+        <p><strong>Importante:</strong> Las respuestas generadas por la IA no constituyen asesoramiento teológico autorizado, guía espiritual profesional, consejería pastoral, asesoramiento legal, médico ni de ninguna otra naturaleza profesional. No deben tratarse como interpretación doctrinal definitiva ni como posición oficial de ninguna denominación o iglesia.</p>
+      </div>
+
+      <ul style="margin-top:1rem;">
+        <li><strong style="color:#f2e5f0;">No puede reemplazar la guía pastoral:</strong> La IA no puede proporcionar la orientación espiritual personalizada que un pastor, anciano o mentor espiritual capacitado puede ofrecer.</li>
+        <li><strong style="color:#f2e5f0;">No es infalible:</strong> Los modelos de IA pueden cometer errores, generar información imprecisa ("alucinaciones") o proporcionar contexto incompleto. Siempre verifique información importante con fuentes primarias confiables.</li>
+        <li><strong style="color:#f2e5f0;">No puede acceder a fuentes en tiempo real:</strong> La IA funciona con base en datos de entrenamiento hasta una fecha de corte específica y no tiene acceso a internet ni a publicaciones académicas en tiempo real.</li>
+        <li><strong style="color:#f2e5f0;">No puede tomar decisiones por usted:</strong> La IA no puede decirle qué creer ni tomar decisiones de fe por usted. Las conclusiones teológicas requieren discernimiento personal y comunitario.</li>
+        <li><strong style="color:#f2e5f0;">No puede reemplazar el Espíritu Santo:</strong> Formation Bible Study cree que la iluminación del Espíritu Santo en la comprensión de las Escrituras es irreemplazable. La IA es una herramienta, no un sustituto espiritual.</li>
+        <li><strong style="color:#f2e5f0;">No puede garantizar perspectivas de todas las tradiciones:</strong> Aunque intentamos que el Asistente sea equilibrado, puede tener tendencias basadas en los datos con los que fue entrenado.</li>
+      </ul>
+    </div>
+
+    <div class="legal-section" data-animate="fade-up">
+      <h2>4. Manejo de Datos y Privacidad</h2>
+      <p>Berean Defense LLC se toma muy en serio la privacidad de sus reflexiones espirituales y preguntas bíblicas. A continuación explicamos cómo manejamos los datos generados por el uso del Asistente de IA:</p>
+      <ul>
+        <li><strong style="color:#f2e5f0;">Transmisión segura:</strong> Todas las consultas al Asistente de IA se transmiten mediante cifrado TLS/SSL entre su dispositivo y nuestros servidores, y entre nuestros servidores y los de Anthropic.</li>
+        <li><strong style="color:#f2e5f0;">Sin venta de datos:</strong> Berean Defense LLC no vende, arrienda ni comparte sus consultas de IA con anunciantes ni con terceros no autorizados.</li>
+        <li><strong style="color:#f2e5f0;">Historial de conversaciones:</strong> Podemos almacenar el historial de sus interacciones con el Asistente para permitirle retomar conversaciones previas y para mejorar la calidad del Servicio.</li>
+        <li><strong style="color:#f2e5f0;">Procesamiento por Anthropic:</strong> Sus consultas son procesadas por los servidores de Anthropic conforme al acuerdo de procesamiento de datos entre Berean Defense LLC y Anthropic. Consulte la Política de Privacidad de Anthropic en anthropic.com para conocer sus prácticas de manejo de datos.</li>
+        <li><strong style="color:#f2e5f0;">Mejora del modelo:</strong> Con datos anonimizados y agregados, podemos utilizar los patrones de interacción para mejorar la precisión y relevancia del Asistente de Estudio en el contexto bíblico.</li>
+        <li><strong style="color:#f2e5f0;">Eliminación de datos:</strong> Si elimina su cuenta, su historial de conversaciones con el Asistente de IA será eliminado permanentemente dentro de los 30 días siguientes a la solicitud.</li>
+      </ul>
+    </div>
+
+    <div class="legal-section" data-animate="fade-up">
+      <h2>5. Uso de IA por Plan</h2>
+      <p>El acceso al Asistente de Estudio de IA varía según el plan de suscripción. La siguiente tabla detalla los límites de uso aplicables a cada plan:</p>
+
+      <div style="overflow-x:auto; margin-top:1rem;">
+        <table class="plan-table">
+          <thead>
+            <tr>
+              <th>Plan</th>
+              <th>Acceso a la IA</th>
+              <th>Tipo de Consultas</th>
+              <th>Prioridad de Respuesta</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="plan-badge badge-free">Gratis</span></td>
+              <td>5 consultas por día</td>
+              <td>Consultas básicas</td>
+              <td>Estándar</td>
+            </tr>
+            <tr>
+              <td><span class="plan-badge badge-formation">Formation Bible Study</span></td>
+              <td>Consultas estándar ilimitadas</td>
+              <td>Consultas estándar completas</td>
+              <td>Estándar</td>
+            </tr>
+            <tr>
+              <td><span class="plan-badge badge-plus">Formation Plus</span></td>
+              <td>Consultas avanzadas ilimitadas</td>
+              <td>Consultas avanzadas + análisis profundo</td>
+              <td>Elevada</td>
+            </tr>
+            <tr>
+              <td><span class="plan-badge badge-pro">Formation Pro</span></td>
+              <td>Todas las consultas ilimitadas</td>
+              <td>Acceso completo a todas las capacidades</td>
+              <td>Máxima prioridad</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p style="margin-top:1rem;">Los límites diarios se reinician a las 00:00 UTC. Las consultas no utilizadas en un día no se acumulan para el siguiente. Berean Defense LLC se reserva el derecho de ajustar estos límites con previo aviso de 30 días.</p>
+    </div>
+
+    <div class="legal-section" data-animate="fade-up">
+      <h2>6. Nuestros Principios de IA</h2>
+      <p>Berean Defense LLC ha desarrollado Formation Bible Study bajo los siguientes principios rectores en cuanto al uso de la inteligencia artificial:</p>
+      <ul>
+        <li><strong style="color:#f2e5f0;">Transparencia:</strong> Siempre seremos claros sobre cuándo una respuesta ha sido generada por IA y no pretenderemos que la IA tenga capacidades que no tiene.</li>
+        <li><strong style="color:#f2e5f0;">Humildad epistémica:</strong> Reconocemos que el Asistente de IA tiene limitaciones y puede cometer errores. Incluiremos señales de advertencia cuando sea apropiado.</li>
+        <li><strong style="color:#f2e5f0;">Centrado en las Escrituras:</strong> El Asistente de IA siempre apuntará al texto bíblico como autoridad final, no a sí mismo ni a ninguna interpretación humana.</li>
+        <li><strong style="color:#f2e5f0;">Respeto a la diversidad teológica:</strong> Cuando existan perspectivas teológicas legítimas dentro del protestantismo histórico, el Asistente presentará múltiples puntos de vista en lugar de imponer una posición singular.</li>
+        <li><strong style="color:#f2e5f0;">Protección de la privacidad:</strong> Trataremos las consultas espirituales con la máxima discreción y nunca las usaremos para publicidad dirigida.</li>
+        <li><strong style="color:#f2e5f0;">Mejora continua:</strong> Monitoreamos activamente la calidad de las respuestas del Asistente y trabajamos para corregir errores, sesgos y brechas en el conocimiento.</li>
+        <li><strong style="color:#f2e5f0;">Control del usuario:</strong> Usted siempre puede optar por no usar el Asistente de IA y acceder a las demás funciones de Formation Bible Study sin interactuar con la IA.</li>
+      </ul>
+    </div>
+
+    <div class="legal-section" data-animate="fade-up">
+      <h2>7. Proveedor de IA de Terceros (Anthropic)</h2>
+      <p>Formation Bible Study usa la API de Anthropic Claude para impulsar su Asistente de Estudio de IA. Berean Defense LLC no está afiliada, respaldada ni asociada con Anthropic PBC.</p>
+      <p style="margin-top:0.75rem;">Anthropic PBC es una compañía de seguridad en inteligencia artificial con sede en San Francisco, California, EE.UU. Su modelo de IA "Claude" está diseñado con un enfoque especial en la seguridad y la utilidad. Para obtener información sobre las prácticas de privacidad de Anthropic, sus políticas de uso y sus compromisos de seguridad, visite <strong style="color:#f2e5f0;">anthropic.com</strong>.</p>
+      <p style="margin-top:0.75rem;">Berean Defense LLC ha suscrito los Términos de Servicio de la API de Anthropic y opera conforme a ellos. El uso de la API de Anthropic dentro de Formation Bible Study está sujeto a restricciones de uso aceptable que impiden el uso de la IA para fines dañinos, engañosos o ilegales.</p>
+      <p style="margin-top:0.75rem;">Anthropic puede actualizar, modificar o descontinuar sus modelos de IA. Berean Defense LLC no puede garantizar la disponibilidad continua ni el rendimiento consistente del Asistente de IA, ya que este depende parcialmente de la infraestructura de terceros. En caso de interrupciones en el servicio de Anthropic, las funciones de IA de Formation Bible Study pueden verse afectadas temporalmente.</p>
+    </div>
+
+    <div class="legal-section" data-animate="fade-up">
+      <h2>8. Reportar un Problema</h2>
+      <p>Su retroalimentación sobre el Asistente de Estudio de IA es fundamental para mejorar la experiencia de estudio bíblico de toda la comunidad Formation Bible Study. Si encuentra alguno de los siguientes problemas, por favor repórtelo:</p>
+      <ul>
+        <li>Respuestas teológicamente imprecisas o que contradicen claramente el texto bíblico.</li>
+        <li>Contenido ofensivo, inapropiado o irrelevante para el contexto bíblico.</li>
+        <li>Alucinaciones o información fabricada sobre personajes, eventos o comentaristas históricos.</li>
+        <li>Sesgos teológicos evidentes o presentación unilateral de temas doctrinales debatidos.</li>
+        <li>Fallos técnicos, respuestas incompletas o errores de formato.</li>
+        <li>Cualquier otro comportamiento que considere problemático o que no cumpla con los principios de IA descritos en esta página.</li>
+      </ul>
+      <p style="margin-top:0.75rem;">Para reportar un problema con el Asistente de IA, contáctenos en:</p>
+      <ul>
+        <li><strong style="color:#f2e5f0;">Correo electrónico:</strong> support@formacion-biblica.com</li>
+        <li><strong style="color:#f2e5f0;">Asunto sugerido:</strong> "Problema con el Asistente de IA"</li>
+      </ul>
+      <p style="margin-top:0.75rem;">Por favor incluya en su reporte: la consulta exacta que realizó, la respuesta que recibió, el pasaje bíblico relevante (si aplica) y una descripción del problema. Revisaremos todos los reportes y tomaremos las medidas correctivas apropiadas.</p>
+    </div>
+
+  </section>
+</main>
+
+<!-- Pie de Página -->
+<footer class="w-full py-12 border-t border-[#f2e5f0]/10 bg-[#3D1540] relative z-10">
+  <div class="flex flex-col md:flex-row justify-between items-center w-full px-8 max-w-7xl mx-auto gap-8">
+    <div class="text-xl font-headline font-bold text-[#FFB4A4]">Formación Bíblica</div>
+    <div class="flex flex-wrap justify-center gap-8">
+      <a class="text-[#f2e5f0]/50 font-body text-sm hover:text-[#E8816A] transition-all" href="privacy_policy.html">Política de Privacidad</a>
+      <a class="text-[#f2e5f0]/50 font-body text-sm hover:text-[#E8816A] transition-all" href="terms.html">Términos de Servicio</a>
+      <a class="text-[#f2e5f0]/50 font-body text-sm hover:text-[#E8816A] transition-all" href="cookie_policy.html">Política de Cookies</a>
+      <a class="text-[#f2e5f0]/50 font-body text-sm hover:text-[#E8816A] transition-all" href="contact.html">Contacto</a>
+    </div>
+    <p class="text-[#f2e5f0]/40 font-body text-[10px] uppercase tracking-widest">© 2026 Berean Defense LLC. Todos los derechos reservados.</p>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('nav-toggle').addEventListener('click', function() {
+    document.getElementById('mobile-menu').classList.toggle('open');
+  });
+  window.addEventListener('scroll', () => {
+    const nav = document.getElementById('main-nav');
+    if (nav) nav.classList.toggle('nav-scrolled', window.scrollY > 50);
+  }, { passive: true });
+  const animObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const delay = parseInt(entry.target.dataset.delay || 0);
+        setTimeout(() => entry.target.classList.add('is-visible'), delay);
+        animObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('[data-animate]').forEach(el => animObserver.observe(el));
+</script>
+</body>
+</html>

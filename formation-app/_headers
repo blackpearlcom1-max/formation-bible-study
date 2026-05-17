@@ -1,0 +1,41 @@
+# Formation App — Cloudflare Pages Security & Performance Headers
+
+# ─── Global Headers (all pages) ──────────────────────────────────────────────
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  X-XSS-Protection: 1; mode=block
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdn.jsdelivr.net https://fonts.googleapis.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://fonts.gstatic.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://formation-backend-production.up.railway.app https://api.formationbible.com https://tdlaxuquplqejvijqiow.supabase.co wss://tdlaxuquplqejvijqiow.supabase.co https://cloudflareinsights.com; frame-ancestors 'none';
+  X-Robots-Tag: noindex, nofollow
+
+# ─── HTML pages — revalidate every time (auth state changes frequently) ──────
+# no-cache:         browser/CDN must revalidate before serving (enables ETags)
+# must-revalidate:  never serve stale if origin is unreachable
+# (no-store removed — it blocked ETag caching entirely and tanked cache rates)
+/*.html
+  Cache-Control: no-cache, must-revalidate
+
+/
+  Cache-Control: no-cache, must-revalidate
+
+# ─── Static assets — long cache ──────────────────────────────────────────────
+/*.css
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.js
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.woff2
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.png
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.jpg
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.svg
+  Cache-Control: public, max-age=31536000, immutable

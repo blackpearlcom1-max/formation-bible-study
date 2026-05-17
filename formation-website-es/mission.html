@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html class="dark" lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Nuestra Misión — Formación Bíblica</title>
+  <meta name="description" content="Formation Bible Study existe para servir la Gran Comisión — haz discípulos, enséñales la Palabra. Un estudiante serio, una Biblia abierta, un día a la vez."/>
+  <link rel="canonical" href="https://formacion-biblica.com/mission"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://formacion-biblica.com/mission"/>
+  <meta property="og:title" content="Nuestra Misión — Formation Bible Study"/>
+  <meta property="og:description" content="Formation Bible Study existe para servir la Gran Comisión — haz discípulos, enséñales la Palabra."/>
+  <meta property="og:site_name" content="Formación Bíblica"/>
+  <meta name="twitter:card" content="summary"/>
+  <meta name="robots" content="index, follow, max-snippet:-1"/>
+
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Manrope:wght@300;400;500;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "secondary":                  "#e9c349",
+            "on-surface-variant":         "#d2c2cc",
+            "on-surface":                 "#f2e5f0",
+            "surface-container-highest":  "#7E3A6C",
+            "secondary-container":        "#af8d11",
+            "on-secondary":               "#3c2f00",
+            "primary":                    "#ffb4a4",
+            "primary-container":          "#6e2414",
+            "surface-variant":            "#7E3A6C",
+            "outline":                    "#c4a0c2",
+            "surface-container-lowest":   "#3D1540",
+            "surface-container-high":     "#703060",
+            "surface-container":          "#5C2A5A",
+            "on-primary":                 "#5d1809",
+            "surface-dim":                "#4A1D4D",
+            "surface-container-low":      "#4A1D4D",
+            "on-background":              "#f2e5f0",
+            "surface":                    "#5C2A5A",
+            "background":                 "#5C2A5A",
+            "on-primary-container":       "#f58b73",
+            "surface-bright":             "#8A4478"
+          },
+          borderRadius: {
+            DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem",
+            "2xl": "1rem", "3xl": "1.5rem", full: "9999px"
+          },
+          fontFamily: {
+            headline: ["Noto Serif", "serif"],
+            body:     ["Manrope", "sans-serif"],
+            label:    ["Manrope", "sans-serif"]
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .material-symbols-outlined { font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24; }
+    body { background-color: #5C2A5A; }
+    .grain-overlay {
+      pointer-events:none; position:fixed; inset:0; z-index:99; opacity:0.04;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    }
+    #mobile-menu { display:none; }
+    #mobile-menu.open { display:flex; }
+    .nav-scrolled { background-color:rgba(61,21,64,0.95) !important; }
+    @keyframes orbFloat1 { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(40px,-25px) scale(1.04)} 66%{transform:translate(-25px,20px) scale(0.97)} }
+    @keyframes orbFloat2 { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(-35px,28px) scale(0.96)} 66%{transform:translate(28px,-18px) scale(1.03)} }
+    @keyframes shimmer  { 0%{background-position:-250% center} 100%{background-position:250% center} }
+    .orb { position:fixed; border-radius:50%; filter:blur(90px); pointer-events:none; z-index:0; }
+    .orb-1 { width:650px; height:650px; top:-150px; left:-120px;  background:radial-gradient(circle,rgba(255,180,164,0.11) 0%,transparent 70%); animation:orbFloat1 22s ease-in-out infinite; }
+    .orb-2 { width:520px; height:520px; top:28%;   right:-130px; background:radial-gradient(circle,rgba(233,195,73,0.08)  0%,transparent 70%); animation:orbFloat2 28s ease-in-out infinite; }
+    .orb-3 { width:420px; height:420px; bottom:8%; left:25%;     background:radial-gradient(circle,rgba(255,180,164,0.07) 0%,transparent 70%); animation:orbFloat1 34s ease-in-out infinite reverse; }
+    [data-animate] { opacity:0; transition:opacity 0.8s cubic-bezier(0.25,0.46,0.45,0.94), transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94); }
+    [data-animate="fade-up"]  { transform:translateY(34px); }
+    [data-animate="scale-up"] { transform:scale(0.93) translateY(20px); }
+    [data-animate].is-visible { opacity:1; transform:none; }
+    .shimmer-text {
+      background:linear-gradient(90deg, #e9c349 0%, #ffb4a4 32%, #e9c349 52%, #ffb4a4 78%, #e9c349 100%);
+      background-size:260% auto; -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+      background-clip:text; animation:shimmer 5.5s linear infinite;
+    }
+    .scripture-block {
+      background: rgba(61,21,64,0.7);
+      border-left: 3px solid #E9C349;
+      border-radius: 0 16px 16px 0;
+      padding: 24px 28px;
+    }
+    .pillar-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(242,229,240,0.1);
+      border-radius: 20px;
+      padding: 32px 28px;
+      transition: background 0.25s, border-color 0.25s;
+    }
+    .pillar-card:hover {
+      background: rgba(255,255,255,0.06);
+      border-color: rgba(233,195,73,0.2);
+    }
+    .metric-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(242,229,240,0.1);
+      border-radius: 16px;
+      padding: 24px;
+      text-align: center;
+      transition: background 0.25s, border-color 0.25s;
+    }
+    .metric-card:hover {
+      background: rgba(255,255,255,0.07);
+      border-color: rgba(255,180,164,0.25);
+    }
+    .section-divider { border:none; border-top:1px solid rgba(242,229,240,0.1); margin:0; }
+  </style>
+</head>
+<body class="font-body text-on-surface min-h-screen">
+
+  <div class="grain-overlay"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <!-- Navegación -->
+  <nav id="main-nav" class="fixed top-0 w-full z-50 bg-[#3D1540]/80 backdrop-blur-xl shadow-[0_20px_40px_-5px_rgba(61,21,64,0.3)] transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="index.html" class="text-2xl font-headline font-black text-[#FFB4A4] hover:opacity-80 transition-opacity">Formación Bíblica</a>
+      <div class="hidden md:flex items-center gap-8">
+        <a href="index.html" class="text-[#f2e5f0]/70 font-body text-sm hover:text-[#FFB4A4] transition-colors">Inicio</a>
+        <a href="features.html" class="text-[#f2e5f0]/70 font-body text-sm hover:text-[#FFB4A4] transition-colors">Características</a>
+        <a href="pricing.html" class="text-[#f2e5f0]/70 font-body text-sm hover:text-[#FFB4A4] transition-colors">Precios</a>
+        <a href="signup.html" class="bg-gradient-to-br from-[#FFB4A4] to-[#6E2414] text-[#5D1809] px-6 py-2.5 rounded-full font-bold text-sm hover:opacity-90 transition-opacity">Únete a la Lista →</a>
+      </div>
+      <button id="nav-toggle" class="md:hidden text-[#f2e5f0] p-2" aria-label="Abrir menú">
+        <span class="material-symbols-outlined">menu</span>
+      </button>
+    </div>
+    <div id="mobile-menu" class="flex-col bg-[#3D1540] px-6 pb-6 gap-4 md:hidden">
+      <a href="index.html" class="text-[#f2e5f0]/80 font-body text-base py-2 border-b border-[#f2e5f0]/10">Inicio</a>
+      <a href="features.html" class="text-[#f2e5f0]/80 font-body text-base py-2 border-b border-[#f2e5f0]/10">Características</a>
+      <a href="pricing.html" class="text-[#f2e5f0]/80 font-body text-base py-2 border-b border-[#f2e5f0]/10">Precios</a>
+      <a href="signup.html" class="bg-gradient-to-br from-[#FFB4A4] to-[#6E2414] text-[#5D1809] px-6 py-3 rounded-full font-bold text-sm text-center mt-2">Únete a la Lista →</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="relative z-10 pt-36 pb-20 px-6">
+    <div class="max-w-3xl mx-auto">
+      <div data-animate="fade-up" class="inline-flex items-center gap-2 bg-[#3D1540]/70 border border-[#f2e5f0]/10 rounded-full px-4 py-1.5 mb-6">
+        <span class="material-symbols-outlined text-[#E9C349] text-base">menu_book</span>
+        <span class="font-label text-[11px] uppercase tracking-widest text-[#E9C349]">Mateo 28:19–20</span>
+      </div>
+      <h1 data-animate="fade-up" class="font-headline text-4xl md:text-5xl font-black leading-tight mb-6">
+        Haz <span class="shimmer-text">Discípulos</span>.<br/>Enséñales la Palabra.
+      </h1>
+      <p data-animate="fade-up" class="font-body text-[#f2e5f0]/70 text-xl leading-relaxed mb-10">
+        Esa es la misión que Jesús dio a su Iglesia. Formation Bible Study existe para servirla — un estudiante serio, una Biblia abierta, un día a la vez.
+      </p>
+      <div data-animate="fade-up" class="scripture-block">
+        <p class="font-headline text-[#f2e5f0] text-lg md:text-xl leading-relaxed italic mb-3">
+          "Toda autoridad en el cielo y en la tierra me ha sido dada. Por tanto, id y haced discípulos de todas las naciones, bautizándolos en el nombre del Padre, y del Hijo, y del Espíritu Santo, y enseñándoles a obedecer todo lo que os he mandado. <strong class="not-italic text-[#E9C349]">Y he aquí, yo estoy con vosotros todos los días, hasta el fin del mundo.</strong>"
+        </p>
+        <p class="font-label text-[11px] uppercase tracking-widest text-[#f2e5f0]/40">Mateo 28:18–20 — Biblia Berean Estándar</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider max-w-3xl mx-auto"/>
+
+  <!-- Tres Mandatos -->
+  <section class="relative z-10 px-6 py-16 max-w-3xl mx-auto">
+    <div data-animate="fade-up" class="mb-10">
+      <span class="font-label text-[11px] uppercase tracking-widest text-[#E9C349]">La Gran Comisión, Desarrollada</span>
+      <h2 class="font-headline text-3xl font-black text-[#FFB4A4] mt-2">Tres Palabras que lo Cambian Todo</h2>
+    </div>
+
+    <div class="flex flex-col gap-6">
+      <!-- Pilar 1 -->
+      <div class="pillar-card" data-animate="fade-up">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 rounded-full bg-[#E9C349]/20 flex items-center justify-content-center justify-center">
+            <span class="font-headline font-black text-[#E9C349] text-sm">01</span>
+          </div>
+          <span class="font-label text-[11px] uppercase tracking-widest text-[#E9C349]">Id</span>
+        </div>
+        <h3 class="font-headline text-xl font-black text-[#f2e5f0] mb-3">El Mandato de Ir</h3>
+        <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-4">
+          Jesús no dijo esperen hasta que vengan a ustedes. Dijo id. Los discípulos no se forman por accidente — se forman a través de la búsqueda intencional de la Palabra de Dios en la vida cotidiana. Formation Bible Study está construida para el estudiante que lleva el sermón del domingo al lunes — y al martes, y al jueves. Abre su Biblia en el tren. En la mesa de la cocina antes de que el resto de la casa despierte. Cada día es una oportunidad de profundizar en lo que Dios ya está diciendo.
+        </p>
+        <div class="scripture-block">
+          <p class="font-headline text-[#f2e5f0] text-base leading-relaxed italic mb-2">
+            "¿Cómo, pues, invocarán a aquel en el que no han creído? ¿Y cómo creerán en aquel de quien no han oído?"
+          </p>
+          <p class="font-label text-[10px] uppercase tracking-widest text-[#f2e5f0]/40">Romanos 10:14 — Biblia Berean Estándar</p>
+        </div>
+      </div>
+
+      <!-- Pilar 2 -->
+      <div class="pillar-card" data-animate="fade-up">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 rounded-full bg-[#FFB4A4]/20 flex items-center justify-center">
+            <span class="font-headline font-black text-[#FFB4A4] text-sm">02</span>
+          </div>
+          <span class="font-label text-[11px] uppercase tracking-widest text-[#E9C349]">Haced Discípulos</span>
+        </div>
+        <h3 class="font-headline text-xl font-black text-[#f2e5f0] mb-3">El Mandato de Hacer Discípulos</h3>
+        <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-4">
+          Noten lo que Jesús no solo dijo. No solo dijo haced conversos. Dijo haced discípulos — personas que están siendo formadas, moldeadas y entrenadas para seguirle con toda su vida. La iglesia local es donde eso sucede. Formation Bible Study es una de las herramientas que lo impulsa. Cada característica existe para producir personas que conozcan la Palabra, amen la Palabra y vivan la Palabra.
+        </p>
+        <div class="scripture-block">
+          <p class="font-headline text-[#f2e5f0] text-base leading-relaxed italic mb-2">
+            "Lo proclamamos, amonestando a todo hombre y enseñando a todo hombre con toda sabiduría, para que podamos presentar a todo hombre <strong class="not-italic text-[#E9C349]">perfecto en Cristo</strong>."
+          </p>
+          <p class="font-label text-[10px] uppercase tracking-widest text-[#f2e5f0]/40">Colosenses 1:28 — Biblia Berean Estándar</p>
+        </div>
+      </div>
+
+      <!-- Pilar 3 -->
+      <div class="pillar-card" data-animate="fade-up">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 rounded-full bg-[#E9C349]/20 flex items-center justify-center">
+            <span class="font-headline font-black text-[#E9C349] text-sm">03</span>
+          </div>
+          <span class="font-label text-[11px] uppercase tracking-widest text-[#E9C349]">Enseñadles</span>
+        </div>
+        <h3 class="font-headline text-xl font-black text-[#f2e5f0] mb-3">El Mandato de Enseñar</h3>
+        <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-4">
+          Enseñándoles a obedecer todo lo que os he mandado. La Gran Comisión no se completa en el bautismo. Requiere enseñanza continua y fiel — de todo lo que Cristo mandó. Por eso los devocionales solos no son el cuadro completo. Un discípulo necesita el consejo completo de Dios — y Formation Bible Study está construida para ir la distancia junto a todo lo que nutre tu caminar.
+        </p>
+        <div class="scripture-block">
+          <p class="font-headline text-[#f2e5f0] text-base leading-relaxed italic mb-2">
+            "Porque la <strong class="not-italic text-[#E9C349]">palabra de Dios es viva y eficaz</strong>, y más cortante que toda espada de dos filos..."
+          </p>
+          <p class="font-label text-[10px] uppercase tracking-widest text-[#f2e5f0]/40">Hebreos 4:12 — Biblia Berean Estándar</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider max-w-3xl mx-auto"/>
+
+  <!-- Los Bereos -->
+  <section class="relative z-10 px-6 py-16 max-w-3xl mx-auto">
+    <div data-animate="fade-up" class="mb-8">
+      <span class="font-label text-[11px] uppercase tracking-widest text-[#E9C349]">Hechos 17:10–12</span>
+      <h2 class="font-headline text-3xl font-black text-[#FFB4A4] mt-2 mb-6">Los Bereos nos Mostraron Cómo</h2>
+      <div class="scripture-block mb-6">
+        <p class="font-headline text-[#f2e5f0] text-lg md:text-xl leading-relaxed italic mb-3">
+          "Ahora bien, los de Berea eran de carácter más noble que los de Tesalónica, pues recibieron el mensaje con gran avidez y <strong class="not-italic text-[#E9C349]">examinaban las Escrituras todos los días</strong> para ver si estas enseñanzas eran verdad. Como resultado, muchos de ellos creyeron."
+        </p>
+        <p class="font-label text-[11px] uppercase tracking-widest text-[#f2e5f0]/40">Hechos 17:11–12 — Biblia Berean Estándar</p>
+      </div>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-4">
+        Lo que hace a los bereos notables no es su escepticismo — es su nobleza de mente. Recibieron la Palabra con disposición genuina. Pero no se detuvieron allí. Llevaron esa disposición directamente al texto.
+      </p>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-4">
+        Nota la combinación: avidez y examen. No uno sin el otro. Recibieron el mensaje con entusiasmo y luego fueron a verificarlo. Así es como Formation Bible Study está diseñada para funcionar — herramientas que te ayudan a venir al texto con disposición y salir con certeza.
+      </p>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed">
+        Y el resultado de ese examen diario fue el que importa: muchos de ellos creyeron. El estudio serio de la Escritura no debilita la fe — la profundiza. Los bereos son el modelo. Formation Bible Study es la herramienta.
+      </p>
+    </div>
+  </section>
+
+  <hr class="section-divider max-w-3xl mx-auto"/>
+
+  <!-- Medida de Éxito -->
+  <section class="relative z-10 px-6 py-16 max-w-3xl mx-auto">
+    <div data-animate="fade-up" class="mb-8">
+      <span class="font-label text-[11px] uppercase tracking-widest text-[#E9C349]">Nuestra Medida de Éxito</span>
+      <h2 class="font-headline text-3xl font-black text-[#FFB4A4] mt-2 mb-4">No Medimos Rachas. Medimos la Formación.</h2>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-8">
+        La mayoría de las apps miden con qué frecuencia las abres. Nos importa algo más difícil de cuantificar pero mucho más importante — ¿estás siendo formado?
+      </p>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+      <div class="metric-card" data-animate="fade-up">
+        <span class="material-symbols-outlined text-[#E9C349] text-2xl mb-2 block">search</span>
+        <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Puedes examinar un pasaje</p>
+        <p class="font-body text-[#f2e5f0]/50 text-xs leading-relaxed">No solo leerlo — sino sentarte con él, hacerle preguntas y dejar que te interpele</p>
+      </div>
+      <div class="metric-card" data-animate="fade-up">
+        <span class="material-symbols-outlined text-[#E9C349] text-2xl mb-2 block">translate</span>
+        <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Entiendes el contexto</p>
+        <p class="font-body text-[#f2e5f0]/50 text-xs leading-relaxed">Histórico, literario y teológico — para que las Escrituras hablen con su plena fuerza</p>
+      </div>
+      <div class="metric-card" data-animate="fade-up">
+        <span class="material-symbols-outlined text-[#E9C349] text-2xl mb-2 block">volunteer_activism</span>
+        <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Lo aplicas a tu vida</p>
+        <p class="font-body text-[#f2e5f0]/50 text-xs leading-relaxed">La Palabra no es solo para ser conocida — es para ser obedecida y vivida</p>
+      </div>
+      <div class="metric-card" data-animate="fade-up">
+        <span class="material-symbols-outlined text-[#E9C349] text-2xl mb-2 block">groups</span>
+        <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Discipulas a otros</p>
+        <p class="font-body text-[#f2e5f0]/50 text-xs leading-relaxed">La cadena de 2 Timoteo 2:2 continúa — lo que recibiste, pásalo fielmente</p>
+      </div>
+    </div>
+    <div data-animate="fade-up" class="scripture-block">
+      <p class="font-headline text-[#f2e5f0] text-lg leading-relaxed italic mb-3">
+        "Y lo que me has oído decir ante muchos testigos, <strong class="not-italic text-[#E9C349]">encomiéndalo a hombres fieles que sean capaces de enseñar también a otros</strong>."
+      </p>
+      <p class="font-label text-[11px] uppercase tracking-widest text-[#f2e5f0]/40">2 Timoteo 2:2 — Biblia Berean Estándar</p>
+    </div>
+  </section>
+
+  <hr class="section-divider max-w-3xl mx-auto"/>
+
+  <!-- La Promesa -->
+  <section class="relative z-10 px-6 py-16 max-w-3xl mx-auto">
+    <div data-animate="fade-up">
+      <span class="font-label text-[11px] uppercase tracking-widest text-[#E9C349]">La Promesa a la que nos Aferramos</span>
+      <h2 class="font-headline text-3xl font-black text-[#FFB4A4] mt-2 mb-6">"Yo Estoy con Vosotros Siempre"</h2>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-4">
+        La Gran Comisión no termina con un mandato. Termina con una promesa: <em>"Y he aquí, yo estoy con vosotros todos los días, hasta el fin del mundo."</em> Jesús no envió a sus discípulos solos. Y no nos envía solos a nosotros.
+      </p>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-4">
+        Formation Bible Study está construida sobre la convicción de que el Espíritu Santo es el verdadero maestro. Nosotros proporcionamos las herramientas. Él hace la obra. Cada sesión de estudio en Formation Bible Study es un acto de colaboración — el estudiante, la Palabra y el Espíritu que la ilumina.
+      </p>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-6">
+        Esa promesa — "yo estoy con vosotros" — es lo que hace posible el discipulado fiel. No es la app. No es el maestro. Es Cristo mismo, presente con cada creyente que abre su Biblia con humildad y disposición de aprender.
+      </p>
+      <div class="scripture-block">
+        <p class="font-headline text-[#f2e5f0] text-lg leading-relaxed italic mb-3">
+          "<strong class="not-italic text-[#E9C349]">Y he aquí, yo estoy con vosotros todos los días, hasta el fin del mundo.</strong>"
+        </p>
+        <p class="font-label text-[11px] uppercase tracking-widest text-[#f2e5f0]/40">Mateo 28:20 — Biblia Berean Estándar</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="relative z-10 px-6 pb-20 max-w-3xl mx-auto">
+    <div data-animate="scale-up" class="bg-gradient-to-br from-[#3D1540] to-[#5C2A5A] border border-[#FFB4A4]/20 rounded-3xl p-10 text-center">
+      <span class="material-symbols-outlined text-[#E9C349] text-4xl mb-4 block">volunteer_activism</span>
+      <h2 class="font-headline text-2xl md:text-3xl font-black text-[#f2e5f0] mb-4">Únete a la Misión</h2>
+      <p class="font-body text-[#f2e5f0]/60 text-base leading-relaxed mb-8 max-w-lg mx-auto">
+        Formation Bible Study lanza pronto. Sé uno de los primeros discípulos en profundizar con la herramienta construida para la Gran Comisión.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="signup.html" class="bg-gradient-to-br from-[#FFB4A4] to-[#6E2414] text-[#5D1809] px-8 py-4 rounded-full font-bold text-base hover:opacity-90 transition-opacity">
+          Únete a la Lista de Espera →
+        </a>
+        <a href="statement_of_faith.html" class="border border-[#f2e5f0]/20 text-[#f2e5f0]/70 px-8 py-4 rounded-full font-body text-base hover:border-[#FFB4A4]/40 hover:text-[#FFB4A4] transition-all">
+          Declaración de Fe
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pie de Página -->
+  <footer class="bg-[#3D1540] w-full py-12 border-t border-[#f2e5f0]/10 relative z-10">
+    <div class="flex flex-col md:flex-row justify-between items-center w-full px-8 max-w-7xl mx-auto gap-8">
+      <div class="text-xl font-headline font-bold text-[#FFB4A4]">Formación Bíblica</div>
+      <div class="flex flex-wrap justify-center gap-8">
+        <a class="text-[#f2e5f0]/50 font-body text-sm hover:text-[#E8816A] transition-all" href="privacy_policy.html">Política de Privacidad</a>
+        <a class="text-[#f2e5f0]/50 font-body text-sm hover:text-[#E8816A] transition-all" href="terms.html">Términos de Servicio</a>
+        <a class="text-[#f2e5f0]/50 font-body text-sm hover:text-[#E8816A] transition-all" href="cookie_policy.html">Política de Cookies</a>
+        <a class="text-[#f2e5f0]/50 font-body text-sm hover:text-[#E8816A] transition-all" href="contact.html">Contacto</a>
+      </div>
+      <p class="text-[#f2e5f0]/40 font-body text-[10px] uppercase tracking-widest">© 2026 Berean Defense LLC. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('main-nav');
+    window.addEventListener('scroll', () => nav.classList.toggle('nav-scrolled', window.scrollY > 20));
+    document.getElementById('nav-toggle').addEventListener('click', () => document.getElementById('mobile-menu').classList.toggle('open'));
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('[data-animate]').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

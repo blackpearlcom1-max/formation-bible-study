@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pastor Feedback — Formation Bible App</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Georgia', serif;
+      background: #f4f1ec;
+      color: #1a1a1a;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    .card {
+      background: #ffffff;
+      max-width: 620px;
+      width: 100%;
+      border-radius: 4px;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.10);
+      overflow: hidden;
+    }
+
+    .header {
+      background: #1F3864;
+      padding: 36px 40px 30px;
+      text-align: center;
+    }
+
+    .header h1 {
+      color: #ffffff;
+      font-size: 22px;
+      font-weight: normal;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+
+    .header p {
+      color: #a8bcd8;
+      font-size: 13px;
+      font-style: italic;
+    }
+
+    .verse {
+      background: #f0f4f9;
+      border-left: 4px solid #1F3864;
+      padding: 14px 40px;
+      font-size: 13px;
+      color: #444;
+      font-style: italic;
+    }
+
+    form {
+      padding: 32px 40px 40px;
+    }
+
+    .field {
+      margin-bottom: 22px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: bold;
+      color: #1F3864;
+      margin-bottom: 6px;
+      letter-spacing: 0.3px;
+      font-family: Arial, sans-serif;
+    }
+
+    label .req { color: #c0392b; margin-left: 2px; }
+
+    input[type="text"],
+    input[type="email"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      font-size: 14px;
+      font-family: Arial, sans-serif;
+      color: #1a1a1a;
+      background: #fafafa;
+      transition: border-color 0.2s;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    textarea:focus,
+    select:focus {
+      outline: none;
+      border-color: #1F3864;
+      background: #fff;
+    }
+
+    textarea { resize: vertical; min-height: 90px; }
+
+    /* Star rating */
+    .stars {
+      display: flex;
+      flex-direction: row-reverse;
+      justify-content: flex-end;
+      gap: 4px;
+    }
+
+    .stars input { display: none; }
+
+    .stars label {
+      font-size: 30px;
+      color: #ccc;
+      cursor: pointer;
+      font-weight: normal;
+      letter-spacing: 0;
+      margin-bottom: 0;
+      line-height: 1;
+      transition: color 0.15s;
+    }
+
+    .stars input:checked ~ label,
+    .stars label:hover,
+    .stars label:hover ~ label {
+      color: #1F3864;
+    }
+
+    /* Radio group */
+    .radio-group { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 4px; }
+
+    .radio-group label {
+      font-weight: normal;
+      color: #333;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .radio-group input[type="radio"] { accent-color: #1F3864; width: 16px; height: 16px; }
+
+    .divider {
+      border: none;
+      border-top: 1px solid #e8e8e8;
+      margin: 8px 0 22px;
+    }
+
+    .section-label {
+      font-family: Arial, sans-serif;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: #888;
+      margin-bottom: 16px;
+    }
+
+    button[type="submit"] {
+      width: 100%;
+      background: #1F3864;
+      color: #fff;
+      border: none;
+      padding: 14px;
+      font-size: 15px;
+      font-family: Arial, sans-serif;
+      letter-spacing: 0.5px;
+      border-radius: 3px;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: background 0.2s;
+    }
+
+    button[type="submit"]:hover { background: #162a4e; }
+
+    .footer-note {
+      text-align: center;
+      font-size: 12px;
+      color: #888;
+      margin-top: 16px;
+      font-family: Arial, sans-serif;
+      font-style: italic;
+    }
+
+    /* Thank you screen */
+    #thankyou {
+      display: none;
+      padding: 60px 40px;
+      text-align: center;
+    }
+
+    #thankyou .check { font-size: 52px; margin-bottom: 20px; }
+    #thankyou h2 { color: #1F3864; font-size: 22px; margin-bottom: 10px; }
+    #thankyou p { color: #555; font-size: 15px; line-height: 1.7; }
+    #thankyou .discount {
+      background: #f0f4f9;
+      border-left: 4px solid #1F3864;
+      padding: 14px 18px;
+      margin: 24px auto;
+      max-width: 420px;
+      text-align: left;
+      font-size: 14px;
+      color: #1F3864;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+<div class="card">
+
+  <div class="header">
+    <h1>Formation — Bible App &amp; Website</h1>
+    <p>Founding Pastor Feedback</p>
+  </div>
+
+  <div class="verse">
+    "Your word is a lamp to my feet and a light to my path." — Psalm 119:105
+  </div>
+
+  <form id="feedbackForm">
+
+    <div style="margin-top:24px;">
+      <p class="section-label">Your Information</p>
+    </div>
+
+    <div class="field">
+      <label>Pastor's Name <span class="req">*</span></label>
+      <input type="text" name="pastor_name" placeholder="e.g. Pastor John Smith" required />
+    </div>
+
+    <div class="field">
+      <label>Church Name <span class="req">*</span></label>
+      <input type="text" name="church_name" placeholder="e.g. Grace Community Church" required />
+    </div>
+
+    <div class="field">
+      <label>Email Address <span class="req">*</span></label>
+      <input type="email" name="email" placeholder="your@church.com" required />
+    </div>
+
+    <hr class="divider"/>
+    <p class="section-label">Your Evaluation</p>
+
+    <div class="field">
+      <label>How easy was Formation to use? <span class="req">*</span></label>
+      <div class="stars">
+        <input type="radio" name="ease" id="s5" value="5" required /><label for="s5">★</label>
+        <input type="radio" name="ease" id="s4" value="4" /><label for="s4">★</label>
+        <input type="radio" name="ease" id="s3" value="3" /><label for="s3">★</label>
+        <input type="radio" name="ease" id="s2" value="2" /><label for="s2">★</label>
+        <input type="radio" name="ease" id="s1" value="1" /><label for="s1">★</label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>What did you find most useful?</label>
+      <textarea name="most_useful" placeholder="e.g. The Scripture search, the daily reading plan..."></textarea>
+    </div>
+
+    <div class="field">
+      <label>What needs improvement?</label>
+      <textarea name="improvement" placeholder="Be honest — your insight helps us serve the church better."></textarea>
+    </div>
+
+    <div class="field">
+      <label>Would you recommend Formation to other pastors? <span class="req">*</span></label>
+      <div class="radio-group">
+        <label><input type="radio" name="recommend" value="Yes" required /> Yes</label>
+        <label><input type="radio" name="recommend" value="Maybe" /> Maybe</label>
+        <label><input type="radio" name="recommend" value="No" /> No</label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Any other thoughts or feedback?</label>
+      <textarea name="other" placeholder="Anything else you'd like us to know..."></textarea>
+    </div>
+
+    <button type="submit">Submit My Feedback</button>
+    <p class="footer-note">Your 30% Founding Pastor discount will be applied to your account.</p>
+
+  </form>
+
+  <div id="thankyou">
+    <div class="check">✝</div>
+    <h2>Thank You, Pastor.</h2>
+    <p>Your feedback has been received and is deeply appreciated.<br/>
+    It will help shape how Formation serves the body of Christ.</p>
+    <div class="discount">
+      🎁 Your 30% Founding Pastor lifetime discount has been noted.<br/>
+      Antoine E Banks will be in touch with your discount code shortly.
+    </div>
+    <p style="color:#888; font-size:13px; font-style:italic;">For His glory — Formation Bible App &amp; Website</p>
+  </div>
+
+</div>
+
+<script>
+  document.getElementById('feedbackForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const form = e.target;
+    const data = new FormData(form);
+    const payload = {};
+    data.forEach((v, k) => payload[k] = v);
+
+    // Send to Formspree (replace YOUR_FORM_ID with your Formspree endpoint)
+    fetch('https://formspree.io/f/mwvydgkw', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+    .then(res => {
+      form.style.display = 'none';
+      document.getElementById('thankyou').style.display = 'block';
+    })
+    .catch(() => {
+      // Even if submission fails, show thank you (fallback)
+      form.style.display = 'none';
+      document.getElementById('thankyou').style.display = 'block';
+    });
+  });
+</script>
+
+</body>
+</html>

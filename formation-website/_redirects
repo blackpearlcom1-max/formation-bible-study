@@ -1,0 +1,19 @@
+# Formation Website — Cloudflare Pages Redirects
+# NOTE: Cloudflare Pages automatically serves clean URLs
+# (e.g. /pricing serves pricing.html) — no rewrite rules needed.
+# This file only handles shortcuts and aliases.
+
+# ─── Shortcut / Alias Redirects ──────────────────────────────────────────────
+/sign-up         /signup          301
+/register        /signup          301
+/join            /signup          301
+/waitlist        /signup          301
+/login           /signup          301
+/plans           /pricing         301
+/subscribe       /pricing         301
+/how-it-works    /how_it_works    301
+/privacy-policy  /privacy         301
+/ai-disclaimer   /ai_disclaimer   301
+
+# ─── Security ─────────────────────────────────────────────────────────────────
+/security.txt    /.well-known/security.txt    301

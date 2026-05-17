@@ -1,0 +1,58 @@
+# Formation Website — Cloudflare Pages Security & Performance Headers
+# This file replaces netlify.toml headers for Cloudflare Pages
+# Applied automatically on every request — no setup required
+
+# ─── Global Headers (all pages) ──────────────────────────────────────────────
+/*
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdn.jsdelivr.net https://unpkg.com https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://fonts.gstatic.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://formation-backend-production.up.railway.app https://api.formationbible.com https://tdlaxuquplqejvijqiow.supabase.co wss://tdlaxuquplqejvijqiow.supabase.co; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self';
+  Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=(), usb=(), interest-cohort=()
+  X-Robots-Tag: index, follow
+
+# ─── Static Assets — Long Cache (CSS, JS, fonts, images) ─────────────────────
+/*.css
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.js
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.woff2
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.woff
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.png
+  Cache-Control: public, max-age=2592000
+
+/*.jpg
+  Cache-Control: public, max-age=2592000
+
+/*.jpeg
+  Cache-Control: public, max-age=2592000
+
+/*.svg
+  Cache-Control: public, max-age=2592000
+
+/*.ico
+  Cache-Control: public, max-age=86400
+
+# ─── HTML Pages — Short Cache (so updates go live fast) ──────────────────────
+/*.html
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
+# ─── SEO & Crawler Files — Always Fresh ──────────────────────────────────────
+/robots.txt
+  Cache-Control: public, max-age=86400
+
+/sitemap.xml
+  Cache-Control: public, max-age=86400
+  Content-Type: application/xml; charset=utf-8
+
+# ─── Security Contact File ────────────────────────────────────────────────────
+/.well-known/security.txt
+  Cache-Control: public, max-age=3600

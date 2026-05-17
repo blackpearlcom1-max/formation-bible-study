@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Privacy Policy — Formation Bible Study</title>
+  <meta name="description" content="Formation Bible Study's privacy policy explains what personal information we collect, how we use it, and your rights regarding your data."/>
+
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Manrope:wght@300;400;500;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "secondary":                  "#e9c349",
+            "on-surface-variant":         "#d2c2cc",
+            "on-surface":                 "#f2e5f0",
+            "surface-container-highest":  "#7E3A6C",
+            "secondary-container":        "#af8d11",
+            "on-secondary":               "#3c2f00",
+            "primary":                    "#ffb4a4",
+            "primary-container":          "#6e2414",
+            "surface-variant":            "#7E3A6C",
+            "outline":                    "#c4a0c2",
+            "surface-container-lowest":   "#3D1540",
+            "surface-container-high":     "#703060",
+            "surface-container":          "#5C2A5A",
+            "on-secondary-fixed":         "#241a00",
+            "inverse-primary":            "#9a4431",
+            "on-primary":                 "#5d1809",
+            "surface-dim":                "#4A1D4D",
+            "outline-variant":            "#7A5478",
+            "surface-container-low":      "#4A1D4D",
+            "on-background":              "#f2e5f0",
+            "surface":                    "#5C2A5A",
+            "background":                 "#5C2A5A",
+            "on-primary-container":       "#f58b73",
+            "tertiary":                   "#ffb4a4",
+            "tertiary-container":         "#6e2414",
+            "on-tertiary":                "#5d1809",
+            "on-tertiary-container":      "#f48b73",
+            "surface-bright":             "#8A4478",
+            "inverse-surface":            "#eae0e7",
+            "inverse-on-surface":         "#342f34"
+          },
+          borderRadius: {
+            DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem",
+            "2xl": "1rem", "3xl": "1.5rem", full: "9999px"
+          },
+          fontFamily: {
+            headline: ["Noto Serif",  "serif"],
+            body:     ["Manrope", "sans-serif"],
+            label:    ["Manrope", "sans-serif"]
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .material-symbols-outlined { font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24; }
+    body { background-color: #5C2A5A; }
+
+    /* Grain overlay */
+    .grain-overlay {
+      pointer-events:none; position:fixed; inset:0; z-index:99; opacity:0.04;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    }
+    #mobile-menu { display:none; }
+    #mobile-menu.open { display:flex; }
+    .nav-scrolled { background-color:rgba(61,21,64,0.95) !important; }
+
+    /* Animations */
+    @keyframes orbFloat1 { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(40px,-25px) scale(1.04)} 66%{transform:translate(-25px,20px) scale(0.97)} }
+    @keyframes orbFloat2 { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(-35px,28px) scale(0.96)} 66%{transform:translate(28px,-18px) scale(1.03)} }
+    @keyframes shimmer  { 0%{background-position:-250% center} 100%{background-position:250% center} }
+
+    .orb { position:fixed; border-radius:50%; filter:blur(90px); pointer-events:none; z-index:0; }
+    .orb-1 { width:650px; height:650px; top:-150px; left:-120px;  background:radial-gradient(circle,rgba(255,180,164,0.11) 0%,transparent 70%); animation:orbFloat1 22s ease-in-out infinite; }
+    .orb-2 { width:520px; height:520px; top:28%;   right:-130px; background:radial-gradient(circle,rgba(233,195,73,0.08)  0%,transparent 70%); animation:orbFloat2 28s ease-in-out infinite; }
+    .orb-3 { width:420px; height:420px; bottom:8%; left:25%;     background:radial-gradient(circle,rgba(255,180,164,0.07) 0%,transparent 70%); animation:orbFloat1 34s ease-in-out infinite reverse; }
+
+    [data-animate] { opacity:0; transition:opacity 0.8s cubic-bezier(0.25,0.46,0.45,0.94), transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94); }
+    [data-animate="fade-up"]    { transform:translateY(34px); }
+    [data-animate="scale-up"]   { transform:scale(0.93) translateY(20px); }
+    [data-animate].is-visible   { opacity:1; transform:none; }
+
+    .shimmer-text {
+      background:linear-gradient(90deg, #e9c349 0%, #ffb4a4 32%, #e9c349 52%, #ffb4a4 78%, #e9c349 100%);
+      background-size:260% auto; -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+      background-clip:text; animation:shimmer 5.5s linear infinite;
+    }
+
+    /* Info cards */
+    .info-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(242,229,240,0.1);
+      border-radius: 16px;
+      padding: 20px 24px;
+      transition: background 0.25s, border-color 0.25s;
+    }
+    .info-card:hover {
+      background: rgba(255,255,255,0.07);
+      border-color: rgba(255,180,164,0.25);
+    }
+
+    /* Data table */
+    .data-table { width:100%; border-collapse:collapse; }
+    .data-table th {
+      background: rgba(61,21,64,0.8);
+      color: rgba(242,229,240,0.7);
+      padding: 11px 16px;
+      text-align:left;
+      font-size:0.68rem;
+      letter-spacing:2px;
+      text-transform:uppercase;
+      font-family: Manrope, sans-serif;
+      font-weight:600;
+    }
+    .data-table th:first-child { border-radius: 12px 0 0 0; }
+    .data-table th:last-child  { border-radius: 0 12px 0 0; }
+    .data-table td {
+      padding: 12px 16px;
+      color: rgba(242,229,240,0.6);
+      border-bottom: 1px solid rgba(242,229,240,0.07);
+      vertical-align:top;
+      font-size:0.87rem;
+      line-height:1.6;
+      font-family: Manrope, sans-serif;
+    }
+    .data-table tr:last-child td { border-bottom:none; }
+    .data-table td:first-child {
+      color: #FFB4A4;
+      font-weight:600;
+      font-size:0.85rem;
+    }
+    .data-table tr:hover td { background:rgba(255,255,255,0.03); }
+
+    /* Rights cards */
+    .right-card {
+      background:rgba(255,255,255,0.04);
+      border:1px solid rgba(242,229,240,0.1);
+      border-radius:12px;
+      padding:20px;
+      transition:background 0.2s,border-color 0.2s;
+    }
+    .right-card:hover {
+      background:rgba(255,255,255,0.07);
+      border-color:rgba(233,195,73,0.3);
+    }
+
+    /* Section divider */
+    .section-divider { border:none; border-top:1px solid rgba(242,229,240,0.1); margin:0; }
+  </style>
+</head>
+<body class="font-body text-on-surface min-h-screen">
+
+  <!-- Grain Overlay -->
+  <div class="grain-overlay"></div>
+
+  <!-- Ambient Orbs -->
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <!-- Navigation -->
+  <nav id="main-nav" class="fixed top-0 w-full z-50 bg-[#3D1540]/80 backdrop-blur-xl shadow-[0_20px_40px_-5px_rgba(61,21,64,0.3)] transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="index.html" class="text-2xl font-headline font-black text-[#FFB4A4] hover:opacity-80 transition-opacity">Formation Bible Study</a>
+
+      <!-- Desktop Nav -->
+      <div class="hidden md:flex items-center gap-8">
+        <a href="index.html" class="text-[#f2e5f0]/70 font-body text-sm hover:text-[#FFB4A4] transition-colors">Home</a>
+        <a href="features.html" class="text-[#f2e5f0]/70 font-body text-sm hover:text-[#FFB4A4] transition-colors">Features</a>
+        <a href="pricing.html" class="text-[#f2e5f0]/70 font-body text-sm hover:text-[#FFB4A4] transition-colors">Pricing</a>
+        <a href="signup.html" class="bg-gradient-to-br from-[#FFB4A4] to-[#6E2414] text-[#5D1809] px-6 py-2.5 rounded-full font-bold text-sm hover:opacity-90 transition-opacity">Join the Waitlist →</a>
+      </div>
+
+      <!-- Mobile Hamburger -->
+      <button id="nav-toggle" class="md:hidden text-[#f2e5f0] p-2" aria-label="Open menu">
+        <span class="material-symbols-outlined">menu</span>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="flex-col bg-[#3D1540] px-6 pb-6 gap-4 md:hidden">
+      <a href="index.html" class="text-[#f2e5f0]/80 font-body text-base py-2 border-b border-[#f2e5f0]/10">Home</a>
+      <a href="features.html" class="text-[#f2e5f0]/80 font-body text-base py-2 border-b border-[#f2e5f0]/10">Features</a>
+      <a href="pricing.html" class="text-[#f2e5f0]/80 font-body text-base py-2 border-b border-[#f2e5f0]/10">Pricing</a>
+      <a href="signup.html" class="bg-gradient-to-br from-[#FFB4A4] to-[#6E2414] text-[#5D1809] px-6 py-3 rounded-full font-bold text-sm text-center mt-2">Join the Waitlist →</a>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <section class="relative z-10 pt-36 pb-12 px-6">
+    <div class="max-w-3xl mx-auto">
+      <div data-animate="fade-up" class="inline-flex items-center gap-2 bg-[#3D1540]/70 border border-[#f2e5f0]/10 rounded-full px-4 py-1.5 mb-6">
+        <span class="material-symbols-outlined text-[#E9C349] text-base">shield</span>
+        <span class="font-label text-[11px] uppercase tracking-widest text-[#E9C349]">Your Privacy Matters</span>
+      </div>
+      <h1 data-animate="fade-up" class="font-headline text-4xl md:text-5xl font-black leading-tight mb-4">
+        Privacy <span class="shimmer-text">Policy</span>
+      </h1>
+      <p data-animate="fade-up" class="font-body text-[#f2e5f0]/60 text-lg leading-relaxed mb-6">
+        We built Formation Bible Study for depth, not data. Here's exactly what we collect, why, and how you stay in control.
+      </p>
+      <div data-animate="fade-up" class="flex flex-wrap gap-4 text-sm text-[#f2e5f0]/40 font-body">
+        <span>Effective: January 1, 2026</span>
+        <span class="text-[#f2e5f0]/20">·</span>
+        <span>Last updated: April 16, 2026</span>
+        <span class="text-[#f2e5f0]/20">·</span>
+        <span>Berean Defense LLC</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Summary Banner -->
+  <section class="relative z-10 px-6 pb-12">
+    <div class="max-w-3xl mx-auto">
+      <div data-animate="scale-up" class="bg-[#3D1540]/60 border border-[#E9C349]/20 rounded-2xl p-6">
+        <div class="flex items-start gap-3 mb-4">
+          <span class="material-symbols-outlined text-[#E9C349] mt-0.5">lightbulb</span>
+          <div>
+            <h2 class="font-headline font-bold text-[#E9C349] text-base mb-1">The Short Version</h2>
+            <p class="font-body text-[#f2e5f0]/70 text-sm leading-relaxed">
+              We collect only what we need to run the app and improve it. We don't sell your data. We don't show you ads. We use a handful of trusted third-party services for authentication, analytics, and payments — each listed below. You can request deletion of your data at any time by emailing <a href="mailto:privacy@formation.app" class="text-[#FFB4A4] hover:underline">privacy@formation.app</a>.
+            </p>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-4">
+          <div class="flex flex-col items-center gap-1 bg-[#5C2A5A]/60 rounded-xl p-3">
+            <span class="material-symbols-outlined text-[#FFB4A4] text-xl">sell</span>
+            <span class="font-label text-[10px] uppercase tracking-wider text-[#f2e5f0]/50 text-center">We don't sell data</span>
+          </div>
+          <div class="flex flex-col items-center gap-1 bg-[#5C2A5A]/60 rounded-xl p-3">
+            <span class="material-symbols-outlined text-[#FFB4A4] text-xl">ads_click</span>
+            <span class="font-label text-[10px] uppercase tracking-wider text-[#f2e5f0]/50 text-center">No ads. Ever.</span>
+          </div>
+          <div class="flex flex-col items-center gap-1 bg-[#5C2A5A]/60 rounded-xl p-3">
+            <span class="material-symbols-outlined text-[#FFB4A4] text-xl">lock</span>
+            <span class="font-label text-[10px] uppercase tracking-wider text-[#f2e5f0]/50 text-center">Encrypted in transit</span>
+          </div>
+          <div class="flex flex-col items-center gap-1 bg-[#5C2A5A]/60 rounded-xl p-3">
+            <span class="material-symbols-outlined text-[#FFB4A4] text-xl">delete_forever</span>
+            <span class="font-label text-[10px] uppercase tracking-wider text-[#f2e5f0]/50 text-center">Deletable on request</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Table of Contents -->
+  <section class="relative z-10 px-6 pb-10">
+    <div class="max-w-3xl mx-auto">
+      <div data-animate="fade-up" class="bg-[#3D1540]/40 border border-[#f2e5f0]/10 rounded-2xl p-6">
+        <h2 class="font-label text-[11px] uppercase tracking-widest text-[#f2e5f0]/40 mb-4">Contents</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+          <a href="#who-we-are" class="font-body text-sm text-[#f2e5f0]/60 hover:text-[#FFB4A4] transition-colors flex items-center gap-2"><span class="text-[#E9C349] font-bold text-xs">01</span> Who We Are</a>
+          <a href="#what-we-collect" class="font-body text-sm text-[#f2e5f0]/60 hover:text-[#FFB4A4] transition-colors flex items-center gap-2"><span class="text-[#E9C349] font-bold text-xs">02</span> What We Collect</a>
+          <a href="#how-we-use" class="font-body text-sm text-[#f2e5f0]/60 hover:text-[#FFB4A4] transition-colors flex items-center gap-2"><span class="text-[#E9C349] font-bold text-xs">03</span> How We Use Your Data</a>
+          <a href="#sharing" class="font-body text-sm text-[#f2e5f0]/60 hover:text-[#FFB4A4] transition-colors flex items-center gap-2"><span class="text-[#E9C349] font-bold text-xs">04</span> Sharing & Third Parties</a>
+          <a href="#retention" class="font-body text-sm text-[#f2e5f0]/60 hover:text-[#FFB4A4] transition-colors flex items-center gap-2"><span class="text-[#E9C349] font-bold text-xs">05</span> Data Retention</a>
+          <a href="#security" class="font-body text-sm text-[#f2e5f0]/60 hover:text-[#FFB4A4] transition-colors flex items-center gap-2"><span class="text-[#E9C349] font-bold text-xs">06</span> Security</a>
+          <a href="#your-rights" class="font-body text-sm text-[#f2e5f0]/60 hover:text-[#FFB4A4] transition-colors flex items-center gap-2"><span class="text-[#E9C349] font-bold text-xs">07</span> Your Rights & Choices</a>
+          <a href="#children" class="font-body text-sm text-[#f2e5f0]/60 hover:text-[#FFB4A4] transition-colors flex items-center gap-2"><span class="text-[#E9C349] font-bold text-xs">08</span> Children's Privacy</a>
+          <a href="#changes" class="font-body text-sm text-[#f2e5f0]/60 hover:text-[#FFB4A4] transition-colors flex items-center gap-2"><span class="text-[#E9C349] font-bold text-xs">09</span> Policy Changes</a>
+          <a href="#contact" class="font-body text-sm text-[#f2e5f0]/60 hover:text-[#FFB4A4] transition-colors flex items-center gap-2"><span class="text-[#E9C349] font-bold text-xs">10</span> Contact Us</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider max-w-3xl mx-auto"/>
+
+  <!-- Main Content -->
+  <main class="relative z-10 px-6 py-12 max-w-3xl mx-auto space-y-14">
+
+    <!-- 1. Who We Are -->
+    <section id="who-we-are" data-animate="fade-up">
+      <div class="flex items-center gap-3 mb-5">
+        <span class="text-[#E9C349] font-headline font-black text-lg">01</span>
+        <h2 class="font-headline text-2xl font-bold text-[#FFB4A4]">Who We Are</h2>
+      </div>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-4">
+        Formation Bible Study is a Bible study application operated by <strong class="text-[#f2e5f0]">Berean Defense LLC</strong>, a company based in the United States. When this policy says "Formation Bible Study," "we," "us," or "our," it refers to Berean Defense LLC and the Formation Bible Study application at <a href="https://formationbible.com" class="text-[#FFB4A4] hover:underline" target="_blank">formationbible.com</a>.
+      </p>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed">
+        This Privacy Policy describes how we handle personal information collected through the Formation Bible Study app, website, and related services. By using Formation Bible Study, you agree to the practices described here.
+      </p>
+    </section>
+
+    <hr class="section-divider"/>
+
+    <!-- 2. What We Collect -->
+    <section id="what-we-collect" data-animate="fade-up">
+      <div class="flex items-center gap-3 mb-5">
+        <span class="text-[#E9C349] font-headline font-black text-lg">02</span>
+        <h2 class="font-headline text-2xl font-bold text-[#FFB4A4]">What We Collect</h2>
+      </div>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-6">
+        We collect information in two ways: information you give us directly, and information collected automatically when you use the app.
+      </p>
+
+      <h3 class="font-headline font-bold text-[#f2e5f0] text-lg mb-3">Information You Provide</h3>
+      <div class="space-y-3 mb-8">
+        <div class="info-card">
+          <div class="flex items-start gap-3">
+            <span class="material-symbols-outlined text-[#FFB4A4] text-xl mt-0.5">person</span>
+            <div>
+              <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Account Information</p>
+              <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">Your name and email address when you join the waitlist or create an account. If you sign in with Google or Apple, we receive your name and email from those providers.</p>
+            </div>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="flex items-start gap-3">
+            <span class="material-symbols-outlined text-[#FFB4A4] text-xl mt-0.5">credit_card</span>
+            <div>
+              <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Payment Information</p>
+              <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">Billing information for paid plans. We do not store your full card number — payments are processed by Stripe, which handles all sensitive billing data on our behalf.</p>
+            </div>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="flex items-start gap-3">
+            <span class="material-symbols-outlined text-[#FFB4A4] text-xl mt-0.5">menu_book</span>
+            <div>
+              <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Study Content</p>
+              <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">Notes, highlights, bookmarks, and study plans you create within the app. This content is yours — we store it to provide the service and never use it for advertising.</p>
+            </div>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="flex items-start gap-3">
+            <span class="material-symbols-outlined text-[#FFB4A4] text-xl mt-0.5">chat</span>
+            <div>
+              <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Communications</p>
+              <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">If you contact us by email, we retain your message to respond and improve our service. We won't share it with third parties except as necessary to answer your question.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="font-headline font-bold text-[#f2e5f0] text-lg mb-4">Information Collected Automatically</h3>
+      <div class="overflow-x-auto rounded-2xl border border-[#f2e5f0]/10 mb-4">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Data Type</th>
+              <th>Examples</th>
+              <th>Purpose</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Device & Browser</td>
+              <td class="text-[#f2e5f0]/60">OS, browser type, screen size, language</td>
+              <td class="text-[#f2e5f0]/60">Bug fixes and compatibility</td>
+            </tr>
+            <tr>
+              <td>Usage Data</td>
+              <td class="text-[#f2e5f0]/60">Pages visited, features used, session duration</td>
+              <td class="text-[#f2e5f0]/60">Product improvement and analytics</td>
+            </tr>
+            <tr>
+              <td>Log Data</td>
+              <td class="text-[#f2e5f0]/60">IP address, timestamps, error reports</td>
+              <td class="text-[#f2e5f0]/60">Security monitoring and debugging</td>
+            </tr>
+            <tr>
+              <td>Cookies</td>
+              <td class="text-[#f2e5f0]/60">Session tokens, preference flags, analytics IDs</td>
+              <td class="text-[#f2e5f0]/60">Authentication and analytics</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="font-body text-[#f2e5f0]/40 text-xs">See our <a href="cookie_policy.html" class="text-[#FFB4A4] hover:underline">Cookie Policy</a> for full details on cookies.</p>
+    </section>
+
+    <hr class="section-divider"/>
+
+    <!-- 3. How We Use Your Data -->
+    <section id="how-we-use" data-animate="fade-up">
+      <div class="flex items-center gap-3 mb-5">
+        <span class="text-[#E9C349] font-headline font-black text-lg">03</span>
+        <h2 class="font-headline text-2xl font-bold text-[#FFB4A4]">How We Use Your Data</h2>
+      </div>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-6">
+        We use your information only to operate and improve Formation Bible Study. We never use it to build advertising profiles or sell it to data brokers.
+      </p>
+      <div class="space-y-3">
+        <div class="info-card flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#E9C349] text-xl mt-0.5">check_circle</span>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Provide the Service</p>
+            <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">Authenticate your account, sync your study content, process billing, and deliver app features.</p>
+          </div>
+        </div>
+        <div class="info-card flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#E9C349] text-xl mt-0.5">check_circle</span>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Improve Formation Bible Study</p>
+            <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">Aggregate, anonymized usage data helps us understand which features help people study better and which we should improve.</p>
+          </div>
+        </div>
+        <div class="info-card flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#E9C349] text-xl mt-0.5">check_circle</span>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Send Important Notices</p>
+            <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">Account confirmations, billing receipts, security alerts, and product updates that affect your use of Formation Bible Study. You may opt out of non-essential emails at any time.</p>
+          </div>
+        </div>
+        <div class="info-card flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#E9C349] text-xl mt-0.5">check_circle</span>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Maintain Security</p>
+            <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">Detect fraud, prevent abuse, investigate suspicious activity, and protect the Formation Bible Study community.</p>
+          </div>
+        </div>
+        <div class="info-card flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#E9C349] text-xl mt-0.5">check_circle</span>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Comply with Legal Obligations</p>
+            <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">Respond to lawful requests from government authorities, enforce our Terms of Service, and resolve disputes.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider"/>
+
+    <!-- 4. Sharing & Third Parties -->
+    <section id="sharing" data-animate="fade-up">
+      <div class="flex items-center gap-3 mb-5">
+        <span class="text-[#E9C349] font-headline font-black text-lg">04</span>
+        <h2 class="font-headline text-2xl font-bold text-[#FFB4A4]">Sharing &amp; Third Parties</h2>
+      </div>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-6">
+        We do not sell your personal data. We share it only with the following service providers under strict data processing agreements, and only to the extent necessary for them to perform their function.
+      </p>
+      <div class="overflow-x-auto rounded-2xl border border-[#f2e5f0]/10 mb-6">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Provider</th>
+              <th>Purpose</th>
+              <th>Data Shared</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Supabase</td>
+              <td class="text-[#f2e5f0]/60">Database &amp; authentication</td>
+              <td class="text-[#f2e5f0]/60">Account info, study content, session data</td>
+            </tr>
+            <tr>
+              <td>Stripe</td>
+              <td class="text-[#f2e5f0]/60">Payment processing</td>
+              <td class="text-[#f2e5f0]/60">Name, email, billing details</td>
+            </tr>
+            <tr>
+              <td>Google (Auth)</td>
+              <td class="text-[#f2e5f0]/60">Sign-in with Google</td>
+              <td class="text-[#f2e5f0]/60">Name and email (if you choose this option)</td>
+            </tr>
+            <tr>
+              <td>Apple (Auth)</td>
+              <td class="text-[#f2e5f0]/60">Sign in with Apple</td>
+              <td class="text-[#f2e5f0]/60">Name and email (if you choose this option)</td>
+            </tr>
+            <tr>
+              <td>Vercel / Netlify</td>
+              <td class="text-[#f2e5f0]/60">Web hosting &amp; CDN</td>
+              <td class="text-[#f2e5f0]/60">IP address, request logs</td>
+            </tr>
+            <tr>
+              <td>Analytics (aggregate)</td>
+              <td class="text-[#f2e5f0]/60">Usage analytics</td>
+              <td class="text-[#f2e5f0]/60">Anonymized usage events, device info</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-4">
+        We may also disclose your information in the following limited circumstances:
+      </p>
+      <ul class="space-y-2 font-body text-[#f2e5f0]/60 text-sm leading-relaxed pl-0">
+        <li class="flex items-start gap-2"><span class="text-[#FFB4A4] mt-1">›</span> When required by law, subpoena, or court order</li>
+        <li class="flex items-start gap-2"><span class="text-[#FFB4A4] mt-1">›</span> To protect the rights, property, or safety of Formation Bible Study, our users, or the public</li>
+        <li class="flex items-start gap-2"><span class="text-[#FFB4A4] mt-1">›</span> In connection with a merger, acquisition, or sale of assets (you will be notified)</li>
+        <li class="flex items-start gap-2"><span class="text-[#FFB4A4] mt-1">›</span> With your explicit consent</li>
+      </ul>
+    </section>
+
+    <hr class="section-divider"/>
+
+    <!-- 5. Data Retention -->
+    <section id="retention" data-animate="fade-up">
+      <div class="flex items-center gap-3 mb-5">
+        <span class="text-[#E9C349] font-headline font-black text-lg">05</span>
+        <h2 class="font-headline text-2xl font-bold text-[#FFB4A4]">Data Retention</h2>
+      </div>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-6">
+        We retain your personal data only as long as your account is active or as needed to provide the service. When you delete your account, we remove your personal information within 30 days, except where retention is required by law (such as billing records, which may be kept for up to 7 years for tax purposes).
+      </p>
+      <div class="overflow-x-auto rounded-2xl border border-[#f2e5f0]/10">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Data</th>
+              <th>Retention Period</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Account &amp; profile data</td>
+              <td class="text-[#f2e5f0]/60">Until account deletion + 30 days</td>
+            </tr>
+            <tr>
+              <td>Study notes, highlights, bookmarks</td>
+              <td class="text-[#f2e5f0]/60">Until account deletion + 30 days</td>
+            </tr>
+            <tr>
+              <td>Billing records</td>
+              <td class="text-[#f2e5f0]/60">7 years (tax &amp; legal compliance)</td>
+            </tr>
+            <tr>
+              <td>Server &amp; access logs</td>
+              <td class="text-[#f2e5f0]/60">90 days (security)</td>
+            </tr>
+            <tr>
+              <td>Anonymized analytics</td>
+              <td class="text-[#f2e5f0]/60">Indefinite (no personal identifiers)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <hr class="section-divider"/>
+
+    <!-- 6. Security -->
+    <section id="security" data-animate="fade-up">
+      <div class="flex items-center gap-3 mb-5">
+        <span class="text-[#E9C349] font-headline font-black text-lg">06</span>
+        <h2 class="font-headline text-2xl font-bold text-[#FFB4A4]">Security</h2>
+      </div>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-6">
+        We take reasonable technical and organizational measures to protect your information against unauthorized access, loss, or misuse.
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
+        <div class="info-card flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#FFB4A4] text-xl mt-0.5">https</span>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">TLS Encryption</p>
+            <p class="font-body text-[#f2e5f0]/60 text-xs leading-relaxed">All data in transit is encrypted using TLS 1.2 or higher.</p>
+          </div>
+        </div>
+        <div class="info-card flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#FFB4A4] text-xl mt-0.5">storage</span>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Encrypted at Rest</p>
+            <p class="font-body text-[#f2e5f0]/60 text-xs leading-relaxed">Your data is stored in encrypted databases managed by Supabase.</p>
+          </div>
+        </div>
+        <div class="info-card flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#FFB4A4] text-xl mt-0.5">key</span>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Secure Authentication</p>
+            <p class="font-body text-[#f2e5f0]/60 text-xs leading-relaxed">Passwords are hashed. OAuth login options (Google, Apple) never expose your password to us.</p>
+          </div>
+        </div>
+        <div class="info-card flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#FFB4A4] text-xl mt-0.5">manage_accounts</span>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Limited Access</p>
+            <p class="font-body text-[#f2e5f0]/60 text-xs leading-relaxed">Only authorized team members can access user data, and only when necessary.</p>
+          </div>
+        </div>
+      </div>
+      <p class="font-body text-[#f2e5f0]/50 text-sm leading-relaxed">
+        No system is 100% secure. If you discover a security vulnerability, please report it responsibly to <a href="mailto:privacy@formation.app" class="text-[#FFB4A4] hover:underline">privacy@formation.app</a>.
+      </p>
+    </section>
+
+    <hr class="section-divider"/>
+
+    <!-- 7. Your Rights & Choices -->
+    <section id="your-rights" data-animate="fade-up">
+      <div class="flex items-center gap-3 mb-5">
+        <span class="text-[#E9C349] font-headline font-black text-lg">07</span>
+        <h2 class="font-headline text-2xl font-bold text-[#FFB4A4]">Your Rights &amp; Choices</h2>
+      </div>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-6">
+        You have meaningful control over your information. Regardless of where you live, we honor these rights for all Formation Bible Study users.
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
+        <div class="right-card">
+          <span class="material-symbols-outlined text-[#E9C349] text-xl mb-2 block">visibility</span>
+          <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Access</p>
+          <p class="font-body text-[#f2e5f0]/60 text-xs leading-relaxed">Request a copy of the personal data we hold about you.</p>
+        </div>
+        <div class="right-card">
+          <span class="material-symbols-outlined text-[#E9C349] text-xl mb-2 block">edit</span>
+          <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Correction</p>
+          <p class="font-body text-[#f2e5f0]/60 text-xs leading-relaxed">Update or correct inaccurate information in your account settings or by contacting us.</p>
+        </div>
+        <div class="right-card">
+          <span class="material-symbols-outlined text-[#E9C349] text-xl mb-2 block">delete</span>
+          <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Deletion</p>
+          <p class="font-body text-[#f2e5f0]/60 text-xs leading-relaxed">Delete your account and associated personal data. We'll process this within 30 days.</p>
+        </div>
+        <div class="right-card">
+          <span class="material-symbols-outlined text-[#E9C349] text-xl mb-2 block">download</span>
+          <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Portability</p>
+          <p class="font-body text-[#f2e5f0]/60 text-xs leading-relaxed">Export your study notes, highlights, and bookmarks in a standard format.</p>
+        </div>
+        <div class="right-card">
+          <span class="material-symbols-outlined text-[#E9C349] text-xl mb-2 block">unsubscribe</span>
+          <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Opt-Out of Emails</p>
+          <p class="font-body text-[#f2e5f0]/60 text-xs leading-relaxed">Unsubscribe from marketing emails at any time using the link in any email we send.</p>
+        </div>
+        <div class="right-card">
+          <span class="material-symbols-outlined text-[#E9C349] text-xl mb-2 block">cookie</span>
+          <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Cookie Control</p>
+          <p class="font-body text-[#f2e5f0]/60 text-xs leading-relaxed">Manage or clear cookies through your browser settings. See our <a href="cookie_policy.html" class="text-[#FFB4A4] hover:underline">Cookie Policy</a>.</p>
+        </div>
+      </div>
+      <div class="bg-[#3D1540]/60 border border-[#FFB4A4]/20 rounded-2xl p-5">
+        <p class="font-body text-[#f2e5f0]/70 text-sm leading-relaxed">
+          To exercise any of these rights, email us at <a href="mailto:privacy@formation.app" class="text-[#FFB4A4] hover:underline font-semibold">privacy@formation.app</a>. We'll respond within 30 days. We may need to verify your identity before processing the request.
+        </p>
+      </div>
+    </section>
+
+    <hr class="section-divider"/>
+
+    <!-- 8. Children's Privacy -->
+    <section id="children" data-animate="fade-up">
+      <div class="flex items-center gap-3 mb-5">
+        <span class="text-[#E9C349] font-headline font-black text-lg">08</span>
+        <h2 class="font-headline text-2xl font-bold text-[#FFB4A4]">Children's Privacy</h2>
+      </div>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-4">
+        Formation Bible Study is not directed to children under the age of 13, and we do not knowingly collect personal information from anyone under 13. If you believe a child under 13 has provided us with personal data, please contact us at <a href="mailto:privacy@formation.app" class="text-[#FFB4A4] hover:underline">privacy@formation.app</a> and we will delete that information promptly.
+      </p>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed">
+        Users between the ages of 13 and 17 may use Formation Bible Study with verifiable parental or guardian consent.
+      </p>
+    </section>
+
+    <hr class="section-divider"/>
+
+    <!-- 9. Policy Changes -->
+    <section id="changes" data-animate="fade-up">
+      <div class="flex items-center gap-3 mb-5">
+        <span class="text-[#E9C349] font-headline font-black text-lg">09</span>
+        <h2 class="font-headline text-2xl font-bold text-[#FFB4A4]">Policy Changes</h2>
+      </div>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-4">
+        We may update this Privacy Policy from time to time. When we do, we'll revise the "Last Updated" date at the top of this page. If changes are material, we'll notify you by email or with a prominent notice in the app at least 14 days before the changes take effect.
+      </p>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed">
+        Your continued use of Formation Bible Study after the effective date of a revised policy constitutes your acceptance of the changes.
+      </p>
+    </section>
+
+    <hr class="section-divider"/>
+
+    <!-- 10. Contact Us -->
+    <section id="contact" data-animate="fade-up">
+      <div class="flex items-center gap-3 mb-5">
+        <span class="text-[#E9C349] font-headline font-black text-lg">10</span>
+        <h2 class="font-headline text-2xl font-bold text-[#FFB4A4]">Contact Us</h2>
+      </div>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-6">
+        Questions, concerns, or requests about this Privacy Policy or your personal data? We'd love to hear from you.
+      </p>
+      <div class="bg-[#3D1540]/60 border border-[#f2e5f0]/10 rounded-2xl p-6 space-y-4">
+        <div class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#FFB4A4] text-xl mt-0.5">business</span>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm">Berean Defense LLC</p>
+            <p class="font-body text-[#f2e5f0]/60 text-sm">United States</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#FFB4A4] text-xl mt-0.5">mail</span>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-0.5">Privacy Inquiries</p>
+            <a href="mailto:privacy@formation.app" class="font-body text-[#FFB4A4] text-sm hover:underline">privacy@formation.app</a>
+          </div>
+        </div>
+        <div class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#FFB4A4] text-xl mt-0.5">language</span>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-0.5">Website</p>
+            <a href="https://formationbible.com" class="font-body text-[#FFB4A4] text-sm hover:underline" target="_blank">formationbible.com</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-[#3D1540] w-full py-12 border-t border-[#f2e5f0]/10 relative z-10">
+    <div class="flex flex-col md:flex-row justify-between items-center w-full px-8 max-w-7xl mx-auto gap-8">
+      <div class="text-xl font-headline font-bold text-[#FFB4A4]">Formation Bible Study</div>
+      <div class="flex flex-wrap justify-center gap-8">
+        <a class="text-[#f2e5f0]/50 font-label uppercase tracking-widest text-[10px] hover:text-[#E8816A] transition-all" href="privacy_policy.html">Privacy Policy</a>
+        <a class="text-[#f2e5f0]/50 font-label uppercase tracking-widest text-[10px] hover:text-[#E8816A] transition-all" href="terms.html">Terms of Service</a>
+        <a class="text-[#f2e5f0]/50 font-label uppercase tracking-widest text-[10px] hover:text-[#E8816A] transition-all" href="cookie_policy.html">Cookie Policy</a>
+        <a class="text-[#f2e5f0]/50 font-label uppercase tracking-widest text-[10px] hover:text-[#E8816A] transition-all" href="contact.html">Contact</a>
+      </div>
+      <div class="text-[#f2e5f0]/40 text-[10px] font-label uppercase tracking-widest">© 2026 Berean Defense LLC. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script>
+    // Nav scroll
+    const nav = document.getElementById('main-nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('nav-scrolled', window.scrollY > 20);
+    });
+
+    // Mobile menu
+    document.getElementById('nav-toggle').addEventListener('click', () => {
+      document.getElementById('mobile-menu').classList.toggle('open');
+    });
+
+    // Scroll animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('is-visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('[data-animate]').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

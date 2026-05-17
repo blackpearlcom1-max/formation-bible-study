@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>AI Features Disclosure — Formation Bible Study</title>
+  <meta name="description" content="Formation Bible Study uses AI to assist Bible study. Learn how AI works in the app, what it can and cannot do, and how your data is handled."/>
+
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Manrope:wght@300;400;500;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "secondary":                  "#e9c349",
+            "on-surface-variant":         "#d2c2cc",
+            "on-surface":                 "#f2e5f0",
+            "surface-container-highest":  "#7E3A6C",
+            "secondary-container":        "#af8d11",
+            "on-secondary":               "#3c2f00",
+            "primary":                    "#ffb4a4",
+            "primary-container":          "#6e2414",
+            "surface-variant":            "#7E3A6C",
+            "outline":                    "#c4a0c2",
+            "surface-container-lowest":   "#3D1540",
+            "surface-container-high":     "#703060",
+            "surface-container":          "#5C2A5A",
+            "on-secondary-fixed":         "#241a00",
+            "inverse-primary":            "#9a4431",
+            "on-primary":                 "#5d1809",
+            "surface-dim":                "#4A1D4D",
+            "outline-variant":            "#7A5478",
+            "surface-container-low":      "#4A1D4D",
+            "on-background":              "#f2e5f0",
+            "surface":                    "#5C2A5A",
+            "background":                 "#5C2A5A",
+            "on-primary-container":       "#f58b73",
+            "tertiary":                   "#ffb4a4",
+            "tertiary-container":         "#6e2414",
+            "on-tertiary":                "#5d1809",
+            "on-tertiary-container":      "#f48b73",
+            "surface-bright":             "#8A4478",
+            "inverse-surface":            "#eae0e7",
+            "inverse-on-surface":         "#342f34"
+          },
+          borderRadius: {
+            DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem",
+            "2xl": "1rem", "3xl": "1.5rem", full: "9999px"
+          },
+          fontFamily: {
+            headline: ["Noto Serif",  "serif"],
+            body:     ["Manrope", "sans-serif"],
+            label:    ["Manrope", "sans-serif"]
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .material-symbols-outlined { font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24; }
+    body { background-color: #5C2A5A; }
+
+    /* Grain overlay */
+    .grain-overlay {
+      pointer-events:none; position:fixed; inset:0; z-index:99; opacity:0.04;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    }
+    #mobile-menu { display:none; }
+    #mobile-menu.open { display:flex; }
+    .nav-scrolled { background-color:rgba(61,21,64,0.95) !important; }
+
+    /* Animations */
+    @keyframes orbFloat1 { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(40px,-25px) scale(1.04)} 66%{transform:translate(-25px,20px) scale(0.97)} }
+    @keyframes orbFloat2 { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(-35px,28px) scale(0.96)} 66%{transform:translate(28px,-18px) scale(1.03)} }
+    @keyframes shimmer  { 0%{background-position:-250% center} 100%{background-position:250% center} }
+
+    .orb { position:fixed; border-radius:50%; filter:blur(90px); pointer-events:none; z-index:0; }
+    .orb-1 { width:650px; height:650px; top:-150px; left:-120px;  background:radial-gradient(circle,rgba(255,180,164,0.11) 0%,transparent 70%); animation:orbFloat1 22s ease-in-out infinite; }
+    .orb-2 { width:520px; height:520px; top:28%;   right:-130px; background:radial-gradient(circle,rgba(233,195,73,0.08)  0%,transparent 70%); animation:orbFloat2 28s ease-in-out infinite; }
+    .orb-3 { width:420px; height:420px; bottom:8%; left:25%;     background:radial-gradient(circle,rgba(255,180,164,0.07) 0%,transparent 70%); animation:orbFloat1 34s ease-in-out infinite reverse; }
+
+    [data-animate] { opacity:0; transition:opacity 0.8s cubic-bezier(0.25,0.46,0.45,0.94), transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94); }
+    [data-animate="fade-up"]    { transform:translateY(34px); }
+    [data-animate="scale-up"]   { transform:scale(0.93) translateY(20px); }
+    [data-animate].is-visible   { opacity:1; transform:none; }
+
+    .shimmer-text {
+      background:linear-gradient(90deg, #e9c349 0%, #ffb4a4 32%, #e9c349 52%, #ffb4a4 78%, #e9c349 100%);
+      background-size:260% auto; -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+      background-clip:text; animation:shimmer 5.5s linear infinite;
+    }
+
+    /* Info cards */
+    .info-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(242,229,240,0.1);
+      border-radius: 16px;
+      padding: 20px 24px;
+      transition: background 0.25s, border-color 0.25s;
+    }
+    .info-card:hover {
+      background: rgba(255,255,255,0.07);
+      border-color: rgba(255,180,164,0.25);
+    }
+
+    /* Warning card */
+    .warning-card {
+      background: rgba(233,195,73,0.07);
+      border: 1px solid rgba(233,195,73,0.25);
+      border-radius: 16px;
+      padding: 20px 24px;
+    }
+
+    /* Data table */
+    .data-table { width:100%; border-collapse:collapse; }
+    .data-table th {
+      background: rgba(61,21,64,0.8);
+      color: rgba(242,229,240,0.7);
+      padding: 11px 16px;
+      text-align:left;
+      font-size:0.68rem;
+      letter-spacing:2px;
+      text-transform:uppercase;
+      font-family: Manrope, sans-serif;
+      font-weight:600;
+    }
+    .data-table th:first-child { border-radius: 12px 0 0 0; }
+    .data-table th:last-child  { border-radius: 0 12px 0 0; }
+    .data-table td {
+      padding: 12px 16px;
+      color: rgba(242,229,240,0.6);
+      border-bottom: 1px solid rgba(242,229,240,0.07);
+      vertical-align:top;
+      font-size:0.87rem;
+      line-height:1.6;
+      font-family: Manrope, sans-serif;
+    }
+    .data-table tr:last-child td { border-bottom:none; }
+    .data-table td:first-child {
+      color: #FFB4A4;
+      font-weight:600;
+      font-size:0.85rem;
+    }
+    .data-table tr:hover td { background:rgba(255,255,255,0.03); }
+
+    /* Tier badge */
+    .tier-badge {
+      display:inline-block;
+      font-size:0.65rem;
+      font-weight:700;
+      letter-spacing:0.1em;
+      text-transform:uppercase;
+      padding:2px 8px;
+      border-radius:999px;
+    }
+    .tier-free    { background:rgba(242,229,240,0.1); color:rgba(242,229,240,0.6); }
+    .tier-form    { background:rgba(255,180,164,0.15); color:#FFB4A4; }
+    .tier-pro     { background:rgba(233,195,73,0.15); color:#E9C349; }
+
+    /* Section divider */
+    .section-divider { border:none; border-top:1px solid rgba(242,229,240,0.1); margin:0; }
+  </style>
+</head>
+<body class="font-body text-on-surface min-h-screen">
+
+  <!-- Grain Overlay -->
+  <div class="grain-overlay"></div>
+
+  <!-- Ambient Orbs -->
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <!-- Navigation -->
+  <nav id="main-nav" class="fixed top-0 w-full z-50 bg-[#3D1540]/80 backdrop-blur-xl shadow-[0_20px_40px_-5px_rgba(61,21,64,0.3)] transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="index.html" class="text-2xl font-headline font-black text-[#FFB4A4] hover:opacity-80 transition-opacity">Formation Bible Study</a>
+
+      <!-- Desktop Nav -->
+      <div class="hidden md:flex items-center gap-8">
+        <a href="index.html" class="text-[#f2e5f0]/70 font-body text-sm hover:text-[#FFB4A4] transition-colors">Home</a>
+        <a href="features.html" class="text-[#f2e5f0]/70 font-body text-sm hover:text-[#FFB4A4] transition-colors">Features</a>
+        <a href="pricing.html" class="text-[#f2e5f0]/70 font-body text-sm hover:text-[#FFB4A4] transition-colors">Pricing</a>
+        <a href="signup.html" class="bg-gradient-to-br from-[#FFB4A4] to-[#6E2414] text-[#5D1809] px-6 py-2.5 rounded-full font-bold text-sm hover:opacity-90 transition-opacity">Join the Waitlist →</a>
+      </div>
+
+      <!-- Mobile Hamburger -->
+      <button id="nav-toggle" class="md:hidden text-[#f2e5f0] p-2" aria-label="Open menu">
+        <span class="material-symbols-outlined">menu</span>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="flex-col bg-[#3D1540] px-6 pb-6 gap-4 md:hidden">
+      <a href="index.html" class="text-[#f2e5f0]/80 font-body text-base py-2 border-b border-[#f2e5f0]/10">Home</a>
+      <a href="features.html" class="text-[#f2e5f0]/80 font-body text-base py-2 border-b border-[#f2e5f0]/10">Features</a>
+      <a href="pricing.html" class="text-[#f2e5f0]/80 font-body text-base py-2 border-b border-[#f2e5f0]/10">Pricing</a>
+      <a href="signup.html" class="bg-gradient-to-br from-[#FFB4A4] to-[#6E2414] text-[#5D1809] px-6 py-3 rounded-full font-bold text-sm text-center mt-2">Join the Waitlist →</a>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <section class="relative z-10 pt-36 pb-12 px-6">
+    <div class="max-w-3xl mx-auto">
+      <div data-animate="fade-up" class="inline-flex items-center gap-2 bg-[#3D1540]/70 border border-[#f2e5f0]/10 rounded-full px-4 py-1.5 mb-6">
+        <span class="material-symbols-outlined text-[#E9C349] text-base">smart_toy</span>
+        <span class="font-label text-[11px] uppercase tracking-widest text-[#E9C349]">AI Transparency</span>
+      </div>
+      <h1 data-animate="fade-up" class="font-headline text-4xl md:text-5xl font-black leading-tight mb-4">
+        AI Features <span class="shimmer-text">Disclosure</span>
+      </h1>
+      <p data-animate="fade-up" class="font-body text-[#f2e5f0]/60 text-lg leading-relaxed mb-6">
+        Formation Bible Study uses AI to help you study deeper. Here's exactly how it works, what it can and cannot do, and how your information is handled when you use it.
+      </p>
+      <div data-animate="fade-up" class="flex flex-wrap gap-4 text-sm text-[#f2e5f0]/40 font-body">
+        <span>Effective: January 1, 2026</span>
+        <span class="text-[#f2e5f0]/20">·</span>
+        <span>Last updated: April 16, 2026</span>
+        <span class="text-[#f2e5f0]/20">·</span>
+        <span>Berean Defense LLC</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Summary Banner -->
+  <section class="relative z-10 px-6 pb-12">
+    <div class="max-w-3xl mx-auto">
+      <div data-animate="scale-up" class="bg-[#3D1540]/60 border border-[#E9C349]/20 rounded-2xl p-6">
+        <div class="flex items-start gap-3 mb-4">
+          <span class="material-symbols-outlined text-[#E9C349] mt-0.5">lightbulb</span>
+          <div>
+            <h2 class="font-headline font-bold text-[#E9C349] text-base mb-1">The Short Version</h2>
+            <p class="font-body text-[#f2e5f0]/70 text-sm leading-relaxed">
+              Formation Bible Study's AI Study Assistant is powered by the Claude API from Anthropic. It is a tool to help you explore Scripture — not a replacement for Scripture itself, your pastor, or your own study. AI responses can contain errors. Always verify important theological claims against the Bible directly.
+            </p>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-4">
+          <div class="flex flex-col items-center gap-1 bg-[#5C2A5A]/60 rounded-xl p-3">
+            <span class="material-symbols-outlined text-[#FFB4A4] text-xl">auto_awesome</span>
+            <span class="font-label text-[10px] uppercase tracking-wider text-[#f2e5f0]/50 text-center">Powered by Claude</span>
+          </div>
+          <div class="flex flex-col items-center gap-1 bg-[#5C2A5A]/60 rounded-xl p-3">
+            <span class="material-symbols-outlined text-[#FFB4A4] text-xl">book</span>
+            <span class="font-label text-[10px] uppercase tracking-wider text-[#f2e5f0]/50 text-center">Bible is still primary</span>
+          </div>
+          <div class="flex flex-col items-center gap-1 bg-[#5C2A5A]/60 rounded-xl p-3">
+            <span class="material-symbols-outlined text-[#FFB4A4] text-xl">verified_user</span>
+            <span class="font-label text-[10px] uppercase tracking-wider text-[#f2e5f0]/50 text-center">You control it</span>
+          </div>
+          <div class="flex flex-col items-center gap-1 bg-[#5C2A5A]/60 rounded-xl p-3">
+            <span class="material-symbols-outlined text-[#FFB4A4] text-xl">report</span>
+            <span class="font-label text-[10px] uppercase tracking-wider text-[#f2e5f0]/50 text-center">Errors can occur</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Table of Contents -->
+  <section class="relative z-10 px-6 pb-10">
+    <div class="max-w-3xl mx-auto">
+      <div data-animate="fade-up" class="bg-[#3D1540]/40 border border-[#f2e5f0]/10 rounded-2xl p-6">
+        <h2 class="font-label text-[11px] uppercase tracking-widest text-[#f2e5f0]/40 mb-4">Contents</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+          <a href="#what-is-ai" class="font-body text-sm text-[#f2e5f0]/60 hover:text-[#FFB4A4] transition-colors flex items-center gap-2"><span class="text-[#E9C349] font-bold text-xs">01</span> What Is Formation Bible Study AI?</a>
+          <a href="#what-ai-does" class="font-body text-sm text-[#f2e5f0]/60 hover:text-[#FFB4A4] transition-colors flex items-center gap-2"><span class="text-[#E9C349] font-bold text-xs">02</span> What AI Can Help With</a>
+          <a href="#what-ai-cannot" class="font-body text-sm text-[#f2e5f0]/60 hover:text-[#FFB4A4] transition-colors flex items-center gap-2"><span class="text-[#E9C349] font-bold text-xs">03</span> What AI Cannot Do</a>
+          <a href="#data-handling" class="font-body text-sm text-[#f2e5f0]/60 hover:text-[#FFB4A4] transition-colors flex items-center gap-2"><span class="text-[#E9C349] font-bold text-xs">04</span> Data Handling &amp; Privacy</a>
+          <a href="#usage-limits" class="font-body text-sm text-[#f2e5f0]/60 hover:text-[#FFB4A4] transition-colors flex items-center gap-2"><span class="text-[#E9C349] font-bold text-xs">05</span> AI Usage by Plan</a>
+          <a href="#our-principles" class="font-body text-sm text-[#f2e5f0]/60 hover:text-[#FFB4A4] transition-colors flex items-center gap-2"><span class="text-[#E9C349] font-bold text-xs">06</span> Our AI Principles</a>
+          <a href="#third-party" class="font-body text-sm text-[#f2e5f0]/60 hover:text-[#FFB4A4] transition-colors flex items-center gap-2"><span class="text-[#E9C349] font-bold text-xs">07</span> Third-Party AI Provider</a>
+          <a href="#contact" class="font-body text-sm text-[#f2e5f0]/60 hover:text-[#FFB4A4] transition-colors flex items-center gap-2"><span class="text-[#E9C349] font-bold text-xs">08</span> Report a Problem</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider max-w-3xl mx-auto"/>
+
+  <!-- Main Content -->
+  <main class="relative z-10 px-6 py-12 max-w-3xl mx-auto space-y-14">
+
+    <!-- 1. What Is Formation Bible Study AI? -->
+    <section id="what-is-ai" data-animate="fade-up">
+      <div class="flex items-center gap-3 mb-5">
+        <span class="text-[#E9C349] font-headline font-black text-lg">01</span>
+        <h2 class="font-headline text-2xl font-bold text-[#FFB4A4]">What Is Formation Bible Study AI?</h2>
+      </div>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-4">
+        The Formation Bible Study AI Study Assistant is an artificial intelligence feature built into the app to help you explore the Bible more deeply. It is powered by the <strong class="text-[#f2e5f0]">Claude API</strong>, developed by <strong class="text-[#f2e5f0]">Anthropic, PBC</strong>. Formation Bible Study is a separate company — Berean Defense LLC — and is not affiliated with, endorsed by, or operated by Anthropic.
+      </p>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-6">
+        When you ask the AI Study Assistant a question, your message is sent to Anthropic's API, processed by a large language model (Claude), and a response is returned to you within the app. Formation Bible Study does not build or host its own AI model.
+      </p>
+      <div class="info-card flex items-start gap-3">
+        <span class="material-symbols-outlined text-[#FFB4A4] text-xl mt-0.5">info</span>
+        <div>
+          <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">AI-Generated Content Label</p>
+          <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">All responses from the AI Study Assistant are clearly marked within the app with an AI indicator. They are generated by a language model — not written by human scholars, pastors, or theologians.</p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider"/>
+
+    <!-- 2. What AI Can Help With -->
+    <section id="what-ai-does" data-animate="fade-up">
+      <div class="flex items-center gap-3 mb-5">
+        <span class="text-[#E9C349] font-headline font-black text-lg">02</span>
+        <h2 class="font-headline text-2xl font-bold text-[#FFB4A4]">What AI Can Help With</h2>
+      </div>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-6">
+        The Formation Bible Study AI Study Assistant is designed to accelerate your Bible study — not replace it. It works best as a study companion that provides context, surfaces connections, and helps you ask better questions of the text.
+      </p>
+      <div class="space-y-3">
+        <div class="info-card flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#E9C349] text-xl mt-0.5">history_edu</span>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Historical &amp; Cultural Context</p>
+            <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">Background on the historical setting, geography, customs, and culture surrounding a passage — helping you understand what the original audience would have heard and seen.</p>
+          </div>
+        </div>
+        <div class="info-card flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#E9C349] text-xl mt-0.5">translate</span>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Word &amp; Language Exploration</p>
+            <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">Plain-language explanations of Greek and Hebrew words, how they're used in other passages, and what nuances might be lost in translation.</p>
+          </div>
+        </div>
+        <div class="info-card flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#E9C349] text-xl mt-0.5">account_tree</span>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Cross-Reference &amp; Thematic Connections</p>
+            <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">Surfacing other passages that connect thematically or doctrinally, helping you see how Scripture speaks to itself across books and testaments.</p>
+          </div>
+        </div>
+        <div class="info-card flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#E9C349] text-xl mt-0.5">search</span>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Inductive Study Guidance</p>
+            <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">Prompts and questions to help you Observe, Interpret, and Apply a passage using Formation Bible Study's structured study method — keeping you in the driver's seat.</p>
+          </div>
+        </div>
+        <div class="info-card flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#E9C349] text-xl mt-0.5">summarize</span>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Passage Summaries &amp; Outlines</p>
+            <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">Quick summaries, structural outlines, and narrative overviews of books or chapters to orient your study before going deep.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider"/>
+
+    <!-- 3. What AI Cannot Do -->
+    <section id="what-ai-cannot" data-animate="fade-up">
+      <div class="flex items-center gap-3 mb-5">
+        <span class="text-[#E9C349] font-headline font-black text-lg">03</span>
+        <h2 class="font-headline text-2xl font-bold text-[#FFB4A4]">What AI Cannot Do</h2>
+      </div>
+
+      <!-- Critical warning -->
+      <div class="warning-card flex items-start gap-3 mb-6">
+        <span class="material-symbols-outlined text-[#E9C349] text-xl mt-0.5 flex-shrink-0">warning</span>
+        <div>
+          <p class="font-body font-semibold text-[#E9C349] text-sm mb-1">Important Limitation</p>
+          <p class="font-body text-[#f2e5f0]/70 text-sm leading-relaxed">AI language models can and do make mistakes — including confident-sounding errors about Scripture, theology, history, and doctrine. Formation Bible Study AI is not infallible. Always test AI responses against the Bible itself (Acts 17:11). When doctrine matters, consult your pastor, elder, or trusted theological sources.</p>
+        </div>
+      </div>
+
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-6">
+        The AI Study Assistant is a tool, not an authority. There are specific things it is not designed or equipped to do — and that we actively restrict it from doing in the Formation Bible Study context.
+      </p>
+
+      <div class="space-y-3">
+        <div class="info-card flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#FFB4A4] text-xl mt-0.5 flex-shrink-0">cancel</span>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Replace Scripture</p>
+            <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">The Bible is the primary source of Christian truth. AI responses are based on patterns in training data — they are not revelation. Always go back to the actual text.</p>
+          </div>
+        </div>
+        <div class="info-card flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#FFB4A4] text-xl mt-0.5 flex-shrink-0">cancel</span>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Replace Your Pastor or Church</p>
+            <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">Theological guidance, pastoral care, and spiritual accountability require human relationship. Formation Bible Study AI is not a substitute for your local church community or spiritual leadership.</p>
+          </div>
+        </div>
+        <div class="info-card flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#FFB4A4] text-xl mt-0.5 flex-shrink-0">cancel</span>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Guarantee Theological Accuracy</p>
+            <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">AI can produce plausible-sounding explanations that are doctrinally incorrect. Berean Defense LLC does not warrant the theological accuracy of any AI-generated response. Verify all significant claims with primary sources.</p>
+          </div>
+        </div>
+        <div class="info-card flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#FFB4A4] text-xl mt-0.5 flex-shrink-0">cancel</span>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Provide Counseling or Mental Health Support</p>
+            <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">Formation Bible Study AI is not a mental health tool. If you are in crisis, please contact a qualified counselor, therapist, or crisis resource. AI cannot replace human care in times of personal distress.</p>
+          </div>
+        </div>
+        <div class="info-card flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#FFB4A4] text-xl mt-0.5 flex-shrink-0">cancel</span>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Access Real-Time or Current Events</p>
+            <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">The Claude model used by Formation Bible Study has a knowledge cutoff date and does not have access to current news, events, or updated biblical scholarship published after its training.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider"/>
+
+    <!-- 4. Data Handling & Privacy -->
+    <section id="data-handling" data-animate="fade-up">
+      <div class="flex items-center gap-3 mb-5">
+        <span class="text-[#E9C349] font-headline font-black text-lg">04</span>
+        <h2 class="font-headline text-2xl font-bold text-[#FFB4A4]">Data Handling &amp; Privacy</h2>
+      </div>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-6">
+        When you use the AI Study Assistant, certain information is necessarily transmitted to Anthropic's servers to generate a response. Here is exactly what is and is not shared.
+      </p>
+      <div class="overflow-x-auto rounded-2xl border border-[#f2e5f0]/10 mb-6">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>What Is Sent</th>
+              <th>Why</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Your AI query (question or prompt)</td>
+              <td class="text-[#f2e5f0]/60">Required to generate a relevant response</td>
+            </tr>
+            <tr>
+              <td>The Bible passage in focus (if applicable)</td>
+              <td class="text-[#f2e5f0]/60">Provides context so the AI can respond about the correct text</td>
+            </tr>
+            <tr>
+              <td>Minimal conversation history (within session)</td>
+              <td class="text-[#f2e5f0]/60">Allows the AI to understand follow-up questions in context</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="overflow-x-auto rounded-2xl border border-[#f2e5f0]/10 mb-6">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>What Is NOT Sent</th>
+              <th>Note</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Your name or email address</td>
+              <td class="text-[#f2e5f0]/60">API calls are not tied to your identity</td>
+            </tr>
+            <tr>
+              <td>Your personal notes or prayer journal</td>
+              <td class="text-[#f2e5f0]/60">Your private study content stays on our servers, not sent to AI</td>
+            </tr>
+            <tr>
+              <td>Payment or billing information</td>
+              <td class="text-[#f2e5f0]/60">Billing is handled separately by Stripe</td>
+            </tr>
+            <tr>
+              <td>Browsing or reading history</td>
+              <td class="text-[#f2e5f0]/60">Reading activity is tracked by Formation Bible Study, not shared with Anthropic</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="info-card flex items-start gap-3">
+        <span class="material-symbols-outlined text-[#E9C349] text-xl mt-0.5">privacy_tip</span>
+        <div>
+          <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Anthropic's Data Practices</p>
+          <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">Anthropic processes your queries under their own privacy policy and terms of service. Formation Bible Study uses the Claude API under a commercial agreement that restricts Anthropic from using your queries to train their models. For full details on how Anthropic handles API data, see <a href="https://www.anthropic.com/legal/privacy" class="text-[#FFB4A4] hover:underline" target="_blank" rel="noopener noreferrer">anthropic.com/legal/privacy</a>.</p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider"/>
+
+    <!-- 5. AI Usage by Plan -->
+    <section id="usage-limits" data-animate="fade-up">
+      <div class="flex items-center gap-3 mb-5">
+        <span class="text-[#E9C349] font-headline font-black text-lg">05</span>
+        <h2 class="font-headline text-2xl font-bold text-[#FFB4A4]">AI Usage by Plan</h2>
+      </div>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-6">
+        Access to the AI Study Assistant varies by subscription tier. Limits exist because AI inference carries real operating costs that Formation Bible Study must manage sustainably.
+      </p>
+      <div class="overflow-x-auto rounded-2xl border border-[#f2e5f0]/10 mb-6">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Plan</th>
+              <th>AI Access</th>
+              <th>Details</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="tier-badge tier-free">Free</span></td>
+              <td class="text-[#f2e5f0]/60">5 queries per day</td>
+              <td class="text-[#f2e5f0]/60">Daily limit resets at midnight. Ad-supported. Basic AI features only.</td>
+            </tr>
+            <tr>
+              <td><span class="tier-badge tier-form">Formation Bible Study</span></td>
+              <td class="text-[#f2e5f0]/60">Full AI Study Assistant</td>
+              <td class="text-[#f2e5f0]/60">No daily query limit. Full inductive study features. $7/mo or $60/yr.</td>
+            </tr>
+            <tr>
+              <td><span class="tier-badge tier-plus">Formation Plus</span></td>
+              <td class="text-[#f2e5f0]/60">AI queries + accountability</td>
+              <td class="text-[#f2e5f0]/60">Everything in Formation Bible Study plus accountability partners and early feature access. $12/mo or $108/yr.</td>
+            </tr>
+            <tr>
+              <td><span class="tier-badge tier-pro">Formation Pro</span></td>
+              <td class="text-[#f2e5f0]/60">Unlimited AI queries</td>
+              <td class="text-[#f2e5f0]/60">Priority AI access, unlimited queries, early access to new AI features. $29/mo or $264/yr.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="font-body text-[#f2e5f0]/40 text-xs">
+        Usage limits may be adjusted over time. See <a href="pricing.html" class="text-[#FFB4A4] hover:underline">Pricing</a> for current plan details. Limits exist to ensure fair access for all users and sustainable service operation.
+      </p>
+    </section>
+
+    <hr class="section-divider"/>
+
+    <!-- 6. Our AI Principles -->
+    <section id="our-principles" data-animate="fade-up">
+      <div class="flex items-center gap-3 mb-5">
+        <span class="text-[#E9C349] font-headline font-black text-lg">06</span>
+        <h2 class="font-headline text-2xl font-bold text-[#FFB4A4]">Our AI Principles</h2>
+      </div>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-6">
+        As Christians building a tool for Christians, we take seriously how AI is used in spiritual formation. These are the commitments that guide how we build and deploy AI features in Formation Bible Study.
+      </p>
+      <div class="space-y-3">
+        <div class="info-card flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#E9C349] text-xl mt-0.5">menu_book</span>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Scripture First</p>
+            <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">Every AI feature is designed to point users back to the text of Scripture, not to become a substitute for it. We build AI as an on-ramp to deeper Bible engagement, not a bypass around it.</p>
+          </div>
+        </div>
+        <div class="info-card flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#E9C349] text-xl mt-0.5">transparency</span>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Always Disclosed</p>
+            <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">We will always clearly label AI-generated content within the app. We will never present AI responses as if they came from human scholars, Formation Bible Study staff, or biblical authorities.</p>
+          </div>
+        </div>
+        <div class="info-card flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#E9C349] text-xl mt-0.5">person_check</span>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">User in Control</p>
+            <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">The AI Study Assistant is opt-in. You choose when to engage it. Formation Bible Study's core Bible reading, highlighting, notes, and reading plans work entirely without AI involvement.</p>
+          </div>
+        </div>
+        <div class="info-card flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#E9C349] text-xl mt-0.5">verified</span>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Responsible Improvement</p>
+            <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">We monitor AI outputs for quality and theological integrity. When we identify patterns of error or misuse, we update our prompting system and notify affected users where appropriate.</p>
+          </div>
+        </div>
+        <div class="info-card flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#E9C349] text-xl mt-0.5">no_adult_content</span>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Restricted Use Cases</p>
+            <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">Formation Bible Study's AI is configured for Bible study purposes only. It is instructed not to generate content outside that scope. Users who attempt to misuse the AI for unrelated purposes may lose AI access.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider"/>
+
+    <!-- 7. Third-Party AI Provider -->
+    <section id="third-party" data-animate="fade-up">
+      <div class="flex items-center gap-3 mb-5">
+        <span class="text-[#E9C349] font-headline font-black text-lg">07</span>
+        <h2 class="font-headline text-2xl font-bold text-[#FFB4A4]">Third-Party AI Provider</h2>
+      </div>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-6">
+        Formation Bible Study's AI Study Assistant is powered by Anthropic's Claude API. Anthropic is an AI safety company headquartered in San Francisco, California. By using the Formation Bible Study AI features, you also agree to be bound by Anthropic's usage policies to the extent they apply to end users of API-based products.
+      </p>
+      <div class="overflow-x-auto rounded-2xl border border-[#f2e5f0]/10 mb-6">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Provider</th>
+              <th>Role</th>
+              <th>Links</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Anthropic, PBC</td>
+              <td class="text-[#f2e5f0]/60">AI model provider (Claude API)</td>
+              <td class="text-[#f2e5f0]/60"><a href="https://www.anthropic.com" class="text-[#FFB4A4] hover:underline" target="_blank" rel="noopener noreferrer">anthropic.com</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="warning-card flex items-start gap-3">
+        <span class="material-symbols-outlined text-[#E9C349] text-xl mt-0.5 flex-shrink-0">info</span>
+        <div>
+          <p class="font-body font-semibold text-[#E9C349] text-sm mb-1">No Affiliation</p>
+          <p class="font-body text-[#f2e5f0]/70 text-sm leading-relaxed">Formation Bible Study (Berean Defense LLC) is not affiliated with, sponsored by, or officially endorsed by Anthropic. The use of the Claude API is governed by a standard commercial agreement. The name "Claude" and the Anthropic brand are trademarks of Anthropic.</p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider"/>
+
+    <!-- 8. Report a Problem -->
+    <section id="contact" data-animate="fade-up">
+      <div class="flex items-center gap-3 mb-5">
+        <span class="text-[#E9C349] font-headline font-black text-lg">08</span>
+        <h2 class="font-headline text-2xl font-bold text-[#FFB4A4]">Report a Problem</h2>
+      </div>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-6">
+        Did the AI Study Assistant produce a response that was theologically misleading, inaccurate, or inappropriate? We want to know. Your feedback helps us improve the guardrails and quality of AI responses for every user in the Formation Bible Study community.
+      </p>
+      <div class="bg-[#3D1540]/60 border border-[#f2e5f0]/10 rounded-2xl p-6 space-y-4 mb-6">
+        <div class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#FFB4A4] text-xl mt-0.5">mail</span>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-0.5">AI Feedback &amp; Error Reports</p>
+            <a href="mailto:ai@formation.app" class="font-body text-[#FFB4A4] text-sm hover:underline">ai@formation.app</a>
+          </div>
+        </div>
+        <div class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#FFB4A4] text-xl mt-0.5">support_agent</span>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-0.5">General Support</p>
+            <a href="mailto:support@formation.app" class="font-body text-[#FFB4A4] text-sm hover:underline">support@formation.app</a>
+          </div>
+        </div>
+        <div class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#FFB4A4] text-xl mt-0.5">business</span>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm">Berean Defense LLC</p>
+            <p class="font-body text-[#f2e5f0]/60 text-sm">United States</p>
+          </div>
+        </div>
+      </div>
+      <p class="font-body text-[#f2e5f0]/50 text-sm leading-relaxed">
+        When reporting an AI issue, please include the question you asked, the response you received, and a brief description of the problem. We review all reports and respond within 5 business days.
+      </p>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-[#3D1540] w-full py-12 border-t border-[#f2e5f0]/10 relative z-10">
+    <div class="flex flex-col md:flex-row justify-between items-center w-full px-8 max-w-7xl mx-auto gap-8">
+      <div class="text-xl font-headline font-bold text-[#FFB4A4]">Formation Bible Study</div>
+      <div class="flex flex-wrap justify-center gap-8">
+        <a class="text-[#f2e5f0]/50 font-label uppercase tracking-widest text-[10px] hover:text-[#E8816A] transition-all" href="privacy_policy.html">Privacy Policy</a>
+        <a class="text-[#f2e5f0]/50 font-label uppercase tracking-widest text-[10px] hover:text-[#E8816A] transition-all" href="terms.html">Terms of Service</a>
+        <a class="text-[#f2e5f0]/50 font-label uppercase tracking-widest text-[10px] hover:text-[#E8816A] transition-all" href="cookie_policy.html">Cookie Policy</a>
+        <a class="text-[#f2e5f0]/50 font-label uppercase tracking-widest text-[10px] hover:text-[#E8816A] transition-all" href="ai_disclaimer.html" style="color:rgba(255,180,164,0.8)">AI Disclosure</a>
+        <a class="text-[#f2e5f0]/50 font-label uppercase tracking-widest text-[10px] hover:text-[#E8816A] transition-all" href="contact.html">Contact</a>
+      </div>
+      <div class="text-[#f2e5f0]/40 text-[10px] font-label uppercase tracking-widest">© 2026 Berean Defense LLC. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script>
+    // Nav scroll
+    const nav = document.getElementById('main-nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('nav-scrolled', window.scrollY > 20);
+    });
+
+    // Mobile menu
+    document.getElementById('nav-toggle').addEventListener('click', () => {
+      document.getElementById('mobile-menu').classList.toggle('open');
+    });
+
+    // Scroll animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('is-visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('[data-animate]').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

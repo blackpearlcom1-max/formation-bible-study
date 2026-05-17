@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Pricing — Formation Bible Study | Free, $7/mo, $12/mo</title>
+  <meta name="description" content="Formation Bible Study offers a permanent free tier plus paid plans starting at $7/month. No ads on paid plans. 14-day free trial. Built for serious students of scripture."/>
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://formationbible.com/pricing"/>
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://formationbible.com/pricing"/>
+  <meta property="og:title" content="Pricing — Formation Bible Study | Free, $7/mo, $12/mo"/>
+  <meta property="og:description" content="Formation Bible Study offers a permanent free tier plus paid plans starting at $7/month. No ads on paid plans. 14-day free trial."/>
+  <meta property="og:site_name" content="Formation Bible Study"/>
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:title" content="Pricing — Formation Bible Study"/>
+  <meta name="twitter:description" content="Free plan + paid plans from $7/mo. 14-day free trial. No ads on paid plans."/>
+  <meta name="robots" content="index, follow, max-snippet:-1"/>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Formation Bible Study — Pricing",
+    "url": "https://formationbible.com/pricing",
+    "description": "Formation Bible Study pricing: Free (permanent), Formation Bible Study at $7/month, Formation Plus at $12/month, Formation Pro at $29/month. All paid plans include a 14-day free trial.",
+    "isPartOf": { "@type": "WebSite", "name": "Formation Bible Study", "url": "https://formationbible.com" },
+    "breadcrumb": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://formationbible.com" },
+        { "@type": "ListItem", "position": 2, "name": "Pricing", "item": "https://formationbible.com/pricing" }
+      ]
+    }
+  }
+  </script>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Manrope:wght@300;400;500;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "secondary": "#e9c349", "on-surface-variant": "#d2c2cc", "on-surface": "#f2e5f0",
+            "surface-container-highest": "#7E3A6C", "secondary-container": "#af8d11",
+            "on-secondary": "#3c2f00", "primary": "#ffb4a4", "primary-container": "#6e2414",
+            "surface-variant": "#7E3A6C", "outline": "#c4a0c2",
+            "surface-container-lowest": "#3D1540", "surface-container-high": "#703060",
+            "surface-container": "#5C2A5A", "on-primary": "#5d1809",
+            "surface-dim": "#4A1D4D", "outline-variant": "#7A5478",
+            "surface-container-low": "#4A1D4D", "on-background": "#f2e5f0",
+            "surface": "#5C2A5A", "background": "#5C2A5A",
+            "on-primary-container": "#f58b73", "tertiary": "#ffb4a4",
+            "tertiary-container": "#6e2414", "surface-bright": "#8A4478"
+          },
+          borderRadius: { DEFAULT:"0.25rem", lg:"0.5rem", xl:"0.75rem", "2xl":"1rem", "3xl":"1.5rem", full:"9999px" },
+          fontFamily: { headline:["Noto Serif","serif"], body:["Manrope","sans-serif"], label:["Manrope","sans-serif"] }
+        }
+      }
+    }
+  </script>
+  <style>
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    body { background-color: #5C2A5A; }
+    .grain-overlay { pointer-events:none; position:fixed; inset:0; z-index:99; opacity:0.04;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"); }
+    #mobile-menu { display: none; }
+    #mobile-menu.open { display: flex; }
+    /* FAQ accordion */
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+    .faq-answer.open { max-height: 300px; }
+    .faq-icon { transition: transform 0.3s ease; }
+    .faq-icon.open { transform: rotate(180deg); }
+
+    /* === ANIMATION SYSTEM === */
+    @keyframes orbFloat1 { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(40px,-25px) scale(1.04)} 66%{transform:translate(-25px,20px) scale(0.97)} }
+    @keyframes orbFloat2 { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(-35px,28px) scale(0.96)} 66%{transform:translate(28px,-18px) scale(1.03)} }
+    @keyframes glowPulse { 0%,100%{box-shadow:0 0 60px -12px rgba(233,195,73,0.45)} 50%{box-shadow:0 0 110px -4px rgba(233,195,73,0.80)} }
+    @keyframes shimmer { 0%{background-position:-250% center} 100%{background-position:250% center} }
+
+    .orb { position:fixed; border-radius:50%; filter:blur(90px); pointer-events:none; z-index:0; }
+    .orb-1 { width:650px; height:650px; top:-150px; left:-120px; background:radial-gradient(circle, rgba(255,180,164,0.11) 0%, transparent 70%); animation:orbFloat1 22s ease-in-out infinite; }
+    .orb-2 { width:520px; height:520px; top:28%; right:-130px; background:radial-gradient(circle, rgba(233,195,73,0.08) 0%, transparent 70%); animation:orbFloat2 28s ease-in-out infinite; }
+    .orb-3 { width:420px; height:420px; bottom:8%; left:25%; background:radial-gradient(circle, rgba(255,180,164,0.07) 0%, transparent 70%); animation:orbFloat1 34s ease-in-out infinite reverse; }
+
+    [data-animate] { opacity:0; transition: opacity 0.8s cubic-bezier(0.25,0.46,0.45,0.94), transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94); }
+    [data-animate="fade-up"] { transform:translateY(34px); }
+    [data-animate="fade-left"] { transform:translateX(-38px); }
+    [data-animate="fade-right"] { transform:translateX(38px); }
+    [data-animate="scale-up"] { transform:scale(0.93) translateY(20px); }
+    [data-animate].is-visible { opacity:1; transform:none; }
+
+    .glow-pulse { animation:glowPulse 3s ease-in-out infinite; }
+    .shimmer-text {
+      background: linear-gradient(90deg, #e9c349 0%, #ffb4a4 32%, #e9c349 52%, #ffb4a4 78%, #e9c349 100%);
+      background-size:260% auto; -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+      background-clip:text; animation:shimmer 5.5s linear infinite;
+    }
+  </style>
+</head>
+<body class="font-body text-on-background">
+<div class="grain-overlay"></div>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+
+<!-- Navigation -->
+<nav class="fixed top-0 w-full z-50 bg-[#3D1540]/80 backdrop-blur-xl shadow-[0_20px_40px_-5px_rgba(61,21,64,0.3)]">
+  <div class="flex justify-between items-center w-full px-8 py-4 max-w-7xl mx-auto">
+    <a href="index.html" class="text-2xl font-headline font-black text-[#FFB4A4]">Formation Bible Study</a>
+    <div class="hidden md:flex gap-8 items-center">
+      <a href="index.html" class="text-[#f2e5f0]/60 font-medium font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4] transition-colors">Home</a>
+      <a href="features.html" class="text-[#f2e5f0]/60 font-medium font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4] transition-colors">Features</a>
+      <a href="pricing.html" class="text-[#E9C349] font-bold border-b-2 border-[#E9C349] pb-1 font-label uppercase tracking-widest text-xs">Pricing</a>
+      <a href="about.html" class="text-[#f2e5f0]/60 font-medium font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4] transition-colors">About</a>
+      <a href="beta.html" class="text-[#f2e5f0]/60 font-medium font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4] transition-colors">Beta</a>
+    </div>
+    <a href="signup.html" class="bg-primary text-on-primary px-6 py-2 rounded-full font-bold text-sm hover:scale-105 active:scale-95 transition-all">Join the Waitlist →</a>
+    <button id="nav-toggle" class="md:hidden text-on-surface ml-4"><span class="material-symbols-outlined">menu</span></button>
+  </div>
+  <div id="mobile-menu" class="flex-col px-8 pb-6 space-y-4 bg-[#3D1540]/95 backdrop-blur-xl md:hidden">
+    <a href="index.html" class="block text-[#f2e5f0]/60 font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4]">Home</a>
+    <a href="features.html" class="block text-[#f2e5f0]/60 font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4]">Features</a>
+    <a href="pricing.html" class="block text-[#E9C349] font-label uppercase tracking-widest text-xs font-bold">Pricing</a>
+    <a href="about.html" class="block text-[#f2e5f0]/60 font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4]">About</a>
+    <a href="beta.html" class="block text-[#f2e5f0]/60 font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4]">Beta</a>
+  </div>
+</nav>
+
+<main class="pt-32 pb-24 px-6 max-w-7xl mx-auto overflow-hidden">
+
+  <!-- Hero -->
+  <header class="text-center mb-24 relative">
+    <div class="absolute -top-24 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[120px] pointer-events-none"></div>
+    <p class="font-label uppercase tracking-[0.2em] text-secondary text-sm mb-4" data-animate="fade-up">Your Safe Place to Learn</p>
+    <h1 class="font-headline text-5xl md:text-7xl font-black text-on-surface mb-8 max-w-4xl mx-auto leading-tight" data-animate="fade-up" data-delay="150">
+      Simple, honest pricing. <span class="shimmer-text">No surprises.</span>
+    </h1>
+    <p class="font-body text-xl text-on-surface-variant max-w-2xl mx-auto leading-relaxed" data-animate="fade-up" data-delay="300">
+      Start free. Go deeper when you're ready. Every plan gives you a safe, judgment-free place to open the Word — at your own pace, on your own terms.
+    </p>
+  </header>
+
+  <!-- Billing Toggle -->
+  <div class="flex justify-center mb-16" data-animate="fade-up" data-delay="400">
+    <div class="inline-flex items-center bg-surface-container-low rounded-full p-1">
+      <button id="toggle-monthly" class="px-6 py-2.5 rounded-full font-label font-bold text-xs uppercase tracking-widest transition-all duration-300 bg-surface-container text-on-surface">Monthly</button>
+      <button id="toggle-yearly" class="px-6 py-2.5 rounded-full font-label font-bold text-xs uppercase tracking-widest transition-all duration-300 text-outline">Yearly</button>
+      <span class="ml-3 mr-1 bg-secondary text-on-secondary text-[9px] font-black uppercase tracking-widest px-2.5 py-1 rounded-full whitespace-nowrap">2 months free</span>
+    </div>
+  </div>
+
+  <!-- Pricing Cards -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-32 items-stretch">
+
+    <!-- Free Tier -->
+    <div class="bg-surface-container-low p-8 rounded-2xl flex flex-col hover:bg-surface-container transition-colors duration-500" data-animate="scale-up" data-delay="0">
+      <h3 class="font-label uppercase tracking-widest text-outline text-xs mb-2">Discovery</h3>
+      <div class="font-headline text-4xl font-bold mb-1 text-on-surface">Free</div>
+      <p class="text-outline text-sm mb-8">Start here. No pressure, no deadline.</p>
+      <div class="space-y-3 mb-10 flex-grow">
+        <div class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span>
+          <span class="text-sm font-body text-on-surface">Multiple Bible Translations (BSB, KJV, NIV, ESV + more)</span>
+        </div>
+        <div class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span>
+          <span class="text-sm font-body text-on-surface">Basic Highlighting (10/month)</span>
+        </div>
+        <div class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span>
+          <span class="text-sm font-body text-on-surface">1 Public Study Group</span>
+        </div>
+        <div class="flex items-start gap-3 opacity-35">
+          <span class="material-symbols-outlined text-lg">cancel</span>
+          <span class="text-sm font-body">Scholar's Research Companion</span>
+        </div>
+        <div class="flex items-start gap-3 opacity-35">
+          <span class="material-symbols-outlined text-lg">cancel</span>
+          <span class="text-sm font-body">Inductive Markup Suite</span>
+        </div>
+      </div>
+      <a href="signup.html?plan=free" class="block w-full py-4 rounded-xl border border-[#f2e5f0]/20 text-on-surface font-bold text-center hover:bg-surface-container-high transition-all">Get Started Free</a>
+    </div>
+
+    <!-- Formation Bible Study $7/mo (Most Popular) -->
+    <div class="relative p-[1px] rounded-2xl bg-gradient-to-br from-primary via-secondary to-primary/20 lg:-translate-y-4 glow-pulse" data-animate="scale-up" data-delay="120">
+      <div class="bg-surface-container-highest p-8 rounded-2xl h-full flex flex-col relative overflow-hidden">
+        <div class="absolute top-0 right-0 bg-secondary text-on-secondary px-3 py-1 text-[9px] font-bold uppercase tracking-widest rounded-bl-xl">Most Popular</div>
+        <h3 class="font-label uppercase tracking-widest text-primary text-xs mb-2">Formation Bible Study</h3>
+        <div class="flex items-baseline gap-1 mb-1">
+          <span class="font-headline text-5xl font-black text-on-surface price-number" data-monthly="$7" data-yearly="$5">$7</span>
+          <span class="text-outline text-sm">/mo</span>
+        </div>
+        <p class="price-annual-note text-secondary text-[10px] mb-2 hidden">billed $60/yr — save $24</p>
+        <p class="text-on-surface-variant text-xs mb-8">Everything you need to go as deep as you want.</p>
+        <div class="space-y-3 mb-10 flex-grow">
+          <div class="flex items-start gap-3">
+            <span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span>
+            <span class="text-sm font-bold font-body text-on-surface">Unlimited Highlights &amp; Annotations</span>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span>
+            <span class="text-sm font-body text-on-surface">Inductive Markup Suite</span>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span>
+            <span class="text-sm font-body text-on-surface">Scholarly Research Companion</span>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span>
+            <span class="text-sm font-body text-on-surface">Unlimited Study Groups</span>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span>
+            <span class="text-sm font-body text-on-surface">Scholars Library</span>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span>
+            <span class="text-sm font-body text-on-surface">Original Language Interlinear</span>
+          </div>
+        </div>
+        <!-- ✏️ STRIPE: Replace href with Stripe Payment Link for Formation Bible Study $7/mo -->
+        <a href="signup.html?plan=formation" class="block w-full py-4 rounded-xl bg-gradient-to-r from-primary to-primary-container text-on-primary font-black text-center shadow-lg hover:brightness-110 transition-all">Start 14-Day Free Trial</a>
+        <p class="text-center text-xs text-on-surface-variant mt-3 opacity-60">No credit card required</p>
+      </div>
+    </div>
+
+    <!-- Formation Plus $12/mo -->
+    <div class="bg-surface-container-low p-8 rounded-2xl flex flex-col hover:bg-surface-container transition-colors duration-500 border border-primary/15" data-animate="scale-up" data-delay="240">
+      <h3 class="font-label uppercase tracking-widest text-outline text-xs mb-2">Formation Plus</h3>
+      <div class="flex items-baseline gap-1 mb-1">
+        <span class="font-headline text-4xl font-bold text-on-surface price-number" data-monthly="$12" data-yearly="$9">$12</span>
+        <span class="text-outline text-sm">/mo</span>
+      </div>
+      <p class="price-annual-note text-secondary text-[10px] mb-2 hidden">billed $108/yr — save $36</p>
+      <p class="text-outline text-sm mb-8">For when you're ready to go scholar-level deep.</p>
+      <div class="space-y-3 mb-10 flex-grow">
+        <div class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span>
+          <span class="text-sm font-body text-on-surface">Everything in Formation Bible Study</span>
+        </div>
+        <div class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span>
+          <span class="text-sm font-body text-on-surface">Original Language Lexicons</span>
+        </div>
+        <div class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span>
+          <span class="text-sm font-body text-on-surface">Progress Dashboard &amp; Stats</span>
+        </div>
+        <div class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span>
+          <span class="text-sm font-body text-on-surface">Advanced Scriptural Research Engine</span>
+        </div>
+        <div class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span>
+          <span class="text-sm font-body text-on-surface">Manuscript Comparison Tools</span>
+        </div>
+        <div class="flex items-start gap-3 opacity-35">
+          <span class="material-symbols-outlined text-lg">cancel</span>
+          <span class="text-sm font-body">Church Admin Tools</span>
+        </div>
+      </div>
+      <!-- ✏️ STRIPE: Replace href with Stripe Payment Link for Formation Plus $12/mo -->
+      <a href="signup.html?plan=plus" class="block w-full py-4 rounded-xl border border-[#f2e5f0]/20 text-on-surface font-bold text-center hover:bg-surface-container-high transition-all">Subscribe Plus</a>
+    </div>
+
+    <!-- Formation Pro $29/mo -->
+    <div class="bg-surface-container-low p-8 rounded-2xl flex flex-col hover:bg-surface-container transition-colors duration-500" data-animate="scale-up" data-delay="360">
+      <h3 class="font-label uppercase tracking-widest text-outline text-xs mb-2">Formation Pro</h3>
+      <div class="flex items-baseline gap-1 mb-1">
+        <span class="font-headline text-4xl font-bold text-on-surface price-number" data-monthly="$29" data-yearly="$22">$29</span>
+        <span class="text-outline text-sm">/mo</span>
+      </div>
+      <p class="price-annual-note text-secondary text-[10px] mb-2 hidden">billed $264/yr — save $84</p>
+      <p class="text-outline text-sm mb-8">For leaders, pastors &amp; theologians.</p>
+      <div class="space-y-3 mb-10 flex-grow">
+        <div class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span>
+          <span class="text-sm font-body text-on-surface">Everything in Formation Plus</span>
+        </div>
+        <div class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span>
+          <span class="text-sm font-body text-on-surface">Church Admin &amp; Multi-User Tools</span>
+        </div>
+        <div class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span>
+          <span class="text-sm font-body text-on-surface">Congregation Management</span>
+        </div>
+        <div class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span>
+          <span class="text-sm font-body text-on-surface">Custom Reading Plan Builder</span>
+        </div>
+        <div class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span>
+          <span class="text-sm font-body text-on-surface">Dedicated Priority Support</span>
+        </div>
+        <div class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span>
+          <span class="text-sm font-body text-on-surface">Church Discount Codes</span>
+        </div>
+      </div>
+      <!-- ✏️ STRIPE: Replace href with Stripe Payment Link for Formation Pro $29/mo -->
+      <a href="signup.html?plan=pro" class="block w-full py-4 rounded-xl border border-[#f2e5f0]/20 text-on-surface font-bold text-center hover:bg-surface-container-high transition-all">Go Professional</a>
+    </div>
+
+  </div>
+
+  <!-- Comparison Table -->
+  <section class="mb-32">
+    <h2 class="font-headline text-3xl font-bold mb-12 text-center text-on-surface" data-animate="fade-up">Compare the Plans</h2>
+    <div class="overflow-x-auto rounded-2xl bg-surface-container-low" data-animate="fade-up" data-delay="100">
+      <table class="w-full text-left border-collapse">
+        <thead>
+          <tr class="border-b border-[#f2e5f0]/10">
+            <th class="py-6 px-6 font-label uppercase tracking-widest text-xs text-outline">Feature</th>
+            <th class="py-6 px-4 font-headline text-base text-on-surface">Free</th>
+            <th class="py-6 px-4 font-headline text-base text-primary">Formation Bible Study<br/><span id="table-price-formation" class="text-secondary text-xs font-label font-normal">$7/mo</span></th>
+            <th class="py-6 px-4 font-headline text-base text-on-surface">Plus<br/><span id="table-price-plus" class="text-outline text-xs font-label font-normal">$12/mo</span></th>
+            <th class="py-6 px-4 font-headline text-base text-on-surface">Pro<br/><span id="table-price-pro" class="text-outline text-xs font-label font-normal">$29/mo</span></th>
+          </tr>
+        </thead>
+        <tbody class="font-body text-sm">
+          <tr class="border-b border-[#f2e5f0]/5 hover:bg-surface-container transition-colors">
+            <td class="py-5 px-6 font-medium text-on-surface">Bible Translations (BSB, KJV, NIV, ESV, NLT, NASB, NKJV)</td>
+            <td class="py-5 px-4"><span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span></td>
+            <td class="py-5 px-4"><span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span></td>
+            <td class="py-5 px-4"><span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span></td>
+            <td class="py-5 px-4"><span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span></td>
+          </tr>
+          <tr class="border-b border-[#f2e5f0]/5 hover:bg-surface-container transition-colors">
+            <td class="py-5 px-6 font-medium text-on-surface">Highlights &amp; Annotations</td>
+            <td class="py-5 px-4 text-outline text-xs">10/month</td>
+            <td class="py-5 px-4 text-secondary text-xs font-bold">Unlimited</td>
+            <td class="py-5 px-4 text-secondary text-xs font-bold">Unlimited</td>
+            <td class="py-5 px-4 text-secondary text-xs font-bold">Unlimited</td>
+          </tr>
+          <tr class="border-b border-[#f2e5f0]/5 hover:bg-surface-container transition-colors">
+            <td class="py-5 px-6 font-medium text-on-surface">Inductive Markup Suite</td>
+            <td class="py-5 px-4"><span class="material-symbols-outlined opacity-30 text-lg">remove</span></td>
+            <td class="py-5 px-4"><span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span></td>
+            <td class="py-5 px-4"><span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span></td>
+            <td class="py-5 px-4"><span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span></td>
+          </tr>
+          <tr class="border-b border-[#f2e5f0]/5 hover:bg-surface-container transition-colors">
+            <td class="py-5 px-6 font-medium text-on-surface">Scholar's Research Companion</td>
+            <td class="py-5 px-4"><span class="material-symbols-outlined opacity-30 text-lg">remove</span></td>
+            <td class="py-5 px-4 text-outline text-xs">Standard</td>
+            <td class="py-5 px-4 text-secondary text-xs font-bold">Advanced</td>
+            <td class="py-5 px-4 text-secondary text-xs font-bold">Advanced</td>
+          </tr>
+          <tr class="border-b border-[#f2e5f0]/5 hover:bg-surface-container transition-colors">
+            <td class="py-5 px-6 font-medium text-on-surface">Community Study Groups</td>
+            <td class="py-5 px-4 text-outline text-xs">1 group</td>
+            <td class="py-5 px-4 text-secondary text-xs font-bold">Unlimited</td>
+            <td class="py-5 px-4 text-secondary text-xs font-bold">Unlimited</td>
+            <td class="py-5 px-4 text-secondary text-xs font-bold">Unlimited + Admin</td>
+          </tr>
+          <tr class="border-b border-[#f2e5f0]/5 hover:bg-surface-container transition-colors">
+            <td class="py-5 px-6 font-medium text-on-surface">Scholars Library (8 Trans.)</td>
+            <td class="py-5 px-4"><span class="material-symbols-outlined opacity-30 text-lg">remove</span></td>
+            <td class="py-5 px-4"><span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span></td>
+            <td class="py-5 px-4"><span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span></td>
+            <td class="py-5 px-4"><span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span></td>
+          </tr>
+          <tr class="border-b border-[#f2e5f0]/5 hover:bg-surface-container transition-colors">
+            <td class="py-5 px-6 font-medium text-on-surface">Original Language Interlinear</td>
+            <td class="py-5 px-4"><span class="material-symbols-outlined opacity-30 text-lg">remove</span></td>
+            <td class="py-5 px-4"><span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span></td>
+            <td class="py-5 px-4"><span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span></td>
+            <td class="py-5 px-4"><span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span></td>
+          </tr>
+          <tr class="border-b border-[#f2e5f0]/5 hover:bg-surface-container transition-colors">
+            <td class="py-5 px-6 font-medium text-on-surface">Progress Dashboard</td>
+            <td class="py-5 px-4"><span class="material-symbols-outlined opacity-30 text-lg">remove</span></td>
+            <td class="py-5 px-4"><span class="material-symbols-outlined opacity-30 text-lg">remove</span></td>
+            <td class="py-5 px-4"><span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span></td>
+            <td class="py-5 px-4"><span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span></td>
+          </tr>
+          <tr class="border-b border-[#f2e5f0]/5 hover:bg-surface-container transition-colors">
+            <td class="py-5 px-6 font-medium text-on-surface">Original Language Lexicons</td>
+            <td class="py-5 px-4"><span class="material-symbols-outlined opacity-30 text-lg">remove</span></td>
+            <td class="py-5 px-4"><span class="material-symbols-outlined opacity-30 text-lg">remove</span></td>
+            <td class="py-5 px-4"><span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span></td>
+            <td class="py-5 px-4"><span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span></td>
+          </tr>
+          <tr class="hover:bg-surface-container transition-colors">
+            <td class="py-5 px-6 font-medium text-on-surface">Church Admin &amp; Multi-User</td>
+            <td class="py-5 px-4"><span class="material-symbols-outlined opacity-30 text-lg">remove</span></td>
+            <td class="py-5 px-4"><span class="material-symbols-outlined opacity-30 text-lg">remove</span></td>
+            <td class="py-5 px-4"><span class="material-symbols-outlined opacity-30 text-lg">remove</span></td>
+            <td class="py-5 px-4"><span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="max-w-3xl mx-auto mb-32">
+    <h2 class="font-headline text-4xl font-bold mb-12 text-center text-on-surface" data-animate="fade-up">Common Inquiries</h2>
+    <div class="space-y-4" id="faq" data-animate="fade-up" data-delay="100">
+      <div class="bg-surface-container-low rounded-2xl overflow-hidden">
+        <button class="faq-btn w-full flex items-center justify-between p-6 text-left hover:bg-surface-container transition-all">
+          <span class="font-body font-bold text-on-surface">Can I switch plans later?</span>
+          <span class="material-symbols-outlined text-outline faq-icon">expand_more</span>
+        </button>
+        <div class="faq-answer px-6 pb-0">
+          <p class="text-outline text-sm leading-relaxed pb-6">Yes, you can upgrade or downgrade at any time. Changes are prorated — you'll only pay the difference for the remainder of your billing cycle.</p>
+        </div>
+      </div>
+      <div class="bg-surface-container-low rounded-2xl overflow-hidden">
+        <button class="faq-btn w-full flex items-center justify-between p-6 text-left hover:bg-surface-container transition-all">
+          <span class="font-body font-bold text-on-surface">What does the Scholar's Research Companion do?</span>
+          <span class="material-symbols-outlined text-outline faq-icon">expand_more</span>
+        </button>
+        <div class="faq-answer px-6 pb-0">
+          <p class="text-outline text-sm leading-relaxed pb-6">The Research Companion draws from historical commentaries, archaeological data, and original language manuscripts to help you find cross-references, understand cultural context, and clarify difficult passages — without interpreting the text for you. You do the studying. It gives you the tools scholars use.</p>
+        </div>
+      </div>
+      <div class="bg-surface-container-low rounded-2xl overflow-hidden">
+        <button class="faq-btn w-full flex items-center justify-between p-6 text-left hover:bg-surface-container transition-all">
+          <span class="font-body font-bold text-on-surface">Is there a group discount for churches?</span>
+          <span class="material-symbols-outlined text-outline faq-icon">expand_more</span>
+        </button>
+        <div class="faq-answer px-6 pb-0">
+          <p class="text-outline text-sm leading-relaxed pb-6">Yes — we offer specialized pricing for congregations and study groups of 10 or more. Please contact us at support@formationbible.com for a custom quote.</p>
+        </div>
+      </div>
+      <div class="bg-surface-container-low rounded-2xl overflow-hidden">
+        <button class="faq-btn w-full flex items-center justify-between p-6 text-left hover:bg-surface-container transition-all">
+          <span class="font-body font-bold text-on-surface">Is my data private and secure?</span>
+          <span class="material-symbols-outlined text-outline faq-icon">expand_more</span>
+        </button>
+        <div class="faq-answer px-6 pb-0">
+          <p class="text-outline text-sm leading-relaxed pb-6">Absolutely. Your notes, highlights, and study data are encrypted and never sold to third parties. Formation Bible Study is built on the conviction that your spiritual journey is sacred and private.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bottom CTA -->
+  <section class="relative bg-surface-container-high rounded-[2rem] p-12 md:p-20 text-center overflow-hidden mb-8">
+    <div class="absolute inset-0 bg-gradient-to-tr from-primary-container/20 to-transparent pointer-events-none"></div>
+    <div class="relative z-10">
+      <h2 class="font-headline text-4xl md:text-5xl font-black mb-6 text-on-surface" data-animate="scale-up">Your safe place to learn is waiting.</h2>
+      <p class="text-on-surface-variant mb-10 max-w-xl mx-auto">No prerequisites. No judgment. Just you, the Word, and the tools to finally go as deep as you've always wanted. Start free — upgrade whenever you're ready.</p>
+      <div class="flex flex-col md:flex-row gap-4 justify-center items-center">
+        <a href="signup.html?plan=formation" class="px-10 py-5 bg-primary text-on-primary rounded-full font-black text-lg hover:scale-105 active:scale-95 transition-transform shadow-xl">
+          Start your free trial today
+        </a>
+        <a href="mailto:support@formationbible.com" class="px-10 py-5 border border-[#f2e5f0]/20 rounded-full font-bold text-on-surface hover:bg-surface-variant transition-colors">
+          Contact Support
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Footer -->
+<footer class="bg-[#3D1540] w-full py-12 border-t border-[#f2e5f0]/10">
+  <div class="flex flex-col md:flex-row justify-between items-center w-full px-8 max-w-7xl mx-auto gap-8">
+    <div class="flex flex-col items-center md:items-start gap-1">
+      <div class="text-xl font-headline font-bold text-[#FFB4A4]">Formation Bible Study</div>
+      <p class="text-[10px] font-label uppercase tracking-widest text-[#f2e5f0]/40">Your Safe Place to Learn</p>
+    </div>
+    <div class="flex flex-wrap justify-center gap-8">
+      <a class="text-sm font-body text-[#f2e5f0]/50 hover:text-[#E8816A] transition-all" href="privacy_policy.html">Privacy Policy</a>
+      <a class="text-sm font-body text-[#f2e5f0]/50 hover:text-[#E8816A] transition-all" href="terms.html">Terms of Service</a>
+      <a class="text-sm font-body text-[#f2e5f0]/50 hover:text-[#E8816A] transition-all" href="cookie_policy.html">Cookie Policy</a>
+      <a class="text-sm font-body text-[#f2e5f0]/50 hover:text-[#E8816A] transition-all" href="contact.html">Contact</a>
+    </div>
+    <div class="text-[10px] font-label uppercase tracking-widest text-[#f2e5f0]/40">© 2026 Berean Defense LLC. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('nav-toggle').addEventListener('click', function() {
+    document.getElementById('mobile-menu').classList.toggle('open');
+  });
+
+  // Scroll-triggered animations
+  const animObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const delay = parseInt(entry.target.dataset.delay || 0);
+        setTimeout(() => entry.target.classList.add('is-visible'), delay);
+        animObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('[data-animate]').forEach(el => animObserver.observe(el));
+
+  // Billing toggle
+  const monthlyBtn = document.getElementById('toggle-monthly');
+  const yearlyBtn  = document.getElementById('toggle-yearly');
+
+  function setBilling(mode) {
+    const isYearly = mode === 'yearly';
+
+    // Active pill styling
+    monthlyBtn.classList.toggle('bg-surface-container', !isYearly);
+    monthlyBtn.classList.toggle('text-on-surface',      !isYearly);
+    monthlyBtn.classList.toggle('text-outline',          isYearly);
+    yearlyBtn.classList.toggle('bg-surface-container',   isYearly);
+    yearlyBtn.classList.toggle('text-on-surface',        isYearly);
+    yearlyBtn.classList.toggle('text-outline',          !isYearly);
+
+    // Swap price numbers
+    document.querySelectorAll('.price-number').forEach(function(el) {
+      el.textContent = isYearly ? el.dataset.yearly : el.dataset.monthly;
+    });
+
+    // Show/hide "billed annually" lines
+    document.querySelectorAll('.price-annual-note').forEach(function(el) {
+      el.classList.toggle('hidden', !isYearly);
+    });
+
+    // Update comparison table
+    document.getElementById('table-price-formation').textContent = isYearly ? '$5/mo*' : '$7/mo';
+    document.getElementById('table-price-plus').textContent      = isYearly ? '$9/mo*' : '$12/mo';
+    document.getElementById('table-price-pro').textContent       = isYearly ? '$22/mo*' : '$29/mo';
+  }
+
+  monthlyBtn.addEventListener('click', function() { setBilling('monthly'); });
+  yearlyBtn.addEventListener('click',  function() { setBilling('yearly');  });
+
+  // FAQ Accordion
+  document.querySelectorAll('.faq-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var answer = this.nextElementSibling;
+      var icon = this.querySelector('.faq-icon');
+      var isOpen = answer.classList.contains('open');
+      // Close all
+      document.querySelectorAll('.faq-answer').forEach(function(a) { a.classList.remove('open'); });
+      document.querySelectorAll('.faq-icon').forEach(function(i) { i.classList.remove('open'); });
+      // Open clicked if it was closed
+      if (!isOpen) { answer.classList.add('open'); icon.classList.add('open'); }
+    });
+  });
+</script>
+</body>
+</html>

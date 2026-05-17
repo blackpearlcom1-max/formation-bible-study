@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Terms of Service — Formation Bible Study</title>
+  <meta name="description" content="Formation Bible Study's Terms of Service outline the rules, rights, and responsibilities for using the Formation Bible Study app and website."/>
+
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Manrope:wght@300;400;500;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "secondary":                  "#e9c349",
+            "on-surface-variant":         "#d2c2cc",
+            "on-surface":                 "#f2e5f0",
+            "surface-container-highest":  "#7E3A6C",
+            "secondary-container":        "#af8d11",
+            "on-secondary":               "#3c2f00",
+            "primary":                    "#ffb4a4",
+            "primary-container":          "#6e2414",
+            "surface-variant":            "#7E3A6C",
+            "outline":                    "#c4a0c2",
+            "surface-container-lowest":   "#3D1540",
+            "surface-container-high":     "#703060",
+            "surface-container":          "#5C2A5A",
+            "on-secondary-fixed":         "#241a00",
+            "inverse-primary":            "#9a4431",
+            "on-primary":                 "#5d1809",
+            "surface-dim":                "#4A1D4D",
+            "outline-variant":            "#7A5478",
+            "surface-container-low":      "#4A1D4D",
+            "on-background":              "#f2e5f0",
+            "surface":                    "#5C2A5A",
+            "background":                 "#5C2A5A",
+            "on-primary-container":       "#f58b73",
+            "tertiary":                   "#ffb4a4",
+            "tertiary-container":         "#6e2414",
+            "on-tertiary":                "#5d1809",
+            "on-tertiary-container":      "#f48b73",
+            "surface-bright":             "#8A4478",
+            "inverse-surface":            "#eae0e7",
+            "inverse-on-surface":         "#342f34"
+          },
+          borderRadius: {
+            DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem",
+            "2xl": "1rem", "3xl": "1.5rem", full: "9999px"
+          },
+          fontFamily: {
+            headline: ["Noto Serif", "serif"],
+            body:     ["Manrope", "sans-serif"],
+            label:    ["Manrope", "sans-serif"]
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .material-symbols-outlined { font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24; }
+    body { background-color: #5C2A5A; }
+
+    .grain-overlay {
+      pointer-events:none; position:fixed; inset:0; z-index:99; opacity:0.04;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    }
+    #mobile-menu { display:none; }
+    #mobile-menu.open { display:flex; }
+    .nav-scrolled { background-color:rgba(61,21,64,0.95) !important; }
+
+    @keyframes orbFloat1 { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(40px,-25px) scale(1.04)} 66%{transform:translate(-25px,20px) scale(0.97)} }
+    @keyframes orbFloat2 { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(-35px,28px) scale(0.96)} 66%{transform:translate(28px,-18px) scale(1.03)} }
+    @keyframes shimmer  { 0%{background-position:-250% center} 100%{background-position:250% center} }
+
+    .orb { position:fixed; border-radius:50%; filter:blur(90px); pointer-events:none; z-index:0; }
+    .orb-1 { width:650px; height:650px; top:-150px; left:-120px;  background:radial-gradient(circle,rgba(255,180,164,0.11) 0%,transparent 70%); animation:orbFloat1 22s ease-in-out infinite; }
+    .orb-2 { width:520px; height:520px; top:28%;   right:-130px; background:radial-gradient(circle,rgba(233,195,73,0.08)  0%,transparent 70%); animation:orbFloat2 28s ease-in-out infinite; }
+    .orb-3 { width:420px; height:420px; bottom:8%; left:25%;     background:radial-gradient(circle,rgba(255,180,164,0.07) 0%,transparent 70%); animation:orbFloat1 34s ease-in-out infinite reverse; }
+
+    [data-animate] { opacity:0; transition:opacity 0.8s cubic-bezier(0.25,0.46,0.45,0.94), transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94); }
+    [data-animate="fade-up"]    { transform:translateY(34px); }
+    [data-animate="scale-up"]   { transform:scale(0.93) translateY(20px); }
+    [data-animate].is-visible   { opacity:1; transform:none; }
+
+    .shimmer-text {
+      background:linear-gradient(90deg, #e9c349 0%, #ffb4a4 32%, #e9c349 52%, #ffb4a4 78%, #e9c349 100%);
+      background-size:260% auto; -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+      background-clip:text; animation:shimmer 5.5s linear infinite;
+    }
+
+    .term-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(242,229,240,0.1);
+      border-radius: 16px;
+      padding: 20px 24px;
+      transition: background 0.25s, border-color 0.25s;
+    }
+    .term-card:hover {
+      background: rgba(255,255,255,0.07);
+      border-color: rgba(255,180,164,0.25);
+    }
+
+    .callout-warning {
+      background: rgba(233,195,73,0.07);
+      border: 1px solid rgba(233,195,73,0.2);
+      border-radius: 14px;
+      padding: 16px 20px;
+    }
+    .callout-info {
+      background: rgba(61,21,64,0.6);
+      border: 1px solid rgba(242,229,240,0.1);
+      border-radius: 14px;
+      padding: 16px 20px;
+    }
+    .callout-ai {
+      background: rgba(255,180,164,0.06);
+      border: 1px solid rgba(255,180,164,0.18);
+      border-radius: 14px;
+      padding: 16px 20px;
+    }
+
+    .section-divider { border:none; border-top:1px solid rgba(242,229,240,0.1); margin:0; }
+
+    .deny-row { display:flex; align-items:flex-start; gap:12px; padding:10px 12px; border-radius:12px; background:rgba(61,21,64,0.4); }
+  </style>
+</head>
+<body class="font-body text-on-surface min-h-screen">
+
+  <div class="grain-overlay"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <!-- Navigation -->
+  <nav id="main-nav" class="fixed top-0 w-full z-50 bg-[#3D1540]/80 backdrop-blur-xl shadow-[0_20px_40px_-5px_rgba(61,21,64,0.3)] transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="index.html" class="text-2xl font-headline font-black text-[#FFB4A4] hover:opacity-80 transition-opacity">Formation Bible Study</a>
+      <div class="hidden md:flex items-center gap-8">
+        <a href="index.html" class="text-[#f2e5f0]/70 font-body text-sm hover:text-[#FFB4A4] transition-colors">Home</a>
+        <a href="features.html" class="text-[#f2e5f0]/70 font-body text-sm hover:text-[#FFB4A4] transition-colors">Features</a>
+        <a href="pricing.html" class="text-[#f2e5f0]/70 font-body text-sm hover:text-[#FFB4A4] transition-colors">Pricing</a>
+        <a href="signup.html" class="bg-gradient-to-br from-[#FFB4A4] to-[#6E2414] text-[#5D1809] px-6 py-2.5 rounded-full font-bold text-sm hover:opacity-90 transition-opacity">Join the Waitlist →</a>
+      </div>
+      <button id="nav-toggle" class="md:hidden text-[#f2e5f0] p-2" aria-label="Open menu">
+        <span class="material-symbols-outlined">menu</span>
+      </button>
+    </div>
+    <div id="mobile-menu" class="flex-col bg-[#3D1540] px-6 pb-6 gap-4 md:hidden">
+      <a href="index.html" class="text-[#f2e5f0]/80 font-body text-base py-2 border-b border-[#f2e5f0]/10">Home</a>
+      <a href="features.html" class="text-[#f2e5f0]/80 font-body text-base py-2 border-b border-[#f2e5f0]/10">Features</a>
+      <a href="pricing.html" class="text-[#f2e5f0]/80 font-body text-base py-2 border-b border-[#f2e5f0]/10">Pricing</a>
+      <a href="signup.html" class="bg-gradient-to-br from-[#FFB4A4] to-[#6E2414] text-[#5D1809] px-6 py-3 rounded-full font-bold text-sm text-center mt-2">Join the Waitlist →</a>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <section class="relative z-10 pt-36 pb-12 px-6">
+    <div class="max-w-3xl mx-auto">
+      <div data-animate="fade-up" class="inline-flex items-center gap-2 bg-[#3D1540]/70 border border-[#f2e5f0]/10 rounded-full px-4 py-1.5 mb-6">
+        <span class="material-symbols-outlined text-[#E9C349] text-base">gavel</span>
+        <span class="font-label text-[11px] uppercase tracking-widest text-[#E9C349]">Plain Language Terms</span>
+      </div>
+      <h1 data-animate="fade-up" class="font-headline text-4xl md:text-5xl font-black leading-tight mb-4">
+        Terms of <span class="shimmer-text">Service</span>
+      </h1>
+      <p data-animate="fade-up" class="font-body text-[#f2e5f0]/60 text-lg leading-relaxed mb-6">
+        We've written these in plain language. If you have questions about anything, just ask us.
+      </p>
+      <div data-animate="fade-up" class="flex flex-wrap gap-4 text-sm text-[#f2e5f0]/40 font-body">
+        <span>Effective: April 16, 2026</span>
+        <span class="text-[#f2e5f0]/20">·</span>
+        <span>Last updated: April 16, 2026</span>
+        <span class="text-[#f2e5f0]/20">·</span>
+        <span>Berean Defense LLC</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Acceptance Banner -->
+  <section class="relative z-10 px-6 pb-12">
+    <div class="max-w-3xl mx-auto">
+      <div data-animate="scale-up" class="callout-warning flex items-start gap-3">
+        <span class="material-symbols-outlined text-[#E9C349] mt-0.5 shrink-0">info</span>
+        <p class="font-body text-[#f2e5f0]/70 text-sm leading-relaxed">
+          By accessing or using Formation Bible Study — including the website at <strong class="text-[#f2e5f0]">formationbible.com</strong> or the Formation Bible Study mobile app — you agree to these Terms of Service. If you do not agree, please do not use Formation Bible Study.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Table of Contents -->
+  <section class="relative z-10 px-6 pb-10">
+    <div class="max-w-3xl mx-auto">
+      <div data-animate="fade-up" class="bg-[#3D1540]/40 border border-[#f2e5f0]/10 rounded-2xl p-6">
+        <h2 class="font-label text-[11px] uppercase tracking-widest text-[#f2e5f0]/40 mb-4">Contents</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+          <a href="#acceptance"       class="font-body text-sm text-[#f2e5f0]/60 hover:text-[#FFB4A4] transition-colors flex items-center gap-2"><span class="text-[#E9C349] font-bold text-xs">01</span> Acceptance of Terms</a>
+          <a href="#eligibility"      class="font-body text-sm text-[#f2e5f0]/60 hover:text-[#FFB4A4] transition-colors flex items-center gap-2"><span class="text-[#E9C349] font-bold text-xs">02</span> Eligibility</a>
+          <a href="#your-account"     class="font-body text-sm text-[#f2e5f0]/60 hover:text-[#FFB4A4] transition-colors flex items-center gap-2"><span class="text-[#E9C349] font-bold text-xs">03</span> Your Account</a>
+          <a href="#subscriptions"    class="font-body text-sm text-[#f2e5f0]/60 hover:text-[#FFB4A4] transition-colors flex items-center gap-2"><span class="text-[#E9C349] font-bold text-xs">04</span> Subscriptions &amp; Billing</a>
+          <a href="#acceptable-use"   class="font-body text-sm text-[#f2e5f0]/60 hover:text-[#FFB4A4] transition-colors flex items-center gap-2"><span class="text-[#E9C349] font-bold text-xs">05</span> Acceptable Use</a>
+          <a href="#your-content"     class="font-body text-sm text-[#f2e5f0]/60 hover:text-[#FFB4A4] transition-colors flex items-center gap-2"><span class="text-[#E9C349] font-bold text-xs">06</span> Your Content</a>
+          <a href="#our-ip"           class="font-body text-sm text-[#f2e5f0]/60 hover:text-[#FFB4A4] transition-colors flex items-center gap-2"><span class="text-[#E9C349] font-bold text-xs">07</span> Our Intellectual Property</a>
+          <a href="#ai-features"      class="font-body text-sm text-[#f2e5f0]/60 hover:text-[#FFB4A4] transition-colors flex items-center gap-2"><span class="text-[#E9C349] font-bold text-xs">08</span> AI-Powered Features</a>
+          <a href="#third-party"      class="font-body text-sm text-[#f2e5f0]/60 hover:text-[#FFB4A4] transition-colors flex items-center gap-2"><span class="text-[#E9C349] font-bold text-xs">09</span> Third-Party Services</a>
+          <a href="#dmca"             class="font-body text-sm text-[#f2e5f0]/60 hover:text-[#FFB4A4] transition-colors flex items-center gap-2"><span class="text-[#E9C349] font-bold text-xs">10</span> DMCA &amp; Copyright</a>
+          <a href="#disclaimers"      class="font-body text-sm text-[#f2e5f0]/60 hover:text-[#FFB4A4] transition-colors flex items-center gap-2"><span class="text-[#E9C349] font-bold text-xs">11</span> Disclaimers</a>
+          <a href="#limitation"       class="font-body text-sm text-[#f2e5f0]/60 hover:text-[#FFB4A4] transition-colors flex items-center gap-2"><span class="text-[#E9C349] font-bold text-xs">12</span> Limitation of Liability</a>
+          <a href="#indemnification"  class="font-body text-sm text-[#f2e5f0]/60 hover:text-[#FFB4A4] transition-colors flex items-center gap-2"><span class="text-[#E9C349] font-bold text-xs">13</span> Indemnification</a>
+          <a href="#termination"      class="font-body text-sm text-[#f2e5f0]/60 hover:text-[#FFB4A4] transition-colors flex items-center gap-2"><span class="text-[#E9C349] font-bold text-xs">14</span> Termination</a>
+          <a href="#dispute"          class="font-body text-sm text-[#f2e5f0]/60 hover:text-[#FFB4A4] transition-colors flex items-center gap-2"><span class="text-[#E9C349] font-bold text-xs">15</span> Dispute Resolution &amp; Arbitration</a>
+          <a href="#governing-law"    class="font-body text-sm text-[#f2e5f0]/60 hover:text-[#FFB4A4] transition-colors flex items-center gap-2"><span class="text-[#E9C349] font-bold text-xs">16</span> Governing Law</a>
+          <a href="#miscellaneous"    class="font-body text-sm text-[#f2e5f0]/60 hover:text-[#FFB4A4] transition-colors flex items-center gap-2"><span class="text-[#E9C349] font-bold text-xs">17</span> Miscellaneous</a>
+          <a href="#changes"          class="font-body text-sm text-[#f2e5f0]/60 hover:text-[#FFB4A4] transition-colors flex items-center gap-2"><span class="text-[#E9C349] font-bold text-xs">18</span> Changes to Terms</a>
+          <a href="#contact"          class="font-body text-sm text-[#f2e5f0]/60 hover:text-[#FFB4A4] transition-colors flex items-center gap-2"><span class="text-[#E9C349] font-bold text-xs">19</span> Contact</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider max-w-3xl mx-auto"/>
+
+  <!-- Main Content -->
+  <main class="relative z-10 px-6 py-12 max-w-3xl mx-auto space-y-14">
+
+    <!-- 01 Acceptance -->
+    <section id="acceptance" data-animate="fade-up">
+      <div class="flex items-center gap-3 mb-5">
+        <span class="text-[#E9C349] font-headline font-black text-lg">01</span>
+        <h2 class="font-headline text-2xl font-bold text-[#FFB4A4]">Acceptance of Terms</h2>
+      </div>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-4">
+        These Terms of Service ("Terms") constitute a legally binding agreement between you and <strong class="text-[#f2e5f0]">Berean Defense LLC</strong> ("Formation Bible Study," "we," "us," or "our"), a Wyoming limited liability company, governing your access to and use of the Formation Bible Study application, website at formationbible.com, and all related services (collectively, the "Service").
+      </p>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-4">
+        These Terms incorporate our <a href="privacy_policy.html" class="text-[#FFB4A4] hover:underline">Privacy Policy</a> and <a href="cookie_policy.html" class="text-[#FFB4A4] hover:underline">Cookie Policy</a> by reference. Please read all three documents together — they form the complete agreement between you and Formation Bible Study.
+      </p>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed">
+        If you use the Service on behalf of an organization, you represent that you have the authority to bind that organization to these Terms. References to "you" include both you individually and any such organization.
+      </p>
+    </section>
+
+    <hr class="section-divider"/>
+
+    <!-- 02 Eligibility -->
+    <section id="eligibility" data-animate="fade-up">
+      <div class="flex items-center gap-3 mb-5">
+        <span class="text-[#E9C349] font-headline font-black text-lg">02</span>
+        <h2 class="font-headline text-2xl font-bold text-[#FFB4A4]">Eligibility</h2>
+      </div>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-4">
+        Formation Bible Study is intended for users who are at least <strong class="text-[#f2e5f0]">13 years of age</strong>. The Service is not directed to children under 13, and we do not knowingly collect personal information from anyone under 13. If we learn that a user is under 13, we will promptly delete their account and associated data.
+      </p>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-4">
+        If you are between the ages of 13 and 17, you represent that a parent or legal guardian has reviewed and consented to these Terms on your behalf and agrees to be responsible for your use of the Service.
+      </p>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed">
+        By using Formation Bible Study, you represent and warrant that: (a) you meet the age requirements above; (b) you have the legal capacity to enter into this agreement; (c) you are not prohibited from using the Service under any applicable law; and (d) all information you provide to us is accurate, current, and complete.
+      </p>
+    </section>
+
+    <hr class="section-divider"/>
+
+    <!-- 03 Your Account -->
+    <section id="your-account" data-animate="fade-up">
+      <div class="flex items-center gap-3 mb-5">
+        <span class="text-[#E9C349] font-headline font-black text-lg">03</span>
+        <h2 class="font-headline text-2xl font-bold text-[#FFB4A4]">Your Account</h2>
+      </div>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-6">
+        When you create an account, you are responsible for maintaining the confidentiality of your login credentials and for all activity that occurs under your account, whether or not authorized by you.
+      </p>
+      <div class="space-y-3">
+        <div class="term-card flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#FFB4A4] text-xl mt-0.5 shrink-0">key</span>
+          <p class="font-body text-[#f2e5f0]/70 text-sm leading-relaxed"><strong class="text-[#f2e5f0]">Keep it secure.</strong> Use a strong, unique password. Never share your login credentials. We are not responsible for any loss or damage arising from unauthorized access to your account resulting from your failure to keep credentials secure.</p>
+        </div>
+        <div class="term-card flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#FFB4A4] text-xl mt-0.5 shrink-0">person</span>
+          <p class="font-body text-[#f2e5f0]/70 text-sm leading-relaxed"><strong class="text-[#f2e5f0]">One account per person.</strong> Accounts are personal and non-transferable. You may not create accounts on behalf of others without their knowledge and consent, and you may not sell, transfer, or assign your account to any other party.</p>
+        </div>
+        <div class="term-card flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#FFB4A4] text-xl mt-0.5 shrink-0">notification_important</span>
+          <p class="font-body text-[#f2e5f0]/70 text-sm leading-relaxed"><strong class="text-[#f2e5f0]">Report unauthorized access.</strong> If you believe your account has been compromised, notify us immediately at <a href="mailto:privacy@formation.app" class="text-[#FFB4A4] hover:underline">privacy@formation.app</a>. We reserve the right to require you to change your password or suspend your account if we believe it has been compromised.</p>
+        </div>
+        <div class="term-card flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#FFB4A4] text-xl mt-0.5 shrink-0">download</span>
+          <p class="font-body text-[#f2e5f0]/70 text-sm leading-relaxed"><strong class="text-[#f2e5f0]">Your data.</strong> You may request an export of your personal data (notes, highlights, journal entries) at any time by contacting us. See our <a href="privacy_policy.html" class="text-[#FFB4A4] hover:underline">Privacy Policy</a> for details on data portability and deletion rights.</p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider"/>
+
+    <!-- 04 Subscriptions & Billing -->
+    <section id="subscriptions" data-animate="fade-up">
+      <div class="flex items-center gap-3 mb-5">
+        <span class="text-[#E9C349] font-headline font-black text-lg">04</span>
+        <h2 class="font-headline text-2xl font-bold text-[#FFB4A4]">Subscriptions &amp; Billing</h2>
+      </div>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-6">
+        Formation Bible Study offers a permanent free tier and paid subscription plans. Paid plans are billed in advance on a monthly or annual basis through our payment processor, Stripe, Inc.
+      </p>
+
+      <div class="space-y-3 mb-6">
+        <div class="term-card">
+          <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-2">Auto-Renewal</p>
+          <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">Paid subscriptions automatically renew at the end of each billing period unless you cancel before the renewal date. By subscribing, you authorize Formation Bible Study (through Stripe) to charge your payment method on a recurring basis at the then-current subscription rate.</p>
+        </div>
+        <div class="term-card">
+          <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-2">Free Trial</p>
+          <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">Paid plans may include a 14-day free trial for new subscribers. After the trial period, your payment method will be charged automatically unless you cancel before the trial ends. Only one free trial per person.</p>
+        </div>
+        <div class="term-card">
+          <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-2">Cancellation</p>
+          <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">You may cancel your subscription at any time through your account settings or by contacting us. Cancellations take effect at the end of your current billing period. You will retain full access to paid features until then, and no future charges will be made.</p>
+        </div>
+        <div class="term-card">
+          <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-2">Refund Policy</p>
+          <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">All subscription fees are non-refundable except as required by applicable law. Where state or local law grants consumers specific refund rights (including residents of California, New York, and other jurisdictions with statutory consumer protection provisions), those rights are not limited by this policy. If you experience a technical error that prevents you from accessing the Service, contact us at <a href="mailto:privacy@formation.app" class="text-[#FFB4A4] hover:underline">privacy@formation.app</a> within 7 days of the issue and we will review your case in good faith.</p>
+        </div>
+        <div class="term-card">
+          <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-2">Price Changes</p>
+          <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">We reserve the right to change subscription pricing at any time with at least <strong class="text-[#f2e5f0]">30 days' advance notice</strong> by email or in-app notification. Price changes will not apply to your current billing period. Continued use after a price change takes effect constitutes acceptance of the new pricing.</p>
+        </div>
+        <div class="term-card">
+          <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-2">Failed Payments</p>
+          <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">If a payment fails, we will attempt to notify you and retry the charge. Continued failure to pay may result in downgrade of your account to the free tier or suspension of your account until payment is resolved.</p>
+        </div>
+        <div class="term-card">
+          <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-2">Taxes</p>
+          <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">Prices shown are exclusive of applicable taxes. You are responsible for paying any applicable sales, use, value-added, or similar taxes imposed on your subscription.</p>
+        </div>
+      </div>
+
+      <div class="callout-info">
+        <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">
+          Current pricing: <strong class="text-[#f2e5f0]">Formation Bible Study</strong> — $7/mo or $60/yr · <strong class="text-[#f2e5f0]">Formation Plus</strong> — $12/mo or $108/yr · <strong class="text-[#f2e5f0]">Formation Pro</strong> — $29/mo or $264/yr. See <a href="pricing.html" class="text-[#FFB4A4] hover:underline">Pricing</a> for full feature details and trial information.
+        </p>
+      </div>
+    </section>
+
+    <hr class="section-divider"/>
+
+    <!-- 05 Acceptable Use -->
+    <section id="acceptable-use" data-animate="fade-up">
+      <div class="flex items-center gap-3 mb-5">
+        <span class="text-[#E9C349] font-headline font-black text-lg">05</span>
+        <h2 class="font-headline text-2xl font-bold text-[#FFB4A4]">Acceptable Use</h2>
+      </div>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-6">
+        Formation Bible Study is a Bible study tool built for serious learners and communities of faith. Use it in a way that is lawful, respectful, and consistent with its purpose.
+      </p>
+
+      <h3 class="font-headline font-bold text-[#f2e5f0] text-base mb-3">You agree NOT to use Formation Bible Study to:</h3>
+      <div class="space-y-2 mb-6">
+        <div class="deny-row"><span class="material-symbols-outlined text-[#E8816A] text-base mt-0.5 shrink-0">cancel</span><p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">Violate any applicable federal, state, or local law or regulation</p></div>
+        <div class="deny-row"><span class="material-symbols-outlined text-[#E8816A] text-base mt-0.5 shrink-0">cancel</span><p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">Infringe the intellectual property rights of Formation Bible Study or any third party</p></div>
+        <div class="deny-row"><span class="material-symbols-outlined text-[#E8816A] text-base mt-0.5 shrink-0">cancel</span><p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">Reverse-engineer, decompile, disassemble, scrape, or extract data from the Service using automated tools</p></div>
+        <div class="deny-row"><span class="material-symbols-outlined text-[#E8816A] text-base mt-0.5 shrink-0">cancel</span><p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">Attempt to gain unauthorized access to any part of the Service, its servers, or infrastructure</p></div>
+        <div class="deny-row"><span class="material-symbols-outlined text-[#E8816A] text-base mt-0.5 shrink-0">cancel</span><p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">Share, sell, sublicense, or transfer your account or subscription to any other person</p></div>
+        <div class="deny-row"><span class="material-symbols-outlined text-[#E8816A] text-base mt-0.5 shrink-0">cancel</span><p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">Transmit malware, viruses, or any code designed to disrupt or damage the Service</p></div>
+        <div class="deny-row"><span class="material-symbols-outlined text-[#E8816A] text-base mt-0.5 shrink-0">cancel</span><p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">Harass, threaten, abuse, or defame other users within community features</p></div>
+        <div class="deny-row"><span class="material-symbols-outlined text-[#E8816A] text-base mt-0.5 shrink-0">cancel</span><p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">Post spam, unsolicited advertisements, or promotional content in community spaces</p></div>
+        <div class="deny-row"><span class="material-symbols-outlined text-[#E8816A] text-base mt-0.5 shrink-0">cancel</span><p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">Impersonate Formation Bible Study, our employees, or any other person or entity</p></div>
+        <div class="deny-row"><span class="material-symbols-outlined text-[#E8816A] text-base mt-0.5 shrink-0">cancel</span><p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">Use Formation Bible Study for any commercial purpose without our express written consent</p></div>
+      </div>
+
+      <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">
+        We reserve the right to investigate any suspected violation of these guidelines and to remove content or suspend accounts at our sole discretion, without notice, if we determine a violation has occurred.
+      </p>
+    </section>
+
+    <hr class="section-divider"/>
+
+    <!-- 06 Your Content -->
+    <section id="your-content" data-animate="fade-up">
+      <div class="flex items-center gap-3 mb-5">
+        <span class="text-[#E9C349] font-headline font-black text-lg">06</span>
+        <h2 class="font-headline text-2xl font-bold text-[#FFB4A4]">Your Content</h2>
+      </div>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-4">
+        You retain full ownership of the notes, highlights, bookmarks, journal entries, and other content you create within Formation Bible Study ("Your Content"). We do not claim any intellectual property rights over it.
+      </p>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-4">
+        By submitting content to Formation Bible Study, you grant us a limited, non-exclusive, royalty-free, worldwide license to store, host, display, and process Your Content solely for the purposes of providing and improving the Service to you. This license ends when you delete the content or close your account.
+      </p>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-4">
+        <strong class="text-[#f2e5f0]">We do not sell Your Content, use it for advertising, or use it to train AI models.</strong> Your study notes, prayer journal, and reflections are yours.
+      </p>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-4">
+        For content you share in community features (discussion boards, study groups), you grant other users a limited right to read and engage with that content within the platform. You retain ownership and can delete your posts at any time.
+      </p>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed">
+        You are solely responsible for ensuring that Your Content (a) does not infringe any third-party intellectual property rights, (b) is not defamatory, obscene, or otherwise unlawful, and (c) does not violate any applicable law or these Terms.
+      </p>
+    </section>
+
+    <hr class="section-divider"/>
+
+    <!-- 07 Our IP -->
+    <section id="our-ip" data-animate="fade-up">
+      <div class="flex items-center gap-3 mb-5">
+        <span class="text-[#E9C349] font-headline font-black text-lg">07</span>
+        <h2 class="font-headline text-2xl font-bold text-[#FFB4A4]">Our Intellectual Property</h2>
+      </div>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-4">
+        The Formation Bible Study name, logo, app design, interface, features, source code, study frameworks, reading plans, and all related content (excluding Your Content and Bible text) are the exclusive property of Berean Defense LLC and are protected by copyright, trademark, trade secret, and other intellectual property laws.
+      </p>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-4">
+        We grant you a limited, personal, non-exclusive, non-transferable, revocable license to access and use the Service for your personal, non-commercial Bible study purposes in accordance with these Terms. This license does not include any right to: sublicense the Service, copy or modify the app, create derivative works, or use our branding without permission.
+      </p>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed">
+        Scripture quotations are from the Berean Standard Bible (BSB), used under its open license. Any other Bible translations displayed in the app are used under their respective licenses. Formation Bible Study does not claim ownership over Bible text. Berean Defense LLC is not affiliated with, sponsored by, or endorsed by the Berean Bible Society. The name "Berean" in our company name is independently chosen and does not imply any relationship with the Berean Bible Society or its publications.
+      </p>
+    </section>
+
+    <hr class="section-divider"/>
+
+    <!-- 08 AI Features -->
+    <section id="ai-features" data-animate="fade-up">
+      <div class="flex items-center gap-3 mb-5">
+        <span class="text-[#E9C349] font-headline font-black text-lg">08</span>
+        <h2 class="font-headline text-2xl font-bold text-[#FFB4A4]">AI-Powered Features</h2>
+      </div>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-6">
+        Formation Bible Study uses artificial intelligence to power certain features, including the AI Study Assistant and personalized study recommendations. By using these features, you acknowledge and agree to the following:
+      </p>
+      <div class="callout-ai mb-6 flex items-start gap-3">
+        <span class="material-symbols-outlined text-[#FFB4A4] mt-0.5 shrink-0">smart_toy</span>
+        <p class="font-body text-[#f2e5f0]/70 text-sm leading-relaxed">
+          Formation Bible Study's AI features are powered by third-party AI providers. Your queries to the AI Study Assistant may be processed by these providers in accordance with their own terms and privacy policies. We do not use your AI queries or personal Bible study content to train AI models without your explicit consent.
+        </p>
+      </div>
+      <div class="space-y-3">
+        <div class="term-card">
+          <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-2">AI Output is Not Authoritative</p>
+          <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">AI-generated study aids, commentary, interpretations, and responses are provided for educational and devotional purposes only. They do not constitute theological, pastoral, legal, or professional advice. Always use your own judgment and consult your pastor, church, or qualified professionals for important spiritual decisions.</p>
+        </div>
+        <div class="term-card">
+          <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-2">AI May Make Errors</p>
+          <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">AI responses may be inaccurate, incomplete, or inconsistent. Formation Bible Study does not warrant the accuracy of AI-generated content. We recommend cross-referencing important information with reliable biblical and scholarly sources.</p>
+        </div>
+        <div class="term-card">
+          <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-2">Usage Limits</p>
+          <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">AI query limits vary by subscription tier (Free: 5 queries/day; Formation Pro: unlimited). We reserve the right to adjust AI usage limits and features at any time with reasonable notice.</p>
+        </div>
+        <div class="term-card">
+          <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-2">Appropriate Use of AI</p>
+          <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">You may not use Formation Bible Study's AI features to generate content that is hateful, illegal, misleading, or otherwise in violation of these Terms. We reserve the right to suspend AI access for users who misuse these features.</p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider"/>
+
+    <!-- 09 Third-Party Services -->
+    <section id="third-party" data-animate="fade-up">
+      <div class="flex items-center gap-3 mb-5">
+        <span class="text-[#E9C349] font-headline font-black text-lg">09</span>
+        <h2 class="font-headline text-2xl font-bold text-[#FFB4A4]">Third-Party Services</h2>
+      </div>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-6">
+        Formation Bible Study integrates with third-party services to deliver core functionality. By using Formation Bible Study, you acknowledge that these services operate under their own terms and privacy policies, which are separate from ours.
+      </p>
+
+      <div class="space-y-3 mb-6">
+        <div class="term-card flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#FFB4A4] text-xl mt-0.5 shrink-0">payment</span>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Stripe (Payments)</p>
+            <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">All payment processing is handled by Stripe, Inc. Formation Bible Study does not store your full payment card details. Your use of payment features is subject to <a href="https://stripe.com/legal" target="_blank" class="text-[#FFB4A4] hover:underline">Stripe's Terms of Service</a>.</p>
+          </div>
+        </div>
+        <div class="term-card flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#FFB4A4] text-xl mt-0.5 shrink-0">lock</span>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Firebase (Authentication)</p>
+            <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">User authentication is handled by Firebase Authentication (Google LLC). Your login credentials are processed by Firebase under <a href="https://firebase.google.com/terms" target="_blank" class="text-[#FFB4A4] hover:underline">Google's Terms of Service</a>.</p>
+          </div>
+        </div>
+        <div class="term-card flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#FFB4A4] text-xl mt-0.5 shrink-0">phone_iphone</span>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">App Stores (Apple &amp; Google)</p>
+            <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">If you download Formation Bible Study through the Apple App Store or Google Play Store, your use is also governed by Apple's or Google's applicable terms of service. In the event of a conflict between their terms and ours, their terms govern with respect to their platforms.</p>
+          </div>
+        </div>
+        <div class="term-card flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#FFB4A4] text-xl mt-0.5 shrink-0">menu_book</span>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Bible API Providers</p>
+            <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">Bible text is sourced through licensed Bible API providers. Use of Bible translations within Formation Bible Study is limited to personal, non-commercial study purposes as permitted under each translation's license.</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">
+        Formation Bible Study is not responsible for the availability, accuracy, or terms of any third-party service. Links to third-party websites are provided for convenience only — we do not endorse or take responsibility for their content.
+      </p>
+    </section>
+
+    <hr class="section-divider"/>
+
+    <!-- 10 DMCA -->
+    <section id="dmca" data-animate="fade-up">
+      <div class="flex items-center gap-3 mb-5">
+        <span class="text-[#E9C349] font-headline font-black text-lg">10</span>
+        <h2 class="font-headline text-2xl font-bold text-[#FFB4A4]">DMCA &amp; Copyright Infringement</h2>
+      </div>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-4">
+        Formation Bible Study respects intellectual property rights and expects users to do the same. If you believe that content available within Formation Bible Study infringes your copyright, you may submit a takedown notice under the Digital Millennium Copyright Act (DMCA), 17 U.S.C. § 512.
+      </p>
+
+      <h3 class="font-headline font-bold text-[#f2e5f0] text-base mb-3">DMCA Notice Requirements</h3>
+      <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed mb-4">
+        Your notice must include all of the following:
+      </p>
+      <div class="space-y-2 mb-6">
+        <div class="flex items-start gap-3 p-3 rounded-xl bg-[#3D1540]/40">
+          <span class="text-[#E9C349] font-bold text-sm mt-0.5 shrink-0">①</span>
+          <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">A physical or electronic signature of the copyright owner or authorized agent</p>
+        </div>
+        <div class="flex items-start gap-3 p-3 rounded-xl bg-[#3D1540]/40">
+          <span class="text-[#E9C349] font-bold text-sm mt-0.5 shrink-0">②</span>
+          <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">Identification of the copyrighted work claimed to be infringed</p>
+        </div>
+        <div class="flex items-start gap-3 p-3 rounded-xl bg-[#3D1540]/40">
+          <span class="text-[#E9C349] font-bold text-sm mt-0.5 shrink-0">③</span>
+          <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">Identification of the infringing material and its location within the Service</p>
+        </div>
+        <div class="flex items-start gap-3 p-3 rounded-xl bg-[#3D1540]/40">
+          <span class="text-[#E9C349] font-bold text-sm mt-0.5 shrink-0">④</span>
+          <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">Your contact information (name, address, telephone, email)</p>
+        </div>
+        <div class="flex items-start gap-3 p-3 rounded-xl bg-[#3D1540]/40">
+          <span class="text-[#E9C349] font-bold text-sm mt-0.5 shrink-0">⑤</span>
+          <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">A statement that you have a good faith belief that the use is not authorized by the copyright owner, its agent, or the law</p>
+        </div>
+        <div class="flex items-start gap-3 p-3 rounded-xl bg-[#3D1540]/40">
+          <span class="text-[#E9C349] font-bold text-sm mt-0.5 shrink-0">⑥</span>
+          <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">A statement made under penalty of perjury that the information in the notice is accurate and that you are the copyright owner or authorized to act on their behalf</p>
+        </div>
+      </div>
+
+      <div class="callout-info">
+        <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">
+          <strong class="text-[#f2e5f0]">Designated Copyright Agent:</strong> Send DMCA notices to <a href="mailto:privacy@formation.app" class="text-[#FFB4A4] hover:underline">privacy@formation.app</a> with the subject line "DMCA Notice." Submitting a knowingly false DMCA notice may expose you to liability under 17 U.S.C. § 512(f).
+        </p>
+      </div>
+    </section>
+
+    <hr class="section-divider"/>
+
+    <!-- 11 Disclaimers -->
+    <section id="disclaimers" data-animate="fade-up">
+      <div class="flex items-center gap-3 mb-5">
+        <span class="text-[#E9C349] font-headline font-black text-lg">11</span>
+        <h2 class="font-headline text-2xl font-bold text-[#FFB4A4]">Disclaimers</h2>
+      </div>
+      <div class="callout-warning mb-6">
+        <p class="font-body text-[#E9C349] font-semibold text-sm mb-2">Warranty Disclaimer</p>
+        <p class="font-body text-[#f2e5f0]/70 text-sm leading-relaxed">
+          THE SERVICE IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED. TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, BEREAN DEFENSE LLC EXPRESSLY DISCLAIMS ALL WARRANTIES, INCLUDING IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, AND NON-INFRINGEMENT.
+        </p>
+      </div>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-4">
+        We do not warrant that: (a) the Service will be uninterrupted, timely, secure, or error-free; (b) any errors or defects will be corrected; (c) the Service is free of viruses or harmful components; or (d) results obtained through the Service will be accurate or reliable.
+      </p>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-4">
+        We may update, modify, suspend, or discontinue any feature or the entire Service at any time, with or without notice, and we shall not be liable for any such changes.
+      </p>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed">
+        <strong class="text-[#f2e5f0]">Formation Bible Study is a Bible study tool — not a source of theological, pastoral, counseling, legal, financial, or medical advice.</strong> Study aids, commentary, and AI responses are for educational purposes only. Consult qualified professionals for decisions in those areas.
+      </p>
+    </section>
+
+    <hr class="section-divider"/>
+
+    <!-- 12 Limitation of Liability -->
+    <section id="limitation" data-animate="fade-up">
+      <div class="flex items-center gap-3 mb-5">
+        <span class="text-[#E9C349] font-headline font-black text-lg">12</span>
+        <h2 class="font-headline text-2xl font-bold text-[#FFB4A4]">Limitation of Liability</h2>
+      </div>
+      <div class="callout-warning mb-6">
+        <p class="font-body text-[#f2e5f0]/70 text-sm leading-relaxed">
+          TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, BEREAN DEFENSE LLC AND ITS MEMBERS, OFFICERS, EMPLOYEES, AGENTS, AND LICENSORS SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, EXEMPLARY, OR PUNITIVE DAMAGES, INCLUDING BUT NOT LIMITED TO LOSS OF PROFITS, DATA, GOODWILL, OR OTHER INTANGIBLE LOSSES, ARISING FROM: (A) YOUR USE OF OR INABILITY TO USE THE SERVICE; (B) ANY UNAUTHORIZED ACCESS TO OR ALTERATION OF YOUR DATA; (C) CONDUCT OR CONTENT OF ANY THIRD PARTY ON THE SERVICE; OR (D) ANY OTHER MATTER RELATING TO THE SERVICE.
+        </p>
+      </div>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-4">
+        In no event shall our aggregate liability to you for all claims arising from your use of Formation Bible Study exceed the greater of: (a) the total amount you paid us in the twelve (12) months immediately preceding the claim giving rise to liability, or (b) fifty U.S. dollars ($50.00).
+      </p>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed">
+        Some jurisdictions do not allow the exclusion or limitation of certain warranties or liabilities, so some of the above limitations may not apply to you. In those jurisdictions, our liability is limited to the maximum extent permitted by law.
+      </p>
+    </section>
+
+    <hr class="section-divider"/>
+
+    <!-- 13 Indemnification -->
+    <section id="indemnification" data-animate="fade-up">
+      <div class="flex items-center gap-3 mb-5">
+        <span class="text-[#E9C349] font-headline font-black text-lg">13</span>
+        <h2 class="font-headline text-2xl font-bold text-[#FFB4A4]">Indemnification</h2>
+      </div>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-4">
+        You agree to defend, indemnify, and hold harmless Berean Defense LLC and its members, officers, employees, agents, successors, and assigns from and against any and all claims, damages, obligations, losses, liabilities, costs, and expenses (including reasonable attorneys' fees) arising from or related to:
+      </p>
+      <div class="space-y-2 mb-4">
+        <div class="flex items-start gap-3 p-3 rounded-xl bg-[#3D1540]/40">
+          <span class="text-[#E9C349] font-bold text-sm mt-0.5 shrink-0">→</span>
+          <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">Your use of or access to the Service</p>
+        </div>
+        <div class="flex items-start gap-3 p-3 rounded-xl bg-[#3D1540]/40">
+          <span class="text-[#E9C349] font-bold text-sm mt-0.5 shrink-0">→</span>
+          <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">Your violation of these Terms</p>
+        </div>
+        <div class="flex items-start gap-3 p-3 rounded-xl bg-[#3D1540]/40">
+          <span class="text-[#E9C349] font-bold text-sm mt-0.5 shrink-0">→</span>
+          <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">Your Content or any content you submit, post, or transmit through the Service</p>
+        </div>
+        <div class="flex items-start gap-3 p-3 rounded-xl bg-[#3D1540]/40">
+          <span class="text-[#E9C349] font-bold text-sm mt-0.5 shrink-0">→</span>
+          <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">Your violation of any third-party rights, including intellectual property, privacy, or publicity rights</p>
+        </div>
+        <div class="flex items-start gap-3 p-3 rounded-xl bg-[#3D1540]/40">
+          <span class="text-[#E9C349] font-bold text-sm mt-0.5 shrink-0">→</span>
+          <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">Your violation of any applicable law or regulation</p>
+        </div>
+      </div>
+      <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">
+        Formation Bible Study reserves the right to assume the exclusive defense and control of any matter subject to indemnification by you, at your expense, and you agree to cooperate with our defense of those claims.
+      </p>
+    </section>
+
+    <hr class="section-divider"/>
+
+    <!-- 14 Termination -->
+    <section id="termination" data-animate="fade-up">
+      <div class="flex items-center gap-3 mb-5">
+        <span class="text-[#E9C349] font-headline font-black text-lg">14</span>
+        <h2 class="font-headline text-2xl font-bold text-[#FFB4A4]">Termination</h2>
+      </div>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-4">
+        <strong class="text-[#f2e5f0]">By you:</strong> You may close your account at any time through your account settings or by emailing us at <a href="mailto:privacy@formation.app" class="text-[#FFB4A4] hover:underline">privacy@formation.app</a>. Upon account closure, your subscription (if any) will not automatically renew. We will handle your data as described in our <a href="privacy_policy.html" class="text-[#FFB4A4] hover:underline">Privacy Policy</a>.
+      </p>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-4">
+        <strong class="text-[#f2e5f0]">By us:</strong> We reserve the right to suspend or permanently terminate your account at our sole discretion, with or without notice, if we determine that you have: violated these Terms; engaged in fraudulent, abusive, or illegal activity; posed a risk to the safety of other users or the Service; or for any other reason we deem appropriate.
+      </p>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-4">
+        We may also discontinue the Service entirely at any time. If we do, we will provide reasonable advance notice and, where applicable, a prorated refund of any prepaid subscription fees.
+      </p>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed">
+        <strong class="text-[#f2e5f0]">Survival:</strong> Sections covering intellectual property, your content license grant, disclaimers, limitation of liability, indemnification, dispute resolution, governing law, and miscellaneous provisions survive any termination or expiration of these Terms.
+      </p>
+    </section>
+
+    <hr class="section-divider"/>
+
+    <!-- 15 Dispute Resolution -->
+    <section id="dispute" data-animate="fade-up">
+      <div class="flex items-center gap-3 mb-5">
+        <span class="text-[#E9C349] font-headline font-black text-lg">15</span>
+        <h2 class="font-headline text-2xl font-bold text-[#FFB4A4]">Dispute Resolution &amp; Arbitration</h2>
+      </div>
+
+      <h3 class="font-headline font-bold text-[#f2e5f0] text-base mb-3">Informal Resolution First</h3>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-6">
+        Before initiating any formal dispute, you agree to contact us at <a href="mailto:privacy@formation.app" class="text-[#FFB4A4] hover:underline">privacy@formation.app</a> and give us 30 days to resolve the issue informally. We will make a good-faith effort to address your concern.
+      </p>
+
+      <h3 class="font-headline font-bold text-[#f2e5f0] text-base mb-3">Binding Arbitration</h3>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-4">
+        If informal resolution fails, any dispute, claim, or controversy arising out of or relating to these Terms or the Service — including questions about the existence, validity, or termination of these Terms — shall be resolved by <strong class="text-[#f2e5f0]">final and binding arbitration</strong>, rather than in court, except as described below.
+      </p>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-6">
+        Arbitration shall be administered by the <strong class="text-[#f2e5f0]">American Arbitration Association (AAA)</strong> under its Consumer Arbitration Rules, which are available at <a href="https://www.adr.org" target="_blank" class="text-[#FFB4A4] hover:underline">www.adr.org</a>. The arbitration shall be conducted in English, and the arbitrator's decision shall be final and binding. Judgment on the arbitrator's award may be entered in any court of competent jurisdiction.
+      </p>
+
+      <div class="callout-warning mb-6">
+        <p class="font-body text-[#E9C349] font-semibold text-sm mb-2">Class Action Waiver</p>
+        <p class="font-body text-[#f2e5f0]/70 text-sm leading-relaxed">
+          YOU AND FORMATION EACH WAIVE THE RIGHT TO A TRIAL BY JURY AND THE RIGHT TO PARTICIPATE IN A CLASS ACTION, CLASS ARBITRATION, OR REPRESENTATIVE ACTION. All claims must be brought in an individual capacity, not as a plaintiff or class member in any purported class or representative proceeding.
+        </p>
+      </div>
+
+      <h3 class="font-headline font-bold text-[#f2e5f0] text-base mb-3">Exceptions</h3>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed">
+        Either party may seek emergency injunctive or other equitable relief in a court of competent jurisdiction to prevent irreparable harm pending arbitration, without waiving the right to arbitrate. You may also bring small claims court actions in your local jurisdiction if your claim qualifies.
+      </p>
+    </section>
+
+    <hr class="section-divider"/>
+
+    <!-- 16 Governing Law -->
+    <section id="governing-law" data-animate="fade-up">
+      <div class="flex items-center gap-3 mb-5">
+        <span class="text-[#E9C349] font-headline font-black text-lg">16</span>
+        <h2 class="font-headline text-2xl font-bold text-[#FFB4A4]">Governing Law</h2>
+      </div>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-4">
+        These Terms shall be governed by and construed in accordance with the laws of the <strong class="text-[#f2e5f0]">State of Wyoming</strong> and applicable federal law of the United States, without regard to its conflict-of-law provisions.
+      </p>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed">
+        To the extent any dispute is not subject to arbitration under Section 15, you agree to submit to the exclusive personal jurisdiction of the state and federal courts located in Wyoming for the resolution of such disputes.
+      </p>
+    </section>
+
+    <hr class="section-divider"/>
+
+    <!-- 17 Miscellaneous -->
+    <section id="miscellaneous" data-animate="fade-up">
+      <div class="flex items-center gap-3 mb-5">
+        <span class="text-[#E9C349] font-headline font-black text-lg">17</span>
+        <h2 class="font-headline text-2xl font-bold text-[#FFB4A4]">Miscellaneous</h2>
+      </div>
+
+      <div class="space-y-3">
+        <div class="term-card">
+          <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-2">Entire Agreement</p>
+          <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">These Terms, together with our Privacy Policy and Cookie Policy, constitute the entire agreement between you and Formation Bible Study with respect to the Service, and supersede all prior or contemporaneous understandings, representations, or agreements, whether written or oral, relating to the same subject matter.</p>
+        </div>
+        <div class="term-card">
+          <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-2">Severability</p>
+          <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">If any provision of these Terms is found by a court or arbitrator to be invalid, illegal, or unenforceable, that provision shall be modified to the minimum extent necessary to make it enforceable, or if not possible, severed entirely. The remaining provisions shall continue in full force and effect.</p>
+        </div>
+        <div class="term-card">
+          <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-2">No Waiver</p>
+          <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">Our failure to exercise or enforce any right or provision of these Terms shall not constitute a waiver of that right or provision. No waiver by Formation Bible Study of any breach of these Terms shall be deemed a waiver of any subsequent breach of the same or any other provision.</p>
+        </div>
+        <div class="term-card">
+          <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-2">Force Majeure</p>
+          <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">Formation Bible Study shall not be liable for any failure or delay in performance resulting from causes beyond our reasonable control, including natural disasters, acts of God, pandemics, war, government action, internet or infrastructure outages, or third-party service failures.</p>
+        </div>
+        <div class="term-card">
+          <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-2">Assignment</p>
+          <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">You may not assign or transfer your rights or obligations under these Terms without our prior written consent. Formation Bible Study may freely assign these Terms in connection with a merger, acquisition, sale of assets, or by operation of law. These Terms will be binding upon and inure to the benefit of the parties and their respective successors and permitted assigns.</p>
+        </div>
+        <div class="term-card">
+          <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-2">Notices</p>
+          <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">Notices from Formation Bible Study to you will be delivered by email to the address on file with your account or by prominent in-app notice. Notices from you to Formation Bible Study should be sent to <a href="mailto:privacy@formation.app" class="text-[#FFB4A4] hover:underline">privacy@formation.app</a>. Notices are effective upon receipt.</p>
+        </div>
+        <div class="term-card">
+          <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-2">Headings</p>
+          <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">Section headings in these Terms are for convenience only and have no legal or contractual effect.</p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider"/>
+
+    <!-- 18 Changes to Terms -->
+    <section id="changes" data-animate="fade-up">
+      <div class="flex items-center gap-3 mb-5">
+        <span class="text-[#E9C349] font-headline font-black text-lg">18</span>
+        <h2 class="font-headline text-2xl font-bold text-[#FFB4A4]">Changes to Terms</h2>
+      </div>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-4">
+        We may revise these Terms at any time. When we make <strong class="text-[#f2e5f0]">material changes</strong>, we will notify you by email or through a prominent in-app notice at least <strong class="text-[#f2e5f0]">14 days</strong> before the changes take effect. For non-material changes (such as clarifications or typographical corrections), we may update these Terms without advance notice.
+      </p>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-4">
+        The "Last updated" date at the top of this page reflects when the Terms were most recently revised. We encourage you to review this page periodically.
+      </p>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed">
+        Your continued use of Formation Bible Study after the effective date of revised Terms constitutes your acceptance of those changes. If you do not agree with updated Terms, you must stop using Formation Bible Study and cancel your subscription before the effective date.
+      </p>
+    </section>
+
+    <hr class="section-divider"/>
+
+    <!-- 19 Contact -->
+    <section id="contact" data-animate="fade-up">
+      <div class="flex items-center gap-3 mb-5">
+        <span class="text-[#E9C349] font-headline font-black text-lg">19</span>
+        <h2 class="font-headline text-2xl font-bold text-[#FFB4A4]">Contact</h2>
+      </div>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-6">
+        Questions about these Terms? We're a small, mission-driven team and we'll respond personally.
+      </p>
+      <div class="bg-[#3D1540]/60 border border-[#f2e5f0]/10 rounded-2xl p-6 space-y-4">
+        <div class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#FFB4A4] text-xl mt-0.5">business</span>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm">Berean Defense LLC</p>
+            <p class="font-body text-[#f2e5f0]/60 text-sm">Formation Bible Study · Wyoming, United States</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#FFB4A4] text-xl mt-0.5">mail</span>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-0.5">Legal &amp; General Inquiries</p>
+            <a href="mailto:privacy@formation.app" class="font-body text-[#FFB4A4] text-sm hover:underline">privacy@formation.app</a>
+          </div>
+        </div>
+        <div class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#FFB4A4] text-xl mt-0.5">language</span>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-0.5">Website</p>
+            <a href="https://formationbible.com" class="font-body text-[#FFB4A4] text-sm hover:underline" target="_blank">formationbible.com</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-[#3D1540] w-full py-12 border-t border-[#f2e5f0]/10 relative z-10">
+    <div class="flex flex-col md:flex-row justify-between items-center w-full px-8 max-w-7xl mx-auto gap-8">
+      <div class="text-xl font-headline font-bold text-[#FFB4A4]">Formation Bible Study</div>
+      <div class="flex flex-wrap justify-center gap-8">
+        <a class="text-[#f2e5f0]/50 font-label uppercase tracking-widest text-[10px] hover:text-[#E8816A] transition-all" href="privacy_policy.html">Privacy Policy</a>
+        <a class="text-[#f2e5f0]/50 font-label uppercase tracking-widest text-[10px] hover:text-[#E8816A] transition-all" href="terms.html">Terms of Service</a>
+        <a class="text-[#f2e5f0]/50 font-label uppercase tracking-widest text-[10px] hover:text-[#E8816A] transition-all" href="cookie_policy.html">Cookie Policy</a>
+        <a class="text-[#f2e5f0]/50 font-label uppercase tracking-widest text-[10px] hover:text-[#E8816A] transition-all" href="contact.html">Contact</a>
+      </div>
+      <div class="text-[#f2e5f0]/40 text-[10px] font-label uppercase tracking-widest">© 2026 Berean Defense LLC. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('main-nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('nav-scrolled', window.scrollY > 20);
+    });
+
+    document.getElementById('nav-toggle').addEventListener('click', () => {
+      document.getElementById('mobile-menu').classList.toggle('open');
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('is-visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('[data-animate]').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Formation Bible Study</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: 'Manrope', sans-serif; background: #3D1540; color: #f2e5f0; overflow: hidden; height: 100vh; }
+    .brand { font-family: 'Noto Serif', serif; }
+    /* Grain + orbs */
+    .grain-overlay { pointer-events: none; position: fixed; inset: 0; z-index: 99; opacity: 0.04; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"); }
+    .orb { position: fixed; border-radius: 50%; filter: blur(90px); pointer-events: none; z-index: 0; }
+    .orb-1 { width: 550px; height: 550px; top: -150px; left: -120px; background: radial-gradient(circle, rgba(255,180,164,0.09) 0%, transparent 70%); animation: orbFloat1 22s ease-in-out infinite; }
+    .orb-2 { width: 420px; height: 420px; bottom: 10%; right: -100px; background: radial-gradient(circle, rgba(233,195,73,0.07) 0%, transparent 70%); animation: orbFloat2 28s ease-in-out infinite; }
+    @keyframes orbFloat1 { 0%,100%{transform:translate(0,0)} 33%{transform:translate(30px,-20px)} 66%{transform:translate(-20px,15px)} }
+    @keyframes orbFloat2 { 0%,100%{transform:translate(0,0)} 33%{transform:translate(-25px,20px)} 66%{transform:translate(20px,-15px)} }
+    /* Sidebar */
+    #sidebar { width: 220px; min-width: 220px; background: #2A0E2D; border-right: 1px solid rgba(255,255,255,0.07); position: relative; z-index: 1; }
+    .nav-item { display: flex; align-items: flex-start; gap: 10px; padding: 10px 16px; border-radius: 10px; cursor: pointer; transition: all 0.15s; color: rgba(255,255,255,0.55); font-size: 14px; font-weight: 500; margin: 2px 8px; }
+    .nav-item:hover { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.9); }
+    .nav-item.active { background: rgba(255,180,164,0.15); color: #FFB4A4; }
+    .nav-icon { font-size: 16px; width: 20px; text-align: center; flex-shrink: 0; margin-top: 1px; }
+    .nav-label { display: flex; flex-direction: column; }
+    .nav-label-sub { font-size: 10px; font-weight: 400; color: rgba(255,255,255,0.35); line-height: 1.3; margin-top: 2px; }
+    .nav-item.active .nav-label-sub { color: rgba(255,180,164,0.6); }
+    /* Main */
+    #main { flex: 1; overflow-y: auto; position: relative; z-index: 1; }
+    /* Bible reader */
+    .verse-block { padding: 4px 0; border-radius: 6px; transition: background 0.15s; cursor: pointer; }
+    .verse-block:hover { background: rgba(255,180,164,0.08); }
+    .verse-block.highlighted { background: rgba(233,195,73,0.12); }
+    .verse-num { color: #E9C349; font-size: 11px; font-weight: 700; vertical-align: super; margin-right: 3px; font-family: 'Manrope', sans-serif; }
+    .verse-text { font-family: 'Noto Serif', serif; font-size: 17px; line-height: 1.75; color: #f2e5f0; }
+    /* Controls */
+    select { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); color: #f2e5f0; border-radius: 8px; padding: 6px 10px; font-size: 13px; cursor: pointer; }
+    select option { background: #2A0E2D; }
+    select:focus { outline: none; border-color: #FFB4A4; }
+    .btn { border-radius: 8px; padding: 7px 14px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.15s; border: none; }
+    .btn-purple { background: #E8816A; color: white; }
+    .btn-purple:hover { background: #d4705a; }
+    .btn-purple:disabled { opacity: 0.5; cursor: not-allowed; }
+    .btn-ghost { background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.7); border: 1px solid rgba(255,255,255,0.1); }
+    .btn-ghost:hover { background: rgba(255,255,255,0.12); color: white; }
+    .btn-sm { padding: 4px 10px; font-size: 12px; }
+    .btn-danger { background: rgba(239,68,68,0.15); color: #fca5a5; border: 1px solid rgba(239,68,68,0.25); }
+    .btn-danger:hover { background: rgba(239,68,68,0.25); }
+    /* Cards */
+    .card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; }
+    /* Inputs */
+    textarea, input[type="text"] { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); color: #f2e5f0; border-radius: 10px; padding: 12px; font-size: 14px; width: 100%; resize: none; font-family: 'Manrope', sans-serif; }
+    textarea:focus, input[type="text"]:focus { outline: none; border-color: #FFB4A4; }
+    textarea::placeholder, input[type="text"]::placeholder { color: rgba(255,255,255,0.3); }
+    /* Study response */
+    .study-answer { font-family: 'Noto Serif', serif; font-size: 16px; line-height: 1.8; color: #f2e5f0; }
+    .verse-cite { background: rgba(255,180,164,0.1); border-left: 3px solid #FFB4A4; padding: 10px 14px; border-radius: 0 8px 8px 0; margin: 8px 0; font-size: 14px; }
+    /* Note cards */
+    .note-card { padding: 14px; border-radius: 10px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); transition: border 0.2s; }
+    .note-card:hover { border-color: rgba(255,180,164,0.35); }
+    /* Modal */
+    #note-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 50; align-items: center; justify-content: center; }
+    #note-modal.open { display: flex; }
+    .modal-box { background: #2A0E2D; border: 1px solid rgba(255,255,255,0.12); border-radius: 16px; padding: 24px; width: 480px; max-width: 95vw; }
+    /* Loading spinner */
+    .spinner { display: inline-block; width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.3); border-top-color: white; border-radius: 50%; animation: spin 0.7s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(255,180,164,0.35); border-radius: 3px; }
+    /* Mobile */
+    @media (max-width: 640px) {
+      #sidebar { display: none; }
+      #mobile-nav { display: flex !important; }
+      body { overflow: auto; }
+      #main { height: calc(100vh - 56px); }
+    }
+    .toast { position: fixed; bottom: 20px; right: 20px; background: #2A0E2D; border: 1px solid rgba(255,180,164,0.4); color: #FFB4A4; padding: 10px 16px; border-radius: 10px; font-size: 13px; z-index: 100; opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+    .toast.show { opacity: 1; }
+  </style>
+</head>
+<body>
+<div class="grain-overlay"></div>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<!-- Auth loading -->
+<div id="auth-loading" class="fixed inset-0 flex items-center justify-center bg-[#3D1540] z-50">
+  <div class="text-center">
+    <div class="spinner" style="width:32px;height:32px;border-width:3px;margin:0 auto 12px"></div>
+    <p class="text-[#FFB4A4] text-sm">Loading...</p>
+  </div>
+</div>
+
+<!-- App (hidden until auth confirmed) -->
+<div id="app" class="hidden flex h-screen">
+
+  <!-- Sidebar -->
+  <div id="sidebar" class="flex flex-col">
+    <!-- Logo -->
+    <div class="px-5 py-5 border-b border-white/8">
+      <div class="brand text-lg font-bold text-[#FFB4A4]">Formation</div>
+      <div class="text-[#E9C349] text-xs font-semibold tracking-wide">Bible Study</div>
+    </div>
+
+    <!-- Nav -->
+    <nav class="flex-1 py-4">
+      <div class="nav-item active" onclick="showView('read')" id="nav-read">
+        <span class="nav-icon">📖</span> Read
+      </div>
+      <div class="nav-item" onclick="showView('study')" id="nav-study">
+        <span class="nav-icon">✨</span>
+        <div class="nav-label">
+          <span>Ask the Word</span>
+          <span class="nav-label-sub">Ask any Bible question</span>
+        </div>
+      </div>
+      <div class="nav-item" onclick="showView('notes')" id="nav-notes">
+        <span class="nav-icon">📝</span> Notes
+      </div>
+      <div class="nav-item" onclick="showView('history')" id="nav-history">
+        <span class="nav-icon">🕐</span> History
+      </div>
+    </nav>
+
+    <!-- User -->
+    <div class="px-4 pb-5 border-t border-white/8 pt-4">
+      <div class="text-xs text-white/40 mb-1">Signed in as</div>
+      <div id="user-email" class="text-xs text-[#FFB4A4] truncate mb-3">Loading...</div>
+      <button onclick="signOut()" class="btn btn-ghost btn-sm w-full">Sign Out</button>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div id="main" class="flex-1 flex flex-col">
+
+    <!-- ═══════════════ BIBLE READER VIEW ═══════════════ -->
+    <div id="view-read" class="flex-1 flex flex-col">
+      <!-- Toolbar -->
+      <div class="flex items-center gap-3 px-6 py-4 border-b border-white/8 bg-[#3D1540]/80 sticky top-0 z-10 backdrop-blur-sm flex-wrap">
+        <select id="book-select" onchange="onBookChange()" class="flex-1 min-w-32 max-w-48"></select>
+        <select id="chapter-select" onchange="loadChapter()" class="w-24"></select>
+        <select id="translation-select" onchange="loadChapter()" class="w-24">
+          <option value="BSB">BSB</option>
+          <option value="KJV">KJV</option>
+          <option value="NIV">NIV</option>
+          <option value="ESV">ESV</option>
+          <option value="NLT">NLT</option>
+          <option value="NASB">NASB</option>
+        </select>
+        <button onclick="prevChapter()" class="btn btn-ghost btn-sm">◀</button>
+        <button onclick="nextChapter()" class="btn btn-ghost btn-sm">▶</button>
+      </div>
+
+      <!-- Chapter content -->
+      <div class="flex-1 overflow-y-auto">
+        <div class="max-w-2xl mx-auto px-6 py-8">
+          <div id="chapter-header" class="mb-6 hidden">
+            <h1 class="brand text-2xl font-bold text-white" id="chapter-title"></h1>
+            <span class="text-[#FFB4A4] text-sm" id="chapter-subtitle"></span>
+          </div>
+          <div id="chapter-loading" class="text-center py-20 hidden">
+            <div class="spinner" style="margin: 0 auto 12px"></div>
+            <p class="text-[#FFB4A4] text-sm">Loading chapter...</p>
+          </div>
+          <div id="chapter-error" class="card p-6 text-center hidden">
+            <p class="text-red-400 text-sm" id="chapter-error-msg"></p>
+            <button onclick="loadChapter()" class="btn btn-ghost btn-sm mt-3">Retry</button>
+          </div>
+          <div id="chapter-content" class="space-y-1"></div>
+          <div id="chapter-placeholder" class="text-center py-20">
+            <div class="text-5xl mb-4">📖</div>
+            <h2 class="brand text-xl text-white mb-2">Start Reading</h2>
+            <p class="text-[#FFB4A4] text-sm">Select a book and chapter above to begin.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Verse action bar (appears when verse selected) -->
+      <div id="verse-actions" class="hidden border-t border-white/8 px-6 py-3 bg-[#2A0E2D] flex items-center gap-3">
+        <span id="verse-action-ref" class="text-[#E9C349] text-sm font-semibold flex-1"></span>
+        <button onclick="studySelectedVerse()" class="btn btn-ghost btn-sm">✨ Study this verse</button>
+        <button onclick="openNoteModal()" class="btn btn-ghost btn-sm">📝 Add note</button>
+        <button onclick="clearVerseSelection()" class="btn btn-ghost btn-sm text-white/40">✕</button>
+      </div>
+    </div>
+
+    <!-- ═══════════════ AI STUDY VIEW ═══════════════ -->
+    <div id="view-study" class="flex-1 overflow-y-auto hidden">
+      <div class="max-w-2xl mx-auto px-6 py-8">
+        <h2 class="brand text-2xl font-bold text-white mb-1">Ask the Word</h2>
+        <p class="text-[#FFB4A4] text-sm mb-6">Ask any question. Receive a Scripture-backed, theologically grounded answer.</p>
+
+        <div class="card p-5 mb-6">
+          <textarea id="study-question" rows="3" placeholder="e.g. What does Romans 8:28 mean? What is the significance of the Passover? How do I deal with anxiety according to the Bible?"></textarea>
+          <div class="flex items-center gap-3 mt-3">
+            <select id="study-lang" class="text-xs">
+              <option value="en">English</option>
+              <option value="es">Español</option>
+            </select>
+            <button onclick="askStudyQuestion()" id="study-btn" class="btn btn-purple ml-auto flex items-center gap-2">
+              <span>Ask</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Response -->
+        <div id="study-loading" class="card p-8 text-center hidden">
+          <div class="spinner" style="margin: 0 auto 12px"></div>
+          <p class="text-[#FFB4A4] text-sm">Researching Scripture and crafting your answer...</p>
+          <p class="text-white/30 text-xs mt-1">This takes 10–20 seconds</p>
+        </div>
+
+        <div id="study-error" class="card p-5 hidden">
+          <p class="text-red-400 text-sm" id="study-error-msg"></p>
+        </div>
+
+        <div id="study-result" class="hidden space-y-5">
+          <div class="card p-6">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-[#FFB4A4] text-xs font-semibold uppercase tracking-wider">Answer</h3>
+              <div id="study-cached-badge" class="hidden text-xs text-white/30 bg-white/5 px-2 py-0.5 rounded-full">cached</div>
+            </div>
+            <div id="study-answer" class="study-answer"></div>
+          </div>
+
+          <div id="study-verses-section" class="hidden">
+            <h3 class="text-[#FFB4A4] text-xs font-semibold uppercase tracking-wider mb-3">Scripture References</h3>
+            <div id="study-verses" class="space-y-2"></div>
+          </div>
+
+          <div id="study-verification" class="flex items-center gap-2 text-xs text-green-400 hidden">
+            <span>✓</span><span>Theologically verified</span>
+          </div>
+
+          <button onclick="saveStudyAsNote()" class="btn btn-ghost btn-sm">📝 Save as study note</button>
+        </div>
+
+        <!-- Recent questions -->
+        <div id="study-history-section" class="mt-8 hidden">
+          <h3 class="text-white/40 text-xs font-semibold uppercase tracking-wider mb-3">Recent Questions</h3>
+          <div id="study-history-list" class="space-y-2"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════ NOTES VIEW ═══════════════ -->
+    <div id="view-notes" class="flex-1 overflow-y-auto hidden">
+      <div class="max-w-2xl mx-auto px-6 py-8">
+        <div class="flex items-center justify-between mb-6">
+          <div>
+            <h2 class="brand text-2xl font-bold text-white mb-1">My Notes</h2>
+            <p class="text-[#FFB4A4] text-sm">Verse notes saved from your reading.</p>
+          </div>
+          <button onclick="openNoteModal()" class="btn btn-purple flex items-center gap-2">
+            <span>+ New Note</span>
+          </button>
+        </div>
+
+        <div id="notes-loading" class="text-center py-10 hidden">
+          <div class="spinner" style="margin: 0 auto 12px"></div>
+          <p class="text-[#FFB4A4] text-sm">Loading notes...</p>
+        </div>
+
+        <div id="notes-empty" class="hidden text-center py-16">
+          <div class="text-4xl mb-3">📝</div>
+          <p class="text-white/40 text-sm">No notes yet. Select a verse while reading to add one.</p>
+        </div>
+
+        <div id="notes-list" class="space-y-3"></div>
+      </div>
+    </div>
+
+    <!-- ═══════════════ HISTORY VIEW ═══════════════ -->
+    <div id="view-history" class="flex-1 overflow-y-auto hidden">
+      <div class="max-w-2xl mx-auto px-6 py-8">
+        <h2 class="brand text-2xl font-bold text-white mb-1">Reading History</h2>
+        <p class="text-[#FFB4A4] text-sm mb-6">Your recent chapters.</p>
+
+        <div id="history-loading" class="text-center py-10 hidden">
+          <div class="spinner" style="margin: 0 auto 12px"></div>
+          <p class="text-[#FFB4A4] text-sm">Loading history...</p>
+        </div>
+
+        <div id="history-empty" class="hidden text-center py-16">
+          <div class="text-4xl mb-3">🕐</div>
+          <p class="text-white/40 text-sm">No reading history yet. Start reading to track your progress.</p>
+        </div>
+
+        <div id="history-list" class="space-y-3"></div>
+      </div>
+    </div>
+
+  </div><!-- /main -->
+</div><!-- /app -->
+
+<!-- Mobile bottom nav -->
+<div id="mobile-nav" class="hidden fixed bottom-0 left-0 right-0 bg-[#2A0E2D] border-t border-white/8 z-20">
+  <div class="flex">
+    <button onclick="showView('read')" id="mnav-read" class="flex-1 py-3 text-xs font-medium text-[#FFB4A4] flex flex-col items-center gap-1">
+      <span class="text-lg">📖</span>Read
+    </button>
+    <button onclick="showView('study')" id="mnav-study" class="flex-1 py-3 text-xs font-medium text-white/40 flex flex-col items-center gap-1">
+      <span class="text-lg">✨</span>Ask the Word
+    </button>
+    <button onclick="showView('notes')" id="mnav-notes" class="flex-1 py-3 text-xs font-medium text-white/40 flex flex-col items-center gap-1">
+      <span class="text-lg">📝</span>Notes
+    </button>
+    <button onclick="showView('history')" id="mnav-history" class="flex-1 py-3 text-xs font-medium text-white/40 flex flex-col items-center gap-1">
+      <span class="text-lg">🕐</span>History
+    </button>
+  </div>
+</div>
+
+<!-- Note Modal -->
+<div id="note-modal" onclick="closeNoteModal(event)">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <div class="flex items-center justify-between mb-4">
+      <h3 class="font-semibold text-white" id="modal-title">Add Verse Note</h3>
+      <button onclick="closeNoteModal()" class="text-white/40 hover:text-white text-lg">✕</button>
+    </div>
+    <div class="space-y-3">
+      <div>
+        <label class="text-white/50 text-xs mb-1 block">Verse Reference (e.g. John 3:16)</label>
+        <input type="text" id="note-ref" placeholder="Book Chapter:Verse" />
+      </div>
+      <div>
+        <label class="text-white/50 text-xs mb-1 block">Your Note</label>
+        <textarea id="note-text" rows="4" placeholder="What does this verse mean to you?"></textarea>
+      </div>
+      <input type="hidden" id="note-editing-id" value="" />
+      <div class="flex gap-3 mt-2">
+        <button onclick="saveNote()" class="btn btn-purple flex-1">Save Note</button>
+        <button onclick="closeNoteModal()" class="btn btn-ghost">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div id="toast" class="toast"></div>
+
+<script>
+// ─────────────────────────────────────────────
+// CONFIG
+// ─────────────────────────────────────────────
+const SUPABASE_URL = 'https://tdlaxuquplqejvijqiow.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_XKst_txiZq9NFajFQe86hw_ygsXhJju';
+const BACKEND     = 'https://formation-backend-production.up.railway.app';
+
+const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+let currentUser = null;
+let accessToken = null;
+let selectedVerse = null; // { bookId, chapter, verseNum, translation, text }
+let lastStudyQuestion = '';
+let lastStudyAnswer = '';
+let recentQuestions = JSON.parse(localStorage.getItem('fbs_recent_q') || '[]');
+
+// ─────────────────────────────────────────────
+// BIBLE BOOK DATA
+// ─────────────────────────────────────────────
+const BOOKS = [
+  // Old Testament
+  {id:'GEN',name:'Genesis',ch:50},{id:'EXO',name:'Exodus',ch:40},{id:'LEV',name:'Leviticus',ch:27},
+  {id:'NUM',name:'Numbers',ch:36},{id:'DEU',name:'Deuteronomy',ch:34},{id:'JOS',name:'Joshua',ch:24},
+  {id:'JDG',name:'Judges',ch:21},{id:'RUT',name:'Ruth',ch:4},{id:'1SA',name:'1 Samuel',ch:31},
+  {id:'2SA',name:'2 Samuel',ch:24},{id:'1KI',name:'1 Kings',ch:22},{id:'2KI',name:'2 Kings',ch:25},
+  {id:'1CH',name:'1 Chronicles',ch:29},{id:'2CH',name:'2 Chronicles',ch:36},{id:'EZR',name:'Ezra',ch:10},
+  {id:'NEH',name:'Nehemiah',ch:13},{id:'EST',name:'Esther',ch:10},{id:'JOB',name:'Job',ch:42},
+  {id:'PSA',name:'Psalms',ch:150},{id:'PRO',name:'Proverbs',ch:31},{id:'ECC',name:'Ecclesiastes',ch:12},
+  {id:'SNG',name:'Song of Solomon',ch:8},{id:'ISA',name:'Isaiah',ch:66},{id:'JER',name:'Jeremiah',ch:52},
+  {id:'LAM',name:'Lamentations',ch:5},{id:'EZK',name:'Ezekiel',ch:48},{id:'DAN',name:'Daniel',ch:12},
+  {id:'HOS',name:'Hosea',ch:14},{id:'JOL',name:'Joel',ch:3},{id:'AMO',name:'Amos',ch:9},
+  {id:'OBA',name:'Obadiah',ch:1},{id:'JON',name:'Jonah',ch:4},{id:'MIC',name:'Micah',ch:7},
+  {id:'NAM',name:'Nahum',ch:3},{id:'HAB',name:'Habakkuk',ch:3},{id:'ZEP',name:'Zephaniah',ch:3},
+  {id:'HAG',name:'Haggai',ch:2},{id:'ZEC',name:'Zechariah',ch:14},{id:'MAL',name:'Malachi',ch:4},
+  // New Testament
+  {id:'MAT',name:'Matthew',ch:28},{id:'MRK',name:'Mark',ch:16},{id:'LUK',name:'Luke',ch:24},
+  {id:'JHN',name:'John',ch:21},{id:'ACT',name:'Acts',ch:28},{id:'ROM',name:'Romans',ch:16},
+  {id:'1CO',name:'1 Corinthians',ch:16},{id:'2CO',name:'2 Corinthians',ch:13},{id:'GAL',name:'Galatians',ch:6},
+  {id:'EPH',name:'Ephesians',ch:6},{id:'PHP',name:'Philippians',ch:4},{id:'COL',name:'Colossians',ch:4},
+  {id:'1TH',name:'1 Thessalonians',ch:5},{id:'2TH',name:'2 Thessalonians',ch:3},{id:'1TI',name:'1 Timothy',ch:6},
+  {id:'2TI',name:'2 Timothy',ch:4},{id:'TIT',name:'Titus',ch:3},{id:'PHM',name:'Philemon',ch:1},
+  {id:'HEB',name:'Hebrews',ch:13},{id:'JAS',name:'James',ch:5},{id:'1PE',name:'1 Peter',ch:5},
+  {id:'2PE',name:'2 Peter',ch:3},{id:'1JN',name:'1 John',ch:5},{id:'2JN',name:'2 John',ch:1},
+  {id:'3JN',name:'3 John',ch:1},{id:'JUD',name:'Jude',ch:1},{id:'REV',name:'Revelation',ch:22},
+];
+
+// ─────────────────────────────────────────────
+// AUTH
+// ─────────────────────────────────────────────
+async function initAuth() {
+  const { data: { session } } = await sb.auth.getSession();
+  if (!session) return window.location.href = 'login.html';
+  currentUser = session.user;
+  accessToken = session.access_token;
+  document.getElementById('user-email').textContent = currentUser.email || currentUser.user_metadata?.full_name || 'User';
+  document.getElementById('auth-loading').style.display = 'none';
+  document.getElementById('app').classList.remove('hidden');
+  document.getElementById('app').style.display = 'flex';
+  initBibleReader();
+  loadRecentQuestions();
+}
+
+sb.auth.onAuthStateChange((event, session) => {
+  if (event === 'SIGNED_OUT') window.location.href = 'login.html';
+  if (session) accessToken = session.access_token;
+});
+
+async function signOut() {
+  await sb.auth.signOut();
+}
+
+// ─────────────────────────────────────────────
+// NAVIGATION
+// ─────────────────────────────────────────────
+const VIEWS = ['read','study','notes','history'];
+function showView(name) {
+  VIEWS.forEach(v => {
+    document.getElementById('view-' + v).classList.toggle('hidden', v !== name);
+    const navEl = document.getElementById('nav-' + v);
+    if (navEl) navEl.classList.toggle('active', v === name);
+    const mnavEl = document.getElementById('mnav-' + v);
+    if (mnavEl) {
+      mnavEl.className = mnavEl.className.replace(/text-\[#FFB4A4\]|text-white\/40/g, '');
+      mnavEl.classList.add(v === name ? 'text-[#FFB4A4]' : 'text-white/40');
+    }
+  });
+  if (name === 'notes') loadNotes();
+  if (name === 'history') loadHistory();
+}
+
+// ─────────────────────────────────────────────
+// API HELPER
+// ─────────────────────────────────────────────
+async function api(path, method = 'GET', body = null) {
+  const opts = {
+    method,
+    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${accessToken}` }
+  };
+  if (body) opts.body = JSON.stringify(body);
+  const res = await fetch(BACKEND + path, opts);
+  const data = await res.json();
+  if (!res.ok) throw Object.assign(new Error(data.error || 'API error'), { status: res.status, data });
+  return data;
+}
+
+// Public (no auth needed) Bible fetch
+async function bibleApi(path) {
+  const res = await fetch(BACKEND + path);
+  if (!res.ok) throw new Error(`Bible API error ${res.status}`);
+  return res.json();
+}
+
+// ─────────────────────────────────────────────
+// BIBLE READER
+// ─────────────────────────────────────────────
+function initBibleReader() {
+  const bookSel = document.getElementById('book-select');
+  BOOKS.forEach(b => {
+    const opt = document.createElement('option');
+    opt.value = b.id;
+    opt.textContent = b.name;
+    bookSel.appendChild(opt);
+  });
+  // Restore last position
+  const last = JSON.parse(localStorage.getItem('fbs_position') || 'null');
+  if (last) {
+    bookSel.value = last.bookId || 'GEN';
+    populateChapters(last.chapters || 50, last.chapter || 1);
+    document.getElementById('translation-select').value = last.translation || 'BSB';
+    loadChapter();
+  } else {
+    bookSel.value = 'GEN';
+    populateChapters(50, 1);
+    loadChapter();
+  }
+}
+
+function getCurrentBook() {
+  const id = document.getElementById('book-select').value;
+  return BOOKS.find(b => b.id === id) || BOOKS[0];
+}
+
+function onBookChange() {
+  const book = getCurrentBook();
+  populateChapters(book.ch, 1);
+  loadChapter();
+}
+
+function populateChapters(count, selected = 1) {
+  const sel = document.getElementById('chapter-select');
+  sel.innerHTML = '';
+  for (let i = 1; i <= count; i++) {
+    const opt = document.createElement('option');
+    opt.value = i;
+    opt.textContent = i;
+    if (i === selected) opt.selected = true;
+    sel.appendChild(opt);
+  }
+}
+
+function prevChapter() {
+  const sel = document.getElementById('chapter-select');
+  const cur = parseInt(sel.value);
+  if (cur > 1) { sel.value = cur - 1; loadChapter(); return; }
+  // Go to previous book
+  const bookSel = document.getElementById('book-select');
+  const idx = BOOKS.findIndex(b => b.id === bookSel.value);
+  if (idx > 0) {
+    bookSel.value = BOOKS[idx-1].id;
+    populateChapters(BOOKS[idx-1].ch, BOOKS[idx-1].ch);
+    loadChapter();
+  }
+}
+
+function nextChapter() {
+  const sel = document.getElementById('chapter-select');
+  const cur = parseInt(sel.value);
+  const book = getCurrentBook();
+  if (cur < book.ch) { sel.value = cur + 1; loadChapter(); return; }
+  // Go to next book
+  const bookSel = document.getElementById('book-select');
+  const idx = BOOKS.findIndex(b => b.id === bookSel.value);
+  if (idx < BOOKS.length - 1) {
+    bookSel.value = BOOKS[idx+1].id;
+    populateChapters(BOOKS[idx+1].ch, 1);
+    loadChapter();
+  }
+}
+
+async function loadChapter() {
+  const book = getCurrentBook();
+  const chapter = parseInt(document.getElementById('chapter-select').value) || 1;
+  const translation = document.getElementById('translation-select').value;
+  const chapterId = `${book.id}.${chapter}`;
+
+  clearVerseSelection();
+  document.getElementById('chapter-placeholder').classList.add('hidden');
+  document.getElementById('chapter-loading').classList.remove('hidden');
+  document.getElementById('chapter-content').innerHTML = '';
+  document.getElementById('chapter-error').classList.add('hidden');
+  document.getElementById('chapter-header').classList.add('hidden');
+
+  try {
+    const data = await bibleApi(`/api/bible/chapter/${translation}/${chapterId}`);
+    const content = data.chapter?.content || '';
+    renderChapter(book.name, chapter, translation, content);
+
+    // Log reading history
+    try {
+      await api('/api/user/history', 'POST', {
+        bible_id: translation,
+        book_id: book.id,
+        chapter,
+      });
+    } catch (e) { /* silent */ }
+
+    // Save position
+    localStorage.setItem('fbs_position', JSON.stringify({
+      bookId: book.id, chapters: book.ch, chapter, translation
+    }));
+  } catch (err) {
+    document.getElementById('chapter-loading').classList.add('hidden');
+    document.getElementById('chapter-error').classList.remove('hidden');
+    document.getElementById('chapter-error-msg').textContent = `Could not load chapter. ${err.message}`;
+  }
+}
+
+function parseVerses(text) {
+  if (!text) return [];
+
+  // API returns " [1] verse text [2] verse text..." format
+  if (/\[\d{1,3}\]/.test(text)) {
+    const parts = text.split(/\s*\[(\d{1,3})\]\s*/);
+    // parts: [pre, num1, text1, num2, text2, ...]
+    const verses = [];
+    for (let i = 1; i + 1 < parts.length; i += 2) {
+      const num = parseInt(parts[i]);
+      const raw = parts[i + 1] || '';
+      // Strip section headings: short lines with no sentence-ending punctuation
+      const cleaned = raw
+        .split('\n')
+        .map(l => l.trim())
+        .filter(l => l.length > 0 && (l.length > 40 || /[.!?,;:'")\]—–]$/.test(l) || /^\(/.test(l)))
+        .join(' ')
+        .replace(/\s{2,}/g, ' ')
+        .trim();
+      if (cleaned) verses.push({ num, text: cleaned });
+    }
+    if (verses.length > 0) return verses;
+  }
+
+  // Fallback: plain number format "1 In the beginning..."
+  const parts = text.trim().split(/(?=\b\d{1,3}\s)/);
+  const verses = [];
+  for (const part of parts) {
+    const m = part.match(/^(\d{1,3})\s+([\s\S]+)/);
+    if (m) verses.push({ num: parseInt(m[1]), text: m[2].trim() });
+  }
+  return verses.length > 0 ? verses : [{ num: 0, text: text.trim() }];
+}
+
+function renderChapter(bookName, chapter, translation, rawText) {
+  document.getElementById('chapter-loading').classList.add('hidden');
+  document.getElementById('chapter-header').classList.remove('hidden');
+  document.getElementById('chapter-title').textContent = `${bookName} ${chapter}`;
+  document.getElementById('chapter-subtitle').textContent = translation;
+
+  const verses = parseVerses(rawText);
+  const container = document.getElementById('chapter-content');
+  container.innerHTML = '';
+
+  verses.forEach(v => {
+    const block = document.createElement('div');
+    block.className = 'verse-block px-2 py-1';
+    block.dataset.verse = v.num;
+    block.innerHTML = v.num > 0
+      ? `<sup class="verse-num">${v.num}</sup><span class="verse-text">${escapeHtml(v.text)}</span>`
+      : `<span class="verse-text">${escapeHtml(v.text)}</span>`;
+    if (v.num > 0) {
+      block.onclick = () => selectVerse(bookName, getCurrentBook().id, chapter, v.num, translation, v.text);
+    }
+    container.appendChild(block);
+  });
+}
+
+function selectVerse(bookName, bookId, chapter, verseNum, translation, text) {
+  // Deselect previous
+  document.querySelectorAll('.verse-block.highlighted').forEach(el => el.classList.remove('highlighted'));
+  const selected = document.querySelector(`.verse-block[data-verse="${verseNum}"]`);
+  if (selected) selected.classList.add('highlighted');
+
+  selectedVerse = { bookId, bookName, chapter, verseNum, translation, text };
+  const ref = `${bookName} ${chapter}:${verseNum} (${translation})`;
+  document.getElementById('verse-action-ref').textContent = ref;
+  document.getElementById('verse-actions').classList.remove('hidden');
+}
+
+function clearVerseSelection() {
+  document.querySelectorAll('.verse-block.highlighted').forEach(el => el.classList.remove('highlighted'));
+  selectedVerse = null;
+  document.getElementById('verse-actions').classList.add('hidden');
+}
+
+function studySelectedVerse() {
+  if (!selectedVerse) return;
+  const ref = `${selectedVerse.bookName} ${selectedVerse.chapter}:${selectedVerse.verseNum}`;
+  document.getElementById('study-question').value = `What does ${ref} mean? "${selectedVerse.text}"`;
+  showView('study');
+}
+
+// ─────────────────────────────────────────────
+// AI STUDY
+// ─────────────────────────────────────────────
+async function askStudyQuestion() {
+  const question = document.getElementById('study-question').value.trim();
+  if (!question || question.length < 5) return showToast('Please enter a question (min 5 characters)');
+  const lang = document.getElementById('study-lang').value;
+
+  document.getElementById('study-btn').disabled = true;
+  document.getElementById('study-btn').innerHTML = '<div class="spinner"></div>';
+  document.getElementById('study-result').classList.add('hidden');
+  document.getElementById('study-error').classList.add('hidden');
+  document.getElementById('study-loading').classList.remove('hidden');
+
+  try {
+    const data = await api('/api/study/ask', 'POST', { question, lang });
+    renderStudyResult(data, question);
+    lastStudyQuestion = question;
+    lastStudyAnswer = data.answer || '';
+    saveRecentQuestion(question);
+  } catch (err) {
+    document.getElementById('study-loading').classList.add('hidden');
+    document.getElementById('study-error').classList.remove('hidden');
+    if (err.status === 403) {
+      document.getElementById('study-error-msg').innerHTML =
+        '🔒 Ask the Word requires a <strong>Formation plan</strong> or higher. <a href="https://formationbible.com/pricing" class="text-[#FFB4A4] underline">Upgrade your plan →</a>';
+    } else {
+      document.getElementById('study-error-msg').textContent = `Error: ${err.message}`;
+    }
+  } finally {
+    document.getElementById('study-btn').disabled = false;
+    document.getElementById('study-btn').innerHTML = '<span>Ask</span>';
+  }
+}
+
+function renderStudyResult(data, question) {
+  document.getElementById('study-loading').classList.add('hidden');
+  document.getElementById('study-result').classList.remove('hidden');
+  document.getElementById('study-answer').textContent = data.answer || data.summary || 'No answer returned.';
+
+  // Cached badge
+  document.getElementById('study-cached-badge').classList.toggle('hidden', !data.cached);
+
+  // Verse citations
+  const verses = data.verses || [];
+  const versesSection = document.getElementById('study-verses-section');
+  if (verses.length > 0) {
+    versesSection.classList.remove('hidden');
+    document.getElementById('study-verses').innerHTML = verses.map(v => `
+      <div class="verse-cite">
+        <div class="text-[#E9C349] text-xs font-semibold mb-1">${escapeHtml(v.reference || v.ref || '')}</div>
+        <div class="text-white/80 text-sm">${escapeHtml(v.text || v.content || '')}</div>
+      </div>
+    `).join('');
+  } else {
+    versesSection.classList.add('hidden');
+  }
+
+  // Verification
+  document.getElementById('study-verification').classList.toggle('hidden', !data.verification);
+}
+
+async function saveStudyAsNote() {
+  if (!lastStudyAnswer) return;
+  try {
+    await api('/api/user/study-notes', 'POST', {
+      title: lastStudyQuestion.substring(0, 80),
+      content: lastStudyAnswer,
+      tags: ['ai-study'],
+    });
+    showToast('Study note saved!');
+  } catch (err) {
+    showToast('Could not save note: ' + err.message);
+  }
+}
+
+function saveRecentQuestion(q) {
+  recentQuestions = [q, ...recentQuestions.filter(x => x !== q)].slice(0, 5);
+  localStorage.setItem('fbs_recent_q', JSON.stringify(recentQuestions));
+  loadRecentQuestions();
+}
+
+function loadRecentQuestions() {
+  if (recentQuestions.length === 0) return;
+  document.getElementById('study-history-section').classList.remove('hidden');
+  document.getElementById('study-history-list').innerHTML = recentQuestions.map(q => `
+    <button onclick="document.getElementById('study-question').value=${JSON.stringify(q)}" class="w-full text-left card p-3 hover:border-[#FFB4A4]/40 transition-colors">
+      <p class="text-white/70 text-sm truncate">${escapeHtml(q)}</p>
+    </button>
+  `).join('');
+}
+
+// ─────────────────────────────────────────────
+// NOTES
+// ─────────────────────────────────────────────
+async function loadNotes() {
+  document.getElementById('notes-loading').classList.remove('hidden');
+  document.getElementById('notes-list').innerHTML = '';
+  document.getElementById('notes-empty').classList.add('hidden');
+  try {
+    const data = await api('/api/user/verse-notes');
+    const notes = data.notes || [];
+    document.getElementById('notes-loading').classList.add('hidden');
+    if (notes.length === 0) {
+      document.getElementById('notes-empty').classList.remove('hidden');
+    } else {
+      document.getElementById('notes-list').innerHTML = notes.map(n => `
+        <div class="note-card" id="note-${n.id}">
+          <div class="flex items-start justify-between gap-3">
+            <div class="flex-1 min-w-0">
+              <div class="text-[#E9C349] text-xs font-semibold mb-1">
+                ${escapeHtml(n.book_id || '')} ${n.chapter || ''}${n.verse_start ? ':' + n.verse_start : ''} · ${escapeHtml(n.bible_id || '')}
+              </div>
+              <p class="text-white/80 text-sm leading-relaxed">${escapeHtml(n.content || '')}</p>
+              <p class="text-white/25 text-xs mt-2">${new Date(n.created_at).toLocaleDateString()}</p>
+            </div>
+            <div class="flex gap-1 flex-shrink-0">
+              <button onclick="editNote(${JSON.stringify(n).replace(/"/g,'&quot;')})" class="btn btn-ghost btn-sm">Edit</button>
+              <button onclick="deleteNote('${n.id}')" class="btn btn-danger btn-sm">✕</button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+  } catch (err) {
+    document.getElementById('notes-loading').classList.add('hidden');
+    showToast('Could not load notes: ' + err.message);
+  }
+}
+
+function openNoteModal(prefillRef = '') {
+  document.getElementById('modal-title').textContent = 'Add Verse Note';
+  document.getElementById('note-editing-id').value = '';
+  document.getElementById('note-ref').value = prefillRef || (selectedVerse
+    ? `${selectedVerse.bookName} ${selectedVerse.chapter}:${selectedVerse.verseNum}`
+    : '');
+  document.getElementById('note-text').value = '';
+  document.getElementById('note-modal').classList.add('open');
+  setTimeout(() => document.getElementById('note-text').focus(), 100);
+}
+
+function editNote(n) {
+  document.getElementById('modal-title').textContent = 'Edit Note';
+  document.getElementById('note-editing-id').value = n.id;
+  document.getElementById('note-ref').value = `${n.book_id || ''} ${n.chapter || ''}${n.verse_start ? ':'+n.verse_start : ''}`.trim();
+  document.getElementById('note-text').value = n.content || '';
+  document.getElementById('note-modal').classList.add('open');
+}
+
+function closeNoteModal(e) {
+  if (e && e.target !== document.getElementById('note-modal')) return;
+  document.getElementById('note-modal').classList.remove('open');
+}
+
+async function saveNote() {
+  const ref = document.getElementById('note-ref').value.trim();
+  const text = document.getElementById('note-text').value.trim();
+  const editingId = document.getElementById('note-editing-id').value;
+  if (!text) return showToast('Please write a note.');
+
+  // Parse ref like "John 3:16" or "Genesis 1"
+  const parsed = parseRef(ref);
+
+  try {
+    if (editingId) {
+      await api(`/api/user/verse-notes/${editingId}`, 'PATCH', { content: text });
+    } else {
+      await api('/api/user/verse-notes', 'POST', {
+        bible_id: document.getElementById('translation-select')?.value || 'BSB',
+        book_id: parsed.bookId,
+        chapter: parsed.chapter,
+        verse_start: parsed.verse,
+        content: text,
+      });
+    }
+    document.getElementById('note-modal').classList.remove('open');
+    showToast(editingId ? 'Note updated!' : 'Note saved!');
+    if (document.getElementById('view-notes').classList.contains('hidden') === false) loadNotes();
+  } catch (err) {
+    showToast('Could not save note: ' + err.message);
+  }
+}
+
+async function deleteNote(id) {
+  if (!confirm('Delete this note?')) return;
+  try {
+    await api(`/api/user/verse-notes/${id}`, 'DELETE');
+    document.getElementById('note-' + id)?.remove();
+    showToast('Note deleted');
+    // Check if empty
+    if (!document.querySelector('[id^="note-"]')) {
+      document.getElementById('notes-empty').classList.remove('hidden');
+    }
+  } catch (err) {
+    showToast('Could not delete note: ' + err.message);
+  }
+}
+
+function parseRef(ref) {
+  // "John 3:16" → { bookId: 'JHN', chapter: 3, verse: 16 }
+  // "Genesis 1" → { bookId: 'GEN', chapter: 1, verse: null }
+  const match = ref.match(/^(.+?)\s+(\d+)(?::(\d+))?/);
+  if (!match) return { bookId: null, chapter: null, verse: null };
+  const bookName = match[1].toLowerCase();
+  const chapter = parseInt(match[2]);
+  const verse = match[3] ? parseInt(match[3]) : null;
+  const book = BOOKS.find(b =>
+    b.name.toLowerCase() === bookName ||
+    b.name.toLowerCase().startsWith(bookName) ||
+    b.id.toLowerCase() === bookName
+  );
+  return { bookId: book?.id || null, chapter, verse };
+}
+
+// ─────────────────────────────────────────────
+// HISTORY
+// ─────────────────────────────────────────────
+async function loadHistory() {
+  document.getElementById('history-loading').classList.remove('hidden');
+  document.getElementById('history-list').innerHTML = '';
+  document.getElementById('history-empty').classList.add('hidden');
+  try {
+    const data = await api('/api/user/history?limit=30');
+    const history = data.history || [];
+    document.getElementById('history-loading').classList.add('hidden');
+    if (history.length === 0) {
+      document.getElementById('history-empty').classList.remove('hidden');
+    } else {
+      document.getElementById('history-list').innerHTML = history.map(h => {
+        const book = BOOKS.find(b => b.id === h.book_id);
+        const bookName = book?.name || h.book_id;
+        const timeAgo = formatTimeAgo(h.read_at || h.created_at);
+        return `
+          <div class="card p-4 flex items-center justify-between gap-4">
+            <div>
+              <div class="text-white font-medium text-sm">${escapeHtml(bookName)} ${h.chapter}</div>
+              <div class="text-white/40 text-xs mt-0.5">${escapeHtml(h.bible_id || '')} · ${timeAgo}</div>
+            </div>
+            <button onclick="jumpTo('${h.book_id}', ${h.chapter}, '${h.bible_id}')"
+              class="btn btn-ghost btn-sm flex-shrink-0">Continue →</button>
+          </div>
+        `;
+      }).join('');
+    }
+  } catch (err) {
+    document.getElementById('history-loading').classList.add('hidden');
+    showToast('Could not load history: ' + err.message);
+  }
+}
+
+function jumpTo(bookId, chapter, translation) {
+  const bookSel = document.getElementById('book-select');
+  const book = BOOKS.find(b => b.id === bookId);
+  if (!book) return;
+  bookSel.value = bookId;
+  populateChapters(book.ch, chapter);
+  document.getElementById('translation-select').value = translation || 'BSB';
+  showView('read');
+  loadChapter();
+}
+
+// ─────────────────────────────────────────────
+// UTILS
+// ─────────────────────────────────────────────
+function escapeHtml(str) {
+  if (!str) return '';
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function formatTimeAgo(dateStr) {
+  if (!dateStr) return '';
+  const diff = Date.now() - new Date(dateStr).getTime();
+  const mins = Math.floor(diff / 60000);
+  if (mins < 1) return 'just now';
+  if (mins < 60) return `${mins}m ago`;
+  const hrs = Math.floor(mins / 60);
+  if (hrs < 24) return `${hrs}h ago`;
+  return `${Math.floor(hrs / 24)}d ago`;
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ─────────────────────────────────────────────
+// INIT
+// ─────────────────────────────────────────────
+initAuth();
+</script>
+
+<!-- Cloudflare Web Analytics — replace token with value from CF Dashboard → Web Analytics -->
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js'
+  data-cf-beacon='{"token": "2ab86622d1854c15aa2a925bddbc80d4"}'></script>
+</body>
+</html>

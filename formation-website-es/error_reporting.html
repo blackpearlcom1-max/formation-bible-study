@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html class="dark" lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Reportar un Error — Formación Bíblica</title>
+  <meta name="description" content="¿Encontraste un error en Formation Bible Study? Usa este formulario para reportarlo y ayudarnos a mejorar la app para todos."/>
+  <link rel="canonical" href="https://formacion-biblica.com/error_reporting"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://formacion-biblica.com/error_reporting"/>
+  <meta property="og:title" content="Reportar un Error — Formation Bible Study"/>
+  <meta property="og:site_name" content="Formación Bíblica"/>
+  <meta property="og:locale" content="es_ES"/>
+  <meta name="robots" content="index, follow"/>
+  <meta name="author" content="Berean Defense LLC"/>
+
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Manrope:wght@300;400;500;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "secondary": "#e9c349",
+            "on-surface-variant": "#d2c2cc",
+            "on-surface": "#f2e5f0",
+            "surface-container-highest": "#7E3A6C",
+            "secondary-container": "#af8d11",
+            "on-secondary": "#3c2f00",
+            "primary": "#ffb4a4",
+            "primary-container": "#6e2414",
+            "surface-variant": "#7E3A6C",
+            "outline": "#c4a0c2",
+            "surface-container-lowest": "#3D1540",
+            "surface-container-high": "#703060",
+            "surface-container": "#5C2A5A",
+            "on-primary": "#5d1809",
+            "surface-dim": "#4A1D4D",
+            "surface-container-low": "#4A1D4D",
+            "on-background": "#f2e5f0",
+            "surface": "#5C2A5A",
+            "background": "#5C2A5A",
+            "on-primary-container": "#f58b73",
+            "surface-bright": "#8A4478"
+          },
+          fontFamily: {
+            headline: ["Noto Serif", "serif"],
+            body: ["Manrope", "sans-serif"],
+            label: ["Manrope", "sans-serif"]
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    body { background-color: #5C2A5A; }
+    .grain-overlay { pointer-events: none; position: fixed; inset: 0; z-index: 99; opacity: 0.04; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"); }
+    #mobile-menu { display: none; }
+    #mobile-menu.open { display: flex; }
+    .nav-scrolled { background-color: rgba(61, 21, 64, 0.95) !important; }
+    @keyframes orbFloat1 { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(40px,-25px) scale(1.04)} 66%{transform:translate(-25px,20px) scale(0.97)} }
+    @keyframes orbFloat2 { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(-35px,28px) scale(0.96)} 66%{transform:translate(28px,-18px) scale(1.03)} }
+    .orb { position:fixed; border-radius:50%; filter:blur(90px); pointer-events:none; z-index:0; }
+    .orb-1 { width:650px; height:650px; top:-150px; left:-120px; background:radial-gradient(circle, rgba(255,180,164,0.11) 0%, transparent 70%); animation:orbFloat1 22s ease-in-out infinite; }
+    .orb-2 { width:520px; height:520px; top:28%; right:-130px; background:radial-gradient(circle, rgba(233,195,73,0.08) 0%, transparent 70%); animation:orbFloat2 28s ease-in-out infinite; }
+    .orb-3 { width:420px; height:420px; bottom:8%; left:25%; background:radial-gradient(circle, rgba(255,180,164,0.07) 0%, transparent 70%); animation:orbFloat1 34s ease-in-out infinite reverse; }
+    [data-animate] { opacity:0; transition: opacity 0.8s cubic-bezier(0.25,0.46,0.45,0.94), transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94); }
+    [data-animate="fade-up"] { transform:translateY(34px); }
+    [data-animate="scale-up"] { transform:scale(0.93) translateY(20px); }
+    [data-animate].is-visible { opacity:1; transform:none; }
+
+    /* Form styles */
+    .form-card { background:rgba(255,255,255,0.03); border:1px solid rgba(242,229,240,0.08); border-radius:20px; padding:40px; }
+    .form-label { display:block; font-family:'Manrope',sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:rgba(242,229,240,0.6); margin-bottom:8px; }
+    .form-input, .form-select, .form-textarea {
+      width:100%; background:rgba(255,255,255,0.05); border:1px solid rgba(242,229,240,0.12);
+      border-radius:12px; padding:14px 16px; font-family:'Manrope',sans-serif; font-size:0.9rem;
+      color:#f2e5f0; transition:border-color 0.2s, box-shadow 0.2s; outline:none;
+      -webkit-appearance:none;
+    }
+    .form-input::placeholder, .form-textarea::placeholder { color:rgba(242,229,240,0.3); }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color:rgba(255,180,164,0.5);
+      box-shadow:0 0 0 3px rgba(255,180,164,0.1);
+    }
+    .form-select { cursor:pointer; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23c4a0c2' d='M0 0l6 8 6-8z'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 16px center; padding-right:40px; }
+    .form-select option { background:#4A1D4D; color:#f2e5f0; }
+    .form-textarea { resize:vertical; min-height:120px; }
+    .form-group { margin-bottom:24px; }
+    .severity-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; }
+    @media(min-width:640px) { .severity-grid { grid-template-columns:repeat(4,1fr); } }
+    .severity-option { position:relative; }
+    .severity-option input[type="radio"] { position:absolute; opacity:0; width:0; height:0; }
+    .severity-label {
+      display:block; text-align:center; padding:14px 12px; border-radius:12px;
+      border:1px solid rgba(242,229,240,0.12); cursor:pointer; transition:all 0.2s;
+      font-family:'Manrope',sans-serif; font-size:0.8rem; font-weight:700;
+      text-transform:uppercase; letter-spacing:0.05em; color:rgba(242,229,240,0.5);
+      background:rgba(255,255,255,0.03);
+    }
+    .severity-label .severity-icon { display:block; font-size:1.4rem; margin-bottom:6px; }
+    .severity-option input[type="radio"]:checked + .severity-label {
+      border-color:rgba(255,180,164,0.6);
+      background:rgba(255,180,164,0.1);
+      color:#FFB4A4;
+    }
+    .severity-option input[type="radio"]:checked + .severity-label.blocker {
+      border-color:rgba(255,100,100,0.6); background:rgba(255,100,100,0.1); color:#ff9999;
+    }
+    .severity-option input[type="radio"]:checked + .severity-label.important {
+      border-color:rgba(233,195,73,0.6); background:rgba(233,195,73,0.1); color:#e9c349;
+    }
+    .severity-option input[type="radio"]:checked + .severity-label.minor {
+      border-color:rgba(255,180,164,0.6); background:rgba(255,180,164,0.1); color:#FFB4A4;
+    }
+    .severity-option input[type="radio"]:checked + .severity-label.cosmetic {
+      border-color:rgba(196,160,194,0.6); background:rgba(196,160,194,0.1); color:#c4a0c2;
+    }
+    .submit-btn {
+      width:100%; background:linear-gradient(135deg, #FFB4A4 0%, #6E2414 100%);
+      color:#5d1809; font-family:'Manrope',sans-serif; font-weight:800;
+      font-size:1rem; padding:16px 32px; border-radius:14px; border:none;
+      cursor:pointer; transition:all 0.2s; letter-spacing:0.02em;
+    }
+    .submit-btn:hover { filter:brightness(1.1); transform:translateY(-1px); box-shadow:0 8px 24px rgba(255,180,164,0.25); }
+    .submit-btn:active { transform:translateY(0); }
+    .success-card {
+      display:none; background:rgba(233,195,73,0.08); border:1px solid rgba(233,195,73,0.25);
+      border-radius:20px; padding:48px 32px; text-align:center;
+    }
+    .divider-line { border:none; border-top:1px solid rgba(242,229,240,0.08); margin:32px 0; }
+    .fallback-card { background:rgba(255,255,255,0.02); border:1px solid rgba(242,229,240,0.08); border-radius:16px; padding:24px; }
+  </style>
+</head>
+<body class="font-body text-on-background selection:bg-primary/30">
+<div class="grain-overlay"></div>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+
+<!-- Navegación -->
+<nav id="main-nav" class="fixed top-0 w-full z-50 bg-[#3D1540]/80 backdrop-blur-xl shadow-[0_20px_40px_-5px_rgba(61,21,64,0.3)]">
+  <div class="flex justify-between items-center w-full px-8 py-4 max-w-7xl mx-auto">
+    <a href="index.html" class="text-2xl font-headline font-black text-[#FFB4A4] no-underline">Formación Bíblica</a>
+    <div class="hidden md:flex items-center space-x-8">
+      <a href="index.html" class="text-[#f2e5f0]/60 font-medium font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4] transition-colors duration-300">Inicio</a>
+      <a href="features.html" class="text-[#f2e5f0]/60 font-medium font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4] transition-colors duration-300">Características</a>
+      <a href="pricing.html" class="text-[#f2e5f0]/60 font-medium font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4] transition-colors duration-300">Precios</a>
+    </div>
+    <a href="signup.html" class="bg-gradient-to-br from-[#FFB4A4] to-[#6E2414] text-[#5D1809] px-6 py-2.5 rounded-full font-bold text-sm hover:brightness-110 transition-all shadow-lg">
+      Únete a la Lista →
+    </a>
+    <button id="nav-toggle" class="md:hidden text-on-surface ml-4" aria-label="Menú">
+      <span class="material-symbols-outlined">menu</span>
+    </button>
+  </div>
+  <div id="mobile-menu" class="flex-col px-8 pb-6 space-y-4 bg-[#3D1540]/95 backdrop-blur-xl md:hidden">
+    <a href="index.html" class="block text-[#f2e5f0]/60 font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4]">Inicio</a>
+    <a href="features.html" class="block text-[#f2e5f0]/60 font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4]">Características</a>
+    <a href="pricing.html" class="block text-[#f2e5f0]/60 font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4]">Precios</a>
+    <a href="signup.html" class="block text-[#E8816A] font-label uppercase tracking-widest text-xs font-bold">Únete a la Lista →</a>
+  </div>
+</nav>
+
+<main class="pt-24 relative z-10">
+  <!-- Hero -->
+  <section class="max-w-3xl mx-auto px-8 py-20 text-center">
+    <p class="font-label text-sm uppercase tracking-widest text-secondary mb-4" data-animate="fade-up">Soporte</p>
+    <h1 class="font-headline text-4xl md:text-5xl font-black text-on-surface mb-6" data-animate="fade-up">Reportar un Error</h1>
+    <p class="font-label text-sm text-outline mb-6" data-animate="fade-up">Última actualización: 30 de abril de 2026</p>
+    <p class="text-on-surface-variant text-base leading-relaxed max-w-xl mx-auto" data-animate="fade-up">
+      ¿Encontraste algo roto? Gracias por tomarte el tiempo de avisarnos. Los informes de errores detallados nos ayudan a mejorar Formation Bible Study para todos.
+    </p>
+  </section>
+
+  <!-- Form Section -->
+  <section class="max-w-3xl mx-auto px-8 pb-24">
+
+    <!-- Success State (hidden by default) -->
+    <div id="success-card" class="success-card" data-animate="scale-up">
+      <span class="material-symbols-outlined text-secondary text-5xl mb-4 block" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+      <h2 class="font-headline text-2xl font-black text-on-surface mb-3">¡Informe enviado!</h2>
+      <p class="text-on-surface-variant text-base leading-relaxed max-w-md mx-auto mb-6">
+        Gracias por ayudarnos a mejorar Formation Bible Study. Revisaremos tu informe dentro de 48 horas.
+      </p>
+      <p class="font-label text-xs uppercase tracking-widest text-outline">El equipo de Formation Bible Study</p>
+    </div>
+
+    <!-- Form Card -->
+    <div id="form-wrapper" class="form-card" data-animate="fade-up">
+      <form name="error-report-es" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="error-report-form" novalidate>
+        <input type="hidden" name="form-name" value="error-report-es"/>
+        <input name="bot-field" class="hidden" aria-hidden="true" style="display:none;"/>
+
+        <!-- Row 1: Name + Email -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div class="form-group">
+            <label class="form-label" for="name">Nombre</label>
+            <input class="form-input" type="text" id="name" name="name" placeholder="Su nombre" required/>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="email">Correo Electrónico</label>
+            <input class="form-input" type="email" id="email" name="email" placeholder="tu@correo.com" required/>
+          </div>
+        </div>
+
+        <!-- Row 2: Error Type + Device -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div class="form-group">
+            <label class="form-label" for="error-type">Tipo de Error</label>
+            <select class="form-select" id="error-type" name="tipo_de_error" required>
+              <option value="" disabled selected>Selecciona un tipo...</option>
+              <option value="Error de la App">Error de la App</option>
+              <option value="Error de Contenido">Error de Contenido</option>
+              <option value="Error de Pago">Error de Pago</option>
+              <option value="Problema de Cuenta">Problema de Cuenta</option>
+              <option value="Problema de Rendimiento">Problema de Rendimiento</option>
+              <option value="Otro">Otro</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="device">Dispositivo</label>
+            <select class="form-select" id="device" name="dispositivo" required>
+              <option value="" disabled selected>Selecciona un dispositivo...</option>
+              <option value="iPhone">iPhone</option>
+              <option value="iPad">iPad</option>
+              <option value="Android">Android</option>
+              <option value="Navegador Web">Navegador Web</option>
+              <option value="Otro">Otro</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- OS Version -->
+        <div class="form-group">
+          <label class="form-label" for="os-version">Versión del Sistema Operativo</label>
+          <input class="form-input" type="text" id="os-version" name="version_sistema_operativo" placeholder="Ej: iOS 18.2, Android 15, macOS Sequoia..."/>
+        </div>
+
+        <!-- Description -->
+        <div class="form-group">
+          <label class="form-label" for="description">Descripción del Problema</label>
+          <textarea class="form-textarea" id="description" name="descripcion_del_problema" placeholder="Describe lo que sucedió..." required style="min-height:140px;"></textarea>
+        </div>
+
+        <!-- Steps to Reproduce -->
+        <div class="form-group">
+          <label class="form-label" for="steps">Pasos para Reproducir</label>
+          <textarea class="form-textarea" id="steps" name="pasos_para_reproducir" placeholder="1. Fui a...&#10;2. Hice clic en...&#10;3. Ocurrió..." style="min-height:120px;"></textarea>
+          <p style="color:rgba(242,229,240,0.35); font-size:0.78rem; margin-top:8px; font-family:'Manrope',sans-serif;">Cuantos más detalles incluyas, más rápido podremos reproducir y solucionar el problema.</p>
+        </div>
+
+        <!-- Severity -->
+        <div class="form-group">
+          <label class="form-label" style="margin-bottom:14px;">Gravedad del Error</label>
+          <div class="severity-grid">
+            <div class="severity-option">
+              <input type="radio" id="blocker" name="gravedad" value="Bloqueador" required/>
+              <label class="severity-label blocker" for="blocker">
+                <span class="severity-icon">🚫</span>
+                Bloqueador
+              </label>
+            </div>
+            <div class="severity-option">
+              <input type="radio" id="important" name="gravedad" value="Importante"/>
+              <label class="severity-label important" for="important">
+                <span class="severity-icon">⚠️</span>
+                Importante
+              </label>
+            </div>
+            <div class="severity-option">
+              <input type="radio" id="minor" name="gravedad" value="Menor"/>
+              <label class="severity-label minor" for="minor">
+                <span class="severity-icon">🔧</span>
+                Menor
+              </label>
+            </div>
+            <div class="severity-option">
+              <input type="radio" id="cosmetic" name="gravedad" value="Cosmético"/>
+              <label class="severity-label cosmetic" for="cosmetic">
+                <span class="severity-icon">✨</span>
+                Cosmético
+              </label>
+            </div>
+          </div>
+          <p style="color:rgba(242,229,240,0.35); font-size:0.75rem; margin-top:10px; font-family:'Manrope',sans-serif;">
+            <strong style="color:rgba(255,153,153,0.8);">Bloqueador:</strong> Impide usar la App completamente. &nbsp;
+            <strong style="color:rgba(233,195,73,0.8);">Importante:</strong> Función clave no funciona. &nbsp;
+            <strong style="color:rgba(255,180,164,0.7);">Menor:</strong> Problema molesto pero con alternativa. &nbsp;
+            <strong style="color:rgba(196,160,194,0.7);">Cosmético:</strong> Solo visual.
+          </p>
+        </div>
+
+        <hr class="divider-line"/>
+
+        <!-- Submit -->
+        <button type="submit" class="submit-btn">
+          Enviar Informe
+        </button>
+
+        <p style="text-align:center; color:rgba(242,229,240,0.3); font-size:0.75rem; margin-top:16px; font-family:'Manrope',sans-serif; line-height:1.6;">
+          Al enviar este formulario aceptas que Berean Defense LLC procese los datos proporcionados con el único fin de resolver el error reportado, conforme a nuestra <a href="privacy_policy.html" style="color:rgba(255,180,164,0.6); text-decoration:underline;">Política de Privacidad</a>.
+        </p>
+      </form>
+    </div>
+
+    <!-- Email Fallback -->
+    <div class="fallback-card mt-6" data-animate="fade-up">
+      <div class="flex items-start gap-4">
+        <span class="material-symbols-outlined text-secondary mt-0.5" style="font-variation-settings: 'FILL' 1; font-size:1.5rem;">mail</span>
+        <div>
+          <p class="font-label text-xs uppercase tracking-widest text-secondary mb-1">¿Prefieres el correo?</p>
+          <p style="color:rgba(242,229,240,0.65); font-size:0.875rem; line-height:1.7;">
+            También puedes enviarnos un correo directamente a
+            <a href="mailto:bugs@formacion-biblica.com" style="color:#FFB4A4; font-weight:700; text-decoration:underline; text-underline-offset:3px;">bugs@formacion-biblica.com</a>
+            con los mismos detalles: tipo de dispositivo, versión del sistema operativo, descripción del problema y pasos para reproducirlo.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tips -->
+    <div class="mt-8" data-animate="fade-up">
+      <p class="font-label text-xs uppercase tracking-widest text-secondary mb-4">Consejos para un buen reporte</p>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div style="background:rgba(255,255,255,0.02); border:1px solid rgba(242,229,240,0.07); border-radius:12px; padding:16px;">
+          <span class="material-symbols-outlined text-primary mb-2 block" style="font-variation-settings: 'FILL' 1;">screenshot_monitor</span>
+          <p style="color:#FFB4A4; font-size:0.8rem; font-weight:700; font-family:'Noto Serif',serif; margin-bottom:4px;">Captura de pantalla</p>
+          <p style="color:rgba(242,229,240,0.5); font-size:0.78rem; line-height:1.6;">Si puedes, adjunta una captura del error en tu correo de seguimiento.</p>
+        </div>
+        <div style="background:rgba(255,255,255,0.02); border:1px solid rgba(242,229,240,0.07); border-radius:12px; padding:16px;">
+          <span class="material-symbols-outlined text-secondary mb-2 block" style="font-variation-settings: 'FILL' 1;">repeat</span>
+          <p style="color:#FFB4A4; font-size:0.8rem; font-weight:700; font-family:'Noto Serif',serif; margin-bottom:4px;">¿Es reproducible?</p>
+          <p style="color:rgba(242,229,240,0.5); font-size:0.78rem; line-height:1.6;">Indica si el error ocurre siempre, a veces, o solo ocurrió una vez.</p>
+        </div>
+        <div style="background:rgba(255,255,255,0.02); border:1px solid rgba(242,229,240,0.07); border-radius:12px; padding:16px;">
+          <span class="material-symbols-outlined text-primary mb-2 block" style="font-variation-settings: 'FILL' 1;">info</span>
+          <p style="color:#FFB4A4; font-size:0.8rem; font-weight:700; font-family:'Noto Serif',serif; margin-bottom:4px;">Contexto específico</p>
+          <p style="color:rgba(242,229,240,0.5); font-size:0.78rem; line-height:1.6;">Menciona en qué sección de la App ocurrió (ej: "Plan de lectura Génesis, día 3").</p>
+        </div>
+      </div>
+    </div>
+
+  </section>
+</main>
+
+<!-- Pie de Página -->
+<footer class="w-full py-12 border-t border-[#f2e5f0]/10 bg-[#3D1540] relative z-10">
+  <div class="flex flex-col md:flex-row justify-between items-center w-full px-8 max-w-7xl mx-auto gap-8">
+    <div class="text-xl font-headline font-bold text-[#FFB4A4]">Formación Bíblica</div>
+    <div class="flex flex-wrap justify-center gap-8">
+      <a class="text-[#f2e5f0]/50 font-body text-sm hover:text-[#E8816A] transition-all" href="privacy_policy.html">Política de Privacidad</a>
+      <a class="text-[#f2e5f0]/50 font-body text-sm hover:text-[#E8816A] transition-all" href="terms.html">Términos de Servicio</a>
+      <a class="text-[#f2e5f0]/50 font-body text-sm hover:text-[#E8816A] transition-all" href="cookie_policy.html">Política de Cookies</a>
+      <a class="text-[#f2e5f0]/50 font-body text-sm hover:text-[#E8816A] transition-all" href="contact.html">Contacto</a>
+    </div>
+    <p class="text-[#f2e5f0]/40 font-body text-[10px] uppercase tracking-widest">© 2026 Berean Defense LLC. Todos los derechos reservados.</p>
+  </div>
+</footer>
+
+<script>
+  // Nav toggle
+  document.getElementById('nav-toggle').addEventListener('click', function() {
+    document.getElementById('mobile-menu').classList.toggle('open');
+  });
+
+  // Nav scroll shadow
+  window.addEventListener('scroll', () => {
+    const nav = document.getElementById('main-nav');
+    if (nav) nav.classList.toggle('nav-scrolled', window.scrollY > 50);
+  }, { passive: true });
+
+  // IntersectionObserver for data-animate
+  const animObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const delay = parseInt(entry.target.dataset.delay || 0);
+        setTimeout(() => entry.target.classList.add('is-visible'), delay);
+        animObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('[data-animate]').forEach(el => animObserver.observe(el));
+
+  // Form submission handling
+  const form = document.getElementById('error-report-form');
+  const formWrapper = document.getElementById('form-wrapper');
+  const successCard = document.getElementById('success-card');
+
+  form.addEventListener('submit', function(e) {
+    // Validate required fields
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const errorType = document.getElementById('error-type').value;
+    const device = document.getElementById('device').value;
+    const description = document.getElementById('description').value.trim();
+    const severity = document.querySelector('input[name="gravedad"]:checked');
+
+    if (!name || !email || !errorType || !device || !description || !severity) {
+      e.preventDefault();
+      const missingFields = [];
+      if (!name) missingFields.push('Nombre');
+      if (!email) missingFields.push('Correo Electrónico');
+      if (!errorType) missingFields.push('Tipo de Error');
+      if (!device) missingFields.push('Dispositivo');
+      if (!description) missingFields.push('Descripción del Problema');
+      if (!severity) missingFields.push('Gravedad');
+      alert('Por favor completa los siguientes campos requeridos:\n• ' + missingFields.join('\n• '));
+      return;
+    }
+
+    // If not on Netlify, simulate success
+    if (!window.location.hostname.includes('netlify') && !window.location.hostname.includes('formacionbiblica')) {
+      e.preventDefault();
+      formWrapper.style.display = 'none';
+      successCard.style.display = 'block';
+      setTimeout(() => successCard.classList.add('is-visible'), 50);
+      window.scrollTo({ top: successCard.offsetTop - 100, behavior: 'smooth' });
+    }
+    // On Netlify, the form submits normally; Netlify redirects to success page
+    // or we can listen for the success event
+  });
+
+  // Netlify form success event (for SPA-style handling)
+  if (window.netlify) {
+    form.addEventListener('netlify:success', function() {
+      formWrapper.style.display = 'none';
+      successCard.style.display = 'block';
+      setTimeout(() => successCard.classList.add('is-visible'), 50);
+    });
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+# Formation Bible Study — robots.txt
+# https://formationbible.com/robots.txt
+
+# ─── Standard Search Crawlers ───────────────────────────────────────────────
+User-agent: *
+Allow: /
+Disallow: /checkout
+Disallow: /signup
+
+# ─── AI Search & LLM Crawlers ────────────────────────────────────────────────
+# Explicitly allow all AI crawlers for maximum AI search visibility (AEO/GEO)
+
+# OpenAI / ChatGPT
+User-agent: GPTBot
+Allow: /
+
+# OpenAI research crawler
+User-agent: OAI-SearchBot
+Allow: /
+
+# Anthropic / Claude
+User-agent: ClaudeBot
+Allow: /
+
+# Anthropic web crawler
+User-agent: anthropic-ai
+Allow: /
+
+# Google AI (Bard / Gemini)
+User-agent: Google-Extended
+Allow: /
+
+# Perplexity AI
+User-agent: PerplexityBot
+Allow: /
+
+# Meta AI
+User-agent: FacebookBot
+Allow: /
+
+# Common Crawl (used by many LLM training pipelines)
+User-agent: CCBot
+Allow: /
+
+# Cohere AI
+User-agent: cohere-ai
+Allow: /
+
+# You.com
+User-agent: YouBot
+Allow: /
+
+# Diffbot (used by AI knowledge graph systems)
+User-agent: Diffbot
+Allow: /
+
+# ─── Sitemap ─────────────────────────────────────────────────────────────────
+Sitemap: https://formationbible.com/sitemap.xml
+Sitemap: https://formationbible.com/llms.txt

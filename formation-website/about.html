@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>About Us — Formation Bible Study</title>
+  <meta name="description" content="Formation Bible Study was built by Christians who believe the Word of God deserves more than a daily verse. Meet the people behind the app and the Scripture that drives us."/>
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://formationbible.com/about"/>
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://formationbible.com/about"/>
+  <meta property="og:title" content="About Us — Formation Bible Study"/>
+  <meta property="og:description" content="Formation Bible Study was built by Christians who believe the Word of God deserves more than a daily verse. Meet the people behind the app and the Scripture that drives us."/>
+  <meta property="og:site_name" content="Formation Bible Study"/>
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:title" content="About Us — Formation Bible Study"/>
+  <meta name="twitter:description" content="Formation Bible Study was built by Christians who believe the Word of God deserves more than a daily verse."/>
+  <meta name="robots" content="index, follow, max-snippet:-1"/>
+
+  <!-- Schema: Organization + WebPage + BreadcrumbList -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "About Formation Bible Study",
+    "url": "https://formationbible.com/about",
+    "description": "Formation Bible Study was built by Christians who believe the Word of God deserves more than a daily verse. Learn about the team and mission behind the app.",
+    "isPartOf": { "@type": "WebSite", "name": "Formation Bible Study", "url": "https://formationbible.com" },
+    "about": {
+      "@type": "Organization",
+      "name": "Berean Defense LLC",
+      "legalName": "Berean Defense LLC",
+      "url": "https://formationbible.com",
+      "description": "Berean Defense LLC is the company behind Formation Bible Study — a progressive Bible study app built on the classical inductive method for serious students of scripture.",
+      "foundingDate": "2026",
+      "sameAs": []
+    },
+    "breadcrumb": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://formationbible.com" },
+        { "@type": "ListItem", "position": 2, "name": "About", "item": "https://formationbible.com/about" }
+      ]
+    }
+  }
+  </script>
+
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Manrope:wght@300;400;500;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "secondary":                  "#e9c349",
+            "on-surface-variant":         "#d2c2cc",
+            "on-surface":                 "#f2e5f0",
+            "surface-container-highest":  "#7E3A6C",
+            "secondary-container":        "#af8d11",
+            "on-secondary":               "#3c2f00",
+            "primary":                    "#ffb4a4",
+            "primary-container":          "#6e2414",
+            "surface-variant":            "#7E3A6C",
+            "outline":                    "#c4a0c2",
+            "surface-container-lowest":   "#3D1540",
+            "surface-container-high":     "#703060",
+            "surface-container":          "#5C2A5A",
+            "on-secondary-fixed":         "#241a00",
+            "inverse-primary":            "#9a4431",
+            "on-primary":                 "#5d1809",
+            "surface-dim":                "#4A1D4D",
+            "outline-variant":            "#7A5478",
+            "surface-container-low":      "#4A1D4D",
+            "on-background":              "#f2e5f0",
+            "surface":                    "#5C2A5A",
+            "background":                 "#5C2A5A",
+            "on-primary-container":       "#f58b73",
+            "tertiary":                   "#ffb4a4",
+            "tertiary-container":         "#6e2414",
+            "on-tertiary":                "#5d1809",
+            "on-tertiary-container":      "#f48b73",
+            "surface-bright":             "#8A4478",
+            "inverse-surface":            "#eae0e7",
+            "inverse-on-surface":         "#342f34"
+          },
+          borderRadius: {
+            DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem",
+            "2xl": "1rem", "3xl": "1.5rem", full: "9999px"
+          },
+          fontFamily: {
+            headline: ["Noto Serif", "serif"],
+            body:     ["Manrope", "sans-serif"],
+            label:    ["Manrope", "sans-serif"]
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .material-symbols-outlined { font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24; }
+    body { background-color: #5C2A5A; }
+
+    .grain-overlay {
+      pointer-events:none; position:fixed; inset:0; z-index:99; opacity:0.04;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    }
+    #mobile-menu { display:none; }
+    #mobile-menu.open { display:flex; }
+    .nav-scrolled { background-color:rgba(61,21,64,0.95) !important; }
+
+    @keyframes orbFloat1 { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(40px,-25px) scale(1.04)} 66%{transform:translate(-25px,20px) scale(0.97)} }
+    @keyframes orbFloat2 { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(-35px,28px) scale(0.96)} 66%{transform:translate(28px,-18px) scale(1.03)} }
+    @keyframes shimmer  { 0%{background-position:-250% center} 100%{background-position:250% center} }
+
+    .orb { position:fixed; border-radius:50%; filter:blur(90px); pointer-events:none; z-index:0; }
+    .orb-1 { width:650px; height:650px; top:-150px; left:-120px;  background:radial-gradient(circle,rgba(255,180,164,0.11) 0%,transparent 70%); animation:orbFloat1 22s ease-in-out infinite; }
+    .orb-2 { width:520px; height:520px; top:28%;   right:-130px; background:radial-gradient(circle,rgba(233,195,73,0.08)  0%,transparent 70%); animation:orbFloat2 28s ease-in-out infinite; }
+    .orb-3 { width:420px; height:420px; bottom:8%; left:25%;     background:radial-gradient(circle,rgba(255,180,164,0.07) 0%,transparent 70%); animation:orbFloat1 34s ease-in-out infinite reverse; }
+
+    [data-animate] { opacity:0; transition:opacity 0.8s cubic-bezier(0.25,0.46,0.45,0.94), transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94); }
+    [data-animate="fade-up"]    { transform:translateY(34px); }
+    [data-animate="scale-up"]   { transform:scale(0.93) translateY(20px); }
+    [data-animate].is-visible   { opacity:1; transform:none; }
+
+    .shimmer-text {
+      background:linear-gradient(90deg, #e9c349 0%, #ffb4a4 32%, #e9c349 52%, #ffb4a4 78%, #e9c349 100%);
+      background-size:260% auto; -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+      background-clip:text; animation:shimmer 5.5s linear infinite;
+    }
+
+    .scripture-block {
+      background: rgba(61,21,64,0.7);
+      border-left: 3px solid #E9C349;
+      border-radius: 0 16px 16px 0;
+      padding: 24px 28px;
+    }
+
+    .info-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(242,229,240,0.1);
+      border-radius: 16px;
+      padding: 24px;
+      transition: background 0.25s, border-color 0.25s;
+    }
+    .info-card:hover {
+      background: rgba(255,255,255,0.07);
+      border-color: rgba(255,180,164,0.25);
+    }
+
+    .value-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(242,229,240,0.1);
+      border-radius: 20px;
+      padding: 28px 24px;
+      text-align: center;
+      transition: background 0.25s, border-color 0.25s;
+    }
+    .value-card:hover {
+      background: rgba(255,255,255,0.07);
+      border-color: rgba(233,195,73,0.3);
+    }
+
+    .section-divider { border:none; border-top:1px solid rgba(242,229,240,0.1); margin:0; }
+  </style>
+</head>
+<body class="font-body text-on-surface min-h-screen">
+
+  <div class="grain-overlay"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <!-- Navigation -->
+  <nav id="main-nav" class="fixed top-0 w-full z-50 bg-[#3D1540]/80 backdrop-blur-xl shadow-[0_20px_40px_-5px_rgba(61,21,64,0.3)] transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="index.html" class="text-2xl font-headline font-black text-[#FFB4A4] hover:opacity-80 transition-opacity">Formation Bible Study</a>
+      <div class="hidden md:flex items-center gap-8">
+        <a href="index.html" class="text-[#f2e5f0]/70 font-body text-sm hover:text-[#FFB4A4] transition-colors">Home</a>
+        <a href="features.html" class="text-[#f2e5f0]/70 font-body text-sm hover:text-[#FFB4A4] transition-colors">Features</a>
+        <a href="pricing.html" class="text-[#f2e5f0]/70 font-body text-sm hover:text-[#FFB4A4] transition-colors">Pricing</a>
+        <a href="about.html" class="text-[#E9C349] font-bold border-b-2 border-[#E9C349] pb-1 font-body text-sm">About</a>
+        <a href="beta.html" class="text-[#f2e5f0]/70 font-body text-sm hover:text-[#FFB4A4] transition-colors">Beta</a>
+        <a href="signup.html" class="bg-gradient-to-br from-[#FFB4A4] to-[#6E2414] text-[#5D1809] px-6 py-2.5 rounded-full font-bold text-sm hover:opacity-90 transition-opacity">Join the Waitlist →</a>
+      </div>
+      <button id="nav-toggle" class="md:hidden text-[#f2e5f0] p-2" aria-label="Open menu">
+        <span class="material-symbols-outlined">menu</span>
+      </button>
+    </div>
+    <div id="mobile-menu" class="flex-col bg-[#3D1540] px-6 pb-6 gap-4 md:hidden">
+      <a href="index.html" class="text-[#f2e5f0]/80 font-body text-base py-2 border-b border-[#f2e5f0]/10">Home</a>
+      <a href="features.html" class="text-[#f2e5f0]/80 font-body text-base py-2 border-b border-[#f2e5f0]/10">Features</a>
+      <a href="pricing.html" class="text-[#f2e5f0]/80 font-body text-base py-2 border-b border-[#f2e5f0]/10">Pricing</a>
+      <a href="about.html" class="text-[#E9C349] font-bold font-body text-base py-2 border-b border-[#f2e5f0]/10">About</a>
+      <a href="beta.html" class="text-[#f2e5f0]/80 font-body text-base py-2 border-b border-[#f2e5f0]/10">Beta</a>
+      <a href="signup.html" class="bg-gradient-to-br from-[#FFB4A4] to-[#6E2414] text-[#5D1809] px-6 py-3 rounded-full font-bold text-sm text-center mt-2">Join the Waitlist →</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="relative z-10 pt-36 pb-20 px-6">
+    <div class="max-w-3xl mx-auto">
+      <div data-animate="fade-up" class="inline-flex items-center gap-2 bg-[#3D1540]/70 border border-[#f2e5f0]/10 rounded-full px-4 py-1.5 mb-6">
+        <span class="material-symbols-outlined text-[#E9C349] text-base">menu_book</span>
+        <span class="font-label text-[11px] uppercase tracking-widest text-[#E9C349]">Acts 17:11</span>
+      </div>
+      <h1 data-animate="fade-up" class="font-headline text-4xl md:text-5xl font-black leading-tight mb-6">
+        We Built This for the<br/><span class="shimmer-text">Berean in You</span>
+      </h1>
+      <p data-animate="fade-up" class="font-body text-[#f2e5f0]/70 text-xl leading-relaxed mb-10">
+        Formation Bible Study exists because we believe every Christian deserves a tool worthy of the Word they're studying. Not too shallow. Not too complex. A companion for the serious student who opens their Bible asking, <em>"Is this true? Show me."</em>
+      </p>
+
+      <!-- The Berean Scripture -->
+      <div data-animate="fade-up" class="scripture-block mb-4">
+        <p class="font-headline text-[#f2e5f0] text-lg md:text-xl leading-relaxed italic mb-3">
+          "Now the Bereans were more noble-minded than the Thessalonians, for they received the message with great eagerness and <strong class="not-italic text-[#E9C349]">examined the Scriptures every day</strong> to see if these teachings were true."
+        </p>
+        <p class="font-label text-[11px] uppercase tracking-widest text-[#f2e5f0]/40">Acts 17:11 — Berean Standard Bible</p>
+      </div>
+      <p class="font-body text-[#f2e5f0]/40 text-sm mb-2">And the result of that daily examination?</p>
+      <div data-animate="fade-up" class="scripture-block">
+        <p class="font-headline text-[#f2e5f0] text-lg leading-relaxed italic mb-3">
+          "As a result, <strong class="not-italic text-[#FFB4A4]">many of them believed</strong> — as did also a number of prominent Greek women and many Greek men."
+        </p>
+        <p class="font-label text-[11px] uppercase tracking-widest text-[#f2e5f0]/40">Acts 17:12 — Berean Standard Bible</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider max-w-3xl mx-auto"/>
+
+  <!-- The Problem We Saw -->
+  <section class="relative z-10 px-6 py-16 max-w-3xl mx-auto">
+    <div data-animate="fade-up" class="mb-8">
+      <span class="font-label text-[11px] uppercase tracking-widest text-[#E9C349]">Why We Built This</span>
+      <h2 class="font-headline text-3xl font-black text-[#FFB4A4] mt-2 mb-4">There Was a Gap Nobody Was Filling</h2>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-4">
+        On one side: apps built around streaks, notifications, and bite-sized devotionals. Gentle. Accessible. But often designed for accessibility over depth — they meet you where you are without always taking you further.
+      </p>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-4">
+        On the other side: academic software built for seminarians. Powerful. Exhaustive. But intimidating to the person sitting in a small group who just wants to understand what Paul actually meant in Romans 8.
+      </p>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed">
+        The gap in between — where millions of growing Christians actually live — was empty. No tool that said: <em>we take you seriously, we take Scripture seriously, and we'll meet you where you are and grow with you.</em> Formation Bible Study is that tool.
+      </p>
+    </div>
+
+    <div data-animate="scale-up" class="bg-[#3D1540]/60 border border-[#FFB4A4]/20 rounded-2xl p-6">
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
+        <div>
+          <p class="font-headline font-black text-[#FFB4A4] text-3xl mb-1">Depth</p>
+          <p class="font-body text-[#f2e5f0]/50 text-sm">not complexity</p>
+        </div>
+        <div class="border-t sm:border-t-0 sm:border-l border-[#f2e5f0]/10 pt-4 sm:pt-0 sm:pl-6">
+          <p class="font-headline font-black text-[#FFB4A4] text-3xl mb-1">Growth</p>
+          <p class="font-body text-[#f2e5f0]/50 text-sm">not gamification</p>
+        </div>
+        <div class="border-t sm:border-t-0 sm:border-l border-[#f2e5f0]/10 pt-4 sm:pt-0 sm:pl-6">
+          <p class="font-headline font-black text-[#FFB4A4] text-3xl mb-1">Truth</p>
+          <p class="font-body text-[#f2e5f0]/50 text-sm">not performance</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider max-w-3xl mx-auto"/>
+
+  <!-- The Great Commission Foundation -->
+  <section class="relative z-10 px-6 py-16 max-w-3xl mx-auto">
+    <div data-animate="fade-up" class="mb-8">
+      <span class="font-label text-[11px] uppercase tracking-widest text-[#E9C349]">Matthew 28:18–20</span>
+      <h2 class="font-headline text-3xl font-black text-[#FFB4A4] mt-2 mb-6">The Command That Drives Everything</h2>
+      <div class="scripture-block mb-6">
+        <p class="font-headline text-[#f2e5f0] text-lg md:text-xl leading-relaxed italic mb-3">
+          "All authority in heaven and on earth has been given to Me. Therefore go and <strong class="not-italic text-[#E9C349]">make disciples of all nations</strong>, baptizing them in the name of the Father, and of the Son, and of the Holy Spirit, and <strong class="not-italic text-[#E9C349]">teaching them to obey all that I have commanded you.</strong>"
+        </p>
+        <p class="font-label text-[11px] uppercase tracking-widest text-[#f2e5f0]/40">Matthew 28:18–19 — Berean Standard Bible</p>
+      </div>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-4">
+        Disciples are not born at conversion. They are formed — through sustained, serious engagement with the Word. The Great Commission is not just a command to evangelize. It is a command to <em>teach</em>. To shape. To bring people from hearing the gospel to obeying everything Christ commanded.
+      </p>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed">
+        Formation Bible Study exists to serve that process. We are not a church. We are not a replacement for your pastor or your community. But we can be the daily tool that helps a disciple go deeper — passage by passage, day by day, year by year.
+      </p>
+    </div>
+  </section>
+
+  <hr class="section-divider max-w-3xl mx-auto"/>
+
+  <!-- What We Believe About Bible Study -->
+  <section class="relative z-10 px-6 py-16 max-w-3xl mx-auto">
+    <div data-animate="fade-up" class="mb-10">
+      <span class="font-label text-[11px] uppercase tracking-widest text-[#E9C349]">Our Convictions</span>
+      <h2 class="font-headline text-3xl font-black text-[#FFB4A4] mt-2 mb-4">What We Believe About Bible Study</h2>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed">These convictions shaped every feature decision, every design choice, and every word in this app.</p>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div class="value-card" data-animate="fade-up">
+        <span class="material-symbols-outlined text-[#E9C349] text-3xl mb-3 block">auto_stories</span>
+        <h3 class="font-headline font-bold text-[#f2e5f0] text-base mb-2">Scripture is the Authority</h3>
+        <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">Every tool in Formation Bible Study — including AI — exists to point you back to the text. The Word has authority. Our tools do not.</p>
+      </div>
+      <div class="value-card" data-animate="fade-up">
+        <span class="material-symbols-outlined text-[#E9C349] text-3xl mb-3 block">search</span>
+        <h3 class="font-headline font-bold text-[#f2e5f0] text-base mb-2">Questions Are Welcome</h3>
+        <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">The Bereans didn't take Paul's word for it — they searched the Scriptures. Honest questions, faithfully pursued, lead to deeper belief. We build for the asker.</p>
+      </div>
+      <div class="value-card" data-animate="fade-up">
+        <span class="material-symbols-outlined text-[#E9C349] text-3xl mb-3 block">trending_up</span>
+        <h3 class="font-headline font-bold text-[#f2e5f0] text-base mb-2">Depth Takes Time</h3>
+        <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">We measure formation, not streaks. Spiritual maturity is not a score. It's a lifelong process of being shaped by truth — and we design for that journey, not a leaderboard.</p>
+      </div>
+      <div class="value-card" data-animate="fade-up">
+        <span class="material-symbols-outlined text-[#E9C349] text-3xl mb-3 block">groups</span>
+        <h3 class="font-headline font-bold text-[#f2e5f0] text-base mb-2">Community Sharpens</h3>
+        <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">"As iron sharpens iron, so one person sharpens another." (Prov. 27:17) Formation Bible Study is built for the individual and the community — study partners, small groups, accountability built in.</p>
+      </div>
+      <div class="value-card" data-animate="fade-up">
+        <span class="material-symbols-outlined text-[#E9C349] text-3xl mb-3 block">volunteer_activism</span>
+        <h3 class="font-headline font-bold text-[#f2e5f0] text-base mb-2">Application Is the Goal</h3>
+        <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">James 1:22 says to be doers of the Word, not hearers only. The Inductive method — Observe, Interpret, Apply — keeps every study session connected to real life.</p>
+      </div>
+      <div class="value-card" data-animate="fade-up">
+        <span class="material-symbols-outlined text-[#E9C349] text-3xl mb-3 block">diversity_3</span>
+        <h3 class="font-headline font-bold text-[#f2e5f0] text-base mb-2">Every Believer Can Go Deep</h3>
+        <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">Formation Bible Study is built to grow with you — from your first inductive study to your hundredth, and beyond.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider max-w-3xl mx-auto"/>
+
+  <!-- The Name -->
+  <section class="relative z-10 px-6 py-16 max-w-3xl mx-auto">
+    <div data-animate="fade-up">
+      <span class="font-label text-[11px] uppercase tracking-widest text-[#E9C349]">The Name</span>
+      <h2 class="font-headline text-3xl font-black text-[#FFB4A4] mt-2 mb-6">Why "Formation Bible Study"</h2>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-4">
+        Spiritual formation is the ancient Christian practice of being shaped — gradually, intentionally, over a lifetime — into the image of Christ. It is not an event. It is not a course. It is the ongoing work of the Holy Spirit in a life that stays close to the Word.
+      </p>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-4">
+        The name "Formation Bible Study" is a declaration of what this app is for. Not information alone. Not inspiration alone. Formation Bible Study — the patient, Scripture-driven process of becoming.
+      </p>
+      <div class="scripture-block">
+        <p class="font-headline text-[#f2e5f0] text-lg leading-relaxed italic mb-3">
+          "Do not conform to the pattern of this world, but be <strong class="not-italic text-[#E9C349]">transformed by the renewing of your mind</strong>. Then you will be able to test and approve what God's will is — His good, pleasing and perfect will."
+        </p>
+        <p class="font-label text-[11px] uppercase tracking-widest text-[#f2e5f0]/40">Romans 12:2 — Berean Standard Bible</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider max-w-3xl mx-auto"/>
+
+  <!-- The Company -->
+  <section class="relative z-10 px-6 py-16 max-w-3xl mx-auto">
+    <div data-animate="fade-up">
+      <span class="font-label text-[11px] uppercase tracking-widest text-[#E9C349]">The Company</span>
+      <h2 class="font-headline text-3xl font-black text-[#FFB4A4] mt-2 mb-6">Berean Defense LLC</h2>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-4">
+        Formation Bible Study is developed and operated by <strong class="text-[#f2e5f0]">Berean Defense LLC</strong>, a company founded on the conviction that the Church needs better tools to fulfill the Great Commission. The name comes from Acts 17:11 — the Bereans who searched the Scriptures daily.
+      </p>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-8">
+        We are a small, mission-driven team. We are not backed by venture capital with conflicting incentives. We are Christians who use Formation Bible Study for our own Bible study, building the tool we always wanted and couldn't find.
+      </p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="info-card text-center">
+          <span class="material-symbols-outlined text-[#FFB4A4] text-2xl mb-2 block">gavel</span>
+          <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Wyoming LLC</p>
+          <p class="font-body text-[#f2e5f0]/50 text-xs">United States</p>
+        </div>
+        <div class="info-card text-center">
+          <span class="material-symbols-outlined text-[#FFB4A4] text-2xl mb-2 block">menu_book</span>
+          <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Bible-First</p>
+          <p class="font-body text-[#f2e5f0]/50 text-xs">Scripture drives every decision</p>
+        </div>
+        <div class="info-card text-center">
+          <span class="material-symbols-outlined text-[#FFB4A4] text-2xl mb-2 block">favorite</span>
+          <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Mission-Driven</p>
+          <p class="font-body text-[#f2e5f0]/50 text-xs">Discipleship over profit</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="relative z-10 px-6 pb-20 max-w-3xl mx-auto">
+    <div data-animate="scale-up" class="bg-gradient-to-br from-[#3D1540] to-[#5C2A5A] border border-[#FFB4A4]/20 rounded-3xl p-10 text-center">
+      <span class="material-symbols-outlined text-[#E9C349] text-4xl mb-4 block">auto_stories</span>
+      <h2 class="font-headline text-2xl md:text-3xl font-black text-[#f2e5f0] mb-4">Ready to Study Like a Berean?</h2>
+      <p class="font-body text-[#f2e5f0]/60 text-base leading-relaxed mb-8 max-w-lg mx-auto">
+        Join thousands of Christians who are ready to go deeper in God's Word. Formation Bible Study launches soon — get early access.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="signup.html" class="bg-gradient-to-br from-[#FFB4A4] to-[#6E2414] text-[#5D1809] px-8 py-4 rounded-full font-bold text-base hover:opacity-90 transition-opacity">
+          Join the Waitlist →
+        </a>
+        <a href="mission.html" class="border border-[#f2e5f0]/20 text-[#f2e5f0]/70 px-8 py-4 rounded-full font-body text-base hover:border-[#FFB4A4]/40 hover:text-[#FFB4A4] transition-all">
+          Read Our Mission
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-[#3D1540] w-full py-12 border-t border-[#f2e5f0]/10 relative z-10">
+    <div class="flex flex-col md:flex-row justify-between items-center w-full px-8 max-w-7xl mx-auto gap-8">
+      <div class="text-xl font-headline font-bold text-[#FFB4A4]">Formation Bible Study</div>
+      <div class="flex flex-wrap justify-center gap-8">
+        <a class="text-[#f2e5f0]/50 font-label uppercase tracking-widest text-[10px] hover:text-[#E8816A] transition-all" href="about.html" style="color:rgba(255,180,164,0.8)">About</a>
+        <a class="text-[#f2e5f0]/50 font-label uppercase tracking-widest text-[10px] hover:text-[#E8816A] transition-all" href="mission.html">Mission</a>
+        <a class="text-[#f2e5f0]/50 font-label uppercase tracking-widest text-[10px] hover:text-[#E8816A] transition-all" href="statement_of_faith.html">Statement of Faith</a>
+        <a class="text-[#f2e5f0]/50 font-label uppercase tracking-widest text-[10px] hover:text-[#E8816A] transition-all" href="privacy_policy.html">Privacy Policy</a>
+        <a class="text-[#f2e5f0]/50 font-label uppercase tracking-widest text-[10px] hover:text-[#E8816A] transition-all" href="terms.html">Terms</a>
+        <a class="text-[#f2e5f0]/50 font-label uppercase tracking-widest text-[10px] hover:text-[#E8816A] transition-all" href="contact.html">Contact</a>
+      </div>
+      <div class="text-[#f2e5f0]/40 text-[10px] font-label uppercase tracking-widest">© 2026 Berean Defense LLC. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('main-nav');
+    window.addEventListener('scroll', () => nav.classList.toggle('nav-scrolled', window.scrollY > 20));
+    document.getElementById('nav-toggle').addEventListener('click', () => document.getElementById('mobile-menu').classList.toggle('open'));
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('[data-animate]').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Cookie Policy — Formation Bible Study</title>
+  <meta name="description" content="Formation Bible Study's cookie policy explains exactly what cookies we use, why, and how you can control them at any time."/>
+
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Manrope:wght@300;400;500;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "secondary":                  "#e9c349",
+            "on-surface-variant":         "#d2c2cc",
+            "on-surface":                 "#f2e5f0",
+            "surface-container-highest":  "#7E3A6C",
+            "secondary-container":        "#af8d11",
+            "on-secondary":               "#3c2f00",
+            "primary":                    "#ffb4a4",
+            "primary-container":          "#6e2414",
+            "surface-variant":            "#7E3A6C",
+            "outline":                    "#c4a0c2",
+            "surface-container-lowest":   "#3D1540",
+            "surface-container-high":     "#703060",
+            "surface-container":          "#5C2A5A",
+            "on-secondary-fixed":         "#241a00",
+            "inverse-primary":            "#9a4431",
+            "on-primary":                 "#5d1809",
+            "surface-dim":                "#4A1D4D",
+            "outline-variant":            "#7A5478",
+            "surface-container-low":      "#4A1D4D",
+            "on-background":              "#f2e5f0",
+            "surface":                    "#5C2A5A",
+            "background":                 "#5C2A5A",
+            "on-primary-container":       "#f58b73",
+            "tertiary":                   "#ffb4a4",
+            "tertiary-container":         "#6e2414",
+            "on-tertiary":                "#5d1809",
+            "on-tertiary-container":      "#f48b73",
+            "surface-bright":             "#8A4478",
+            "inverse-surface":            "#eae0e7",
+            "inverse-on-surface":         "#342f34"
+          },
+          borderRadius: {
+            DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem",
+            "2xl": "1rem", "3xl": "1.5rem", full: "9999px"
+          },
+          fontFamily: {
+            headline: ["Noto Serif",  "serif"],
+            body:     ["Manrope", "sans-serif"],
+            label:    ["Manrope", "sans-serif"]
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .material-symbols-outlined { font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24; }
+    body { background-color: #5C2A5A; }
+
+    /* Grain overlay */
+    .grain-overlay {
+      pointer-events:none; position:fixed; inset:0; z-index:99; opacity:0.04;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    }
+    #mobile-menu { display:none; }
+    #mobile-menu.open { display:flex; }
+    .nav-scrolled { background-color:rgba(61,21,64,0.95) !important; }
+
+    /* Animations */
+    @keyframes orbFloat1 { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(40px,-25px) scale(1.04)} 66%{transform:translate(-25px,20px) scale(0.97)} }
+    @keyframes orbFloat2 { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(-35px,28px) scale(0.96)} 66%{transform:translate(28px,-18px) scale(1.03)} }
+    @keyframes shimmer  { 0%{background-position:-250% center} 100%{background-position:250% center} }
+
+    .orb { position:fixed; border-radius:50%; filter:blur(90px); pointer-events:none; z-index:0; }
+    .orb-1 { width:650px; height:650px; top:-150px; left:-120px;  background:radial-gradient(circle,rgba(255,180,164,0.11) 0%,transparent 70%); animation:orbFloat1 22s ease-in-out infinite; }
+    .orb-2 { width:520px; height:520px; top:28%;   right:-130px; background:radial-gradient(circle,rgba(233,195,73,0.08)  0%,transparent 70%); animation:orbFloat2 28s ease-in-out infinite; }
+    .orb-3 { width:420px; height:420px; bottom:8%; left:25%;     background:radial-gradient(circle,rgba(255,180,164,0.07) 0%,transparent 70%); animation:orbFloat1 34s ease-in-out infinite reverse; }
+
+    [data-animate] { opacity:0; transition:opacity 0.8s cubic-bezier(0.25,0.46,0.45,0.94), transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94); }
+    [data-animate="fade-up"]    { transform:translateY(34px); }
+    [data-animate="scale-up"]   { transform:scale(0.93) translateY(20px); }
+    [data-animate].is-visible   { opacity:1; transform:none; }
+
+    .shimmer-text {
+      background:linear-gradient(90deg, #e9c349 0%, #ffb4a4 32%, #e9c349 52%, #ffb4a4 78%, #e9c349 100%);
+      background-size:260% auto; -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+      background-clip:text; animation:shimmer 5.5s linear infinite;
+    }
+
+    /* Cookie type cards */
+    .cookie-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(242,229,240,0.1);
+      border-radius: 16px;
+      padding: 20px 24px;
+      transition: background 0.25s, border-color 0.25s;
+    }
+    .cookie-card:hover {
+      background: rgba(255,255,255,0.07);
+      border-color: rgba(255,180,164,0.25);
+    }
+
+    /* Cookie table */
+    .cookie-table { width:100%; border-collapse:collapse; }
+    .cookie-table th {
+      background: rgba(61,21,64,0.8);
+      color: rgba(242,229,240,0.7);
+      padding: 11px 16px;
+      text-align:left;
+      font-size:0.68rem;
+      letter-spacing:2px;
+      text-transform:uppercase;
+      font-family: Manrope, sans-serif;
+      font-weight:600;
+    }
+    .cookie-table th:first-child { border-radius: 12px 0 0 0; }
+    .cookie-table th:last-child  { border-radius: 0 12px 0 0; }
+    .cookie-table td {
+      padding: 12px 16px;
+      color: rgba(242,229,240,0.6);
+      border-bottom: 1px solid rgba(242,229,240,0.07);
+      vertical-align:top;
+      font-size:0.87rem;
+      line-height:1.6;
+      font-family: Manrope, sans-serif;
+    }
+    .cookie-table tr:last-child td { border-bottom:none; }
+    .cookie-table td:first-child {
+      color: #FFB4A4;
+      font-weight:600;
+      font-size:0.8rem;
+      font-family:'Courier New',monospace;
+    }
+    .cookie-table tr:hover td { background:rgba(255,255,255,0.03); }
+
+    /* Browser cards */
+    .browser-card {
+      background:rgba(255,255,255,0.04);
+      border:1px solid rgba(242,229,240,0.1);
+      border-radius:12px;
+      padding:16px;
+      text-align:center;
+      transition:background 0.2s,border-color 0.2s;
+    }
+    .browser-card:hover {
+      background:rgba(255,255,255,0.07);
+      border-color:rgba(255,180,164,0.3);
+    }
+
+    /* Section divider */
+    .section-divider { border:none; border-top:1px solid rgba(242,229,240,0.1); margin:0; }
+  </style>
+</head>
+<body class="font-body text-on-surface min-h-screen">
+
+  <!-- Grain + Orbs -->
+  <div class="grain-overlay" aria-hidden="true"></div>
+  <div class="orb orb-1" aria-hidden="true"></div>
+  <div class="orb orb-2" aria-hidden="true"></div>
+  <div class="orb orb-3" aria-hidden="true"></div>
+
+  <!-- ── NAV ── -->
+  <nav id="main-nav" class="fixed top-0 w-full z-50 bg-[#3D1540]/80 backdrop-blur-xl shadow-[0_20px_40px_-5px_rgba(61,21,64,0.3)]">
+    <div class="flex justify-between items-center w-full px-8 py-4 max-w-7xl mx-auto">
+      <a href="index.html" class="text-2xl font-headline font-black text-[#FFB4A4] no-underline">Formation Bible Study</a>
+      <div class="hidden md:flex items-center space-x-8">
+        <a href="index.html"     class="text-[#f2e5f0]/60 font-medium font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4] transition-colors duration-300">Home</a>
+        <a href="features.html"  class="text-[#f2e5f0]/60 font-medium font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4] transition-colors duration-300">Features</a>
+        <a href="pricing.html"   class="text-[#f2e5f0]/60 font-medium font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4] transition-colors duration-300">Pricing</a>
+      </div>
+      <a href="signup.html" class="bg-gradient-to-br from-[#FFB4A4] to-[#6E2414] text-[#5D1809] px-6 py-2.5 rounded-full font-bold text-sm hover:brightness-110 transition-all shadow-lg">
+        Join the Waitlist →
+      </a>
+      <button id="nav-toggle" class="md:hidden text-on-surface ml-4" aria-label="Menu">
+        <span class="material-symbols-outlined">menu</span>
+      </button>
+    </div>
+    <div id="mobile-menu" class="flex-col px-8 pb-6 space-y-4 bg-[#3D1540]/95 backdrop-blur-xl md:hidden">
+      <a href="index.html"    class="block text-[#f2e5f0]/60 font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4]">Home</a>
+      <a href="features.html" class="block text-[#f2e5f0]/60 font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4]">Features</a>
+      <a href="pricing.html"  class="block text-[#f2e5f0]/60 font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4]">Pricing</a>
+      <a href="signup.html"   class="block text-[#E8816A] font-label uppercase tracking-widest text-xs font-bold">Join the Waitlist →</a>
+    </div>
+  </nav>
+
+  <!-- ── PAGE HERO ── -->
+  <section class="relative z-10 pt-32 pb-20 px-8 text-center overflow-hidden">
+    <div class="max-w-2xl mx-auto" data-animate="fade-up">
+      <p class="font-label uppercase tracking-[4px] text-[10px] text-[#E9C349] mb-5">Legal &amp; Privacy</p>
+      <h1 class="font-headline font-black text-4xl md:text-5xl lg:text-6xl leading-tight mb-6">
+        Cookie <span class="shimmer-text">Policy</span>
+      </h1>
+      <p class="font-body text-[#f2e5f0]/65 text-base md:text-lg leading-relaxed max-w-xl mx-auto mb-8">
+        We believe in full transparency. Here's exactly what cookies Formation Bible Study uses, why we use them, and how you're always in control.
+      </p>
+      <div class="inline-flex items-center gap-2 bg-[#3D1540]/60 border border-[#f2e5f0]/10 rounded-full px-5 py-2.5 text-xs font-label text-[#f2e5f0]/45 tracking-wide">
+        Effective: <span class="text-[#f2e5f0]/65 font-semibold">April 16, 2026</span> &nbsp;·&nbsp; Last Updated: <span class="text-[#f2e5f0]/65 font-semibold">April 16, 2026</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── MAIN CONTENT ── -->
+  <div class="relative z-10 max-w-3xl mx-auto px-6 pb-28">
+
+    <!-- Intro callout -->
+    <div class="cookie-card mb-12 border-l-4 border-[#FFB4A4]" data-animate="fade-up">
+      <p class="font-body text-[#f2e5f0]/70 text-sm leading-relaxed">
+        Formation Bible Study is a Bible study app built on trust. This policy explains our cookie practices in plain language — no legal jargon. Questions? Email us at
+        <a href="mailto:privacy@formation.app" class="text-[#FFB4A4] hover:text-[#f2e5f0] transition-colors">privacy@formation.app</a>
+        and we'll be glad to help.
+      </p>
+    </div>
+
+    <!-- ── SECTION 1 ── What Are Cookies -->
+    <section class="mb-14" data-animate="fade-up" id="what-are-cookies">
+      <p class="font-label uppercase tracking-[3px] text-[10px] text-[#E9C349] mb-3">Section 01</p>
+      <h2 class="font-headline font-bold text-2xl md:text-3xl text-[#FFB4A4] mb-5">What Are Cookies?</h2>
+      <div class="space-y-4 font-body text-sm text-[#f2e5f0]/65 leading-relaxed">
+        <p>Cookies are small text files placed on your device when you visit a website or use a web-based app. They help services remember information about you — such as your login status, preferences, or which pages you've visited — so your experience is smoother and more personalized on each return visit.</p>
+        <p>Cookies cannot run programs or deliver viruses. They simply store small pieces of data that help services work better for you. When we say "cookies" in this policy, we also include similar technologies like <strong class="text-[#f2e5f0]/85">local storage</strong>, <strong class="text-[#f2e5f0]/85">session storage</strong>, and <strong class="text-[#f2e5f0]/85">tracking pixels</strong>.</p>
+        <p>Cookies are either <strong class="text-[#f2e5f0]/85">first-party</strong> (set directly by Formation Bible Study) or <strong class="text-[#f2e5f0]/85">third-party</strong> (set by external services we use). They may be <strong class="text-[#f2e5f0]/85">session cookies</strong> that expire when you close your browser, or <strong class="text-[#f2e5f0]/85">persistent cookies</strong> that stay on your device for a set period.</p>
+      </div>
+    </section>
+
+    <hr class="section-divider mb-14"/>
+
+    <!-- ── SECTION 2 ── Types We Use -->
+    <section class="mb-14" data-animate="fade-up" id="types-we-use">
+      <p class="font-label uppercase tracking-[3px] text-[10px] text-[#E9C349] mb-3">Section 02</p>
+      <h2 class="font-headline font-bold text-2xl md:text-3xl text-[#FFB4A4] mb-5">Types of Cookies We Use</h2>
+      <p class="font-body text-sm text-[#f2e5f0]/65 leading-relaxed mb-6">Formation Bible Study uses four categories. The first is required for the app to work; the other three are optional and can be managed through your browser.</p>
+
+      <div class="space-y-4">
+        <!-- Essential -->
+        <div class="cookie-card flex gap-4 items-start">
+          <div class="w-10 h-10 rounded-xl bg-[#3D1540]/80 border border-[#f2e5f0]/10 flex items-center justify-center text-lg shrink-0">🔒</div>
+          <div>
+            <div class="flex flex-wrap items-center gap-2 mb-2">
+              <h3 class="font-headline font-bold text-base text-[#f2e5f0]">Essential Cookies</h3>
+              <span class="font-label uppercase tracking-widest text-[9px] px-2.5 py-0.5 rounded-full bg-[#3D1540] border border-[#f2e5f0]/15 text-[#f2e5f0]/50">Required</span>
+            </div>
+            <p class="font-body text-xs text-[#f2e5f0]/55 leading-relaxed">These make Formation Bible Study work. They handle authentication, keep your session active, and protect against security threats. You cannot opt out — without them, the app cannot function.</p>
+          </div>
+        </div>
+        <!-- Analytics -->
+        <div class="cookie-card flex gap-4 items-start">
+          <div class="w-10 h-10 rounded-xl bg-[#3D1540]/80 border border-[#f2e5f0]/10 flex items-center justify-center text-lg shrink-0">📊</div>
+          <div>
+            <div class="flex flex-wrap items-center gap-2 mb-2">
+              <h3 class="font-headline font-bold text-base text-[#f2e5f0]">Analytics Cookies</h3>
+              <span class="font-label uppercase tracking-widest text-[9px] px-2.5 py-0.5 rounded-full bg-[#3D1540] border border-[#E9C349]/20 text-[#E9C349]/70">Optional</span>
+            </div>
+            <p class="font-body text-xs text-[#f2e5f0]/55 leading-relaxed">These help us understand how people use Formation Bible Study in aggregate — which features get used, where users drop off, and how the app can be improved. Data is anonymized and never used to identify individuals.</p>
+          </div>
+        </div>
+        <!-- Marketing -->
+        <div class="cookie-card flex gap-4 items-start">
+          <div class="w-10 h-10 rounded-xl bg-[#3D1540]/80 border border-[#f2e5f0]/10 flex items-center justify-center text-lg shrink-0">📣</div>
+          <div>
+            <div class="flex flex-wrap items-center gap-2 mb-2">
+              <h3 class="font-headline font-bold text-base text-[#f2e5f0]">Marketing Cookies</h3>
+              <span class="font-label uppercase tracking-widest text-[9px] px-2.5 py-0.5 rounded-full bg-[#3D1540] border border-[#E9C349]/20 text-[#E9C349]/70">Optional</span>
+            </div>
+            <p class="font-body text-xs text-[#f2e5f0]/55 leading-relaxed">These allow us to show relevant Formation Bible Study content on other platforms and measure how well our campaigns perform. You can opt out at any time through your browser or the links in Section 5.</p>
+          </div>
+        </div>
+        <!-- Preference -->
+        <div class="cookie-card flex gap-4 items-start">
+          <div class="w-10 h-10 rounded-xl bg-[#3D1540]/80 border border-[#f2e5f0]/10 flex items-center justify-center text-lg shrink-0">⚙️</div>
+          <div>
+            <div class="flex flex-wrap items-center gap-2 mb-2">
+              <h3 class="font-headline font-bold text-base text-[#f2e5f0]">Preference Cookies</h3>
+              <span class="font-label uppercase tracking-widest text-[9px] px-2.5 py-0.5 rounded-full bg-[#3D1540] border border-[#E9C349]/20 text-[#E9C349]/70">Optional</span>
+            </div>
+            <p class="font-body text-xs text-[#f2e5f0]/55 leading-relaxed">These remember your choices — preferred Bible translation, display settings, and study preferences — so you don't have to re-enter them each visit.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider mb-14"/>
+
+    <!-- ── SECTION 3 ── Specific Cookies -->
+    <section class="mb-14" data-animate="fade-up" id="specific-cookies">
+      <p class="font-label uppercase tracking-[3px] text-[10px] text-[#E9C349] mb-3">Section 03</p>
+      <h2 class="font-headline font-bold text-2xl md:text-3xl text-[#FFB4A4] mb-5">Specific Cookies We Set</h2>
+      <p class="font-body text-sm text-[#f2e5f0]/65 leading-relaxed mb-6">A complete list of the cookies Formation Bible Study places on your device:</p>
+
+      <div class="rounded-2xl overflow-hidden border border-[#f2e5f0]/10">
+        <table class="cookie-table">
+          <thead>
+            <tr>
+              <th>Cookie Name</th>
+              <th>Purpose</th>
+              <th>Type</th>
+              <th>Duration</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>formation_session</td><td>Keeps you logged in during your active session</td><td>Essential</td><td>Session</td></tr>
+            <tr><td>formation_auth_token</td><td>Securely authenticates your account on return visits</td><td>Essential</td><td>30 days</td></tr>
+            <tr><td>formation_csrf</td><td>Protects against cross-site request forgery</td><td>Essential</td><td>Session</td></tr>
+            <tr><td>formation_user_prefs</td><td>Stores your Bible translation, theme &amp; study preferences</td><td>Preference</td><td>1 year</td></tr>
+            <tr><td>_ga / _ga_XXXXX</td><td>Google Analytics — anonymized usage patterns</td><td>Analytics</td><td>2 years</td></tr>
+            <tr><td>_fbp</td><td>Meta Pixel — ad performance measurement</td><td>Marketing</td><td>90 days</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <hr class="section-divider mb-14"/>
+
+    <!-- ── SECTION 4 ── Third-Party -->
+    <section class="mb-14" data-animate="fade-up" id="third-party">
+      <p class="font-label uppercase tracking-[3px] text-[10px] text-[#E9C349] mb-3">Section 04</p>
+      <h2 class="font-headline font-bold text-2xl md:text-3xl text-[#FFB4A4] mb-5">Third-Party Cookies</h2>
+      <p class="font-body text-sm text-[#f2e5f0]/65 leading-relaxed mb-5">Some cookies are set by third-party services we rely on. We don't control how these parties use collected data. Please review their own privacy policies:</p>
+      <ul class="space-y-3 font-body text-sm text-[#f2e5f0]/65 leading-relaxed">
+        <li class="flex gap-3"><span class="text-[#FFB4A4] shrink-0">→</span><span><strong class="text-[#f2e5f0]/85">Google Analytics</strong> — Web and app usage analytics. <a href="https://policies.google.com/privacy" target="_blank" rel="noopener" class="text-[#E9C349] hover:text-[#f2e5f0] transition-colors">Google Privacy Policy →</a></span></li>
+        <li class="flex gap-3"><span class="text-[#FFB4A4] shrink-0">→</span><span><strong class="text-[#f2e5f0]/85">Stripe</strong> — Secure payment processing &amp; fraud prevention. <a href="https://stripe.com/privacy" target="_blank" rel="noopener" class="text-[#E9C349] hover:text-[#f2e5f0] transition-colors">Stripe Privacy Policy →</a></span></li>
+        <li class="flex gap-3"><span class="text-[#FFB4A4] shrink-0">→</span><span><strong class="text-[#f2e5f0]/85">Meta Pixel</strong> — Advertising measurement and audience targeting. <a href="https://www.facebook.com/privacy/policy/" target="_blank" rel="noopener" class="text-[#E9C349] hover:text-[#f2e5f0] transition-colors">Meta Privacy Policy →</a></span></li>
+        <li class="flex gap-3"><span class="text-[#FFB4A4] shrink-0">→</span><span><strong class="text-[#f2e5f0]/85">Intercom</strong> — In-app support chat. <a href="https://www.intercom.com/legal/privacy" target="_blank" rel="noopener" class="text-[#E9C349] hover:text-[#f2e5f0] transition-colors">Intercom Privacy Policy →</a></span></li>
+      </ul>
+    </section>
+
+    <hr class="section-divider mb-14"/>
+
+    <!-- ── SECTION 5 ── Managing -->
+    <section class="mb-14" data-animate="fade-up" id="manage">
+      <p class="font-label uppercase tracking-[3px] text-[10px] text-[#E9C349] mb-3">Section 05</p>
+      <h2 class="font-headline font-bold text-2xl md:text-3xl text-[#FFB4A4] mb-5">Managing Your Cookies</h2>
+      <p class="font-body text-sm text-[#f2e5f0]/65 leading-relaxed mb-6">You are in control. You can manage, restrict, or delete cookies at any time through your browser settings. Disabling essential cookies will prevent Formation Bible Study from working properly — but all other categories can be turned off without breaking core features.</p>
+
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-6">
+        <a href="https://support.google.com/chrome/answer/95647"                                    target="_blank" rel="noopener" class="browser-card no-underline"><div class="text-sm font-label font-bold text-[#FFB4A4] mb-1">Chrome</div><div class="text-xs text-[#E9C349]">Settings →</div></a>
+        <a href="https://support.apple.com/guide/safari/manage-cookies-sfri11471"                   target="_blank" rel="noopener" class="browser-card no-underline"><div class="text-sm font-label font-bold text-[#FFB4A4] mb-1">Safari</div><div class="text-xs text-[#E9C349]">Settings →</div></a>
+        <a href="https://support.mozilla.org/en-US/kb/clear-cookies-and-site-data-firefox"          target="_blank" rel="noopener" class="browser-card no-underline"><div class="text-sm font-label font-bold text-[#FFB4A4] mb-1">Firefox</div><div class="text-xs text-[#E9C349]">Settings →</div></a>
+        <a href="https://support.microsoft.com/en-us/microsoft-edge/delete-cookies-in-microsoft-edge" target="_blank" rel="noopener" class="browser-card no-underline"><div class="text-sm font-label font-bold text-[#FFB4A4] mb-1">Edge</div><div class="text-xs text-[#E9C349]">Settings →</div></a>
+        <a href="https://help.opera.com/en/latest/web-preferences/#cookies"                         target="_blank" rel="noopener" class="browser-card no-underline"><div class="text-sm font-label font-bold text-[#FFB4A4] mb-1">Opera</div><div class="text-xs text-[#E9C349]">Settings →</div></a>
+        <a href="https://support.brave.com/hc/en-us/articles/360017989132"                          target="_blank" rel="noopener" class="browser-card no-underline"><div class="text-sm font-label font-bold text-[#FFB4A4] mb-1">Brave</div><div class="text-xs text-[#E9C349]">Settings →</div></a>
+      </div>
+
+      <p class="font-body text-sm text-[#f2e5f0]/65 leading-relaxed">
+        To opt out of Google Analytics specifically, use the <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener" class="text-[#E9C349] hover:text-[#f2e5f0] transition-colors">Google Analytics Opt-Out Add-On</a>. For advertising cookies broadly, visit <a href="https://optout.aboutads.info/" target="_blank" rel="noopener" class="text-[#E9C349] hover:text-[#f2e5f0] transition-colors">optout.aboutads.info</a>.
+      </p>
+    </section>
+
+    <hr class="section-divider mb-14"/>
+
+    <!-- ── SECTION 6 ── DNT -->
+    <section class="mb-14" data-animate="fade-up" id="dnt">
+      <p class="font-label uppercase tracking-[3px] text-[10px] text-[#E9C349] mb-3">Section 06</p>
+      <h2 class="font-headline font-bold text-2xl md:text-3xl text-[#FFB4A4] mb-5">Do Not Track Signals</h2>
+      <p class="font-body text-sm text-[#f2e5f0]/65 leading-relaxed">Some browsers transmit "Do Not Track" (DNT) signals indicating a preference not to be tracked. Because there is currently no industry-standard interpretation of these signals, Formation Bible Study does not alter its data practices in response to them. We will update this section if a recognized standard is established.</p>
+    </section>
+
+    <hr class="section-divider mb-14"/>
+
+    <!-- ── SECTION 7 ── Children -->
+    <section class="mb-14" data-animate="fade-up" id="children">
+      <p class="font-label uppercase tracking-[3px] text-[10px] text-[#E9C349] mb-3">Section 07</p>
+      <h2 class="font-headline font-bold text-2xl md:text-3xl text-[#FFB4A4] mb-5">Children's Privacy</h2>
+      <p class="font-body text-sm text-[#f2e5f0]/65 leading-relaxed">Formation Bible Study is not directed at children under 13. We do not knowingly use cookies to collect personal information from anyone under 13. If you believe we have done so inadvertently, please contact us at <a href="mailto:privacy@formation.app" class="text-[#E9C349] hover:text-[#f2e5f0] transition-colors">privacy@formation.app</a> and we will promptly delete the information.</p>
+    </section>
+
+    <hr class="section-divider mb-14"/>
+
+    <!-- ── SECTION 8 ── Changes -->
+    <section class="mb-14" data-animate="fade-up" id="changes">
+      <p class="font-label uppercase tracking-[3px] text-[10px] text-[#E9C349] mb-3">Section 08</p>
+      <h2 class="font-headline font-bold text-2xl md:text-3xl text-[#FFB4A4] mb-5">Changes to This Policy</h2>
+      <p class="font-body text-sm text-[#f2e5f0]/65 leading-relaxed mb-4">We may update this Cookie Policy as our technology, legal obligations, or practices change. When we make material changes, we will update the "Last Updated" date at the top of this page. For significant changes, we may also notify you through the app or by email.</p>
+      <p class="font-body text-sm text-[#f2e5f0]/65 leading-relaxed">Continued use of Formation Bible Study after any updates constitutes your acknowledgment of the revised policy.</p>
+    </section>
+
+    <hr class="section-divider mb-14"/>
+
+    <!-- ── SECTION 9 ── Contact -->
+    <section data-animate="scale-up" id="contact">
+      <p class="font-label uppercase tracking-[3px] text-[10px] text-[#E9C349] mb-3">Section 09</p>
+      <h2 class="font-headline font-bold text-2xl md:text-3xl text-[#FFB4A4] mb-5">Questions or Concerns?</h2>
+      <p class="font-body text-sm text-[#f2e5f0]/65 leading-relaxed mb-6">We keep this policy clear because we want you to feel confident using Formation Bible Study. If anything here is unclear, please reach out.</p>
+
+      <div class="rounded-2xl bg-[#3D1540]/70 border border-[#f2e5f0]/10 p-8">
+        <h3 class="font-headline font-bold text-lg text-[#FFB4A4] mb-5">Reach the Formation Bible Study Team</h3>
+        <div class="space-y-3 font-body text-sm text-[#f2e5f0]/60">
+          <p>📧 &nbsp;<a href="mailto:privacy@formation.app"  class="text-[#E9C349] hover:text-[#f2e5f0] transition-colors">privacy@formation.app</a></p>
+          <p>🌐 &nbsp;<a href="https://formationbible.com"    class="text-[#E9C349] hover:text-[#f2e5f0] transition-colors">formationbible.com</a></p>
+          <p>📜 &nbsp;Related: &nbsp;<a href="privacy_policy.html" class="text-[#E9C349] hover:text-[#f2e5f0] transition-colors">Privacy Policy</a>&nbsp; · &nbsp;<a href="terms.html" class="text-[#E9C349] hover:text-[#f2e5f0] transition-colors">Terms of Service</a></p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ── FOOTER ── -->
+  <footer class="bg-[#3D1540] w-full py-12 border-t border-[#f2e5f0]/10 relative z-10">
+    <div class="flex flex-col md:flex-row justify-between items-center w-full px-8 max-w-7xl mx-auto gap-8">
+      <div class="text-xl font-headline font-bold text-[#FFB4A4]">Formation Bible Study</div>
+      <div class="flex flex-wrap justify-center gap-8">
+        <a class="text-[#f2e5f0]/50 font-label uppercase tracking-widest text-[10px] hover:text-[#E8816A] transition-all" href="privacy_policy.html">Privacy Policy</a>
+        <a class="text-[#f2e5f0]/50 font-label uppercase tracking-widest text-[10px] hover:text-[#E8816A] transition-all" href="terms.html">Terms of Service</a>
+        <a class="text-[#f2e5f0]/50 font-label uppercase tracking-widest text-[10px] hover:text-[#E8816A] transition-all" href="cookie_policy.html">Cookie Policy</a>
+        <a class="text-[#f2e5f0]/50 font-label uppercase tracking-widest text-[10px] hover:text-[#E8816A] transition-all" href="contact.html">Contact</a>
+      </div>
+      <div class="text-[#f2e5f0]/40 text-[10px] font-label uppercase tracking-widest">© 2026 Berean Defense LLC. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile nav toggle
+    document.getElementById('nav-toggle').addEventListener('click', function() {
+      document.getElementById('mobile-menu').classList.toggle('open');
+    });
+
+    // Nav scroll shadow
+    window.addEventListener('scroll', () => {
+      const nav = document.getElementById('main-nav');
+      if (nav) nav.classList.toggle('nav-scrolled', window.scrollY > 50);
+    }, { passive: true });
+
+    // Scroll-triggered animations
+    const animObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const delay = parseInt(entry.target.dataset.delay || 0);
+          setTimeout(() => entry.target.classList.add('is-visible'), delay);
+          animObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('[data-animate]').forEach(el => animObserver.observe(el));
+  </script>
+</body>
+</html>

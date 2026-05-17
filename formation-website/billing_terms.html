@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Billing Terms — Formation Bible Study</title>
+  <meta name="description" content="Formation Bible Study's billing terms explain subscriptions, pricing, auto-renewal, refund policy, and how to cancel your plan."/>
+
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Manrope:wght@300;400;500;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "secondary":                  "#e9c349",
+            "on-surface-variant":         "#d2c2cc",
+            "on-surface":                 "#f2e5f0",
+            "surface-container-highest":  "#7E3A6C",
+            "secondary-container":        "#af8d11",
+            "on-secondary":               "#3c2f00",
+            "primary":                    "#ffb4a4",
+            "primary-container":          "#6e2414",
+            "surface-variant":            "#7E3A6C",
+            "outline":                    "#c4a0c2",
+            "surface-container-lowest":   "#3D1540",
+            "surface-container-high":     "#703060",
+            "surface-container":          "#5C2A5A",
+            "on-secondary-fixed":         "#241a00",
+            "inverse-primary":            "#9a4431",
+            "on-primary":                 "#5d1809",
+            "surface-dim":                "#4A1D4D",
+            "outline-variant":            "#7A5478",
+            "surface-container-low":      "#4A1D4D",
+            "on-background":              "#f2e5f0",
+            "surface":                    "#5C2A5A",
+            "background":                 "#5C2A5A",
+            "on-primary-container":       "#f58b73",
+            "tertiary":                   "#ffb4a4",
+            "tertiary-container":         "#6e2414",
+            "on-tertiary":                "#5d1809",
+            "on-tertiary-container":      "#f48b73",
+            "surface-bright":             "#8A4478",
+            "inverse-surface":            "#eae0e7",
+            "inverse-on-surface":         "#342f34"
+          },
+          borderRadius: {
+            DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem",
+            "2xl": "1rem", "3xl": "1.5rem", full: "9999px"
+          },
+          fontFamily: {
+            headline: ["Noto Serif",  "serif"],
+            body:     ["Manrope", "sans-serif"],
+            label:    ["Manrope", "sans-serif"]
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .material-symbols-outlined { font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24; }
+    body { background-color: #5C2A5A; }
+
+    .grain-overlay {
+      pointer-events:none; position:fixed; inset:0; z-index:99; opacity:0.04;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    }
+    #mobile-menu { display:none; }
+    #mobile-menu.open { display:flex; }
+    .nav-scrolled { background-color:rgba(61,21,64,0.95) !important; }
+
+    @keyframes orbFloat1 { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(40px,-25px) scale(1.04)} 66%{transform:translate(-25px,20px) scale(0.97)} }
+    @keyframes orbFloat2 { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(-35px,28px) scale(0.96)} 66%{transform:translate(28px,-18px) scale(1.03)} }
+    @keyframes shimmer  { 0%{background-position:-250% center} 100%{background-position:250% center} }
+
+    .orb { position:fixed; border-radius:50%; filter:blur(90px); pointer-events:none; z-index:0; }
+    .orb-1 { width:650px; height:650px; top:-150px; left:-120px;  background:radial-gradient(circle,rgba(255,180,164,0.11) 0%,transparent 70%); animation:orbFloat1 22s ease-in-out infinite; }
+    .orb-2 { width:520px; height:520px; top:28%;   right:-130px; background:radial-gradient(circle,rgba(233,195,73,0.08)  0%,transparent 70%); animation:orbFloat2 28s ease-in-out infinite; }
+    .orb-3 { width:420px; height:420px; bottom:8%; left:25%;     background:radial-gradient(circle,rgba(255,180,164,0.07) 0%,transparent 70%); animation:orbFloat1 34s ease-in-out infinite reverse; }
+
+    [data-animate] { opacity:0; transition:opacity 0.8s cubic-bezier(0.25,0.46,0.45,0.94), transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94); }
+    [data-animate="fade-up"]    { transform:translateY(34px); }
+    [data-animate="scale-up"]   { transform:scale(0.93) translateY(20px); }
+    [data-animate].is-visible   { opacity:1; transform:none; }
+
+    .shimmer-text {
+      background:linear-gradient(90deg, #e9c349 0%, #ffb4a4 32%, #e9c349 52%, #ffb4a4 78%, #e9c349 100%);
+      background-size:260% auto; -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+      background-clip:text; animation:shimmer 5.5s linear infinite;
+    }
+
+    .info-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(242,229,240,0.1);
+      border-radius: 16px;
+      padding: 20px 24px;
+      transition: background 0.25s, border-color 0.25s;
+    }
+    .info-card:hover {
+      background: rgba(255,255,255,0.07);
+      border-color: rgba(255,180,164,0.25);
+    }
+
+    .warning-card {
+      background: rgba(233,195,73,0.07);
+      border: 1px solid rgba(233,195,73,0.25);
+      border-radius: 16px;
+      padding: 20px 24px;
+    }
+
+    /* Plan cards */
+    .plan-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(242,229,240,0.1);
+      border-radius: 20px;
+      padding: 24px;
+      transition: background 0.25s, border-color 0.25s;
+    }
+    .plan-card.featured {
+      background: rgba(255,180,164,0.07);
+      border-color: rgba(255,180,164,0.3);
+    }
+
+    /* Data table */
+    .data-table { width:100%; border-collapse:collapse; }
+    .data-table th {
+      background: rgba(61,21,64,0.8);
+      color: rgba(242,229,240,0.7);
+      padding: 11px 16px;
+      text-align:left;
+      font-size:0.68rem;
+      letter-spacing:2px;
+      text-transform:uppercase;
+      font-family: Manrope, sans-serif;
+      font-weight:600;
+    }
+    .data-table th:first-child { border-radius: 12px 0 0 0; }
+    .data-table th:last-child  { border-radius: 0 12px 0 0; }
+    .data-table td {
+      padding: 12px 16px;
+      color: rgba(242,229,240,0.6);
+      border-bottom: 1px solid rgba(242,229,240,0.07);
+      vertical-align:top;
+      font-size:0.87rem;
+      line-height:1.6;
+      font-family: Manrope, sans-serif;
+    }
+    .data-table tr:last-child td { border-bottom:none; }
+    .data-table td:first-child {
+      color: #FFB4A4;
+      font-weight:600;
+      font-size:0.85rem;
+    }
+    .data-table tr:hover td { background:rgba(255,255,255,0.03); }
+
+    .section-divider { border:none; border-top:1px solid rgba(242,229,240,0.1); margin:0; }
+  </style>
+</head>
+<body class="font-body text-on-surface min-h-screen">
+
+  <div class="grain-overlay"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <!-- Navigation -->
+  <nav id="main-nav" class="fixed top-0 w-full z-50 bg-[#3D1540]/80 backdrop-blur-xl shadow-[0_20px_40px_-5px_rgba(61,21,64,0.3)] transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="index.html" class="text-2xl font-headline font-black text-[#FFB4A4] hover:opacity-80 transition-opacity">Formation Bible Study</a>
+      <div class="hidden md:flex items-center gap-8">
+        <a href="index.html" class="text-[#f2e5f0]/70 font-body text-sm hover:text-[#FFB4A4] transition-colors">Home</a>
+        <a href="features.html" class="text-[#f2e5f0]/70 font-body text-sm hover:text-[#FFB4A4] transition-colors">Features</a>
+        <a href="pricing.html" class="text-[#f2e5f0]/70 font-body text-sm hover:text-[#FFB4A4] transition-colors">Pricing</a>
+        <a href="signup.html" class="bg-gradient-to-br from-[#FFB4A4] to-[#6E2414] text-[#5D1809] px-6 py-2.5 rounded-full font-bold text-sm hover:opacity-90 transition-opacity">Join the Waitlist →</a>
+      </div>
+      <button id="nav-toggle" class="md:hidden text-[#f2e5f0] p-2" aria-label="Open menu">
+        <span class="material-symbols-outlined">menu</span>
+      </button>
+    </div>
+    <div id="mobile-menu" class="flex-col bg-[#3D1540] px-6 pb-6 gap-4 md:hidden">
+      <a href="index.html" class="text-[#f2e5f0]/80 font-body text-base py-2 border-b border-[#f2e5f0]/10">Home</a>
+      <a href="features.html" class="text-[#f2e5f0]/80 font-body text-base py-2 border-b border-[#f2e5f0]/10">Features</a>
+      <a href="pricing.html" class="text-[#f2e5f0]/80 font-body text-base py-2 border-b border-[#f2e5f0]/10">Pricing</a>
+      <a href="signup.html" class="bg-gradient-to-br from-[#FFB4A4] to-[#6E2414] text-[#5D1809] px-6 py-3 rounded-full font-bold text-sm text-center mt-2">Join the Waitlist →</a>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <section class="relative z-10 pt-36 pb-12 px-6">
+    <div class="max-w-3xl mx-auto">
+      <div data-animate="fade-up" class="inline-flex items-center gap-2 bg-[#3D1540]/70 border border-[#f2e5f0]/10 rounded-full px-4 py-1.5 mb-6">
+        <span class="material-symbols-outlined text-[#E9C349] text-base">credit_card</span>
+        <span class="font-label text-[11px] uppercase tracking-widest text-[#E9C349]">Billing &amp; Subscriptions</span>
+      </div>
+      <h1 data-animate="fade-up" class="font-headline text-4xl md:text-5xl font-black leading-tight mb-4">
+        Billing <span class="shimmer-text">Terms</span>
+      </h1>
+      <p data-animate="fade-up" class="font-body text-[#f2e5f0]/60 text-lg leading-relaxed mb-6">
+        Everything you need to know about how Formation Bible Study subscriptions work — pricing, trials, renewals, refunds, and how to cancel. No surprises.
+      </p>
+      <div data-animate="fade-up" class="flex flex-wrap gap-4 text-sm text-[#f2e5f0]/40 font-body">
+        <span>Effective: January 1, 2026</span>
+        <span class="text-[#f2e5f0]/20">·</span>
+        <span>Last updated: April 16, 2026</span>
+        <span class="text-[#f2e5f0]/20">·</span>
+        <span>Berean Defense LLC</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Summary Banner -->
+  <section class="relative z-10 px-6 pb-12">
+    <div class="max-w-3xl mx-auto">
+      <div data-animate="scale-up" class="bg-[#3D1540]/60 border border-[#E9C349]/20 rounded-2xl p-6">
+        <div class="flex items-start gap-3 mb-4">
+          <span class="material-symbols-outlined text-[#E9C349] mt-0.5">lightbulb</span>
+          <div>
+            <h2 class="font-headline font-bold text-[#E9C349] text-base mb-1">The Short Version</h2>
+            <p class="font-body text-[#f2e5f0]/70 text-sm leading-relaxed">
+              Paid plans auto-renew unless you cancel before the renewal date. Paid subscriptions include a 14-day free trial — you won't be charged until it ends. Cancel anytime from your account settings. We do not offer refunds for partial billing periods, but we honor refund requests within 48 hours of an unintended charge. Payments are processed securely by Stripe.
+            </p>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-4">
+          <div class="flex flex-col items-center gap-1 bg-[#5C2A5A]/60 rounded-xl p-3">
+            <span class="material-symbols-outlined text-[#FFB4A4] text-xl">free_cancellation</span>
+            <span class="font-label text-[10px] uppercase tracking-wider text-[#f2e5f0]/50 text-center">14-day free trial</span>
+          </div>
+          <div class="flex flex-col items-center gap-1 bg-[#5C2A5A]/60 rounded-xl p-3">
+            <span class="material-symbols-outlined text-[#FFB4A4] text-xl">autorenew</span>
+            <span class="font-label text-[10px] uppercase tracking-wider text-[#f2e5f0]/50 text-center">Auto-renews</span>
+          </div>
+          <div class="flex flex-col items-center gap-1 bg-[#5C2A5A]/60 rounded-xl p-3">
+            <span class="material-symbols-outlined text-[#FFB4A4] text-xl">cancel</span>
+            <span class="font-label text-[10px] uppercase tracking-wider text-[#f2e5f0]/50 text-center">Cancel anytime</span>
+          </div>
+          <div class="flex flex-col items-center gap-1 bg-[#5C2A5A]/60 rounded-xl p-3">
+            <span class="material-symbols-outlined text-[#FFB4A4] text-xl">lock</span>
+            <span class="font-label text-[10px] uppercase tracking-wider text-[#f2e5f0]/50 text-center">Stripe secured</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Table of Contents -->
+  <section class="relative z-10 px-6 pb-10">
+    <div class="max-w-3xl mx-auto">
+      <div data-animate="fade-up" class="bg-[#3D1540]/40 border border-[#f2e5f0]/10 rounded-2xl p-6">
+        <h2 class="font-label text-[11px] uppercase tracking-widest text-[#f2e5f0]/40 mb-4">Contents</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+          <a href="#plans" class="font-body text-sm text-[#f2e5f0]/60 hover:text-[#FFB4A4] transition-colors flex items-center gap-2"><span class="text-[#E9C349] font-bold text-xs">01</span> Subscription Plans &amp; Pricing</a>
+          <a href="#free-trial" class="font-body text-sm text-[#f2e5f0]/60 hover:text-[#FFB4A4] transition-colors flex items-center gap-2"><span class="text-[#E9C349] font-bold text-xs">02</span> Free Trial</a>
+          <a href="#billing-cycle" class="font-body text-sm text-[#f2e5f0]/60 hover:text-[#FFB4A4] transition-colors flex items-center gap-2"><span class="text-[#E9C349] font-bold text-xs">03</span> Billing Cycle &amp; Auto-Renewal</a>
+          <a href="#payment" class="font-body text-sm text-[#f2e5f0]/60 hover:text-[#FFB4A4] transition-colors flex items-center gap-2"><span class="text-[#E9C349] font-bold text-xs">04</span> Payment Processing</a>
+          <a href="#cancellation" class="font-body text-sm text-[#f2e5f0]/60 hover:text-[#FFB4A4] transition-colors flex items-center gap-2"><span class="text-[#E9C349] font-bold text-xs">05</span> Cancellation</a>
+          <a href="#refunds" class="font-body text-sm text-[#f2e5f0]/60 hover:text-[#FFB4A4] transition-colors flex items-center gap-2"><span class="text-[#E9C349] font-bold text-xs">06</span> Refund Policy</a>
+          <a href="#upgrades" class="font-body text-sm text-[#f2e5f0]/60 hover:text-[#FFB4A4] transition-colors flex items-center gap-2"><span class="text-[#E9C349] font-bold text-xs">07</span> Upgrades &amp; Downgrades</a>
+          <a href="#price-changes" class="font-body text-sm text-[#f2e5f0]/60 hover:text-[#FFB4A4] transition-colors flex items-center gap-2"><span class="text-[#E9C349] font-bold text-xs">08</span> Price Changes</a>
+          <a href="#taxes" class="font-body text-sm text-[#f2e5f0]/60 hover:text-[#FFB4A4] transition-colors flex items-center gap-2"><span class="text-[#E9C349] font-bold text-xs">09</span> Taxes &amp; Fees</a>
+          <a href="#contact" class="font-body text-sm text-[#f2e5f0]/60 hover:text-[#FFB4A4] transition-colors flex items-center gap-2"><span class="text-[#E9C349] font-bold text-xs">10</span> Billing Support</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider max-w-3xl mx-auto"/>
+
+  <!-- Main Content -->
+  <main class="relative z-10 px-6 py-12 max-w-3xl mx-auto space-y-14">
+
+    <!-- 1. Plans & Pricing -->
+    <section id="plans" data-animate="fade-up">
+      <div class="flex items-center gap-3 mb-5">
+        <span class="text-[#E9C349] font-headline font-black text-lg">01</span>
+        <h2 class="font-headline text-2xl font-bold text-[#FFB4A4]">Subscription Plans &amp; Pricing</h2>
+      </div>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-6">
+        Formation Bible Study offers three tiers. The Free plan is permanent — it does not expire and does not require a credit card. Paid plans are billed on a monthly or annual basis.
+      </p>
+
+      <div class="space-y-4 mb-6">
+
+        <!-- Free -->
+        <div class="plan-card">
+          <div class="flex items-center justify-between mb-3">
+            <p class="font-headline font-bold text-[#f2e5f0] text-lg">Free</p>
+            <p class="font-headline font-black text-[#f2e5f0]/50 text-xl">$0</p>
+          </div>
+          <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed mb-3">Permanent free tier. No credit card required. No expiration.</p>
+          <ul class="space-y-1">
+            <li class="flex items-center gap-2 font-body text-[#f2e5f0]/50 text-xs"><span class="text-[#FFB4A4]">›</span> Berean Standard Bible (BSB) reading</li>
+            <li class="flex items-center gap-2 font-body text-[#f2e5f0]/50 text-xs"><span class="text-[#FFB4A4]">›</span> Up to 50 notes</li>
+            <li class="flex items-center gap-2 font-body text-[#f2e5f0]/50 text-xs"><span class="text-[#FFB4A4]">›</span> 1 reading plan</li>
+            <li class="flex items-center gap-2 font-body text-[#f2e5f0]/50 text-xs"><span class="text-[#FFB4A4]">›</span> 5 AI Study Assistant queries per day</li>
+            <li class="flex items-center gap-2 font-body text-[#f2e5f0]/50 text-xs"><span class="text-[#FFB4A4]">›</span> Read-only community access</li>
+            <li class="flex items-center gap-2 font-body text-[#f2e5f0]/50 text-xs"><span class="text-[#FFB4A4]">›</span> Ad-supported</li>
+          </ul>
+        </div>
+
+        <!-- Formation Bible Study -->
+        <div class="plan-card featured">
+          <div class="flex items-center justify-between mb-1">
+            <p class="font-headline font-bold text-[#FFB4A4] text-lg">Formation Bible Study</p>
+            <div class="text-right">
+              <p class="font-headline font-black text-[#FFB4A4] text-xl">$7<span class="text-sm font-body font-normal text-[#f2e5f0]/50">/mo</span></p>
+              <p class="font-body text-[#f2e5f0]/40 text-xs">or $60/yr (save 29%)</p>
+            </div>
+          </div>
+          <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed mb-3">14-day free trial. Full Bible study experience, no ads.</p>
+          <ul class="space-y-1">
+            <li class="flex items-center gap-2 font-body text-[#f2e5f0]/50 text-xs"><span class="text-[#E9C349]">›</span> Everything in Free</li>
+            <li class="flex items-center gap-2 font-body text-[#f2e5f0]/50 text-xs"><span class="text-[#E9C349]">›</span> Full BSB + future Bible translations</li>
+            <li class="flex items-center gap-2 font-body text-[#f2e5f0]/50 text-xs"><span class="text-[#E9C349]">›</span> Unlimited notes, all reading plans</li>
+            <li class="flex items-center gap-2 font-body text-[#f2e5f0]/50 text-xs"><span class="text-[#E9C349]">›</span> Full AI Study Assistant (no daily limit)</li>
+            <li class="flex items-center gap-2 font-body text-[#f2e5f0]/50 text-xs"><span class="text-[#E9C349]">›</span> Full community access</li>
+            <li class="flex items-center gap-2 font-body text-[#f2e5f0]/50 text-xs"><span class="text-[#E9C349]">›</span> No ads</li>
+          </ul>
+        </div>
+
+        <!-- Formation Pro -->
+        <div class="plan-card">
+          <div class="flex items-center justify-between mb-1">
+            <p class="font-headline font-bold text-[#f2e5f0] text-lg">Formation Pro</p>
+            <div class="text-right">
+              <p class="font-headline font-black text-[#f2e5f0] text-xl">$12<span class="text-sm font-body font-normal text-[#f2e5f0]/50">/mo</span></p>
+              <p class="font-body text-[#f2e5f0]/40 text-xs">or $108/yr (save 25%)</p>
+            </div>
+          </div>
+          <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed mb-3">14-day free trial. For the serious student who wants everything.</p>
+          <ul class="space-y-1">
+            <li class="flex items-center gap-2 font-body text-[#f2e5f0]/50 text-xs"><span class="text-[#FFB4A4]">›</span> Everything in Formation Bible Study</li>
+            <li class="flex items-center gap-2 font-body text-[#f2e5f0]/50 text-xs"><span class="text-[#FFB4A4]">›</span> Unlimited AI queries with priority access</li>
+            <li class="flex items-center gap-2 font-body text-[#f2e5f0]/50 text-xs"><span class="text-[#FFB4A4]">›</span> Accountability partners</li>
+            <li class="flex items-center gap-2 font-body text-[#f2e5f0]/50 text-xs"><span class="text-[#FFB4A4]">›</span> Early access to new features</li>
+            <li class="flex items-center gap-2 font-body text-[#f2e5f0]/50 text-xs"><span class="text-[#FFB4A4]">›</span> Priority support</li>
+          </ul>
+        </div>
+      </div>
+
+      <p class="font-body text-[#f2e5f0]/40 text-xs">All prices listed in USD. See <a href="pricing.html" class="text-[#FFB4A4] hover:underline">Pricing page</a> for full feature comparison.</p>
+    </section>
+
+    <hr class="section-divider"/>
+
+    <!-- 2. Free Trial -->
+    <section id="free-trial" data-animate="fade-up">
+      <div class="flex items-center gap-3 mb-5">
+        <span class="text-[#E9C349] font-headline font-black text-lg">02</span>
+        <h2 class="font-headline text-2xl font-bold text-[#FFB4A4]">Free Trial</h2>
+      </div>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-6">
+        Both the Formation Bible Study and Formation Pro paid plans include a <strong class="text-[#f2e5f0]">14-day free trial</strong> for new subscribers. During your trial you have full access to all features included in your chosen plan.
+      </p>
+      <div class="space-y-3">
+        <div class="info-card flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#E9C349] text-xl mt-0.5">credit_card_off</span>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">No charge during your trial</p>
+            <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">A valid payment method is required to start a paid plan, but your card will not be charged until your 14-day trial ends. You will receive an email reminder 3 days before your trial expires.</p>
+          </div>
+        </div>
+        <div class="info-card flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#E9C349] text-xl mt-0.5">person_add</span>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">One trial per person</p>
+            <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">Free trials are available once per customer, per plan level. Creating additional accounts to obtain multiple free trials is a violation of our Terms of Service.</p>
+          </div>
+        </div>
+        <div class="info-card flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#E9C349] text-xl mt-0.5">cancel</span>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Cancel before trial ends to pay nothing</p>
+            <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">If you cancel your subscription before your 14-day trial ends, you will not be charged. Your account will revert to the Free plan and your study content will be preserved.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider"/>
+
+    <!-- 3. Billing Cycle & Auto-Renewal -->
+    <section id="billing-cycle" data-animate="fade-up">
+      <div class="flex items-center gap-3 mb-5">
+        <span class="text-[#E9C349] font-headline font-black text-lg">03</span>
+        <h2 class="font-headline text-2xl font-bold text-[#FFB4A4]">Billing Cycle &amp; Auto-Renewal</h2>
+      </div>
+
+      <div class="warning-card flex items-start gap-3 mb-6">
+        <span class="material-symbols-outlined text-[#E9C349] text-xl mt-0.5 flex-shrink-0">autorenew</span>
+        <div>
+          <p class="font-body font-semibold text-[#E9C349] text-sm mb-1">Subscriptions Renew Automatically</p>
+          <p class="font-body text-[#f2e5f0]/70 text-sm leading-relaxed">Formation Bible Study subscriptions are recurring. Your plan will automatically renew at the end of each billing period — monthly or annual — and your payment method will be charged unless you cancel before the renewal date.</p>
+        </div>
+      </div>
+
+      <div class="overflow-x-auto rounded-2xl border border-[#f2e5f0]/10 mb-6">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Billing Period</th>
+              <th>Charge Amount</th>
+              <th>Renewal Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Monthly</td>
+              <td class="text-[#f2e5f0]/60">$7 (Formation Bible Study), $12 (Plus), or $29 (Pro)</td>
+              <td class="text-[#f2e5f0]/60">Same day each month as original purchase</td>
+            </tr>
+            <tr>
+              <td>Annual</td>
+              <td class="text-[#f2e5f0]/60">$60 (Formation Bible Study), $108 (Plus), or $264 (Pro)</td>
+              <td class="text-[#f2e5f0]/60">Same day each year as original purchase</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="space-y-3">
+        <div class="info-card flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#FFB4A4] text-xl mt-0.5">notifications</span>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Renewal Reminders</p>
+            <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">We will send you an email reminder 7 days before your annual subscription renews. Monthly subscribers receive a reminder 3 days before renewal. You can turn off marketing emails but renewal notices are transactional and cannot be unsubscribed from.</p>
+          </div>
+        </div>
+        <div class="info-card flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#FFB4A4] text-xl mt-0.5">receipt_long</span>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Billing Receipts</p>
+            <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">A receipt is emailed to you after each successful charge. Your billing history is also accessible from your account settings at any time.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider"/>
+
+    <!-- 4. Payment Processing -->
+    <section id="payment" data-animate="fade-up">
+      <div class="flex items-center gap-3 mb-5">
+        <span class="text-[#E9C349] font-headline font-black text-lg">04</span>
+        <h2 class="font-headline text-2xl font-bold text-[#FFB4A4]">Payment Processing</h2>
+      </div>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-6">
+        All payments are processed by <strong class="text-[#f2e5f0]">Stripe</strong>, a PCI-DSS Level 1 certified payment processor. Formation Bible Study does not store, see, or have access to your full credit card number, CVV, or banking details. All sensitive billing data is handled entirely by Stripe.
+      </p>
+      <div class="space-y-3 mb-6">
+        <div class="info-card flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#FFB4A4] text-xl mt-0.5">credit_card</span>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Accepted Payment Methods</p>
+            <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">Visa, Mastercard, American Express, Discover, and debit cards that support recurring billing. Apple Pay and Google Pay may be available depending on your device and browser.</p>
+          </div>
+        </div>
+        <div class="info-card flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#FFB4A4] text-xl mt-0.5">sync_problem</span>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Failed Payments</p>
+            <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">If a payment fails, Stripe will attempt to retry the charge over the following 7 days. You will receive an email notification to update your payment method. If payment remains unsuccessful after the retry window, your account will be downgraded to the Free plan and your study content will be preserved.</p>
+          </div>
+        </div>
+        <div class="info-card flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#FFB4A4] text-xl mt-0.5">update</span>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Updating Your Payment Method</p>
+            <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">You can update your payment method at any time from Account Settings → Billing. Changes take effect on the next billing cycle and do not affect your current subscription period.</p>
+          </div>
+        </div>
+      </div>
+      <p class="font-body text-[#f2e5f0]/40 text-xs">Stripe's privacy policy and terms of service govern their handling of your payment data: <a href="https://stripe.com/privacy" class="text-[#FFB4A4] hover:underline" target="_blank" rel="noopener noreferrer">stripe.com/privacy</a>.</p>
+    </section>
+
+    <hr class="section-divider"/>
+
+    <!-- 5. Cancellation -->
+    <section id="cancellation" data-animate="fade-up">
+      <div class="flex items-center gap-3 mb-5">
+        <span class="text-[#E9C349] font-headline font-black text-lg">05</span>
+        <h2 class="font-headline text-2xl font-bold text-[#FFB4A4]">Cancellation</h2>
+      </div>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-6">
+        You may cancel your Formation Bible Study subscription at any time. There are no cancellation fees and no penalties.
+      </p>
+      <div class="space-y-3 mb-6">
+        <div class="info-card flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#E9C349] text-xl mt-0.5">settings</span>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">How to Cancel</p>
+            <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">Go to <strong class="text-[#f2e5f0]">Account Settings → Subscription → Cancel Plan</strong>. You can also email <a href="mailto:billing@formation.app" class="text-[#FFB4A4] hover:underline">billing@formation.app</a> and we will process your cancellation within 1 business day.</p>
+          </div>
+        </div>
+        <div class="info-card flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#E9C349] text-xl mt-0.5">event</span>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Access After Cancellation</p>
+            <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">Your paid plan features remain active through the end of your current billing period. After that, your account reverts to the Free plan. You do not lose access to your study notes, highlights, or reading history — they are preserved on the Free tier.</p>
+          </div>
+        </div>
+        <div class="info-card flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#E9C349] text-xl mt-0.5">undo</span>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Reactivation</p>
+            <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">You can resubscribe at any time from Account Settings. Reactivating restores full paid features immediately. Note that reactivation after a cancellation does not restart a free trial — trials are available to new subscribers only.</p>
+          </div>
+        </div>
+      </div>
+      <div class="warning-card flex items-start gap-3">
+        <span class="material-symbols-outlined text-[#E9C349] text-xl mt-0.5 flex-shrink-0">info</span>
+        <div>
+          <p class="font-body font-semibold text-[#E9C349] text-sm mb-1">Cancel Before Your Renewal Date</p>
+          <p class="font-body text-[#f2e5f0]/70 text-sm leading-relaxed">To avoid being charged for the next billing period, cancel before your renewal date. Cancellations submitted on the renewal date itself may not process before the charge occurs. If this happens, see our refund policy below.</p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider"/>
+
+    <!-- 6. Refund Policy -->
+    <section id="refunds" data-animate="fade-up">
+      <div class="flex items-center gap-3 mb-5">
+        <span class="text-[#E9C349] font-headline font-black text-lg">06</span>
+        <h2 class="font-headline text-2xl font-bold text-[#FFB4A4]">Refund Policy</h2>
+      </div>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-6">
+        Formation Bible Study subscriptions are <strong class="text-[#f2e5f0]">generally non-refundable</strong> for partial billing periods — once a period has begun, we do not prorate or refund unused time. However, we make the following exceptions in good faith.
+      </p>
+      <div class="overflow-x-auto rounded-2xl border border-[#f2e5f0]/10 mb-6">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Situation</th>
+              <th>Our Policy</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Charged after cancellation</td>
+              <td class="text-[#f2e5f0]/60">Full refund issued if you contact us within 48 hours of the charge</td>
+            </tr>
+            <tr>
+              <td>Duplicate charge</td>
+              <td class="text-[#f2e5f0]/60">Full refund for the duplicate amount, promptly upon verification</td>
+            </tr>
+            <tr>
+              <td>Trial converted without reminder</td>
+              <td class="text-[#f2e5f0]/60">Full refund if contacted within 48 hours and reminder was not delivered</td>
+            </tr>
+            <tr>
+              <td>Unauthorized charge (fraud)</td>
+              <td class="text-[#f2e5f0]/60">Full refund after account investigation and verification</td>
+            </tr>
+            <tr>
+              <td>Change of mind (general)</td>
+              <td class="text-[#f2e5f0]/60">Not eligible for refund; cancel to stop future charges</td>
+            </tr>
+            <tr>
+              <td>Partial-period cancellation</td>
+              <td class="text-[#f2e5f0]/60">Not eligible for refund; access continues until period ends</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="info-card flex items-start gap-3">
+        <span class="material-symbols-outlined text-[#FFB4A4] text-xl mt-0.5">mail</span>
+        <div>
+          <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">How to Request a Refund</p>
+          <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">Email <a href="mailto:billing@formation.app" class="text-[#FFB4A4] hover:underline">billing@formation.app</a> with your account email and a brief description of the issue. Include the charge date and amount. We review all refund requests within 2 business days and, when approved, process refunds within 5–10 business days depending on your card issuer.</p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider"/>
+
+    <!-- 7. Upgrades & Downgrades -->
+    <section id="upgrades" data-animate="fade-up">
+      <div class="flex items-center gap-3 mb-5">
+        <span class="text-[#E9C349] font-headline font-black text-lg">07</span>
+        <h2 class="font-headline text-2xl font-bold text-[#FFB4A4]">Upgrades &amp; Downgrades</h2>
+      </div>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-6">
+        You can change your plan at any time from Account Settings → Subscription.
+      </p>
+      <div class="space-y-3">
+        <div class="info-card flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#E9C349] text-xl mt-0.5">arrow_upward</span>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Upgrading</p>
+            <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">When you upgrade (e.g., Formation Bible Study to Formation Pro), you gain access to the new plan immediately. You will be charged a prorated amount for the remainder of the current billing period, then the full new plan price at your next renewal.</p>
+          </div>
+        </div>
+        <div class="info-card flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#E9C349] text-xl mt-0.5">arrow_downward</span>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Downgrading</p>
+            <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">When you downgrade, you retain your current plan's features through the end of the billing period. The lower-tier plan takes effect at the next renewal. No partial refunds are issued for downgrades.</p>
+          </div>
+        </div>
+        <div class="info-card flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#E9C349] text-xl mt-0.5">swap_horiz</span>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Switching Billing Periods</p>
+            <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">You may switch between monthly and annual billing. Switching to annual takes effect at your next renewal. If switching from annual to monthly, the monthly rate begins after your annual period expires — you will not be charged for switching.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider"/>
+
+    <!-- 8. Price Changes -->
+    <section id="price-changes" data-animate="fade-up">
+      <div class="flex items-center gap-3 mb-5">
+        <span class="text-[#E9C349] font-headline font-black text-lg">08</span>
+        <h2 class="font-headline text-2xl font-bold text-[#FFB4A4]">Price Changes</h2>
+      </div>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-4">
+        Formation Bible Study reserves the right to change subscription prices at any time. If we increase the price of your current plan, we will notify you by email at least <strong class="text-[#f2e5f0]">30 days before the new price takes effect</strong>. The price increase will apply at your next renewal after the notice period.
+      </p>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed">
+        If you do not cancel your subscription before the new price takes effect, your continued use of Formation Bible Study will constitute acceptance of the new price. You will always have the option to cancel before any price change is applied to your account.
+      </p>
+    </section>
+
+    <hr class="section-divider"/>
+
+    <!-- 9. Taxes & Fees -->
+    <section id="taxes" data-animate="fade-up">
+      <div class="flex items-center gap-3 mb-5">
+        <span class="text-[#E9C349] font-headline font-black text-lg">09</span>
+        <h2 class="font-headline text-2xl font-bold text-[#FFB4A4]">Taxes &amp; Fees</h2>
+      </div>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-4">
+        Prices listed on Formation Bible Study's website and app are in United States Dollars (USD) and are exclusive of applicable taxes unless otherwise stated. Depending on your location, sales tax, VAT, GST, or other local taxes may be added to your subscription price at checkout. Tax amounts will be displayed before you confirm your purchase.
+      </p>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed">
+        Formation Bible Study does not charge any additional transaction fees beyond the subscription price and applicable taxes. Stripe may add fees in certain international transactions, which Stripe discloses in their own terms.
+      </p>
+    </section>
+
+    <hr class="section-divider"/>
+
+    <!-- 10. Billing Support -->
+    <section id="contact" data-animate="fade-up">
+      <div class="flex items-center gap-3 mb-5">
+        <span class="text-[#E9C349] font-headline font-black text-lg">10</span>
+        <h2 class="font-headline text-2xl font-bold text-[#FFB4A4]">Billing Support</h2>
+      </div>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-6">
+        Questions about your bill, a charge you don't recognize, or your subscription? We're here to help.
+      </p>
+      <div class="bg-[#3D1540]/60 border border-[#f2e5f0]/10 rounded-2xl p-6 space-y-4">
+        <div class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#FFB4A4] text-xl mt-0.5">mail</span>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-0.5">Billing Questions &amp; Refund Requests</p>
+            <a href="mailto:billing@formation.app" class="font-body text-[#FFB4A4] text-sm hover:underline">billing@formation.app</a>
+          </div>
+        </div>
+        <div class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#FFB4A4] text-xl mt-0.5">support_agent</span>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-0.5">General Support</p>
+            <a href="mailto:support@formation.app" class="font-body text-[#FFB4A4] text-sm hover:underline">support@formation.app</a>
+          </div>
+        </div>
+        <div class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#FFB4A4] text-xl mt-0.5">schedule</span>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-0.5">Response Time</p>
+            <p class="font-body text-[#f2e5f0]/60 text-sm">Billing inquiries: within 2 business days · Refund decisions: within 2 business days</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#FFB4A4] text-xl mt-0.5">business</span>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm">Berean Defense LLC</p>
+            <p class="font-body text-[#f2e5f0]/60 text-sm">United States</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-[#3D1540] w-full py-12 border-t border-[#f2e5f0]/10 relative z-10">
+    <div class="flex flex-col md:flex-row justify-between items-center w-full px-8 max-w-7xl mx-auto gap-8">
+      <div class="text-xl font-headline font-bold text-[#FFB4A4]">Formation Bible Study</div>
+      <div class="flex flex-wrap justify-center gap-8">
+        <a class="text-[#f2e5f0]/50 font-label uppercase tracking-widest text-[10px] hover:text-[#E8816A] transition-all" href="privacy_policy.html">Privacy Policy</a>
+        <a class="text-[#f2e5f0]/50 font-label uppercase tracking-widest text-[10px] hover:text-[#E8816A] transition-all" href="terms.html">Terms of Service</a>
+        <a class="text-[#f2e5f0]/50 font-label uppercase tracking-widest text-[10px] hover:text-[#E8816A] transition-all" href="cookie_policy.html">Cookie Policy</a>
+        <a class="text-[#f2e5f0]/50 font-label uppercase tracking-widest text-[10px] hover:text-[#E8816A] transition-all" href="ai_disclaimer.html">AI Disclosure</a>
+        <a class="text-[#f2e5f0]/50 font-label uppercase tracking-widest text-[10px] hover:text-[#E8816A] transition-all" href="coppa.html">Children's Privacy</a>
+        <a class="text-[#f2e5f0]/50 font-label uppercase tracking-widest text-[10px] hover:text-[#E8816A] transition-all" href="billing_terms.html" style="color:rgba(255,180,164,0.8)">Billing Terms</a>
+        <a class="text-[#f2e5f0]/50 font-label uppercase tracking-widest text-[10px] hover:text-[#E8816A] transition-all" href="contact.html">Contact</a>
+      </div>
+      <div class="text-[#f2e5f0]/40 text-[10px] font-label uppercase tracking-widest">© 2026 Berean Defense LLC. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('main-nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('nav-scrolled', window.scrollY > 20);
+    });
+    document.getElementById('nav-toggle').addEventListener('click', () => {
+      document.getElementById('mobile-menu').classList.toggle('open');
+    });
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('is-visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('[data-animate]').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

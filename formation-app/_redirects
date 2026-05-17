@@ -1,0 +1,7 @@
+# Formation App — Cloudflare Pages URL Redirects
+
+# Auth callback redirect (Supabase OAuth Google returns here)
+/auth/callback  /app.html  302
+
+# Catch-all: unknown paths go to the app root (which redirects to login or app)
+/*  /index.html  200

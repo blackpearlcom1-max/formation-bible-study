@@ -1,0 +1,13 @@
+# Formation Bible Study — Spanish Site Redirects
+# https://formacion-biblica.com
+# NOTE: Cloudflare Pages automatically serves clean URLs
+# (e.g. /pricing serves pricing.html) — no rewrite rules needed.
+
+# www → non-www canonical
+https://www.formacion-biblica.com/* https://formacion-biblica.com/:splat 301!
+
+# ─── Shortcut / Alias Redirects ──────────────────────────────────────────────
+/registro        /signup          301
+/unirse          /signup          301
+/planes          /pricing         301
+/suscribir       /pricing         301

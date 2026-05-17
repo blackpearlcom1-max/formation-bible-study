@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Formation — Deep Bible Study, Finally Made Simple</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --navy: #0f1f3d;
+      --navy-light: #162a52;
+      --gold: #c9a84c;
+      --gold-light: #e8c87a;
+      --cream: #f8f4ee;
+      --cream-dark: #ede7db;
+      --text-dark: #1a1a2e;
+      --text-mid: #4a5568;
+      --text-light: #718096;
+      --white: #ffffff;
+      --green: #2f855a;
+    }
+
+    body {
+      font-family: 'Georgia', 'Times New Roman', serif;
+      background-color: var(--cream);
+      color: var(--text-dark);
+      line-height: 1.7;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      background: var(--navy);
+      padding: 18px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .logo {
+      color: var(--gold);
+      font-size: 1.5rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+    .logo span {
+      color: var(--white);
+      font-size: 0.75rem;
+      display: block;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-family: 'Arial', sans-serif;
+      font-weight: normal;
+    }
+    nav a {
+      color: var(--cream);
+      text-decoration: none;
+      font-family: 'Arial', sans-serif;
+      font-size: 0.9rem;
+      opacity: 0.85;
+    }
+    nav a:hover { opacity: 1; color: var(--gold); }
+
+    /* ─── HERO ─── */
+    .hero {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 60%, #1a3a6e 100%);
+      color: var(--white);
+      padding: 100px 40px 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(ellipse at center, rgba(201,168,76,0.08) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(201,168,76,0.2);
+      border: 1px solid var(--gold);
+      color: var(--gold-light);
+      font-family: 'Arial', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      padding: 6px 18px;
+      border-radius: 20px;
+      margin-bottom: 28px;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.6rem);
+      line-height: 1.2;
+      max-width: 800px;
+      margin: 0 auto 24px;
+      font-weight: bold;
+    }
+    .hero h1 em {
+      color: var(--gold);
+      font-style: normal;
+    }
+    .hero p {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: rgba(248,244,238,0.85);
+      max-width: 600px;
+      margin: 0 auto 48px;
+      font-family: 'Arial', sans-serif;
+      line-height: 1.8;
+    }
+    .hero-form {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      max-width: 500px;
+      margin: 0 auto 20px;
+    }
+    .hero-form input[type="email"] {
+      flex: 1;
+      min-width: 240px;
+      padding: 16px 20px;
+      border: 2px solid rgba(255,255,255,0.2);
+      border-radius: 8px;
+      background: rgba(255,255,255,0.08);
+      color: var(--white);
+      font-size: 1rem;
+      font-family: 'Arial', sans-serif;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .hero-form input[type="email"]::placeholder { color: rgba(255,255,255,0.45); }
+    .hero-form input[type="email"]:focus { border-color: var(--gold); background: rgba(255,255,255,0.12); }
+    .btn-primary {
+      padding: 16px 30px;
+      background: var(--gold);
+      color: var(--navy);
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: bold;
+      font-family: 'Arial', sans-serif;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      white-space: nowrap;
+    }
+    .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+    .hero-note {
+      font-family: 'Arial', sans-serif;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.45);
+    }
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 48px;
+      margin-top: 60px;
+      flex-wrap: wrap;
+    }
+    .stat {
+      text-align: center;
+    }
+    .stat-number {
+      display: block;
+      font-size: 2rem;
+      font-weight: bold;
+      color: var(--gold);
+    }
+    .stat-label {
+      font-family: 'Arial', sans-serif;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.55);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    /* ─── PAIN POINT SECTION ─── */
+    .pain {
+      background: var(--white);
+      padding: 80px 40px;
+      text-align: center;
+    }
+    .pain h2 {
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      color: var(--navy);
+      margin-bottom: 16px;
+    }
+    .pain .subtitle {
+      color: var(--text-mid);
+      font-family: 'Arial', sans-serif;
+      font-size: 1.05rem;
+      max-width: 560px;
+      margin: 0 auto 56px;
+    }
+    .pain-cards {
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+      flex-wrap: wrap;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    .pain-card {
+      flex: 1;
+      min-width: 240px;
+      max-width: 280px;
+      background: var(--cream);
+      border-radius: 12px;
+      padding: 32px 28px;
+      text-align: left;
+      border-top: 4px solid var(--cream-dark);
+    }
+    .pain-card.bad { border-top-color: #fc8181; }
+    .pain-card.good { border-top-color: var(--gold); }
+    .pain-card-label {
+      font-family: 'Arial', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: bold;
+      margin-bottom: 12px;
+    }
+    .pain-card.bad .pain-card-label { color: #c53030; }
+    .pain-card.good .pain-card-label { color: var(--green); }
+    .pain-card h3 {
+      font-size: 1.1rem;
+      color: var(--navy);
+      margin-bottom: 10px;
+    }
+    .pain-card p {
+      font-family: 'Arial', sans-serif;
+      font-size: 0.9rem;
+      color: var(--text-mid);
+      line-height: 1.7;
+    }
+
+    /* ─── HOW IT WORKS ─── */
+    .how {
+      background: var(--cream);
+      padding: 80px 40px;
+      text-align: center;
+    }
+    .section-label {
+      font-family: 'Arial', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: bold;
+      margin-bottom: 12px;
+    }
+    .how h2 {
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      color: var(--navy);
+      margin-bottom: 16px;
+    }
+    .how .subtitle {
+      font-family: 'Arial', sans-serif;
+      color: var(--text-mid);
+      max-width: 520px;
+      margin: 0 auto 60px;
+    }
+    .steps {
+      display: flex;
+      gap: 32px;
+      justify-content: center;
+      flex-wrap: wrap;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    .step {
+      flex: 1;
+      min-width: 200px;
+      max-width: 260px;
+      text-align: center;
+    }
+    .step-number {
+      width: 52px;
+      height: 52px;
+      background: var(--navy);
+      color: var(--gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      font-weight: bold;
+      margin: 0 auto 20px;
+    }
+    .step h3 {
+      font-size: 1.1rem;
+      color: var(--navy);
+      margin-bottom: 10px;
+    }
+    .step p {
+      font-family: 'Arial', sans-serif;
+      font-size: 0.9rem;
+      color: var(--text-mid);
+      line-height: 1.7;
+    }
+
+    /* ─── FEATURES ─── */
+    .features {
+      background: var(--navy);
+      color: var(--white);
+      padding: 80px 40px;
+      text-align: center;
+    }
+    .features h2 {
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      margin-bottom: 16px;
+    }
+    .features .subtitle {
+      font-family: 'Arial', sans-serif;
+      color: rgba(255,255,255,0.65);
+      max-width: 520px;
+      margin: 0 auto 60px;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 28px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    .feature-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 12px;
+      padding: 32px 28px;
+      text-align: left;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .feature-card:hover {
+      border-color: rgba(201,168,76,0.5);
+      background: rgba(255,255,255,0.08);
+    }
+    .feature-icon {
+      font-size: 2rem;
+      margin-bottom: 16px;
+    }
+    .feature-card h3 {
+      font-size: 1.05rem;
+      color: var(--gold-light);
+      margin-bottom: 10px;
+    }
+    .feature-card p {
+      font-family: 'Arial', sans-serif;
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.7;
+    }
+
+    /* ─── QUOTE ─── */
+    .quote-section {
+      background: var(--cream-dark);
+      padding: 72px 40px;
+      text-align: center;
+    }
+    blockquote {
+      font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+      color: var(--navy);
+      max-width: 720px;
+      margin: 0 auto 20px;
+      font-style: italic;
+      line-height: 1.8;
+    }
+    blockquote::before { content: '\201C'; color: var(--gold); font-size: 3rem; line-height: 0; vertical-align: -0.5em; }
+    blockquote::after { content: '\201D'; color: var(--gold); font-size: 3rem; line-height: 0; vertical-align: -0.5em; }
+    .quote-attr {
+      font-family: 'Arial', sans-serif;
+      font-size: 0.85rem;
+      color: var(--text-light);
+      letter-spacing: 1px;
+    }
+
+    /* ─── WHAT YOU WON'T FIND ─── */
+    .no-list {
+      background: var(--white);
+      padding: 72px 40px;
+      text-align: center;
+    }
+    .no-list h2 {
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      color: var(--navy);
+      margin-bottom: 40px;
+    }
+    .no-items {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .no-item {
+      background: var(--cream);
+      border-radius: 40px;
+      padding: 10px 22px;
+      font-family: 'Arial', sans-serif;
+      font-size: 0.9rem;
+      color: var(--text-mid);
+    }
+    .no-item::before { content: '✗ '; color: #c53030; font-weight: bold; }
+
+    /* ─── CTA ─── */
+    .cta {
+      background: linear-gradient(135deg, var(--navy-light) 0%, var(--navy) 100%);
+      padding: 80px 40px;
+      text-align: center;
+      color: var(--white);
+    }
+    .cta h2 {
+      font-size: clamp(1.6rem, 3vw, 2.6rem);
+      margin-bottom: 16px;
+    }
+    .cta p {
+      font-family: 'Arial', sans-serif;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 40px;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .cta-form {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      max-width: 480px;
+      margin: 0 auto 16px;
+    }
+    .cta-form input[type="email"] {
+      flex: 1;
+      min-width: 240px;
+      padding: 16px 20px;
+      border: 2px solid rgba(255,255,255,0.2);
+      border-radius: 8px;
+      background: rgba(255,255,255,0.08);
+      color: var(--white);
+      font-size: 1rem;
+      font-family: 'Arial', sans-serif;
+      outline: none;
+    }
+    .cta-form input[type="email"]::placeholder { color: rgba(255,255,255,0.4); }
+    .cta-form input[type="email"]:focus { border-color: var(--gold); }
+    .cta-note {
+      font-family: 'Arial', sans-serif;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.4);
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: #080f20;
+      color: rgba(255,255,255,0.4);
+      text-align: center;
+      padding: 32px 40px;
+      font-family: 'Arial', sans-serif;
+      font-size: 0.82rem;
+    }
+    footer a { color: var(--gold); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    /* ─── SUCCESS MESSAGE ─── */
+    .success-msg {
+      display: none;
+      background: rgba(47,133,90,0.15);
+      border: 1px solid var(--green);
+      color: #9ae6b4;
+      border-radius: 8px;
+      padding: 14px 24px;
+      font-family: 'Arial', sans-serif;
+      font-size: 0.95rem;
+      margin-top: 12px;
+      max-width: 420px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    @media (max-width: 600px) {
+      nav { padding: 16px 20px; }
+      .hero { padding: 72px 24px 60px; }
+      .pain, .how, .features, .quote-section, .no-list, .cta { padding: 56px 24px; }
+      .hero-stats { gap: 28px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="logo">
+      Formation
+      <span>Bible Study App</span>
+    </div>
+    <a href="#early-access">Join the Waitlist</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-badge">Coming Soon · Join the Early Access List</div>
+    <h1>
+      Stop Reading.<br/>
+      <em>Start Studying.</em>
+    </h1>
+    <p>
+      Formation is a depth-first Bible study app for serious Christians
+      who want real transformation — not streaks, not snack-sized devotions,
+      but genuine, guided, growing study of the Word.
+    </p>
+    <form class="hero-form" onsubmit="handleSignup(event, 'hero-success')">
+      <input type="email" placeholder="Enter your email address" required />
+      <button type="submit" class="btn-primary">Study Deeper — Free</button>
+    </form>
+    <div class="success-msg" id="hero-success">
+      ✓ You're on the list! We'll reach out when Formation is ready.
+    </div>
+    <p class="hero-note">No credit card needed · No spam · Unsubscribe anytime</p>
+    <div class="hero-stats">
+      <div class="stat">
+        <span class="stat-number">4</span>
+        <span class="stat-label">Study Levels</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number">BSB</span>
+        <span class="stat-label">Bible Translation</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number">Free</span>
+        <span class="stat-label">To Start</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAIN POINT -->
+  <section class="pain">
+    <h2>Sound Familiar?</h2>
+    <p class="subtitle">Most Bible apps were built for beginners. You're not a beginner anymore.</p>
+    <div class="pain-cards">
+      <div class="pain-card bad">
+        <div class="pain-card-label">The Problem</div>
+        <h3>Most apps keep you at the surface</h3>
+        <p>You've done the reading plans. You've tapped through the verse of the day. But you're still hungry. The Word has depth — most apps never take you there.</p>
+      </div>
+      <div class="pain-card bad">
+        <div class="pain-card-label">The Problem</div>
+        <h3>Academic tools weren't built for you</h3>
+        <p>Hebrew parsing, critical apparatus, dozens of commentary options — powerful, but overwhelming. You need a guide into the Word, not a library to get lost in.</p>
+      </div>
+      <div class="pain-card good">
+        <div class="pain-card-label">The Solution</div>
+        <h3>Formation meets you where you are</h3>
+        <p>A guided path that starts where you are and grows with you — from daily devotion all the way to deep scholarly study, at your own pace.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how" id="how-it-works">
+    <div class="section-label">How It Works</div>
+    <h2>Study the Bible the Way It Was Meant to Be Studied</h2>
+    <p class="subtitle">Formation teaches you HOW to study, not just where to click. You'll follow the same method serious theologians use — made simple.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <h3>Start Where You Are</h3>
+        <p>A short onboarding assessment places you at the right level — New Believer, Growing Christian, or Mature Student. No judgment. Just the right tools.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <h3>Follow the Framework</h3>
+        <p>Every passage guides you through Observation (what does it say?), Interpretation (what does it mean?), and Application (how does it change me?).</p>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <h3>Go Deeper as You Grow</h3>
+        <p>Unlock cross-references, Strong's concordance, and full commentaries as your maturity grows. The tools appear when you're ready for them.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">4</div>
+        <h3>Study With Others</h3>
+        <p>Join a study group, find an accountability partner, or discuss passages with your small group — real community, not just public sharing.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features" id="features">
+    <div class="section-label" style="color: var(--gold-light)">What's Inside</div>
+    <h2>Built for the Serious Student</h2>
+    <p class="subtitle">Every feature was designed around one question: does this lead to deeper transformation?</p>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">📖</div>
+        <h3>Berean Standard Bible</h3>
+        <p>Launching with the BSB — a modern, accurate, and freely accessible translation. Additional translations coming in future updates.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔍</div>
+        <h3>Inductive Study Framework</h3>
+        <p>Guided prompts walk you through Observation, Interpretation, and Application — the gold standard method used by serious students worldwide.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🌱</div>
+        <h3>Progressive Learning Paths</h3>
+        <p>4 levels of depth. Tools and resources unlock as you grow in maturity — no overwhelming menus on day one.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">✍️</div>
+        <h3>Deep Note-Taking</h3>
+        <p>Write verse notes, study notes, and application journal entries. Color-coded highlights with custom labels. Everything syncs across devices.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🤝</div>
+        <h3>Accountability Partners</h3>
+        <p>Get matched with a study partner who shares your goals. Set mutual commitments, check in regularly, pray together.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🙏</div>
+        <h3>Prayer + Scripture Integration</h3>
+        <p>Turn passages into prayers with guided templates. Link prayers to Scripture. Track requests and see God's answers over time.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <h3>Progress Dashboard</h3>
+        <p>Track your reading streak, chapters completed, study notes, and plan progress — all in one place.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎯</div>
+        <h3>No Streaks. No Scores.</h3>
+        <p>We measure depth, not frequency. Time in reflection, notes written, connections made. Formation is about transformation, not performance.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUOTE -->
+  <section class="quote-section">
+    <blockquote>
+      But be doers of the word and not hearers only, deceiving yourselves.
+    </blockquote>
+    <p class="quote-attr">— James 1:22 (BSB) · The verse that inspired Formation</p>
+  </section>
+
+  <!-- WHAT YOU WON'T FIND -->
+  <section class="no-list">
+    <h2>What You Won't Find in Formation</h2>
+    <div class="no-items">
+      <div class="no-item">Daily Streaks</div>
+      <div class="no-item">Gamification Points</div>
+      <div class="no-item">Public Social Sharing</div>
+      <div class="no-item">Shallow Devotionals</div>
+      <div class="no-item">Overwhelming Menus</div>
+      <div class="no-item">Data Selling</div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta" id="early-access">
+    <h2>Be the First to Study Deeper</h2>
+    <p>
+      Formation is in development now. Join the early access list and be among
+      the first to experience depth-first Bible study when we launch.
+    </p>
+    <form class="cta-form" onsubmit="handleSignup(event, 'cta-success')">
+      <input type="email" placeholder="Your email address" required />
+      <button type="submit" class="btn-primary">Join the Waitlist</button>
+    </form>
+    <div class="success-msg" id="cta-success">
+      ✓ You're on the list! We'll be in touch.
+    </div>
+    <p class="cta-note">Free · No spam · Early access members get premium features at launch</p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 Formation Bible Study · Building something worth waiting for.</p>
+    <p style="margin-top: 8px;">
+      <a href="#">Privacy Policy</a> &nbsp;·&nbsp;
+      <a href="#">Terms of Service</a> &nbsp;·&nbsp;
+      <a href="mailto:hello@formationbible.com">Contact</a>
+    </p>
+  </footer>
+
+  <script>
+    function handleSignup(e, successId) {
+      e.preventDefault();
+      const form = e.target;
+      const email = form.querySelector('input[type="email"]').value;
+      // TODO: Connect to email service (Mailchimp / ConvertKit / Beehiiv)
+      // For now, show success state
+      form.style.display = 'none';
+      document.getElementById(successId).style.display = 'block';
+      console.log('Email captured:', email);
+    }
+
+    // Smooth scroll for nav link
+    document.querySelector('nav a').addEventListener('click', function(e) {
+      e.preventDefault();
+      document.querySelector('#early-access').scrollIntoView({ behavior: 'smooth' });
+    });
+  </script>
+
+</body>
+</html>

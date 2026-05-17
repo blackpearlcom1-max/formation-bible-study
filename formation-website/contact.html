@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Contact &amp; Support — Formation Bible Study</title>
+  <meta name="description" content="Get help with Formation Bible Study. Contact our support team, report an issue, or ask a question about your account, billing, or Bible study content."/>
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://formationbible.com/contact"/>
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://formationbible.com/contact"/>
+  <meta property="og:title" content="Contact &amp; Support — Formation Bible Study"/>
+  <meta property="og:description" content="Get help with Formation Bible Study. Contact our support team, report an issue, or ask a question about your account, billing, or Bible study content."/>
+  <meta property="og:site_name" content="Formation Bible Study"/>
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:title" content="Contact &amp; Support — Formation Bible Study"/>
+  <meta name="twitter:description" content="Get help with Formation Bible Study. Contact our support team."/>
+  <meta name="robots" content="index, follow"/>
+
+  <!-- Schema: ContactPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "name": "Contact Formation Bible Study",
+    "url": "https://formationbible.com/contact",
+    "description": "Support and contact information for Formation Bible Study app users.",
+    "isPartOf": { "@type": "WebSite", "name": "Formation Bible Study", "url": "https://formationbible.com" },
+    "breadcrumb": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://formationbible.com" },
+        { "@type": "ListItem", "position": 2, "name": "Contact", "item": "https://formationbible.com/contact" }
+      ]
+    }
+  }
+  </script>
+
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Manrope:wght@300;400;500;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "secondary":                  "#e9c349",
+            "on-surface-variant":         "#d2c2cc",
+            "on-surface":                 "#f2e5f0",
+            "surface-container-highest":  "#7E3A6C",
+            "secondary-container":        "#af8d11",
+            "on-secondary":               "#3c2f00",
+            "primary":                    "#ffb4a4",
+            "primary-container":          "#6e2414",
+            "surface-variant":            "#7E3A6C",
+            "outline":                    "#c4a0c2",
+            "surface-container-lowest":   "#3D1540",
+            "surface-container-high":     "#703060",
+            "surface-container":          "#5C2A5A",
+            "on-secondary-fixed":         "#241a00",
+            "inverse-primary":            "#9a4431",
+            "on-primary":                 "#5d1809",
+            "surface-dim":                "#4A1D4D",
+            "outline-variant":            "#7A5478",
+            "surface-container-low":      "#4A1D4D",
+            "on-background":              "#f2e5f0",
+            "surface":                    "#5C2A5A",
+            "background":                 "#5C2A5A",
+            "on-primary-container":       "#f58b73",
+            "tertiary":                   "#ffb4a4",
+            "tertiary-container":         "#6e2414",
+            "on-tertiary":                "#5d1809",
+            "on-tertiary-container":      "#f48b73",
+            "surface-bright":             "#8A4478",
+            "inverse-surface":            "#eae0e7",
+            "inverse-on-surface":         "#342f34"
+          },
+          borderRadius: {
+            DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem",
+            "2xl": "1rem", "3xl": "1.5rem", full: "9999px"
+          },
+          fontFamily: {
+            headline: ["Noto Serif", "serif"],
+            body:     ["Manrope", "sans-serif"],
+            label:    ["Manrope", "sans-serif"]
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .material-symbols-outlined { font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24; }
+    body { background-color: #5C2A5A; }
+
+    .grain-overlay {
+      pointer-events:none; position:fixed; inset:0; z-index:99; opacity:0.04;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    }
+    #mobile-menu { display:none; }
+    #mobile-menu.open { display:flex; }
+    .nav-scrolled { background-color:rgba(61,21,64,0.95) !important; }
+
+    @keyframes orbFloat1 { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(40px,-25px) scale(1.04)} 66%{transform:translate(-25px,20px) scale(0.97)} }
+    @keyframes orbFloat2 { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(-35px,28px) scale(0.96)} 66%{transform:translate(28px,-18px) scale(1.03)} }
+    @keyframes shimmer  { 0%{background-position:-250% center} 100%{background-position:250% center} }
+
+    .orb { position:fixed; border-radius:50%; filter:blur(90px); pointer-events:none; z-index:0; }
+    .orb-1 { width:650px; height:650px; top:-150px; left:-120px;  background:radial-gradient(circle,rgba(255,180,164,0.11) 0%,transparent 70%); animation:orbFloat1 22s ease-in-out infinite; }
+    .orb-2 { width:520px; height:520px; top:28%;   right:-130px; background:radial-gradient(circle,rgba(233,195,73,0.08)  0%,transparent 70%); animation:orbFloat2 28s ease-in-out infinite; }
+    .orb-3 { width:420px; height:420px; bottom:8%; left:25%;     background:radial-gradient(circle,rgba(255,180,164,0.07) 0%,transparent 70%); animation:orbFloat1 34s ease-in-out infinite reverse; }
+
+    [data-animate] { opacity:0; transition:opacity 0.8s cubic-bezier(0.25,0.46,0.45,0.94), transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94); }
+    [data-animate="fade-up"]    { transform:translateY(34px); }
+    [data-animate="scale-up"]   { transform:scale(0.93) translateY(20px); }
+    [data-animate].is-visible   { opacity:1; transform:none; }
+
+    .shimmer-text {
+      background:linear-gradient(90deg, #e9c349 0%, #ffb4a4 32%, #e9c349 52%, #ffb4a4 78%, #e9c349 100%);
+      background-size:260% auto; -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+      background-clip:text; animation:shimmer 5.5s linear infinite;
+    }
+
+    .scripture-block {
+      background: rgba(61,21,64,0.7);
+      border-left: 3px solid #E9C349;
+      border-radius: 0 16px 16px 0;
+      padding: 24px 28px;
+    }
+
+    .contact-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(242,229,240,0.1);
+      border-radius: 20px;
+      padding: 28px 24px;
+      transition: background 0.25s, border-color 0.25s, transform 0.25s;
+    }
+    .contact-card:hover {
+      background: rgba(255,255,255,0.07);
+      border-color: rgba(255,180,164,0.25);
+      transform: translateY(-2px);
+    }
+
+    .response-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(233,195,73,0.12);
+      border: 1px solid rgba(233,195,73,0.25);
+      color: #E9C349;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 20px;
+      letter-spacing: 0.04em;
+    }
+
+    .form-input {
+      width: 100%;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(242,229,240,0.15);
+      border-radius: 12px;
+      padding: 14px 16px;
+      color: #f2e5f0;
+      font-family: 'Manrope', sans-serif;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .form-input:focus {
+      border-color: rgba(255,180,164,0.5);
+      background: rgba(255,255,255,0.08);
+    }
+    .form-input::placeholder { color: rgba(242,229,240,0.3); }
+    select.form-input option { background: #3D1540; color: #f2e5f0; }
+
+    .form-label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: rgba(242,229,240,0.6);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 6px;
+    }
+
+    .submit-btn {
+      background: linear-gradient(135deg, #FFB4A4 0%, #6E2414 100%);
+      color: #fff;
+      font-weight: 800;
+      font-size: 0.95rem;
+      padding: 16px 36px;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .submit-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+    .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .category-btn {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(242,229,240,0.12);
+      border-radius: 10px;
+      padding: 10px 16px;
+      color: rgba(242,229,240,0.65);
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .category-btn:hover, .category-btn.active {
+      background: rgba(255,180,164,0.1);
+      border-color: rgba(255,180,164,0.35);
+      color: #FFB4A4;
+    }
+
+    .status-dot { width:8px; height:8px; border-radius:50%; background:#48c774; animation: pulse-dot 2s ease-in-out infinite; flex-shrink:0; }
+    @keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+    .section-divider { border:none; border-top:1px solid rgba(242,229,240,0.1); margin:0; }
+
+    #success-state { display:none; }
+    #success-state.show { display:flex; }
+  </style>
+</head>
+<body class="font-body text-on-surface min-h-screen">
+
+  <div class="grain-overlay"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <!-- Navigation -->
+  <nav id="main-nav" class="fixed top-0 w-full z-50 bg-[#3D1540]/80 backdrop-blur-xl shadow-[0_20px_40px_-5px_rgba(61,21,64,0.3)] transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="index.html" class="text-2xl font-headline font-black text-[#FFB4A4] hover:opacity-80 transition-opacity">Formation Bible Study</a>
+      <div class="hidden md:flex items-center gap-8">
+        <a href="index.html" class="text-[#f2e5f0]/70 font-body text-sm hover:text-[#FFB4A4] transition-colors">Home</a>
+        <a href="features.html" class="text-[#f2e5f0]/70 font-body text-sm hover:text-[#FFB4A4] transition-colors">Features</a>
+        <a href="pricing.html" class="text-[#f2e5f0]/70 font-body text-sm hover:text-[#FFB4A4] transition-colors">Pricing</a>
+        <a href="faq.html" class="text-[#f2e5f0]/70 font-body text-sm hover:text-[#FFB4A4] transition-colors">FAQ</a>
+        <a href="signup.html" class="bg-gradient-to-br from-[#FFB4A4] to-[#6E2414] text-[#5D1809] px-6 py-2.5 rounded-full font-bold text-sm hover:opacity-90 transition-opacity">Join the Waitlist →</a>
+      </div>
+      <button id="nav-toggle" class="md:hidden text-[#f2e5f0] p-2" aria-label="Open menu">
+        <span class="material-symbols-outlined">menu</span>
+      </button>
+    </div>
+    <div id="mobile-menu" class="flex-col bg-[#3D1540] px-6 pb-6 gap-4 md:hidden">
+      <a href="index.html" class="text-[#f2e5f0]/80 font-body text-base py-2 border-b border-[#f2e5f0]/10">Home</a>
+      <a href="features.html" class="text-[#f2e5f0]/80 font-body text-base py-2 border-b border-[#f2e5f0]/10">Features</a>
+      <a href="pricing.html" class="text-[#f2e5f0]/80 font-body text-base py-2 border-b border-[#f2e5f0]/10">Pricing</a>
+      <a href="faq.html" class="text-[#f2e5f0]/80 font-body text-base py-2 border-b border-[#f2e5f0]/10">FAQ</a>
+      <a href="signup.html" class="bg-gradient-to-br from-[#FFB4A4] to-[#6E2414] text-[#5D1809] px-6 py-3 rounded-full font-bold text-sm text-center mt-2">Join the Waitlist →</a>
+    </div>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <section class="relative pt-32 pb-16 px-6 overflow-hidden">
+    <div class="max-w-3xl mx-auto text-center relative z-10">
+
+      <!-- Breadcrumb -->
+      <nav class="flex items-center justify-center gap-2 text-xs text-[#f2e5f0]/40 mb-8" aria-label="Breadcrumb">
+        <a href="index.html" class="hover:text-[#FFB4A4] transition-colors">Home</a>
+        <span class="material-symbols-outlined text-sm">chevron_right</span>
+        <span class="text-[#FFB4A4]">Contact &amp; Support</span>
+      </nav>
+
+      <div class="inline-flex items-center gap-2 bg-[#3D1540]/60 border border-[#f2e5f0]/10 rounded-full px-4 py-1.5 text-xs text-[#f2e5f0]/60 mb-6" data-animate="fade-up">
+        <span class="status-dot"></span>
+        Support Team Available
+      </div>
+
+      <h1 class="font-headline text-4xl md:text-5xl font-black mb-5 leading-tight" data-animate="fade-up">
+        We're Here to<br/>
+        <span class="shimmer-text">Help You Grow</span>
+      </h1>
+
+      <p class="text-[#f2e5f0]/65 text-lg max-w-xl mx-auto leading-relaxed" data-animate="fade-up">
+        Whether you have a question about your account, need help with a Bible study feature, or want to report an issue — our team responds promptly.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── CONTACT CARDS ── -->
+  <section class="px-6 pb-16 relative z-10">
+    <div class="max-w-5xl mx-auto">
+      <div class="grid md:grid-cols-3 gap-6 mb-14" data-animate="fade-up">
+
+        <!-- Email Support -->
+        <div class="contact-card text-center">
+          <div class="w-12 h-12 bg-[#FFB4A4]/10 border border-[#FFB4A4]/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <span class="material-symbols-outlined text-[#FFB4A4] text-2xl">mail</span>
+          </div>
+          <h3 class="font-headline font-bold text-[#f2e5f0] text-lg mb-2">Email Support</h3>
+          <p class="text-[#f2e5f0]/55 text-sm mb-4 leading-relaxed">The best way to reach us. We read every message and respond personally.</p>
+          <a href="mailto:support@formationbible.com" class="text-[#FFB4A4] font-bold text-sm hover:underline block mb-3">support@formationbible.com</a>
+          <span class="response-badge">
+            <span class="material-symbols-outlined text-xs" style="font-size:14px;">schedule</span>
+            Within 24–48 hours
+          </span>
+        </div>
+
+        <!-- FAQ -->
+        <div class="contact-card text-center">
+          <div class="w-12 h-12 bg-[#E9C349]/10 border border-[#E9C349]/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <span class="material-symbols-outlined text-[#E9C349] text-2xl">help</span>
+          </div>
+          <h3 class="font-headline font-bold text-[#f2e5f0] text-lg mb-2">Browse the FAQ</h3>
+          <p class="text-[#f2e5f0]/55 text-sm mb-4 leading-relaxed">20 answers covering plans, AI features, doctrine, and account questions.</p>
+          <a href="faq.html" class="inline-flex items-center gap-1.5 text-[#E9C349] font-bold text-sm hover:underline mb-3">
+            View FAQ
+            <span class="material-symbols-outlined text-sm" style="font-size:16px;">arrow_forward</span>
+          </a>
+          <br/>
+          <span class="response-badge" style="background:rgba(233,195,73,0.1); border-color:rgba(233,195,73,0.2);">
+            <span class="material-symbols-outlined text-xs" style="font-size:14px;">bolt</span>
+            Instant answers
+          </span>
+        </div>
+
+        <!-- Error Reporting -->
+        <div class="contact-card text-center">
+          <div class="w-12 h-12 bg-[#f2e5f0]/10 border border-[#f2e5f0]/15 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <span class="material-symbols-outlined text-[#f2e5f0]/70 text-2xl">bug_report</span>
+          </div>
+          <h3 class="font-headline font-bold text-[#f2e5f0] text-lg mb-2">Report a Bug</h3>
+          <p class="text-[#f2e5f0]/55 text-sm mb-4 leading-relaxed">Found a technical issue or content error? Report it and help us improve.</p>
+          <a href="error_reporting.html" class="inline-flex items-center gap-1.5 text-[#f2e5f0]/70 font-bold text-sm hover:text-[#FFB4A4] hover:underline mb-3 transition-colors">
+            Error Report Form
+            <span class="material-symbols-outlined text-sm" style="font-size:16px;">arrow_forward</span>
+          </a>
+          <br/>
+          <span class="response-badge" style="background:rgba(242,229,240,0.06); border-color:rgba(242,229,240,0.15); color:rgba(242,229,240,0.6);">
+            <span class="material-symbols-outlined text-xs" style="font-size:14px;">schedule</span>
+            Within 48–72 hours
+          </span>
+        </div>
+      </div>
+
+      <!-- ── CONTACT FORM ── -->
+      <div class="grid lg:grid-cols-5 gap-10 items-start">
+
+        <!-- FORM (3 cols) -->
+        <div class="lg:col-span-3 bg-[#3D1540]/60 border border-[#f2e5f0]/10 rounded-3xl p-8" data-animate="scale-up">
+          <h2 class="font-headline text-2xl font-bold text-[#f2e5f0] mb-2">Send Us a Message</h2>
+          <p class="text-[#f2e5f0]/50 text-sm mb-8">We reply to every message. Typical response within 24–48 hours.</p>
+
+          <!-- Form -->
+          <form id="contact-form" novalidate>
+            <div class="grid sm:grid-cols-2 gap-5 mb-5">
+              <div>
+                <label class="form-label" for="cf-name">Your Name</label>
+                <input class="form-input" id="cf-name" name="name" type="text" placeholder="Your first name" required autocomplete="given-name"/>
+              </div>
+              <div>
+                <label class="form-label" for="cf-email">Email Address</label>
+                <input class="form-input" id="cf-email" name="email" type="email" placeholder="you@example.com" required autocomplete="email"/>
+              </div>
+            </div>
+
+            <div class="mb-5">
+              <label class="form-label">What's This About?</label>
+              <div class="flex flex-wrap gap-2 mt-1" id="category-buttons">
+                <button type="button" class="category-btn active" data-cat="Account &amp; Login">
+                  <span class="material-symbols-outlined" style="font-size:16px;">person</span>
+                  Account &amp; Login
+                </button>
+                <button type="button" class="category-btn" data-cat="Billing &amp; Plans">
+                  <span class="material-symbols-outlined" style="font-size:16px;">credit_card</span>
+                  Billing &amp; Plans
+                </button>
+                <button type="button" class="category-btn" data-cat="Bible Study Features">
+                  <span class="material-symbols-outlined" style="font-size:16px;">menu_book</span>
+                  Bible Study Features
+                </button>
+                <button type="button" class="category-btn" data-cat="AI Study Assistant">
+                  <span class="material-symbols-outlined" style="font-size:16px;">psychology</span>
+                  AI Assistant
+                </button>
+                <button type="button" class="category-btn" data-cat="Technical Issue">
+                  <span class="material-symbols-outlined" style="font-size:16px;">build</span>
+                  Technical Issue
+                </button>
+                <button type="button" class="category-btn" data-cat="Other">
+                  <span class="material-symbols-outlined" style="font-size:16px;">more_horiz</span>
+                  Other
+                </button>
+              </div>
+              <input type="hidden" id="cf-category" name="category" value="Account &amp; Login"/>
+            </div>
+
+            <div class="mb-5">
+              <label class="form-label" for="cf-subject">Subject</label>
+              <input class="form-input" id="cf-subject" name="subject" type="text" placeholder="Brief description of your question" required/>
+            </div>
+
+            <div class="mb-5">
+              <label class="form-label" for="cf-message">Your Message</label>
+              <textarea class="form-input" id="cf-message" name="message" rows="5" placeholder="Tell us more. The more detail you share, the faster we can help you." required style="resize:vertical; min-height:120px;"></textarea>
+            </div>
+
+            <div class="mb-7">
+              <label class="form-label" for="cf-plan">Your Formation plan2 (optional)</label>
+              <select class="form-input" id="cf-plan" name="plan">
+                <option value="">Select your plan (helps us assist you faster)</option>
+                <option value="Free">Free Plan</option>
+                <option value="Formation Bible Study">Formation Bible Study — $7/month</option>
+                <option value="Formation Plus">Formation Plus — $12/month</option>
+                <option value="Formation Pro">Formation Pro — $29/month</option>
+                <option value="Waitlist">Not yet a user — on the waitlist</option>
+              </select>
+            </div>
+
+            <button type="submit" class="submit-btn w-full justify-center">
+              <span class="material-symbols-outlined" style="font-size:20px;">send</span>
+              Send Message
+            </button>
+          </form>
+
+          <!-- Success State -->
+          <div id="success-state" class="flex-col items-center text-center py-8">
+            <div class="w-16 h-16 bg-[#48c774]/10 border border-[#48c774]/25 rounded-full flex items-center justify-center mx-auto mb-5">
+              <span class="material-symbols-outlined text-[#48c774] text-3xl" style="font-variation-settings:'FILL' 1;">check_circle</span>
+            </div>
+            <h3 class="font-headline text-xl font-bold text-[#f2e5f0] mb-2">Message Sent!</h3>
+            <p class="text-[#f2e5f0]/60 text-sm max-w-xs mx-auto leading-relaxed">We've received your message and will respond within 24–48 hours. Check your email inbox.</p>
+            <p class="text-[#E9C349] text-xs mt-4 font-medium">Acts 17:11 — Examine everything carefully.</p>
+          </div>
+        </div>
+
+        <!-- SIDEBAR (2 cols) -->
+        <div class="lg:col-span-2 space-y-6" data-animate="fade-up">
+
+          <!-- Company Info -->
+          <div class="bg-[#3D1540]/50 border border-[#f2e5f0]/10 rounded-2xl p-6">
+            <h3 class="font-headline font-bold text-[#f2e5f0] text-base mb-5 flex items-center gap-2">
+              <span class="material-symbols-outlined text-[#FFB4A4]" style="font-size:20px;">business</span>
+              Company Information
+            </h3>
+            <div class="space-y-4">
+              <div>
+                <p class="text-xs text-[#f2e5f0]/40 uppercase tracking-widest mb-0.5">Legal Name</p>
+                <p class="text-[#f2e5f0]/80 text-sm font-medium">Berean Defense LLC</p>
+              </div>
+              <div>
+                <p class="text-xs text-[#f2e5f0]/40 uppercase tracking-widest mb-0.5">Support Email</p>
+                <a href="mailto:support@formationbible.com" class="text-[#FFB4A4] text-sm font-medium hover:underline">support@formationbible.com</a>
+              </div>
+              <div>
+                <p class="text-xs text-[#f2e5f0]/40 uppercase tracking-widest mb-0.5">Mailing Address</p>
+                <p class="text-[#f2e5f0]/80 text-sm leading-relaxed">Berean Defense L.L.C.<br/>30 N Gould St Ste N<br/>Sheridan, WY 82801</p>
+              </div>
+              <div>
+                <p class="text-xs text-[#f2e5f0]/40 uppercase tracking-widest mb-0.5">Phone</p>
+                <a href="tel:+13072493436" class="text-[#FFB4A4] text-sm font-medium hover:underline">(307) 249-3436</a>
+              </div>
+              <div>
+                <p class="text-xs text-[#f2e5f0]/40 uppercase tracking-widest mb-0.5">Website</p>
+                <a href="https://formationbible.com" class="text-[#FFB4A4] text-sm font-medium hover:underline">formationbible.com</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Response Times -->
+          <div class="bg-[#3D1540]/50 border border-[#f2e5f0]/10 rounded-2xl p-6">
+            <h3 class="font-headline font-bold text-[#f2e5f0] text-base mb-5 flex items-center gap-2">
+              <span class="material-symbols-outlined text-[#E9C349]" style="font-size:20px;">timer</span>
+              Response Times
+            </h3>
+            <div class="space-y-3">
+              <div class="flex justify-between items-center py-2 border-b border-[#f2e5f0]/06">
+                <span class="text-[#f2e5f0]/65 text-sm">General Questions</span>
+                <span class="text-[#E9C349] text-sm font-bold">24–48 hrs</span>
+              </div>
+              <div class="flex justify-between items-center py-2 border-b border-[#f2e5f0]/06">
+                <span class="text-[#f2e5f0]/65 text-sm">Billing Issues</span>
+                <span class="text-[#E9C349] text-sm font-bold">24 hrs</span>
+              </div>
+              <div class="flex justify-between items-center py-2 border-b border-[#f2e5f0]/06">
+                <span class="text-[#f2e5f0]/65 text-sm">Bug Reports</span>
+                <span class="text-[#E9C349] text-sm font-bold">48–72 hrs</span>
+              </div>
+              <div class="flex justify-between items-center py-2">
+                <span class="text-[#f2e5f0]/65 text-sm">AI Content Issues</span>
+                <span class="text-[#E9C349] text-sm font-bold">48 hrs</span>
+              </div>
+            </div>
+            <p class="text-[#f2e5f0]/35 text-xs mt-4">Response times are estimates. We are a small team and respond as quickly as possible.</p>
+          </div>
+
+          <!-- Scripture anchor -->
+          <div class="scripture-block">
+            <p class="text-[#f2e5f0]/80 text-sm italic leading-relaxed mb-3">
+              "Now these Jews were more noble than those in Thessalonica; they received the word with all eagerness, examining the Scriptures daily to see if these things were so."
+            </p>
+            <p class="text-[#E9C349] text-xs font-bold">Acts 17:11 (ESV)</p>
+            <p class="text-[#f2e5f0]/40 text-xs mt-1">The spirit of examination is the spirit of Formation Bible Study.</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PRE-LAUNCH NOTICE ── -->
+  <section class="px-6 pb-20 relative z-10">
+    <div class="max-w-3xl mx-auto">
+      <div class="bg-[#E9C349]/06 border border-[#E9C349]/20 rounded-2xl p-6 flex gap-4 items-start" data-animate="fade-up">
+        <span class="material-symbols-outlined text-[#E9C349] flex-shrink-0 mt-0.5">info</span>
+        <div>
+          <p class="text-[#f2e5f0]/80 text-sm font-semibold mb-1">Formation Bible Study is currently in pre-launch</p>
+          <p class="text-[#f2e5f0]/50 text-sm leading-relaxed">We're building Formation Bible Study and collecting waitlist signups. If you have feedback, ideas, or questions about the upcoming app, we'd love to hear from you. <a href="signup.html" class="text-[#FFB4A4] hover:underline">Join the waitlist →</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer class="border-t border-[#f2e5f0]/10 py-12 px-6 relative z-10">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="text-center md:text-left">
+          <a href="index.html" class="text-xl font-headline font-black text-[#FFB4A4]">Formation Bible Study</a>
+          <p class="text-[#f2e5f0]/40 text-xs mt-1">© 2026 Berean Defense LLC. All rights reserved.</p>
+        </div>
+        <nav class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs text-[#f2e5f0]/45">
+          <a href="privacy_policy.html" class="hover:text-[#FFB4A4] transition-colors">Privacy</a>
+          <a href="terms.html" class="hover:text-[#FFB4A4] transition-colors">Terms</a>
+          <a href="cookie_policy.html" class="hover:text-[#FFB4A4] transition-colors">Cookies</a>
+          <a href="billing_terms.html" class="hover:text-[#FFB4A4] transition-colors">Billing</a>
+          <a href="ai_disclaimer.html" class="hover:text-[#FFB4A4] transition-colors">AI Disclaimer</a>
+          <a href="statement_of_faith.html" class="hover:text-[#FFB4A4] transition-colors">Statement of Faith</a>
+          <a href="contact.html" class="text-[#FFB4A4]">Contact</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Nav scroll
+    const nav = document.getElementById('main-nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('nav-scrolled', window.scrollY > 20);
+    });
+
+    // Mobile menu
+    document.getElementById('nav-toggle').addEventListener('click', () => {
+      document.getElementById('mobile-menu').classList.toggle('open');
+    });
+
+    // Intersection observer for animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('[data-animate]').forEach(el => observer.observe(el));
+
+    // Category buttons
+    document.querySelectorAll('.category-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById('cf-category').value = btn.dataset.cat;
+      });
+    });
+
+        // Form submission — FormSubmit.co
+    document.getElementById('contact-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      var btn = this.querySelector('button[type="submit"]');
+      var origText = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = 'Sending…';
+
+      var formData = new FormData(this);
+      var data = {};
+      formData.forEach(function(v, k) { data[k] = v; });
+
+      try {
+        var res = await fetch('https://formsubmit.co/ajax/support@formationbible.com', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        var result = await res.json();
+        if (result.success) {
+          document.getElementById('contact-form').style.display = 'none';
+          var success = document.getElementById('success-state');
+          success.classList.add('show');
+        } else {
+          alert('Something went wrong. Please try again.');
+          btn.disabled = false;
+          btn.textContent = origText;
+        }
+      } catch(err) {
+        alert('Failed to send. Please try again or email support@formationbible.com directly.');
+        btn.disabled = false;
+        btn.textContent = origText;
+      }
+    });
+  </script>
+</body>
+</html>

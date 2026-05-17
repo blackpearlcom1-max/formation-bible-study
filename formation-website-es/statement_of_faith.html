@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html class="dark" lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Declaración de Fe — Formación Bíblica</title>
+  <meta name="description" content="Formation Bible Study está fundamentada en la fe cristiana histórica y ortodoxa. Lee las 10 creencias que dan forma a todo lo que hacemos."/>
+  <link rel="canonical" href="https://formacion-biblica.com/statement_of_faith"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://formacion-biblica.com/statement_of_faith"/>
+  <meta property="og:title" content="Declaración de Fe — Formation Bible Study"/>
+  <meta property="og:description" content="Formation Bible Study está fundamentada en la fe cristiana histórica y ortodoxa."/>
+  <meta property="og:site_name" content="Formación Bíblica"/>
+  <meta name="twitter:card" content="summary"/>
+  <meta name="robots" content="index, follow, max-snippet:-1"/>
+
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Manrope:wght@300;400;500;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "secondary":                  "#e9c349",
+            "on-surface-variant":         "#d2c2cc",
+            "on-surface":                 "#f2e5f0",
+            "surface-container-highest":  "#7E3A6C",
+            "secondary-container":        "#af8d11",
+            "on-secondary":               "#3c2f00",
+            "primary":                    "#ffb4a4",
+            "primary-container":          "#6e2414",
+            "surface-variant":            "#7E3A6C",
+            "outline":                    "#c4a0c2",
+            "surface-container-lowest":   "#3D1540",
+            "surface-container-high":     "#703060",
+            "surface-container":          "#5C2A5A",
+            "on-primary":                 "#5d1809",
+            "surface-dim":                "#4A1D4D",
+            "surface-container-low":      "#4A1D4D",
+            "on-background":              "#f2e5f0",
+            "surface":                    "#5C2A5A",
+            "background":                 "#5C2A5A",
+            "on-primary-container":       "#f58b73",
+            "surface-bright":             "#8A4478"
+          },
+          borderRadius: {
+            DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem",
+            "2xl": "1rem", "3xl": "1.5rem", full: "9999px"
+          },
+          fontFamily: {
+            headline: ["Noto Serif", "serif"],
+            body:     ["Manrope", "sans-serif"],
+            label:    ["Manrope", "sans-serif"]
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .material-symbols-outlined { font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24; }
+    body { background-color: #5C2A5A; }
+    .grain-overlay {
+      pointer-events:none; position:fixed; inset:0; z-index:99; opacity:0.04;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    }
+    #mobile-menu { display:none; }
+    #mobile-menu.open { display:flex; }
+    .nav-scrolled { background-color:rgba(61,21,64,0.95) !important; }
+    @keyframes orbFloat1 { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(40px,-25px) scale(1.04)} 66%{transform:translate(-25px,20px) scale(0.97)} }
+    @keyframes orbFloat2 { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(-35px,28px) scale(0.96)} 66%{transform:translate(28px,-18px) scale(1.03)} }
+    @keyframes shimmer  { 0%{background-position:-250% center} 100%{background-position:250% center} }
+    .orb { position:fixed; border-radius:50%; filter:blur(90px); pointer-events:none; z-index:0; }
+    .orb-1 { width:650px; height:650px; top:-150px; left:-120px;  background:radial-gradient(circle,rgba(255,180,164,0.11) 0%,transparent 70%); animation:orbFloat1 22s ease-in-out infinite; }
+    .orb-2 { width:520px; height:520px; top:28%;   right:-130px; background:radial-gradient(circle,rgba(233,195,73,0.08)  0%,transparent 70%); animation:orbFloat2 28s ease-in-out infinite; }
+    .orb-3 { width:420px; height:420px; bottom:8%; left:25%;     background:radial-gradient(circle,rgba(255,180,164,0.07) 0%,transparent 70%); animation:orbFloat1 34s ease-in-out infinite reverse; }
+    [data-animate] { opacity:0; transition:opacity 0.8s cubic-bezier(0.25,0.46,0.45,0.94), transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94); }
+    [data-animate="fade-up"]  { transform:translateY(34px); }
+    [data-animate="scale-up"] { transform:scale(0.93) translateY(20px); }
+    [data-animate].is-visible { opacity:1; transform:none; }
+    .shimmer-text {
+      background:linear-gradient(90deg, #e9c349 0%, #ffb4a4 32%, #e9c349 52%, #ffb4a4 78%, #e9c349 100%);
+      background-size:260% auto; -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+      background-clip:text; animation:shimmer 5.5s linear infinite;
+    }
+    .scripture-block {
+      background: rgba(61,21,64,0.7);
+      border-left: 3px solid #E9C349;
+      border-radius: 0 16px 16px 0;
+      padding: 24px 28px;
+    }
+    .section-divider { border:none; border-top:1px solid rgba(242,229,240,0.1); margin:0; }
+    .belief-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(242,229,240,0.1);
+      border-radius: 20px;
+      padding: 28px;
+      transition: background 0.25s, border-color 0.25s;
+    }
+    .belief-card:hover {
+      background: rgba(255,255,255,0.06);
+      border-color: rgba(233,195,73,0.25);
+    }
+    .belief-num {
+      font-family: 'Noto Serif', serif;
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: rgba(233,195,73,0.2);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+  </style>
+</head>
+<body class="font-body text-on-surface min-h-screen">
+
+  <div class="grain-overlay"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <!-- Navegación -->
+  <nav id="main-nav" class="fixed top-0 w-full z-50 bg-[#3D1540]/80 backdrop-blur-xl shadow-[0_20px_40px_-5px_rgba(61,21,64,0.3)] transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="index.html" class="text-2xl font-headline font-black text-[#FFB4A4] hover:opacity-80 transition-opacity">Formación Bíblica</a>
+      <div class="hidden md:flex items-center gap-8">
+        <a href="index.html" class="text-[#f2e5f0]/70 font-body text-sm hover:text-[#FFB4A4] transition-colors">Inicio</a>
+        <a href="features.html" class="text-[#f2e5f0]/70 font-body text-sm hover:text-[#FFB4A4] transition-colors">Características</a>
+        <a href="pricing.html" class="text-[#f2e5f0]/70 font-body text-sm hover:text-[#FFB4A4] transition-colors">Precios</a>
+        <a href="signup.html" class="bg-gradient-to-br from-[#FFB4A4] to-[#6E2414] text-[#5D1809] px-6 py-2.5 rounded-full font-bold text-sm hover:opacity-90 transition-opacity">Únete a la Lista →</a>
+      </div>
+      <button id="nav-toggle" class="md:hidden text-[#f2e5f0] p-2" aria-label="Abrir menú">
+        <span class="material-symbols-outlined">menu</span>
+      </button>
+    </div>
+    <div id="mobile-menu" class="flex-col bg-[#3D1540] px-6 pb-6 gap-4 md:hidden">
+      <a href="index.html" class="text-[#f2e5f0]/80 font-body text-base py-2 border-b border-[#f2e5f0]/10">Inicio</a>
+      <a href="features.html" class="text-[#f2e5f0]/80 font-body text-base py-2 border-b border-[#f2e5f0]/10">Características</a>
+      <a href="pricing.html" class="text-[#f2e5f0]/80 font-body text-base py-2 border-b border-[#f2e5f0]/10">Precios</a>
+      <a href="signup.html" class="bg-gradient-to-br from-[#FFB4A4] to-[#6E2414] text-[#5D1809] px-6 py-3 rounded-full font-bold text-sm text-center mt-2">Únete a la Lista →</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="relative z-10 pt-36 pb-16 px-6">
+    <div class="max-w-3xl mx-auto text-center">
+      <div data-animate="fade-up" class="inline-flex items-center gap-2 bg-[#3D1540]/70 border border-[#f2e5f0]/10 rounded-full px-4 py-1.5 mb-6">
+        <span class="material-symbols-outlined text-[#E9C349] text-base">menu_book</span>
+        <span class="font-label text-[11px] uppercase tracking-widest text-[#E9C349]">Hechos 17:11</span>
+      </div>
+      <h1 data-animate="fade-up" class="font-headline text-4xl md:text-5xl font-black leading-tight mb-6">
+        Lo que <span class="shimmer-text">Creemos</span>
+      </h1>
+      <p data-animate="fade-up" class="font-body text-[#f2e5f0]/70 text-xl leading-relaxed max-w-2xl mx-auto">
+        Formation Bible Study está fundamentada en la fe cristiana histórica y ortodoxa. Construimos herramientas para el estudio bíblico serio — aquí están las creencias que dan forma a todo lo que hacemos.
+      </p>
+    </div>
+  </section>
+
+  <hr class="section-divider max-w-4xl mx-auto"/>
+
+  <!-- Creencias -->
+  <section class="relative z-10 px-6 py-16 max-w-4xl mx-auto">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+
+      <!-- 01 -->
+      <div class="belief-card" data-animate="fade-up">
+        <div class="belief-num">01</div>
+        <h3 class="font-headline font-black text-[#f2e5f0] text-lg mb-3">La Autoridad de las Escrituras</h3>
+        <p class="font-body text-[#f2e5f0]/65 text-sm leading-relaxed mb-4">
+          Creemos que la Biblia es la Palabra de Dios divinamente inspirada e infalible, el árbitro final de la fe y la práctica cristiana. Toda doctrina, práctica y herramienta en Formation Bible Study está sometida a la Escritura.
+        </p>
+        <div class="scripture-block">
+          <p class="font-headline text-[#f2e5f0] text-sm leading-relaxed italic mb-2">
+            "Toda Escritura es <strong class="not-italic text-[#E9C349]">inspirada por Dios</strong> y útil para enseñar, para reprender, para corregir y para instruir en la justicia."
+          </p>
+          <p class="font-label text-[10px] uppercase tracking-widest text-[#f2e5f0]/40">2 Timoteo 3:16</p>
+        </div>
+      </div>
+
+      <!-- 02 -->
+      <div class="belief-card" data-animate="fade-up">
+        <div class="belief-num">02</div>
+        <h3 class="font-headline font-black text-[#f2e5f0] text-lg mb-3">El Dios Trino</h3>
+        <p class="font-body text-[#f2e5f0]/65 text-sm leading-relaxed mb-4">
+          Creemos en un solo Dios que existe eternamente en tres personas — Padre, Hijo y Espíritu Santo — igual en esencia, distinto en persona.
+        </p>
+        <div class="scripture-block">
+          <p class="font-headline text-[#f2e5f0] text-sm leading-relaxed italic mb-2">
+            "Id y haced discípulos... bautizándolos en el nombre del <strong class="not-italic text-[#E9C349]">Padre, y del Hijo, y del Espíritu Santo</strong>."
+          </p>
+          <p class="font-label text-[10px] uppercase tracking-widest text-[#f2e5f0]/40">Mateo 28:19</p>
+        </div>
+      </div>
+
+      <!-- 03 -->
+      <div class="belief-card" data-animate="fade-up">
+        <div class="belief-num">03</div>
+        <h3 class="font-headline font-black text-[#f2e5f0] text-lg mb-3">Jesucristo, Señor y Salvador</h3>
+        <p class="font-body text-[#f2e5f0]/65 text-sm leading-relaxed mb-4">
+          Creemos que Jesucristo es el eterno Hijo de Dios, completamente divino y completamente humano, que murió en expiación por el pecado, resucitó corporalmente de entre los muertos y ascendió a la diestra del Padre.
+        </p>
+        <div class="scripture-block">
+          <p class="font-headline text-[#f2e5f0] text-sm leading-relaxed italic mb-2">
+            "Porque hay un solo Dios, y un solo <strong class="not-italic text-[#E9C349]">mediador entre Dios y los hombres: Jesucristo hombre</strong>."
+          </p>
+          <p class="font-label text-[10px] uppercase tracking-widest text-[#f2e5f0]/40">1 Timoteo 2:5</p>
+        </div>
+      </div>
+
+      <!-- 04 -->
+      <div class="belief-card" data-animate="fade-up">
+        <div class="belief-num">04</div>
+        <h3 class="font-headline font-black text-[#f2e5f0] text-lg mb-3">El Espíritu Santo</h3>
+        <p class="font-body text-[#f2e5f0]/65 text-sm leading-relaxed mb-4">
+          Creemos que el Espíritu Santo habita en cada creyente, otorga dones espirituales, produce el fruto de la piedad e ilumina las Escrituras. Formation Bible Study depende del Espíritu para hacer la Palabra viva en el estudio de cada usuario.
+        </p>
+        <div class="scripture-block">
+          <p class="font-headline text-[#f2e5f0] text-sm leading-relaxed italic mb-2">
+            "Pero cuando venga el <strong class="not-italic text-[#E9C349]">Espíritu de la verdad, él os guiará a toda la verdad</strong>."
+          </p>
+          <p class="font-label text-[10px] uppercase tracking-widest text-[#f2e5f0]/40">Juan 16:13</p>
+        </div>
+      </div>
+
+      <!-- 05 -->
+      <div class="belief-card" data-animate="fade-up">
+        <div class="belief-num">05</div>
+        <h3 class="font-headline font-black text-[#f2e5f0] text-lg mb-3">La Caída y el Pecado</h3>
+        <p class="font-body text-[#f2e5f0]/65 text-sm leading-relaxed mb-4">
+          Creemos que la humanidad, creada buena, eligió la desobediencia y cayó en el pecado. Todos los seres humanos son pecadores por naturaleza y necesitan redención. Esta es la razón por la que el evangelio es noticia, no consejo.
+        </p>
+        <div class="scripture-block">
+          <p class="font-headline text-[#f2e5f0] text-sm leading-relaxed italic mb-2">
+            "Por cuanto <strong class="not-italic text-[#E9C349]">todos pecaron</strong>, y están destituidos de la gloria de Dios."
+          </p>
+          <p class="font-label text-[10px] uppercase tracking-widest text-[#f2e5f0]/40">Romanos 3:23</p>
+        </div>
+      </div>
+
+      <!-- 06 -->
+      <div class="belief-card" data-animate="fade-up">
+        <div class="belief-num">06</div>
+        <h3 class="font-headline font-black text-[#f2e5f0] text-lg mb-3">La Salvación por Gracia mediante la Fe</h3>
+        <p class="font-body text-[#f2e5f0]/65 text-sm leading-relaxed mb-4">
+          Creemos que la salvación es un regalo de Dios, recibido a través de la fe en Jesucristo solo — no por obras, méritos o rituales religiosos. La fe salvadora transforma el corazón y produce obediencia.
+        </p>
+        <div class="scripture-block">
+          <p class="font-headline text-[#f2e5f0] text-sm leading-relaxed italic mb-2">
+            "Porque <strong class="not-italic text-[#E9C349]">por gracia sois salvos por medio de la fe</strong>; y esto no de vosotros, pues es don de Dios."
+          </p>
+          <p class="font-label text-[10px] uppercase tracking-widest text-[#f2e5f0]/40">Efesios 2:8</p>
+        </div>
+      </div>
+
+      <!-- 07 -->
+      <div class="belief-card" data-animate="fade-up">
+        <div class="belief-num">07</div>
+        <h3 class="font-headline font-black text-[#f2e5f0] text-lg mb-3">La Gran Comisión</h3>
+        <p class="font-body text-[#f2e5f0]/65 text-sm leading-relaxed mb-4">
+          Creemos que la iglesia está llamada a hacer discípulos de todas las naciones — enseñando, bautizando y formando creyentes que obedezcan todo lo que Cristo mandó. Formation Bible Study existe para servir esta misión.
+        </p>
+        <div class="scripture-block">
+          <p class="font-headline text-[#f2e5f0] text-sm leading-relaxed italic mb-2">
+            "Por tanto, id y <strong class="not-italic text-[#E9C349]">haced discípulos de todas las naciones</strong>."
+          </p>
+          <p class="font-label text-[10px] uppercase tracking-widest text-[#f2e5f0]/40">Mateo 28:19</p>
+        </div>
+      </div>
+
+      <!-- 08 -->
+      <div class="belief-card" data-animate="fade-up">
+        <div class="belief-num">08</div>
+        <h3 class="font-headline font-black text-[#f2e5f0] text-lg mb-3">La Iglesia Local</h3>
+        <p class="font-body text-[#f2e5f0]/65 text-sm leading-relaxed mb-4">
+          Creemos en la importancia de la iglesia local como el cuerpo reunido de creyentes, donde la Palabra se predica, los sacramentos se administran y el discipulado tiene lugar. Formation Bible Study no reemplaza a tu iglesia — la equipa.
+        </p>
+        <div class="scripture-block">
+          <p class="font-headline text-[#f2e5f0] text-sm leading-relaxed italic mb-2">
+            "Como el <strong class="not-italic text-[#E9C349]">hierro afila al hierro</strong>, así el hombre afila el rostro de su amigo."
+          </p>
+          <p class="font-label text-[10px] uppercase tracking-widest text-[#f2e5f0]/40">Proverbios 27:17</p>
+        </div>
+      </div>
+
+      <!-- 09 -->
+      <div class="belief-card" data-animate="fade-up">
+        <div class="belief-num">09</div>
+        <h3 class="font-headline font-black text-[#f2e5f0] text-lg mb-3">La Resurrección Corporal</h3>
+        <p class="font-body text-[#f2e5f0]/65 text-sm leading-relaxed mb-4">
+          Creemos en la resurrección corporal de Jesucristo y en la futura resurrección de todos los creyentes. La esperanza del evangelio es encarnada, no meramente espiritual.
+        </p>
+        <div class="scripture-block">
+          <p class="font-headline text-[#f2e5f0] text-sm leading-relaxed italic mb-2">
+            "Jesús le dijo: <strong class="not-italic text-[#E9C349]">Yo soy la resurrección y la vida</strong>; el que cree en mí, aunque muera, vivirá."
+          </p>
+          <p class="font-label text-[10px] uppercase tracking-widest text-[#f2e5f0]/40">Juan 11:25</p>
+        </div>
+      </div>
+
+      <!-- 10 -->
+      <div class="belief-card" data-animate="fade-up">
+        <div class="belief-num">10</div>
+        <h3 class="font-headline font-black text-[#f2e5f0] text-lg mb-3">El Retorno de Cristo</h3>
+        <p class="font-body text-[#f2e5f0]/65 text-sm leading-relaxed mb-4">
+          Creemos en el retorno personal, visible y corporal de Jesucristo para juzgar a los vivos y a los muertos y para consumar el reino de Dios.
+        </p>
+        <div class="scripture-block">
+          <p class="font-headline text-[#f2e5f0] text-sm leading-relaxed italic mb-2">
+            "Y si me fuere y os preparare lugar, <strong class="not-italic text-[#E9C349]">vendré otra vez, y os tomaré a mí mismo</strong>."
+          </p>
+          <p class="font-label text-[10px] uppercase tracking-widest text-[#f2e5f0]/40">Juan 14:3</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="section-divider max-w-4xl mx-auto"/>
+
+  <!-- CTA -->
+  <section class="relative z-10 px-6 py-16 pb-20 max-w-4xl mx-auto">
+    <div data-animate="scale-up" class="bg-gradient-to-br from-[#3D1540] to-[#5C2A5A] border border-[#FFB4A4]/20 rounded-3xl p-10 text-center">
+      <span class="material-symbols-outlined text-[#E9C349] text-4xl mb-4 block">menu_book</span>
+      <h2 class="font-headline text-2xl md:text-3xl font-black text-[#f2e5f0] mb-4">Estudia Como un Bereo</h2>
+      <p class="font-body text-[#f2e5f0]/60 text-base leading-relaxed mb-8 max-w-lg mx-auto">
+        Los bereos examinaban las Escrituras todos los días para ver si lo que escuchaban era verdad. Formation Bible Study está construida para eso.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="signup.html" class="bg-gradient-to-br from-[#FFB4A4] to-[#6E2414] text-[#5D1809] px-8 py-4 rounded-full font-bold text-base hover:opacity-90 transition-opacity">
+          Únete a la Lista de Espera →
+        </a>
+        <a href="mission.html" class="border border-[#f2e5f0]/20 text-[#f2e5f0]/70 px-8 py-4 rounded-full font-body text-base hover:border-[#FFB4A4]/40 hover:text-[#FFB4A4] transition-all">
+          Nuestra Misión
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pie de Página -->
+  <footer class="bg-[#3D1540] w-full py-12 border-t border-[#f2e5f0]/10 relative z-10">
+    <div class="flex flex-col md:flex-row justify-between items-center w-full px-8 max-w-7xl mx-auto gap-8">
+      <div class="text-xl font-headline font-bold text-[#FFB4A4]">Formación Bíblica</div>
+      <div class="flex flex-wrap justify-center gap-6">
+        <a class="text-[#f2e5f0]/50 font-body text-sm hover:text-[#E8816A] transition-all" href="index.html">Inicio</a>
+        <a class="text-[#f2e5f0]/50 font-body text-sm hover:text-[#E8816A] transition-all" href="features.html">Características</a>
+        <a class="text-[#f2e5f0]/50 font-body text-sm hover:text-[#E8816A] transition-all" href="pricing.html">Precios</a>
+        <a class="text-[#f2e5f0]/50 font-body text-sm hover:text-[#E8816A] transition-all" href="privacy_policy.html">Política de Privacidad</a>
+        <a class="text-[#f2e5f0]/50 font-body text-sm hover:text-[#E8816A] transition-all" href="terms.html">Términos</a>
+        <a class="text-[#f2e5f0]/50 font-body text-sm hover:text-[#E8816A] transition-all" href="contact.html">Contacto</a>
+      </div>
+      <p class="text-[#f2e5f0]/40 font-body text-[10px] uppercase tracking-widest">© 2026 Berean Defense LLC. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('main-nav');
+    window.addEventListener('scroll', () => nav.classList.toggle('nav-scrolled', window.scrollY > 20));
+    document.getElementById('nav-toggle').addEventListener('click', () => document.getElementById('mobile-menu').classList.toggle('open'));
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('[data-animate]').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

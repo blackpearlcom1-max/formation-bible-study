@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Children's Privacy Notice (COPPA) — Formation Bible Study</title>
+  <meta name="description" content="Formation Bible Study's Children's Privacy Notice explains our policies regarding children under 13, parental consent, and how to request deletion of a child's data."/>
+
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Manrope:wght@300;400;500;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "secondary":                  "#e9c349",
+            "on-surface-variant":         "#d2c2cc",
+            "on-surface":                 "#f2e5f0",
+            "surface-container-highest":  "#7E3A6C",
+            "secondary-container":        "#af8d11",
+            "on-secondary":               "#3c2f00",
+            "primary":                    "#ffb4a4",
+            "primary-container":          "#6e2414",
+            "surface-variant":            "#7E3A6C",
+            "outline":                    "#c4a0c2",
+            "surface-container-lowest":   "#3D1540",
+            "surface-container-high":     "#703060",
+            "surface-container":          "#5C2A5A",
+            "on-secondary-fixed":         "#241a00",
+            "inverse-primary":            "#9a4431",
+            "on-primary":                 "#5d1809",
+            "surface-dim":                "#4A1D4D",
+            "outline-variant":            "#7A5478",
+            "surface-container-low":      "#4A1D4D",
+            "on-background":              "#f2e5f0",
+            "surface":                    "#5C2A5A",
+            "background":                 "#5C2A5A",
+            "on-primary-container":       "#f58b73",
+            "tertiary":                   "#ffb4a4",
+            "tertiary-container":         "#6e2414",
+            "on-tertiary":                "#5d1809",
+            "on-tertiary-container":      "#f48b73",
+            "surface-bright":             "#8A4478",
+            "inverse-surface":            "#eae0e7",
+            "inverse-on-surface":         "#342f34"
+          },
+          borderRadius: {
+            DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem",
+            "2xl": "1rem", "3xl": "1.5rem", full: "9999px"
+          },
+          fontFamily: {
+            headline: ["Noto Serif",  "serif"],
+            body:     ["Manrope", "sans-serif"],
+            label:    ["Manrope", "sans-serif"]
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .material-symbols-outlined { font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24; }
+    body { background-color: #5C2A5A; }
+
+    .grain-overlay {
+      pointer-events:none; position:fixed; inset:0; z-index:99; opacity:0.04;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    }
+    #mobile-menu { display:none; }
+    #mobile-menu.open { display:flex; }
+    .nav-scrolled { background-color:rgba(61,21,64,0.95) !important; }
+
+    @keyframes orbFloat1 { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(40px,-25px) scale(1.04)} 66%{transform:translate(-25px,20px) scale(0.97)} }
+    @keyframes orbFloat2 { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(-35px,28px) scale(0.96)} 66%{transform:translate(28px,-18px) scale(1.03)} }
+    @keyframes shimmer  { 0%{background-position:-250% center} 100%{background-position:250% center} }
+
+    .orb { position:fixed; border-radius:50%; filter:blur(90px); pointer-events:none; z-index:0; }
+    .orb-1 { width:650px; height:650px; top:-150px; left:-120px;  background:radial-gradient(circle,rgba(255,180,164,0.11) 0%,transparent 70%); animation:orbFloat1 22s ease-in-out infinite; }
+    .orb-2 { width:520px; height:520px; top:28%;   right:-130px; background:radial-gradient(circle,rgba(233,195,73,0.08)  0%,transparent 70%); animation:orbFloat2 28s ease-in-out infinite; }
+    .orb-3 { width:420px; height:420px; bottom:8%; left:25%;     background:radial-gradient(circle,rgba(255,180,164,0.07) 0%,transparent 70%); animation:orbFloat1 34s ease-in-out infinite reverse; }
+
+    [data-animate] { opacity:0; transition:opacity 0.8s cubic-bezier(0.25,0.46,0.45,0.94), transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94); }
+    [data-animate="fade-up"]    { transform:translateY(34px); }
+    [data-animate="scale-up"]   { transform:scale(0.93) translateY(20px); }
+    [data-animate].is-visible   { opacity:1; transform:none; }
+
+    .shimmer-text {
+      background:linear-gradient(90deg, #e9c349 0%, #ffb4a4 32%, #e9c349 52%, #ffb4a4 78%, #e9c349 100%);
+      background-size:260% auto; -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+      background-clip:text; animation:shimmer 5.5s linear infinite;
+    }
+
+    .info-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(242,229,240,0.1);
+      border-radius: 16px;
+      padding: 20px 24px;
+      transition: background 0.25s, border-color 0.25s;
+    }
+    .info-card:hover {
+      background: rgba(255,255,255,0.07);
+      border-color: rgba(255,180,164,0.25);
+    }
+
+    .warning-card {
+      background: rgba(233,195,73,0.07);
+      border: 1px solid rgba(233,195,73,0.25);
+      border-radius: 16px;
+      padding: 20px 24px;
+    }
+
+    .step-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(242,229,240,0.1);
+      border-radius: 16px;
+      padding: 20px 24px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      transition: background 0.25s, border-color 0.25s;
+    }
+    .step-card:hover {
+      background: rgba(255,255,255,0.07);
+      border-color: rgba(255,180,164,0.25);
+    }
+    .step-num {
+      width: 32px; height: 32px; min-width: 32px;
+      border-radius: 50%;
+      background: rgba(233,195,73,0.15);
+      border: 1px solid rgba(233,195,73,0.3);
+      display: flex; align-items: center; justify-content: center;
+      font-family: Manrope, sans-serif;
+      font-size: 0.75rem; font-weight: 800;
+      color: #E9C349;
+    }
+
+    .section-divider { border:none; border-top:1px solid rgba(242,229,240,0.1); margin:0; }
+  </style>
+</head>
+<body class="font-body text-on-surface min-h-screen">
+
+  <div class="grain-overlay"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <!-- Navigation -->
+  <nav id="main-nav" class="fixed top-0 w-full z-50 bg-[#3D1540]/80 backdrop-blur-xl shadow-[0_20px_40px_-5px_rgba(61,21,64,0.3)] transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="index.html" class="text-2xl font-headline font-black text-[#FFB4A4] hover:opacity-80 transition-opacity">Formation Bible Study</a>
+      <div class="hidden md:flex items-center gap-8">
+        <a href="index.html" class="text-[#f2e5f0]/70 font-body text-sm hover:text-[#FFB4A4] transition-colors">Home</a>
+        <a href="features.html" class="text-[#f2e5f0]/70 font-body text-sm hover:text-[#FFB4A4] transition-colors">Features</a>
+        <a href="pricing.html" class="text-[#f2e5f0]/70 font-body text-sm hover:text-[#FFB4A4] transition-colors">Pricing</a>
+        <a href="signup.html" class="bg-gradient-to-br from-[#FFB4A4] to-[#6E2414] text-[#5D1809] px-6 py-2.5 rounded-full font-bold text-sm hover:opacity-90 transition-opacity">Join the Waitlist →</a>
+      </div>
+      <button id="nav-toggle" class="md:hidden text-[#f2e5f0] p-2" aria-label="Open menu">
+        <span class="material-symbols-outlined">menu</span>
+      </button>
+    </div>
+    <div id="mobile-menu" class="flex-col bg-[#3D1540] px-6 pb-6 gap-4 md:hidden">
+      <a href="index.html" class="text-[#f2e5f0]/80 font-body text-base py-2 border-b border-[#f2e5f0]/10">Home</a>
+      <a href="features.html" class="text-[#f2e5f0]/80 font-body text-base py-2 border-b border-[#f2e5f0]/10">Features</a>
+      <a href="pricing.html" class="text-[#f2e5f0]/80 font-body text-base py-2 border-b border-[#f2e5f0]/10">Pricing</a>
+      <a href="signup.html" class="bg-gradient-to-br from-[#FFB4A4] to-[#6E2414] text-[#5D1809] px-6 py-3 rounded-full font-bold text-sm text-center mt-2">Join the Waitlist →</a>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <section class="relative z-10 pt-36 pb-12 px-6">
+    <div class="max-w-3xl mx-auto">
+      <div data-animate="fade-up" class="inline-flex items-center gap-2 bg-[#3D1540]/70 border border-[#f2e5f0]/10 rounded-full px-4 py-1.5 mb-6">
+        <span class="material-symbols-outlined text-[#E9C349] text-base">child_care</span>
+        <span class="font-label text-[11px] uppercase tracking-widest text-[#E9C349]">Children's Privacy</span>
+      </div>
+      <h1 data-animate="fade-up" class="font-headline text-4xl md:text-5xl font-black leading-tight mb-4">
+        Children's Privacy <span class="shimmer-text">Notice</span>
+      </h1>
+      <p data-animate="fade-up" class="font-body text-[#f2e5f0]/60 text-lg leading-relaxed mb-6">
+        Formation Bible Study is designed for adult Bible students. This notice explains our policies regarding children, parental rights, and how families can use our platform responsibly.
+      </p>
+      <div data-animate="fade-up" class="flex flex-wrap gap-4 text-sm text-[#f2e5f0]/40 font-body">
+        <span>Effective: January 1, 2026</span>
+        <span class="text-[#f2e5f0]/20">·</span>
+        <span>Last updated: April 16, 2026</span>
+        <span class="text-[#f2e5f0]/20">·</span>
+        <span>Berean Defense LLC</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Summary Banner -->
+  <section class="relative z-10 px-6 pb-12">
+    <div class="max-w-3xl mx-auto">
+      <div data-animate="scale-up" class="bg-[#3D1540]/60 border border-[#E9C349]/20 rounded-2xl p-6">
+        <div class="flex items-start gap-3 mb-4">
+          <span class="material-symbols-outlined text-[#E9C349] mt-0.5">lightbulb</span>
+          <div>
+            <h2 class="font-headline font-bold text-[#E9C349] text-base mb-1">The Short Version</h2>
+            <p class="font-body text-[#f2e5f0]/70 text-sm leading-relaxed">
+              Formation Bible Study does not knowingly collect personal information from children under 13. If we learn that a child under 13 has created an account, we will delete it promptly. Users ages 13–17 may use Formation Bible Study only with verified parental or guardian consent. If you are a parent with concerns, contact us at <a href="mailto:privacy@formation.app" class="text-[#FFB4A4] hover:underline">privacy@formation.app</a>.
+            </p>
+          </div>
+        </div>
+        <div class="grid grid-cols-3 gap-3 mt-4">
+          <div class="flex flex-col items-center gap-1 bg-[#5C2A5A]/60 rounded-xl p-3">
+            <span class="material-symbols-outlined text-[#FFB4A4] text-xl">block</span>
+            <span class="font-label text-[10px] uppercase tracking-wider text-[#f2e5f0]/50 text-center">Under 13: not permitted</span>
+          </div>
+          <div class="flex flex-col items-center gap-1 bg-[#5C2A5A]/60 rounded-xl p-3">
+            <span class="material-symbols-outlined text-[#FFB4A4] text-xl">family_restroom</span>
+            <span class="font-label text-[10px] uppercase tracking-wider text-[#f2e5f0]/50 text-center">Ages 13–17: parent consent</span>
+          </div>
+          <div class="flex flex-col items-center gap-1 bg-[#5C2A5A]/60 rounded-xl p-3">
+            <span class="material-symbols-outlined text-[#FFB4A4] text-xl">delete_forever</span>
+            <span class="font-label text-[10px] uppercase tracking-wider text-[#f2e5f0]/50 text-center">Deletable on request</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Table of Contents -->
+  <section class="relative z-10 px-6 pb-10">
+    <div class="max-w-3xl mx-auto">
+      <div data-animate="fade-up" class="bg-[#3D1540]/40 border border-[#f2e5f0]/10 rounded-2xl p-6">
+        <h2 class="font-label text-[11px] uppercase tracking-widest text-[#f2e5f0]/40 mb-4">Contents</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+          <a href="#who-coppa-applies" class="font-body text-sm text-[#f2e5f0]/60 hover:text-[#FFB4A4] transition-colors flex items-center gap-2"><span class="text-[#E9C349] font-bold text-xs">01</span> Who COPPA Applies To</a>
+          <a href="#no-under-13" class="font-body text-sm text-[#f2e5f0]/60 hover:text-[#FFB4A4] transition-colors flex items-center gap-2"><span class="text-[#E9C349] font-bold text-xs">02</span> Children Under 13</a>
+          <a href="#ages-13-17" class="font-body text-sm text-[#f2e5f0]/60 hover:text-[#FFB4A4] transition-colors flex items-center gap-2"><span class="text-[#E9C349] font-bold text-xs">03</span> Users Ages 13–17</a>
+          <a href="#parental-rights" class="font-body text-sm text-[#f2e5f0]/60 hover:text-[#FFB4A4] transition-colors flex items-center gap-2"><span class="text-[#E9C349] font-bold text-xs">04</span> Parental Rights</a>
+          <a href="#how-to-request" class="font-body text-sm text-[#f2e5f0]/60 hover:text-[#FFB4A4] transition-colors flex items-center gap-2"><span class="text-[#E9C349] font-bold text-xs">05</span> How to Submit a Request</a>
+          <a href="#what-we-collect" class="font-body text-sm text-[#f2e5f0]/60 hover:text-[#FFB4A4] transition-colors flex items-center gap-2"><span class="text-[#E9C349] font-bold text-xs">06</span> What Data May Be Involved</a>
+          <a href="#contact" class="font-body text-sm text-[#f2e5f0]/60 hover:text-[#FFB4A4] transition-colors flex items-center gap-2"><span class="text-[#E9C349] font-bold text-xs">07</span> Contact &amp; Complaints</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider max-w-3xl mx-auto"/>
+
+  <!-- Main Content -->
+  <main class="relative z-10 px-6 py-12 max-w-3xl mx-auto space-y-14">
+
+    <!-- 1. Who COPPA Applies To -->
+    <section id="who-coppa-applies" data-animate="fade-up">
+      <div class="flex items-center gap-3 mb-5">
+        <span class="text-[#E9C349] font-headline font-black text-lg">01</span>
+        <h2 class="font-headline text-2xl font-bold text-[#FFB4A4]">Who COPPA Applies To</h2>
+      </div>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-4">
+        The Children's Online Privacy Protection Act (<strong class="text-[#f2e5f0]">COPPA</strong>) is a United States federal law that governs the collection of personal information from children under the age of 13 by online services. Formation Bible Study (operated by Berean Defense LLC) complies fully with COPPA and its implementing regulations enforced by the Federal Trade Commission (FTC).
+      </p>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-4">
+        Formation Bible Study is a Bible study application intended for users aged 13 and older. It is not directed at, designed for, or marketed to children under 13. We do not use age-directed content, cartoon characters, animated characters, or any other features that would primarily appeal to children under 13.
+      </p>
+      <div class="info-card flex items-start gap-3">
+        <span class="material-symbols-outlined text-[#FFB4A4] text-xl mt-0.5">gavel</span>
+        <div>
+          <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Legal Basis</p>
+          <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">This notice satisfies our disclosure obligations under 15 U.S.C. § 6501 et seq. (COPPA) and 16 C.F.R. Part 312. It is posted prominently and is accessible directly from our website and app at all times.</p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider"/>
+
+    <!-- 2. Children Under 13 -->
+    <section id="no-under-13" data-animate="fade-up">
+      <div class="flex items-center gap-3 mb-5">
+        <span class="text-[#E9C349] font-headline font-black text-lg">02</span>
+        <h2 class="font-headline text-2xl font-bold text-[#FFB4A4]">Children Under 13</h2>
+      </div>
+
+      <div class="warning-card flex items-start gap-3 mb-6">
+        <span class="material-symbols-outlined text-[#E9C349] text-xl mt-0.5 flex-shrink-0">warning</span>
+        <div>
+          <p class="font-body font-semibold text-[#E9C349] text-sm mb-1">Not Permitted</p>
+          <p class="font-body text-[#f2e5f0]/70 text-sm leading-relaxed">Formation Bible Study does not permit children under the age of 13 to create an account, use the app, or submit any personal information. If you are under 13, please do not attempt to register or send us any information about yourself.</p>
+        </div>
+      </div>
+
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-4">
+        We do not knowingly collect, use, or disclose personal information from children under 13. During the account registration process, we ask users to confirm they meet the minimum age requirement. If we determine — through user reports, parental contact, or our own review — that a user is under 13, we will:
+      </p>
+
+      <div class="space-y-3">
+        <div class="step-card">
+          <div class="step-num">1</div>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Immediately suspend the account</p>
+            <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">Access to the Formation Bible Study account and all its features will be suspended pending review and deletion.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">2</div>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Delete all personal data within 30 days</p>
+            <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">All personal information associated with the account — including name, email, notes, highlights, and usage history — will be permanently deleted from our systems within 30 days.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">3</div>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Notify the parent or guardian (if known)</p>
+            <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">If we have a parent or guardian's contact information, we will notify them of the action taken and confirm when deletion is complete.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider"/>
+
+    <!-- 3. Users Ages 13–17 -->
+    <section id="ages-13-17" data-animate="fade-up">
+      <div class="flex items-center gap-3 mb-5">
+        <span class="text-[#E9C349] font-headline font-black text-lg">03</span>
+        <h2 class="font-headline text-2xl font-bold text-[#FFB4A4]">Users Ages 13–17</h2>
+      </div>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-6">
+        Users between the ages of 13 and 17 (<strong class="text-[#f2e5f0]">minors</strong>) may use Formation Bible Study, but only with the <strong class="text-[#f2e5f0]">verified consent of a parent or legal guardian</strong>. By allowing a minor to create or use a Formation Bible Study account, the parent or guardian represents that:
+      </p>
+
+      <div class="space-y-3 mb-6">
+        <div class="info-card flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#E9C349] text-xl mt-0.5">check_circle</span>
+          <div>
+            <p class="font-body text-[#f2e5f0]/70 text-sm leading-relaxed">They have reviewed these Terms of Service and this Children's Privacy Notice and consent to their minor's use of Formation Bible Study.</p>
+          </div>
+        </div>
+        <div class="info-card flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#E9C349] text-xl mt-0.5">check_circle</span>
+          <div>
+            <p class="font-body text-[#f2e5f0]/70 text-sm leading-relaxed">They accept responsibility for ensuring their minor uses Formation Bible Study in accordance with our <a href="terms.html" class="text-[#FFB4A4] hover:underline">Terms of Service</a> and <a href="content-policy.html" class="text-[#FFB4A4] hover:underline">Content Policy</a>.</p>
+          </div>
+        </div>
+        <div class="info-card flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#E9C349] text-xl mt-0.5">check_circle</span>
+          <div>
+            <p class="font-body text-[#f2e5f0]/70 text-sm leading-relaxed">They consent to the collection, use, and disclosure of their minor's personal information as described in our <a href="privacy_policy.html" class="text-[#FFB4A4] hover:underline">Privacy Policy</a>.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-card flex items-start gap-3">
+        <span class="material-symbols-outlined text-[#FFB4A4] text-xl mt-0.5">info</span>
+        <div>
+          <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Formation Bible Study is Safe for Teen Bible Study</p>
+          <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">Formation Bible Study does not contain adult content, violent content, or user-generated content visible to the general public. The AI Study Assistant is configured for Bible study purposes only and will not engage with content inappropriate for minors. Community features (study groups, discussion threads) are moderated.</p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider"/>
+
+    <!-- 4. Parental Rights -->
+    <section id="parental-rights" data-animate="fade-up">
+      <div class="flex items-center gap-3 mb-5">
+        <span class="text-[#E9C349] font-headline font-black text-lg">04</span>
+        <h2 class="font-headline text-2xl font-bold text-[#FFB4A4]">Parental Rights</h2>
+      </div>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-6">
+        If you are a parent or legal guardian of a minor who uses Formation Bible Study, you have the following rights under COPPA and Formation Bible Study's policies. To exercise any of these rights, contact us at <a href="mailto:privacy@formation.app" class="text-[#FFB4A4] hover:underline">privacy@formation.app</a>.
+      </p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div class="info-card">
+          <span class="material-symbols-outlined text-[#E9C349] text-xl mb-2 block">visibility</span>
+          <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Review</p>
+          <p class="font-body text-[#f2e5f0]/60 text-xs leading-relaxed">Request a copy of the personal information we have collected from your child. We will provide this within 30 days of verifying your identity as the parent or guardian.</p>
+        </div>
+        <div class="info-card">
+          <span class="material-symbols-outlined text-[#E9C349] text-xl mb-2 block">delete</span>
+          <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Delete</p>
+          <p class="font-body text-[#f2e5f0]/60 text-xs leading-relaxed">Request deletion of your child's account and all associated personal information. Deletion is permanent and will be completed within 30 days.</p>
+        </div>
+        <div class="info-card">
+          <span class="material-symbols-outlined text-[#E9C349] text-xl mb-2 block">block</span>
+          <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Withdraw Consent</p>
+          <p class="font-body text-[#f2e5f0]/60 text-xs leading-relaxed">Withdraw your consent to our continued collection or use of your child's information at any time. Withdrawal of consent will result in account suspension and data deletion.</p>
+        </div>
+        <div class="info-card">
+          <span class="material-symbols-outlined text-[#E9C349] text-xl mb-2 block">smart_toy</span>
+          <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Restrict AI Features</p>
+          <p class="font-body text-[#f2e5f0]/60 text-xs leading-relaxed">Request that the AI Study Assistant be disabled for your child's account, so their queries are not transmitted to our third-party AI provider (Anthropic).</p>
+        </div>
+        <div class="info-card">
+          <span class="material-symbols-outlined text-[#E9C349] text-xl mb-2 block">edit</span>
+          <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Correct</p>
+          <p class="font-body text-[#f2e5f0]/60 text-xs leading-relaxed">Request correction of any inaccurate personal information we hold about your child — such as an incorrect name or email address.</p>
+        </div>
+        <div class="info-card">
+          <span class="material-symbols-outlined text-[#E9C349] text-xl mb-2 block">groups</span>
+          <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Restrict Community Features</p>
+          <p class="font-body text-[#f2e5f0]/60 text-xs leading-relaxed">Request that your child's account be restricted from community features such as discussion threads, study groups, and public profiles.</p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider"/>
+
+    <!-- 5. How to Submit a Request -->
+    <section id="how-to-request" data-animate="fade-up">
+      <div class="flex items-center gap-3 mb-5">
+        <span class="text-[#E9C349] font-headline font-black text-lg">05</span>
+        <h2 class="font-headline text-2xl font-bold text-[#FFB4A4]">How to Submit a Request</h2>
+      </div>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-6">
+        To protect children's privacy, we verify the identity of all parents and guardians before processing any request involving a minor's data. Here is how to submit a request.
+      </p>
+
+      <div class="space-y-3 mb-6">
+        <div class="step-card">
+          <div class="step-num">1</div>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Email us at privacy@formation.app</p>
+            <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">Send your request from the email address associated with the parent or guardian. Include your name, your child's name, and the email address used to register their Formation Bible Study account.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">2</div>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">State clearly what you are requesting</p>
+            <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">Tell us whether you are requesting to review, delete, correct, or restrict your child's data, or whether you are withdrawing consent. Be as specific as possible.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">3</div>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">We will verify your identity</p>
+            <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">We may ask for reasonable verification that you are the child's parent or legal guardian before processing your request. This protects your child from unauthorized data requests by third parties.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">4</div>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">We respond within 30 days</p>
+            <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">We will confirm receipt of your request within 5 business days and complete all actions within 30 days. For deletion requests, we will confirm in writing when the deletion is complete.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="warning-card flex items-start gap-3">
+        <span class="material-symbols-outlined text-[#E9C349] text-xl mt-0.5 flex-shrink-0">info</span>
+        <div>
+          <p class="font-body font-semibold text-[#E9C349] text-sm mb-1">Note on Retention</p>
+          <p class="font-body text-[#f2e5f0]/70 text-sm leading-relaxed">Even after deletion, we may retain certain minimal information where required by law — for example, billing records may be kept for up to 7 years for tax and accounting compliance. We will clearly disclose what, if anything, is retained and why at the time of your request.</p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider"/>
+
+    <!-- 6. What Data May Be Involved -->
+    <section id="what-we-collect" data-animate="fade-up">
+      <div class="flex items-center gap-3 mb-5">
+        <span class="text-[#E9C349] font-headline font-black text-lg">06</span>
+        <h2 class="font-headline text-2xl font-bold text-[#FFB4A4]">What Data May Be Involved</h2>
+      </div>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-6">
+        If a minor has used Formation Bible Study, the following categories of personal information may have been collected as part of normal app operation. This information is covered by any parental review, deletion, or correction request.
+      </p>
+      <div class="space-y-3">
+        <div class="info-card flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#FFB4A4] text-xl mt-0.5">person</span>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Account Information</p>
+            <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">Name and email address provided at registration. If the minor signed in with Google or Apple, their name and email were received from those providers.</p>
+          </div>
+        </div>
+        <div class="info-card flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#FFB4A4] text-xl mt-0.5">menu_book</span>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Study Content</p>
+            <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">Notes, highlights, bookmarks, reading plan progress, and prayer journal entries created within the app. This content belongs to the user and is included in any deletion request.</p>
+          </div>
+        </div>
+        <div class="info-card flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#FFB4A4] text-xl mt-0.5">bar_chart</span>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Usage Data</p>
+            <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">Anonymized and aggregate usage information such as features accessed, session durations, and reading history. Used only for product improvement and not linked to a specific identity after anonymization.</p>
+          </div>
+        </div>
+        <div class="info-card flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#FFB4A4] text-xl mt-0.5">smart_toy</span>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">AI Query History</p>
+            <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">Questions submitted to the AI Study Assistant. These queries are transmitted to Anthropic's API to generate responses. Formation Bible Study does not retain full AI conversation logs beyond the active session. See our <a href="ai_disclaimer.html" class="text-[#FFB4A4] hover:underline">AI Features Disclosure</a> for full details.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider"/>
+
+    <!-- 7. Contact & Complaints -->
+    <section id="contact" data-animate="fade-up">
+      <div class="flex items-center gap-3 mb-5">
+        <span class="text-[#E9C349] font-headline font-black text-lg">07</span>
+        <h2 class="font-headline text-2xl font-bold text-[#FFB4A4]">Contact &amp; Complaints</h2>
+      </div>
+      <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-6">
+        If you have questions about this Children's Privacy Notice, believe a child has provided us with information without parental consent, or wish to file a complaint, please contact us directly. We take all reports seriously and will respond promptly.
+      </p>
+      <div class="bg-[#3D1540]/60 border border-[#f2e5f0]/10 rounded-2xl p-6 space-y-4 mb-6">
+        <div class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#FFB4A4] text-xl mt-0.5">mail</span>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-0.5">Children's Privacy &amp; Parental Requests</p>
+            <a href="mailto:privacy@formation.app" class="font-body text-[#FFB4A4] text-sm hover:underline">privacy@formation.app</a>
+          </div>
+        </div>
+        <div class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#FFB4A4] text-xl mt-0.5">business</span>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm">Berean Defense LLC</p>
+            <p class="font-body text-[#f2e5f0]/60 text-sm">United States</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#FFB4A4] text-xl mt-0.5">schedule</span>
+          <div>
+            <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-0.5">Response Time</p>
+            <p class="font-body text-[#f2e5f0]/60 text-sm">Acknowledgment within 5 business days · Full resolution within 30 days</p>
+          </div>
+        </div>
+      </div>
+      <div class="info-card flex items-start gap-3">
+        <span class="material-symbols-outlined text-[#E9C349] text-xl mt-0.5">gavel</span>
+        <div>
+          <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">FTC Complaints</p>
+          <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">If you believe Formation Bible Study has not complied with COPPA, you may also file a complaint directly with the Federal Trade Commission at <a href="https://www.ftc.gov/about-ftc/bureaus-offices/bureau-consumer-protection/our-divisions/division-privacy-identity-protection" class="text-[#FFB4A4] hover:underline" target="_blank" rel="noopener noreferrer">ftc.gov</a> or by calling 1-877-FTC-HELP (1-877-382-4357).</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-[#3D1540] w-full py-12 border-t border-[#f2e5f0]/10 relative z-10">
+    <div class="flex flex-col md:flex-row justify-between items-center w-full px-8 max-w-7xl mx-auto gap-8">
+      <div class="text-xl font-headline font-bold text-[#FFB4A4]">Formation Bible Study</div>
+      <div class="flex flex-wrap justify-center gap-8">
+        <a class="text-[#f2e5f0]/50 font-label uppercase tracking-widest text-[10px] hover:text-[#E8816A] transition-all" href="privacy_policy.html">Privacy Policy</a>
+        <a class="text-[#f2e5f0]/50 font-label uppercase tracking-widest text-[10px] hover:text-[#E8816A] transition-all" href="terms.html">Terms of Service</a>
+        <a class="text-[#f2e5f0]/50 font-label uppercase tracking-widest text-[10px] hover:text-[#E8816A] transition-all" href="cookie_policy.html">Cookie Policy</a>
+        <a class="text-[#f2e5f0]/50 font-label uppercase tracking-widest text-[10px] hover:text-[#E8816A] transition-all" href="ai_disclaimer.html">AI Disclosure</a>
+        <a class="text-[#f2e5f0]/50 font-label uppercase tracking-widest text-[10px] hover:text-[#E8816A] transition-all" href="coppa.html" style="color:rgba(255,180,164,0.8)">Children's Privacy</a>
+        <a class="text-[#f2e5f0]/50 font-label uppercase tracking-widest text-[10px] hover:text-[#E8816A] transition-all" href="contact.html">Contact</a>
+      </div>
+      <div class="text-[#f2e5f0]/40 text-[10px] font-label uppercase tracking-widest">© 2026 Berean Defense LLC. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('main-nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('nav-scrolled', window.scrollY > 20);
+    });
+    document.getElementById('nav-toggle').addEventListener('click', () => {
+      document.getElementById('mobile-menu').classList.toggle('open');
+    });
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('is-visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('[data-animate]').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

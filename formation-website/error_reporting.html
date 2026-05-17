@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Report an Error — Formation Bible Study</title>
+  <meta name="description" content="Help us improve Formation Bible Study by reporting Scripture errors, AI inaccuracies, or technical issues. Every report is reviewed by a human."/>
+
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Manrope:wght@300;400;500;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "secondary": "#e9c349", "on-surface-variant": "#d2c2cc", "on-surface": "#f2e5f0",
+            "surface-container-highest": "#7E3A6C", "secondary-container": "#af8d11",
+            "on-secondary": "#3c2f00", "primary": "#ffb4a4", "primary-container": "#6e2414",
+            "surface-variant": "#7E3A6C", "outline": "#c4a0c2", "surface-container-lowest": "#3D1540",
+            "surface-container-high": "#703060", "surface-container": "#5C2A5A",
+            "on-secondary-fixed": "#241a00", "inverse-primary": "#9a4431", "on-primary": "#5d1809",
+            "surface-dim": "#4A1D4D", "outline-variant": "#7A5478", "surface-container-low": "#4A1D4D",
+            "on-background": "#f2e5f0", "surface": "#5C2A5A", "background": "#5C2A5A",
+            "on-primary-container": "#f58b73", "tertiary": "#ffb4a4", "tertiary-container": "#6e2414",
+            "on-tertiary": "#5d1809", "on-tertiary-container": "#f48b73", "surface-bright": "#8A4478",
+            "inverse-surface": "#eae0e7", "inverse-on-surface": "#342f34"
+          },
+          borderRadius: { DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", "2xl": "1rem", "3xl": "1.5rem", full: "9999px" },
+          fontFamily: { headline: ["Noto Serif", "serif"], body: ["Manrope", "sans-serif"], label: ["Manrope", "sans-serif"] }
+        }
+      }
+    }
+  </script>
+  <style>
+    .material-symbols-outlined { font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24; }
+    body { background-color: #5C2A5A; }
+    .grain-overlay { pointer-events:none; position:fixed; inset:0; z-index:99; opacity:0.04; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"); }
+    #mobile-menu { display:none; } #mobile-menu.open { display:flex; }
+    .nav-scrolled { background-color:rgba(61,21,64,0.95) !important; }
+    @keyframes orbFloat1 { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(40px,-25px) scale(1.04)} 66%{transform:translate(-25px,20px) scale(0.97)} }
+    @keyframes orbFloat2 { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(-35px,28px) scale(0.96)} 66%{transform:translate(28px,-18px) scale(1.03)} }
+    @keyframes shimmer { 0%{background-position:-250% center} 100%{background-position:250% center} }
+    .orb { position:fixed; border-radius:50%; filter:blur(90px); pointer-events:none; z-index:0; }
+    .orb-1 { width:650px; height:650px; top:-150px; left:-120px; background:radial-gradient(circle,rgba(255,180,164,0.11) 0%,transparent 70%); animation:orbFloat1 22s ease-in-out infinite; }
+    .orb-2 { width:520px; height:520px; top:28%; right:-130px; background:radial-gradient(circle,rgba(233,195,73,0.08) 0%,transparent 70%); animation:orbFloat2 28s ease-in-out infinite; }
+    .orb-3 { width:420px; height:420px; bottom:8%; left:25%; background:radial-gradient(circle,rgba(255,180,164,0.07) 0%,transparent 70%); animation:orbFloat1 34s ease-in-out infinite reverse; }
+    [data-animate] { opacity:0; transition:opacity 0.8s cubic-bezier(0.25,0.46,0.45,0.94), transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94); }
+    [data-animate="fade-up"] { transform:translateY(34px); }
+    [data-animate="scale-up"] { transform:scale(0.93) translateY(20px); }
+    [data-animate].is-visible { opacity:1; transform:none; }
+    .shimmer-text { background:linear-gradient(90deg, #e9c349 0%, #ffb4a4 32%, #e9c349 52%, #ffb4a4 78%, #e9c349 100%); background-size:260% auto; -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; animation:shimmer 5.5s linear infinite; }
+    .scripture-block { background: rgba(61,21,64,0.7); border-left: 3px solid #E9C349; border-radius: 0 16px 16px 0; padding: 20px 24px; }
+    .section-divider { border:none; border-top:1px solid rgba(242,229,240,0.1); margin:0; }
+
+    /* Form styling */
+    .form-label { font-family: Manrope, sans-serif; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: rgba(242,229,240,0.5); display: block; margin-bottom: 8px; }
+    .form-input {
+      width: 100%; background: rgba(61,21,64,0.6); border: 1px solid rgba(242,229,240,0.12);
+      border-radius: 12px; padding: 14px 16px;
+      font-family: Manrope, sans-serif; font-size: 0.9rem; color: #f2e5f0;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+    }
+    .form-input::placeholder { color: rgba(242,229,240,0.25); }
+    .form-input:focus { border-color: rgba(255,180,164,0.4); box-shadow: 0 0 0 3px rgba(255,180,164,0.08); }
+    select.form-input option { background: #3D1540; color: #f2e5f0; }
+    textarea.form-input { resize: vertical; min-height: 120px; }
+
+    /* Category cards */
+    .cat-card {
+      background: rgba(61,21,64,0.4); border: 1.5px solid rgba(242,229,240,0.1);
+      border-radius: 14px; padding: 16px; cursor: pointer;
+      transition: all 0.2s; display: flex; align-items: flex-start; gap: 12px;
+    }
+    .cat-card:hover { border-color: rgba(255,180,164,0.3); background: rgba(61,21,64,0.6); }
+    .cat-card.selected { border-color: rgba(255,180,164,0.5); background: rgba(255,180,164,0.07); }
+    .cat-card.selected .cat-radio { border-color: #FFB4A4; background: #FFB4A4; }
+    .cat-card.selected .cat-title { color: #FFB4A4; }
+    .cat-radio {
+      width: 18px; height: 18px; min-width: 18px; border-radius: 50%;
+      border: 2px solid rgba(242,229,240,0.2); margin-top: 2px;
+      transition: all 0.2s; display: flex; align-items: center; justify-content: center;
+    }
+    .cat-radio::after { content:''; width:8px; height:8px; border-radius:50%; background:#3D1540; opacity:0; transition:opacity 0.2s; }
+    .cat-card.selected .cat-radio::after { opacity:1; }
+    .cat-title { font-family: Manrope, sans-serif; font-size: 0.9rem; font-weight: 700; color: rgba(242,229,240,0.85); transition: color 0.2s; }
+    .cat-desc { font-family: Manrope, sans-serif; font-size: 0.78rem; color: rgba(242,229,240,0.4); margin-top: 2px; line-height: 1.5; }
+
+    /* Severity pills */
+    .sev-pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 16px; border-radius: 999px; cursor: pointer;
+      font-family: Manrope, sans-serif; font-size: 0.78rem; font-weight: 700;
+      border: 1.5px solid rgba(242,229,240,0.12); background: rgba(255,255,255,0.03);
+      color: rgba(242,229,240,0.45); transition: all 0.2s;
+    }
+    .sev-pill:hover { border-color: rgba(255,180,164,0.3); color: rgba(242,229,240,0.7); }
+    .sev-pill.active-low { border-color: rgba(233,195,73,0.5); background: rgba(233,195,73,0.1); color: #E9C349; }
+    .sev-pill.active-medium { border-color: rgba(255,180,164,0.5); background: rgba(255,180,164,0.1); color: #FFB4A4; }
+    .sev-pill.active-high { border-color: rgba(255,100,100,0.5); background: rgba(255,100,100,0.1); color: #FF8A8A; }
+
+    /* Submit button */
+    .btn-submit {
+      width: 100%; padding: 16px; border-radius: 14px;
+      background: linear-gradient(135deg, #FFB4A4, #6E2414);
+      color: #5D1809; font-family: Manrope, sans-serif; font-size: 1rem; font-weight: 800;
+      border: none; cursor: pointer; transition: opacity 0.2s, transform 0.1s;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .btn-submit:hover { opacity: 0.9; }
+    .btn-submit:active { transform: scale(0.99); }
+    .btn-submit:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    /* Success state */
+    #success-state { display: none; }
+    #success-state.show { display: flex; }
+
+    .info-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(242,229,240,0.1);
+      border-radius: 16px; padding: 20px 24px;
+    }
+
+    .process-step { display: flex; gap: 14px; align-items: flex-start; }
+    .step-num {
+      width: 28px; height: 28px; min-width: 28px; border-radius: 50%;
+      background: rgba(255,180,164,0.1); border: 1px solid rgba(255,180,164,0.25);
+      display: flex; align-items: center; justify-content: center;
+      font-family: Manrope, sans-serif; font-size: 0.7rem; font-weight: 800; color: #FFB4A4;
+    }
+  </style>
+</head>
+<body class="font-body text-on-surface min-h-screen">
+  <div class="grain-overlay"></div>
+  <div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div>
+
+  <!-- Nav -->
+  <nav id="main-nav" class="fixed top-0 w-full z-50 bg-[#3D1540]/80 backdrop-blur-xl shadow-[0_20px_40px_-5px_rgba(61,21,64,0.3)] transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="index.html" class="text-2xl font-headline font-black text-[#FFB4A4] hover:opacity-80 transition-opacity">Formation Bible Study</a>
+      <div class="hidden md:flex items-center gap-8">
+        <a href="index.html" class="text-[#f2e5f0]/70 font-body text-sm hover:text-[#FFB4A4] transition-colors">Home</a>
+        <a href="features.html" class="text-[#f2e5f0]/70 font-body text-sm hover:text-[#FFB4A4] transition-colors">Features</a>
+        <a href="pricing.html" class="text-[#f2e5f0]/70 font-body text-sm hover:text-[#FFB4A4] transition-colors">Pricing</a>
+        <a href="signup.html" class="bg-gradient-to-br from-[#FFB4A4] to-[#6E2414] text-[#5D1809] px-6 py-2.5 rounded-full font-bold text-sm hover:opacity-90 transition-opacity">Join the Waitlist →</a>
+      </div>
+      <button id="nav-toggle" class="md:hidden text-[#f2e5f0] p-2"><span class="material-symbols-outlined">menu</span></button>
+    </div>
+    <div id="mobile-menu" class="flex-col bg-[#3D1540] px-6 pb-6 gap-4 md:hidden">
+      <a href="index.html" class="text-[#f2e5f0]/80 font-body text-base py-2 border-b border-[#f2e5f0]/10">Home</a>
+      <a href="features.html" class="text-[#f2e5f0]/80 font-body text-base py-2 border-b border-[#f2e5f0]/10">Features</a>
+      <a href="pricing.html" class="text-[#f2e5f0]/80 font-body text-base py-2 border-b border-[#f2e5f0]/10">Pricing</a>
+      <a href="signup.html" class="bg-gradient-to-br from-[#FFB4A4] to-[#6E2414] text-[#5D1809] px-6 py-3 rounded-full font-bold text-sm text-center mt-2">Join the Waitlist →</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="relative z-10 pt-36 pb-16 px-6">
+    <div class="max-w-3xl mx-auto text-center">
+      <div data-animate="fade-up" class="inline-flex items-center gap-2 bg-[#3D1540]/70 border border-[#f2e5f0]/10 rounded-full px-4 py-1.5 mb-6">
+        <span class="material-symbols-outlined text-[#E9C349] text-base">flag</span>
+        <span class="font-label text-[11px] uppercase tracking-widest text-[#E9C349]">Error Reporting</span>
+      </div>
+      <h1 data-animate="fade-up" class="font-headline text-4xl md:text-5xl font-black leading-tight mb-6">
+        Found Something <br/><span class="shimmer-text">Off in Scripture?</span>
+      </h1>
+      <p data-animate="fade-up" class="font-body text-[#f2e5f0]/60 text-lg leading-relaxed max-w-2xl mx-auto">
+        Accuracy matters. If Formation Bible Study displays a verse incorrectly, gives a misleading AI response, or has a technical issue — we want to know. Every report is reviewed by a human.
+      </p>
+    </div>
+  </section>
+
+  <hr class="section-divider max-w-3xl mx-auto"/>
+
+  <!-- Main Content: Form + Sidebar -->
+  <section class="relative z-10 px-6 py-12 max-w-5xl mx-auto">
+    <div class="grid lg:grid-cols-[1fr_340px] gap-10 items-start">
+
+      <!-- LEFT: Form -->
+      <div>
+        <!-- Form card -->
+        <div data-animate="fade-up" class="bg-[#3D1540]/50 border border-[#f2e5f0]/10 rounded-3xl p-8">
+
+          <!-- Form header -->
+          <div class="flex items-center gap-3 mb-8">
+            <div class="w-10 h-10 rounded-2xl bg-[#FFB4A4]/10 flex items-center justify-center">
+              <span class="material-symbols-outlined text-[#FFB4A4] text-xl">edit_note</span>
+            </div>
+            <div>
+              <p class="font-headline font-black text-lg text-[#f2e5f0]">Submit an Error Report</p>
+              <p class="font-body text-xs text-[#f2e5f0]/40">Takes about 2 minutes</p>
+            </div>
+          </div>
+
+          <form id="report-form" novalidate>
+
+            <!-- Step 1: Category -->
+            <div class="mb-8">
+              <label class="form-label">1. What type of error are you reporting? <span class="text-[#FFB4A4]">*</span></label>
+              <div class="grid sm:grid-cols-2 gap-3 mt-3" id="cat-grid">
+
+                <div class="cat-card" data-cat="scripture" tabindex="0" role="radio" aria-checked="false">
+                  <div class="cat-radio"></div>
+                  <div>
+                    <p class="cat-title">Scripture / Translation Error</p>
+                    <p class="cat-desc">Wrong verse text, missing words, incorrect reference</p>
+                  </div>
+                </div>
+
+                <div class="cat-card" data-cat="ai" tabindex="0" role="radio" aria-checked="false">
+                  <div class="cat-radio"></div>
+                  <div>
+                    <p class="cat-title">AI Response Error</p>
+                    <p class="cat-desc">Inaccurate interpretation, theological mistake, hallucination</p>
+                  </div>
+                </div>
+
+                <div class="cat-card" data-cat="cross-ref" tabindex="0" role="radio" aria-checked="false">
+                  <div class="cat-radio"></div>
+                  <div>
+                    <p class="cat-title">Incorrect Cross-Reference</p>
+                    <p class="cat-desc">Wrong passage link, misleading parallel, bad context</p>
+                  </div>
+                </div>
+
+                <div class="cat-card" data-cat="content" tabindex="0" role="radio" aria-checked="false">
+                  <div class="cat-radio"></div>
+                  <div>
+                    <p class="cat-title">Study Content Error</p>
+                    <p class="cat-desc">Wrong commentary, devotional error, reading plan issue</p>
+                  </div>
+                </div>
+
+                <div class="cat-card" data-cat="technical" tabindex="0" role="radio" aria-checked="false">
+                  <div class="cat-radio"></div>
+                  <div>
+                    <p class="cat-title">Technical Bug</p>
+                    <p class="cat-desc">App crash, display issue, feature not working</p>
+                  </div>
+                </div>
+
+                <div class="cat-card" data-cat="other" tabindex="0" role="radio" aria-checked="false">
+                  <div class="cat-radio"></div>
+                  <div>
+                    <p class="cat-title">Other</p>
+                    <p class="cat-desc">Something else that needs attention</p>
+                  </div>
+                </div>
+
+              </div>
+              <input type="hidden" id="selected-cat" name="category" required/>
+              <p class="text-[#FF8A8A] text-xs font-semibold mt-2 hidden" id="cat-error">Please select an error type.</p>
+            </div>
+
+            <!-- Step 2: Location -->
+            <div class="mb-8" id="location-section">
+              <label class="form-label">2. Where did you find this? <span class="text-[#f2e5f0]/30 font-normal normal-case tracking-normal">(optional but helpful)</span></label>
+              <div class="grid sm:grid-cols-2 gap-4 mt-3">
+                <div>
+                  <label class="form-label" for="book-field" style="font-size:0.7rem;">Book</label>
+                  <input class="form-input" type="text" id="book-field" name="book" placeholder="e.g. Romans" autocomplete="off"/>
+                </div>
+                <div>
+                  <label class="form-label" for="chapter-verse" style="font-size:0.7rem;">Chapter &amp; Verse</label>
+                  <input class="form-input" type="text" id="chapter-verse" name="chapter_verse" placeholder="e.g. 8:28" autocomplete="off"/>
+                </div>
+              </div>
+              <div class="mt-4">
+                <label class="form-label" for="screen-location" style="font-size:0.7rem;">Screen / Feature</label>
+                <select class="form-input" id="screen-location" name="screen">
+                  <option value="">— Select where you saw this —</option>
+                  <option value="bible_reader">Bible Reader</option>
+                  <option value="ai_study">AI Study Assistant</option>
+                  <option value="reading_plan">Reading Plan</option>
+                  <option value="cross_reference">Cross-Reference Panel</option>
+                  <option value="study_notes">Study Notes / Commentary</option>
+                  <option value="prayer_journal">Prayer Journal</option>
+                  <option value="community">Community / Study Group</option>
+                  <option value="search">Search</option>
+                  <option value="other">Other / Not Sure</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Step 3: Description -->
+            <div class="mb-8">
+              <label class="form-label" for="error-desc">3. Describe the error <span class="text-[#FFB4A4]">*</span></label>
+              <p class="font-body text-[#f2e5f0]/35 text-xs mb-3">What did Formation Bible Study show? What should it have shown? The more specific, the faster we can fix it.</p>
+              <textarea class="form-input" id="error-desc" name="description" placeholder="e.g. Romans 8:28 shows 'And we know that all things work together for good' but the BSB text should read 'And we know that all things work together for the good of those who love God…'" required></textarea>
+              <div class="flex justify-end mt-1">
+                <span class="font-body text-[10px] text-[#f2e5f0]/20" id="char-count">0 / 1000</span>
+              </div>
+              <p class="text-[#FF8A8A] text-xs font-semibold mt-1 hidden" id="desc-error">Please describe the error.</p>
+            </div>
+
+            <!-- Step 4: Severity -->
+            <div class="mb-8">
+              <label class="form-label">4. How serious is this?</label>
+              <div class="flex flex-wrap gap-3 mt-3" id="sev-group">
+                <button type="button" class="sev-pill" data-sev="low">
+                  <span class="material-symbols-outlined text-base" style="font-size:16px">info</span>
+                  Minor — cosmetic or low impact
+                </button>
+                <button type="button" class="sev-pill" data-sev="medium">
+                  <span class="material-symbols-outlined text-base" style="font-size:16px">warning</span>
+                  Significant — affects my study
+                </button>
+                <button type="button" class="sev-pill" data-sev="high">
+                  <span class="material-symbols-outlined text-base" style="font-size:16px">error</span>
+                  Critical — theologically misleading
+                </button>
+              </div>
+              <input type="hidden" id="selected-sev" name="severity" value="low"/>
+            </div>
+
+            <!-- Step 5: Contact (optional) -->
+            <div class="mb-8">
+              <label class="form-label" for="reporter-email">5. Your email <span class="text-[#f2e5f0]/30 font-normal normal-case tracking-normal">(optional — only used to follow up on your report)</span></label>
+              <input class="form-input" type="email" id="reporter-email" name="email" placeholder="you@example.com" autocomplete="email"/>
+            </div>
+
+            <!-- Berean commitment note -->
+            <div class="scripture-block mb-8">
+              <p class="font-body text-[#f2e5f0]/50 text-sm leading-relaxed">
+                <span class="font-bold text-[#E9C349]">Our commitment:</span> Formation Bible Study is built on Acts 17:11 — the Berean spirit of testing everything against Scripture. We take accuracy seriously. Every error report is reviewed by a human, not filtered by an algorithm.
+              </p>
+            </div>
+
+            <!-- Submit -->
+            <button type="submit" class="btn-submit" id="submit-btn">
+              <span class="material-symbols-outlined text-xl">send</span>
+              Submit Error Report
+            </button>
+
+          </form>
+        </div>
+      </div>
+
+      <!-- RIGHT: Sidebar -->
+      <div class="flex flex-col gap-6">
+
+        <!-- What happens next -->
+        <div data-animate="fade-up" class="info-card">
+          <p class="font-headline font-black text-[#f2e5f0] text-base mb-5">What happens after you submit?</p>
+          <div class="flex flex-col gap-5">
+            <div class="process-step">
+              <div class="step-num">1</div>
+              <div>
+                <p class="font-body font-bold text-[#f2e5f0] text-sm">Human review</p>
+                <p class="font-body text-[#f2e5f0]/40 text-xs leading-relaxed mt-1">Every report is read by a member of the Formation Bible Study team — not filtered or auto-dismissed.</p>
+              </div>
+            </div>
+            <div class="process-step">
+              <div class="step-num">2</div>
+              <div>
+                <p class="font-body font-bold text-[#f2e5f0] text-sm">Scripture verification</p>
+                <p class="font-body text-[#f2e5f0]/40 text-xs leading-relaxed mt-1">For Scripture or AI errors, we cross-check against the Berean Standard Bible source and flag for correction.</p>
+              </div>
+            </div>
+            <div class="process-step">
+              <div class="step-num">3</div>
+              <div>
+                <p class="font-body font-bold text-[#f2e5f0] text-sm">Fix deployed</p>
+                <p class="font-body text-[#f2e5f0]/40 text-xs leading-relaxed mt-1">Confirmed errors are patched in our next release. Critical theological issues are prioritized immediately.</p>
+              </div>
+            </div>
+            <div class="process-step">
+              <div class="step-num">4</div>
+              <div>
+                <p class="font-body font-bold text-[#f2e5f0] text-sm">You're credited</p>
+                <p class="font-body text-[#f2e5f0]/40 text-xs leading-relaxed mt-1">If you provided your email, we'll let you know when the fix is live. We honor every Berean who helps us stay accurate.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Response times -->
+        <div data-animate="fade-up" class="info-card">
+          <p class="font-headline font-black text-[#f2e5f0] text-base mb-4">Response times</p>
+          <div class="flex flex-col gap-3">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-[#FF8A8A] text-base" style="font-size:16px">error</span>
+                <span class="font-body text-sm text-[#f2e5f0]/70">Critical</span>
+              </div>
+              <span class="font-body text-xs text-[#FF8A8A] font-bold">Within 24 hours</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-[#FFB4A4] text-base" style="font-size:16px">warning</span>
+                <span class="font-body text-sm text-[#f2e5f0]/70">Significant</span>
+              </div>
+              <span class="font-body text-xs text-[#FFB4A4] font-bold">Within 3 days</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-[#E9C349] text-base" style="font-size:16px">info</span>
+                <span class="font-body text-sm text-[#f2e5f0]/70">Minor</span>
+              </div>
+              <span class="font-body text-xs text-[#E9C349] font-bold">Next release cycle</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Other ways to reach us -->
+        <div data-animate="fade-up" class="info-card">
+          <p class="font-headline font-black text-[#f2e5f0] text-base mb-4">Other ways to reach us</p>
+          <div class="flex flex-col gap-3">
+            <a href="contact.html" class="flex items-center gap-3 group">
+              <div class="w-8 h-8 rounded-xl bg-[#FFB4A4]/10 flex items-center justify-center group-hover:bg-[#FFB4A4]/20 transition-colors">
+                <span class="material-symbols-outlined text-[#FFB4A4] text-base" style="font-size:16px">mail</span>
+              </div>
+              <span class="font-body text-sm text-[#f2e5f0]/60 group-hover:text-[#FFB4A4] transition-colors">Contact Support</span>
+            </a>
+            <a href="faq.html" class="flex items-center gap-3 group">
+              <div class="w-8 h-8 rounded-xl bg-[#E9C349]/10 flex items-center justify-center group-hover:bg-[#E9C349]/20 transition-colors">
+                <span class="material-symbols-outlined text-[#E9C349] text-base" style="font-size:16px">help</span>
+              </div>
+              <span class="font-body text-sm text-[#f2e5f0]/60 group-hover:text-[#E9C349] transition-colors">Browse FAQ</span>
+            </a>
+            <a href="ai_disclaimer.html" class="flex items-center gap-3 group">
+              <div class="w-8 h-8 rounded-xl bg-[#f2e5f0]/5 flex items-center justify-center group-hover:bg-[#f2e5f0]/10 transition-colors">
+                <span class="material-symbols-outlined text-[#f2e5f0]/40 text-base" style="font-size:16px">smart_toy</span>
+              </div>
+              <span class="font-body text-sm text-[#f2e5f0]/60 group-hover:text-[#f2e5f0]/80 transition-colors">AI Disclaimer</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Berean note -->
+        <div data-animate="fade-up" class="bg-[#E9C349]/5 border border-[#E9C349]/15 rounded-2xl p-5">
+          <p class="font-body text-[#E9C349] text-xs leading-relaxed italic">
+            "Now the Bereans were more noble-minded than the Thessalonians, for they received the message with great eagerness and examined the Scriptures every day to see if these teachings were true."
+          </p>
+          <p class="font-label text-[10px] uppercase tracking-widest text-[#E9C349]/50 mt-3">— Acts 17:11, BSB</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Success State (shown after submit) -->
+  <div id="success-state" class="fixed inset-0 z-[200] bg-[#3D1540]/95 backdrop-blur-xl items-center justify-center px-6">
+    <div class="max-w-md text-center">
+      <div class="w-20 h-20 rounded-full bg-[#FFB4A4]/10 border border-[#FFB4A4]/20 flex items-center justify-center mx-auto mb-6">
+        <span class="material-symbols-outlined text-[#FFB4A4] text-4xl">check_circle</span>
+      </div>
+      <h2 class="font-headline text-3xl font-black text-[#f2e5f0] mb-4">Report Received</h2>
+      <p class="font-body text-[#f2e5f0]/60 text-base leading-relaxed mb-8">Thank you for helping keep Formation Bible Study accurate. A member of our team will review your report. If you included your email, we'll follow up when the fix is live.</p>
+      <div class="scripture-block text-left mb-8">
+        <p class="font-body text-[#f2e5f0]/50 text-sm italic leading-relaxed">"The Bereans examined the Scriptures every day to see if these things were true." — Acts 17:11</p>
+      </div>
+      <div class="flex flex-col sm:flex-row gap-3 justify-center">
+        <a href="index.html" class="bg-gradient-to-br from-[#FFB4A4] to-[#6E2414] text-[#5D1809] px-6 py-3 rounded-full font-bold text-sm hover:opacity-90 transition-opacity">Back to Formation Bible Study</a>
+        <button id="submit-another" class="border border-[#f2e5f0]/15 text-[#f2e5f0]/60 px-6 py-3 rounded-full font-bold text-sm hover:border-[#FFB4A4]/30 hover:text-[#FFB4A4] transition-all">Submit Another Report</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="relative z-10 bg-[#3D1540] border-t border-[#f2e5f0]/10 px-6 py-12 mt-12">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid md:grid-cols-4 gap-10 mb-10">
+        <div class="md:col-span-1">
+          <p class="font-headline text-xl font-black text-[#FFB4A4] mb-3">Formation Bible Study</p>
+          <p class="font-body text-[#f2e5f0]/40 text-sm leading-relaxed">Progressive Bible study for serious Christians. Powered by the Berean spirit — Acts 17:11.</p>
+        </div>
+        <div>
+          <p class="font-label text-[10px] uppercase tracking-widest text-[#f2e5f0]/30 mb-4">Product</p>
+          <div class="flex flex-col gap-2">
+            <a href="features.html" class="font-body text-sm text-[#f2e5f0]/50 hover:text-[#FFB4A4] transition-colors">Features</a>
+            <a href="pricing.html" class="font-body text-sm text-[#f2e5f0]/50 hover:text-[#FFB4A4] transition-colors">Pricing</a>
+            <a href="how_it_works.html" class="font-body text-sm text-[#f2e5f0]/50 hover:text-[#FFB4A4] transition-colors">How It Works</a>
+            <a href="faq.html" class="font-body text-sm text-[#f2e5f0]/50 hover:text-[#FFB4A4] transition-colors">FAQ</a>
+          </div>
+        </div>
+        <div>
+          <p class="font-label text-[10px] uppercase tracking-widest text-[#f2e5f0]/30 mb-4">Company</p>
+          <div class="flex flex-col gap-2">
+            <a href="about.html" class="font-body text-sm text-[#f2e5f0]/50 hover:text-[#FFB4A4] transition-colors">About Us</a>
+            <a href="mission.html" class="font-body text-sm text-[#f2e5f0]/50 hover:text-[#FFB4A4] transition-colors">Mission</a>
+            <a href="statement_of_faith.html" class="font-body text-sm text-[#f2e5f0]/50 hover:text-[#FFB4A4] transition-colors">Statement of Faith</a>
+            <a href="contact.html" class="font-body text-sm text-[#f2e5f0]/50 hover:text-[#FFB4A4] transition-colors">Contact</a>
+          </div>
+        </div>
+        <div>
+          <p class="font-label text-[10px] uppercase tracking-widest text-[#f2e5f0]/30 mb-4">Legal</p>
+          <div class="flex flex-col gap-2">
+            <a href="privacy_policy.html" class="font-body text-sm text-[#f2e5f0]/50 hover:text-[#FFB4A4] transition-colors">Privacy Policy</a>
+            <a href="terms.html" class="font-body text-sm text-[#f2e5f0]/50 hover:text-[#FFB4A4] transition-colors">Terms of Service</a>
+            <a href="cookie_policy.html" class="font-body text-sm text-[#f2e5f0]/50 hover:text-[#FFB4A4] transition-colors">Cookie Policy</a>
+            <a href="ai_disclaimer.html" class="font-body text-sm text-[#f2e5f0]/50 hover:text-[#FFB4A4] transition-colors">AI Disclosure</a>
+            <a href="billing_terms.html" class="font-body text-sm text-[#f2e5f0]/50 hover:text-[#FFB4A4] transition-colors">Billing Terms</a>
+            <a href="coppa.html" class="font-body text-sm text-[#f2e5f0]/50 hover:text-[#FFB4A4] transition-colors">Children's Privacy</a>
+          </div>
+        </div>
+      </div>
+      <hr class="border-[#f2e5f0]/10 mb-6"/>
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+        <p class="font-body text-[#f2e5f0]/30 text-xs">© 2026 Berean Defense LLC. All rights reserved. Formation Bible Study is a DBA of Berean Defense LLC.</p>
+        <p class="font-body text-[#f2e5f0]/20 text-xs italic">"Test everything against Scripture — including us."</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Nav
+    document.getElementById('nav-toggle').addEventListener('click', () => {
+      document.getElementById('mobile-menu').classList.toggle('open');
+    });
+    window.addEventListener('scroll', () => {
+      document.getElementById('main-nav').classList.toggle('nav-scrolled', window.scrollY > 30);
+    });
+
+    // Scroll animations
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('[data-animate]').forEach(el => observer.observe(el));
+
+    // Category selection
+    const catCards = document.querySelectorAll('.cat-card');
+    const selectedCat = document.getElementById('selected-cat');
+    catCards.forEach(card => {
+      card.addEventListener('click', () => {
+        catCards.forEach(c => { c.classList.remove('selected'); c.setAttribute('aria-checked','false'); });
+        card.classList.add('selected');
+        card.setAttribute('aria-checked','true');
+        selectedCat.value = card.dataset.cat;
+        document.getElementById('cat-error').classList.add('hidden');
+        // Show/hide location section based on type
+        const loc = document.getElementById('location-section');
+        loc.style.display = card.dataset.cat === 'technical' ? 'none' : 'block';
+        if (card.dataset.cat === 'technical') {
+          document.getElementById('screen-location').style.display = 'block';
+          document.getElementById('location-section').style.display = 'block';
+        }
+      });
+      card.addEventListener('keydown', e => { if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.click(); }});
+    });
+
+    // Severity selection
+    const sevPills = document.querySelectorAll('.sev-pill');
+    const selectedSev = document.getElementById('selected-sev');
+    sevPills.forEach(pill => {
+      pill.addEventListener('click', () => {
+        sevPills.forEach(p => p.className = 'sev-pill');
+        pill.classList.add('sev-pill', 'active-' + pill.dataset.sev);
+        selectedSev.value = pill.dataset.sev;
+      });
+    });
+
+    // Char count
+    const descField = document.getElementById('error-desc');
+    const charCount = document.getElementById('char-count');
+    descField.addEventListener('input', () => {
+      const len = descField.value.length;
+      charCount.textContent = len + ' / 1000';
+      if (len > 1000) descField.value = descField.value.slice(0, 1000);
+      charCount.style.color = len > 900 ? '#FF8A8A' : 'rgba(242,229,240,0.2)';
+    });
+
+    // Form submission
+    document.getElementById('report-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      let valid = true;
+      if (!selectedCat.value) {
+        document.getElementById('cat-error').classList.remove('hidden');
+        valid = false;
+      }
+      if (!descField.value.trim()) {
+        document.getElementById('desc-error').classList.remove('hidden');
+        valid = false;
+      } else {
+        document.getElementById('desc-error').classList.add('hidden');
+      }
+      if (!valid) return;
+
+      // Simulate submission
+      const btn = document.getElementById('submit-btn');
+      btn.disabled = true;
+      btn.innerHTML = '<span class="material-symbols-outlined animate-spin text-xl">progress_activity</span> Submitting…';
+      setTimeout(() => {
+        document.getElementById('success-state').classList.add('show');
+        document.body.style.overflow = 'hidden';
+      }, 900);
+    });
+
+    // Submit another
+    document.getElementById('submit-another').addEventListener('click', () => {
+      document.getElementById('success-state').classList.remove('show');
+      document.body.style.overflow = '';
+      document.getElementById('report-form').reset();
+      catCards.forEach(c => { c.classList.remove('selected'); c.setAttribute('aria-checked','false'); });
+      selectedCat.value = '';
+      sevPills.forEach(p => p.className = 'sev-pill');
+      selectedSev.value = 'low';
+      charCount.textContent = '0 / 1000';
+      const btn = document.getElementById('submit-btn');
+      btn.disabled = false;
+      btn.innerHTML = '<span class="material-symbols-outlined text-xl">send</span> Submit Error Report';
+      window.scrollTo(0,0);
+    });
+  </script>
+</body>
+</html>
