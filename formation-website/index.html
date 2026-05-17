@@ -517,12 +517,24 @@
   document.getElementById('nav-toggle').addEventListener('click', function() {
     document.getElementById('mobile-menu').classList.toggle('open');
   });
-  document.getElementById('waitlist-form').addEventListener('submit', function(e) {
-    if (!window.location.hostname.includes('netlify')) {
-      e.preventDefault();
-      this.style.display = 'none';
-      document.getElementById('waitlist-success').classList.remove('hidden');
-    }
+  document.getElementById('waitlist-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const email = this.querySelector('input[name="email"]').value.trim();
+    const btn   = this.querySelector('button[type="submit"]');
+    btn.disabled = true;
+    btn.textContent = 'Joining…';
+    try {
+      const res = await fetch('https://formation-backend-production.up.railway.app/api/waitlist', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, source: 'website' })
+      });
+      // Also submit to Netlify as backup (fire-and-forget)
+      const fd = new FormData(this);
+      fetch('/', { method: 'POST', body: fd }).catch(() => {});
+    } catch (_) { /* silent — still show success */ }
+    this.style.display = 'none';
+    document.getElementById('waitlist-success').classList.remove('hidden');
   });
 
   // Nav scroll shadow
