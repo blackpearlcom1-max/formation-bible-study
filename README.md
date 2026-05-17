@@ -2,7 +2,7 @@
 
 Website files for Formation Bible Study app.
 
-- **EN site**: fbsapp.pages.dev/beta  
-- **ES site**: fbsapp-es.pages.dev/beta
+- **EN beta**: https://fbsapp.pages.dev/beta
+- **ES beta**: https://fbsapp-es.pages.dev/beta
 
 Auto-deploys to Cloudflare Pages on every push to master.
