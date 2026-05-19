@@ -1,8 +1,5 @@
-# Formation Bible — Security Contact
-# See https://securitytxt.org/ for the standard
-
-Contact: mailto:support@formationbible.com
-Expires: 2027-05-06T00:00:00.000Z
-Preferred-Languages: en
+Contact: mailto:blackpearlcom1@gmail.com
+Expires: 2027-05-19T00:00:00.000Z
+Preferred-Languages: en, es
 Canonical: https://formationbible.com/.well-known/security.txt
-Policy: https://formationbible.com/privacy_policy
+Policy: https://formationbible.com/security-policy
