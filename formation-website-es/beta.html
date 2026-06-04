@@ -192,6 +192,57 @@
 </head>
 <body class="font-body text-on-background selection:bg-primary/30 min-h-screen flex flex-col">
 
+<!-- ─── Modal de Introducción ────────────────────────────── -->
+<div id="onboarding-overlay" class="hidden fixed inset-0 z-[200] flex items-center justify-center px-4" style="background:rgba(30,8,35,0.85);backdrop-filter:blur(8px);">
+  <div class="relative w-full max-w-md bg-gradient-to-b from-[#4A1D4D] to-[#3D1540] border border-[#f2e5f0]/15 rounded-3xl shadow-2xl p-8 flex flex-col gap-6">
+
+    <button onclick="dismissOnboarding()" class="absolute top-5 right-5 text-[#f2e5f0]/35 hover:text-[#f2e5f0]/70 text-xs font-label uppercase tracking-widest transition-colors">Saltar</button>
+
+    <div id="ob-step-1" class="ob-step flex flex-col gap-4">
+      <div class="text-5xl text-center">✝️</div>
+      <h2 class="font-headline text-2xl font-bold text-center text-on-surface">Bienvenido a Formación</h2>
+      <p class="font-body text-sm text-[#f2e5f0]/65 text-center leading-relaxed">Eres uno de los primeros pastores en acceder a Formación Bíblica. Este recorrido rápido te muestra las tres cosas más importantes.</p>
+    </div>
+
+    <div id="ob-step-2" class="ob-step hidden flex flex-col gap-4">
+      <div class="text-5xl text-center">📖</div>
+      <h2 class="font-headline text-2xl font-bold text-center text-on-surface">Lee la Palabra</h2>
+      <p class="font-body text-sm text-[#f2e5f0]/65 text-center leading-relaxed">La pestaña <strong class="text-[#f2e5f0]/90">Leer</strong> te da acceso a cualquier libro, capítulo y versículo en Reina-Valera 1909 o Biblia Viva. Tu última posición se guarda automáticamente.</p>
+      <div class="bg-[#3D1540]/60 border border-[#f2e5f0]/10 rounded-2xl px-5 py-4 text-center">
+        <p class="text-[#E9C349] font-label text-xs uppercase tracking-widest mb-1">Versículo del día</p>
+        <p class="font-body text-sm text-[#f2e5f0]/80 italic">Escritura entregada diariamente para guiar tu lectura.</p>
+      </div>
+    </div>
+
+    <div id="ob-step-3" class="ob-step hidden flex flex-col gap-4">
+      <div class="text-5xl text-center">✨</div>
+      <h2 class="font-headline text-2xl font-bold text-center text-on-surface">Pregunta a la Palabra</h2>
+      <p class="font-body text-sm text-[#f2e5f0]/65 text-center leading-relaxed">Este es el corazón de Formación. Escribe cualquier pregunta bíblica y recibe una <strong class="text-[#f2e5f0]/90">respuesta fundamentada en las Escrituras</strong> con referencias cruzadas — no opinión de IA, sino la Palabra interpretándose a sí misma.</p>
+      <div class="bg-[#3D1540]/60 border border-[#f2e5f0]/10 rounded-2xl px-5 py-3 font-body text-sm text-[#f2e5f0]/60 italic text-center">"¿Qué significa gracia?" · "Explica Romanos 8" · "¿Quién fue Melquisedec?"</div>
+    </div>
+
+    <div id="ob-step-4" class="ob-step hidden flex flex-col gap-4">
+      <div class="text-5xl text-center">📅</div>
+      <h2 class="font-headline text-2xl font-bold text-center text-on-surface">Planes y Notas</h2>
+      <p class="font-body text-sm text-[#f2e5f0]/65 text-center leading-relaxed">Mantente en la Palabra con un <strong class="text-[#f2e5f0]/90">plan de lectura</strong>, captura ideas en <strong class="text-[#f2e5f0]/90">Notas de Estudio</strong>, y sigue tu racha en <strong class="text-[#f2e5f0]/90">Progreso</strong>. Todo se guarda en tu cuenta.</p>
+      <p class="font-body text-sm text-[#E9C349]/80 text-center">Eso es todo. Estás listo. Que Dios bendiga tu estudio.</p>
+    </div>
+
+    <div class="flex justify-center gap-2">
+      <span id="ob-dot-1" class="w-2 h-2 rounded-full bg-[#E9C349] transition-all"></span>
+      <span id="ob-dot-2" class="w-2 h-2 rounded-full bg-[#f2e5f0]/20 transition-all"></span>
+      <span id="ob-dot-3" class="w-2 h-2 rounded-full bg-[#f2e5f0]/20 transition-all"></span>
+      <span id="ob-dot-4" class="w-2 h-2 rounded-full bg-[#f2e5f0]/20 transition-all"></span>
+    </div>
+
+    <button id="ob-next-btn" onclick="onboardingNext()"
+      class="w-full py-3 rounded-xl bg-gradient-to-br from-[#E9C349] to-[#c9a030] text-[#3D1540] font-bold font-label text-sm tracking-wide hover:brightness-110 transition-all">
+      Siguiente →
+    </button>
+  </div>
+</div>
+<!-- ─── Fin Modal de Introducción ────────────────────────── -->
+
 <div class="grain-overlay"></div>
 <div class="orb orb-1"></div>
 <div class="orb orb-2"></div>
@@ -334,7 +385,7 @@
         <select id="chapter-select" onchange="loadChapter()" class="reader-select w-20"></select>
         <select id="translation-select" onchange="loadChapter()" class="reader-select w-20">
           <option value="RVR1909">RVR1909</option>
-          <option value="ONBV">ONBV</option>
+          <option value="ONBV">Biblia Viva</option>
         </select>
         <div class="flex gap-2">
           <button onclick="prevChapter()" class="reader-btn">◀</button>
@@ -784,7 +835,7 @@
       <select id="profile-translation-select"
         class="w-full bg-[#4A1D4D]/60 border border-[#f2e5f0]/15 rounded-xl px-3 py-2.5 text-[#f2e5f0] text-sm font-body focus:outline-none focus:border-[#E9C349]/50 transition-colors">
         <option value="RVR1909">RVR1909 — Reina-Valera 1909</option>
-        <option value="ONBV">ONBV — O Novo Testamento Bíblia Viva</option>
+        <option value="ONBV">Biblia Viva — Nueva Versión Viva</option>
         <option value="BSB">BSB — Berean Standard Bible</option>
         <option value="KJV">KJV — King James Version</option>
       </select>
@@ -940,7 +991,7 @@ async function loadDailyVerse() {
       weekday: 'long', month: 'long', day: 'numeric'
     });
     $('daily-date').textContent = dateStr;
-    $('daily-ref').textContent = dailyVerseData.reference;
+    $('daily-ref').textContent = translateVerseRef(dailyVerseData.reference);
     $('daily-text').textContent = dailyVerseData.text;
     $('daily-devotional').textContent = dailyVerseData.devotional;
   } catch (e) {
@@ -1154,6 +1205,38 @@ function showAuth() {
   navJoinBtn.classList.remove('hidden');
 }
 
+// ─── Traducir referencia bíblica al español ─────────────────
+function translateVerseRef(ref) {
+  const EN_ES = {
+    'genesis':'Génesis','exodus':'Éxodo','leviticus':'Levítico','numbers':'Números',
+    'deuteronomy':'Deuteronomio','joshua':'Josué','judges':'Jueces','ruth':'Rut',
+    '1 samuel':'1 Samuel','2 samuel':'2 Samuel','1 kings':'1 Reyes','2 kings':'2 Reyes',
+    '1 chronicles':'1 Crónicas','2 chronicles':'2 Crónicas','ezra':'Esdras',
+    'nehemiah':'Nehemías','esther':'Ester','job':'Job','psalms':'Salmos','psalm':'Salmos',
+    'proverbs':'Proverbios','ecclesiastes':'Eclesiastés','song of solomon':'Cantares',
+    'isaiah':'Isaías','jeremiah':'Jeremías','lamentations':'Lamentaciones',
+    'ezekiel':'Ezequiel','daniel':'Daniel','hosea':'Oseas','joel':'Joel',
+    'amos':'Amós','obadiah':'Abdías','jonah':'Jonás','micah':'Miqueas',
+    'nahum':'Nahúm','habakkuk':'Habacuc','zephaniah':'Sofonías','haggai':'Hageo',
+    'zechariah':'Zacarías','malachi':'Malaquías','matthew':'Mateo','mark':'Marcos',
+    'luke':'Lucas','john':'Juan','acts':'Hechos','romans':'Romanos',
+    '1 corinthians':'1 Corintios','2 corinthians':'2 Corintios','galatians':'Gálatas',
+    'ephesians':'Efesios','philippians':'Filipenses','colossians':'Colosenses',
+    '1 thessalonians':'1 Tesalonicenses','2 thessalonians':'2 Tesalonicenses',
+    '1 timothy':'1 Timoteo','2 timothy':'2 Timoteo','titus':'Tito',
+    'philemon':'Filemón','hebrews':'Hebreos','james':'Santiago',
+    '1 peter':'1 Pedro','2 peter':'2 Pedro','1 john':'1 Juan',
+    '2 john':'2 Juan','3 john':'3 Juan','jude':'Judas',
+    'revelation':'Apocalipsis','revelations':'Apocalipsis'
+  };
+  const lower = ref.toLowerCase();
+  const keys = Object.keys(EN_ES).sort((a, b) => b.length - a.length);
+  for (const key of keys) {
+    if (lower.startsWith(key)) return EN_ES[key] + ref.slice(key.length);
+  }
+  return ref;
+}
+
 function showStudy(session) {
   currentSession = session;
   authScreen.classList.add('hidden'); studyScreen.classList.remove('hidden');
@@ -1172,7 +1255,45 @@ function showStudy(session) {
   loadDailyVerse();
   // Mostrar chips de sugerencia
   renderStudyChips();
+  // Mostrar introducción al primer inicio de sesión
+  const obKey = 'fbs_onboarding_done_es_' + (email || 'user');
+  if (!localStorage.getItem(obKey)) {
+    setTimeout(() => showOnboarding(obKey), 600);
+  }
 }
+
+// ─── Modal de Introducción ──────────────────────────────────
+let _obStep = 1;
+let _obKey  = '';
+const OB_TOTAL = 4;
+
+function showOnboarding(key) {
+  _obKey  = key;
+  _obStep = 1;
+  updateObStep();
+  $('onboarding-overlay').classList.remove('hidden');
+}
+
+function updateObStep() {
+  for (let i = 1; i <= OB_TOTAL; i++) {
+    const el  = document.getElementById('ob-step-' + i);
+    const dot = document.getElementById('ob-dot-' + i);
+    if (el)  el.classList.toggle('hidden', i !== _obStep);
+    if (dot) dot.style.background = i === _obStep ? '#E9C349' : 'rgba(242,229,240,0.2)';
+  }
+  $('ob-next-btn').textContent = _obStep < OB_TOTAL ? 'Siguiente →' : 'Comenzar';
+}
+
+function onboardingNext() {
+  if (_obStep < OB_TOTAL) { _obStep++; updateObStep(); }
+  else { dismissOnboarding(); }
+}
+
+function dismissOnboarding() {
+  $('onboarding-overlay').classList.add('hidden');
+  if (_obKey) localStorage.setItem(_obKey, '1');
+}
+// ─── Fin Modal de Introducción ──────────────────────────────
 
 // ─── Panel de Perfil ────────────────────────────────────────
 function getInitials(name, email) {
