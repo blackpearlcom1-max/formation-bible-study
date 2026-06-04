@@ -1122,6 +1122,7 @@ function initBibleReader() {
     bookSel.value = last.bookId || 'GEN';
     populateChapters(last.chapters || 50, last.chapter || 1);
     $('translation-select').value = last.translation || 'BSB';
+    if (!$('translation-select').value) $('translation-select').value = 'BSB';
     loadChapter();
   } else {
     bookSel.value = 'GEN';
