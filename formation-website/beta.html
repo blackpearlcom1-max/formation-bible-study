@@ -251,6 +251,62 @@
 </head>
 <body class="font-body text-on-background selection:bg-primary/30 min-h-screen flex flex-col">
 
+<!-- ─── First-Time Onboarding Modal ─────────────────────────── -->
+<div id="onboarding-overlay" class="hidden fixed inset-0 z-[200] flex items-center justify-center px-4" style="background:rgba(30,8,35,0.85);backdrop-filter:blur(8px);">
+  <div class="relative w-full max-w-md bg-gradient-to-b from-[#4A1D4D] to-[#3D1540] border border-[#f2e5f0]/15 rounded-3xl shadow-2xl p-8 flex flex-col gap-6">
+
+    <!-- Skip -->
+    <button onclick="dismissOnboarding()" class="absolute top-5 right-5 text-[#f2e5f0]/35 hover:text-[#f2e5f0]/70 text-xs font-label uppercase tracking-widest transition-colors">Skip</button>
+
+    <!-- Steps -->
+    <div id="ob-step-1" class="ob-step flex flex-col gap-4">
+      <div class="text-5xl text-center">✝️</div>
+      <h2 class="font-headline text-2xl font-bold text-center text-on-surface">Welcome to Formation</h2>
+      <p class="font-body text-sm text-[#f2e5f0]/65 text-center leading-relaxed">You're one of the first pastors to access Formation Bible Study. This quick tour shows you the three things worth knowing.</p>
+    </div>
+
+    <div id="ob-step-2" class="ob-step hidden flex flex-col gap-4">
+      <div class="text-5xl text-center">📖</div>
+      <h2 class="font-headline text-2xl font-bold text-center text-on-surface">Read the Word</h2>
+      <p class="font-body text-sm text-[#f2e5f0]/65 text-center leading-relaxed">The <strong class="text-[#f2e5f0]/90">Read tab</strong> gives you any book, chapter, and verse in the Berean Standard Bible or KJV. Your last position is saved automatically.</p>
+      <div class="bg-[#3D1540]/60 border border-[#f2e5f0]/10 rounded-2xl px-5 py-4 text-center">
+        <p class="text-[#E9C349] font-label text-xs uppercase tracking-widest mb-1">Today's verse</p>
+        <p class="font-body text-sm text-[#f2e5f0]/80 italic">Scripture delivered daily to guide your reading.</p>
+      </div>
+    </div>
+
+    <div id="ob-step-3" class="ob-step hidden flex flex-col gap-4">
+      <div class="text-5xl text-center">✨</div>
+      <h2 class="font-headline text-2xl font-bold text-center text-on-surface">Ask the Word</h2>
+      <p class="font-body text-sm text-[#f2e5f0]/65 text-center leading-relaxed">This is the heart of Formation. Type any Bible question and get a <strong class="text-[#f2e5f0]/90">Scripture-grounded answer</strong> with cross-references — not AI opinion, but the Word interpreting itself.</p>
+      <div class="bg-[#3D1540]/60 border border-[#f2e5f0]/10 rounded-2xl px-5 py-3 font-body text-sm text-[#f2e5f0]/60 italic text-center">"What does grace mean?" · "Explain Romans 8" · "Who was Melchizedek?"</div>
+    </div>
+
+    <div id="ob-step-4" class="ob-step hidden flex flex-col gap-4">
+      <div class="text-5xl text-center">📅</div>
+      <h2 class="font-headline text-2xl font-bold text-center text-on-surface">Reading Plans &amp; Notes</h2>
+      <p class="font-body text-sm text-[#f2e5f0]/65 text-center leading-relaxed">Stay in the Word daily with a <strong class="text-[#f2e5f0]/90">reading plan</strong>, capture insights in <strong class="text-[#f2e5f0]/90">Study Notes</strong>, and track your streak in <strong class="text-[#f2e5f0]/90">Progress</strong>. Everything saves to your account.</p>
+      <p class="font-body text-sm text-[#E9C349]/80 text-center">That's it. You're ready. God bless your study.</p>
+    </div>
+
+    <!-- Progress dots -->
+    <div class="flex justify-center gap-2">
+      <span id="ob-dot-1" class="ob-dot w-2 h-2 rounded-full bg-[#E9C349] transition-all"></span>
+      <span id="ob-dot-2" class="ob-dot w-2 h-2 rounded-full bg-[#f2e5f0]/20 transition-all"></span>
+      <span id="ob-dot-3" class="ob-dot w-2 h-2 rounded-full bg-[#f2e5f0]/20 transition-all"></span>
+      <span id="ob-dot-4" class="ob-dot w-2 h-2 rounded-full bg-[#f2e5f0]/20 transition-all"></span>
+    </div>
+
+    <!-- Button -->
+    <button id="ob-next-btn" onclick="onboardingNext()"
+      class="w-full py-3 rounded-xl bg-gradient-to-br from-[#E9C349] to-[#c9a030] text-[#3D1540] font-bold font-label text-sm tracking-wide hover:brightness-110 transition-all">
+      Next →
+    </button>
+
+  </div>
+</div>
+<!-- ─── End Onboarding Modal ─────────────────────────────────── -->
+
 <div class="grain-overlay"></div>
 <div class="orb orb-1"></div>
 <div class="orb orb-2"></div>
@@ -1261,7 +1317,49 @@ function showStudy(session) {
   loadDailyVerse();
   // Render suggestion chips for current language
   renderStudyChips();
+  // Show onboarding on first login
+  const obKey = 'fbs_onboarding_done_' + (email || 'user');
+  if (!localStorage.getItem(obKey)) {
+    setTimeout(() => showOnboarding(obKey), 600);
+  }
 }
+
+// ─── Onboarding Modal ───────────────────────────────────────
+let _obStep = 1;
+let _obKey  = '';
+const OB_TOTAL = 4;
+
+function showOnboarding(key) {
+  _obKey  = key;
+  _obStep = 1;
+  updateObStep();
+  $('onboarding-overlay').classList.remove('hidden');
+}
+
+function updateObStep() {
+  for (let i = 1; i <= OB_TOTAL; i++) {
+    const el = document.getElementById('ob-step-' + i);
+    const dot = document.getElementById('ob-dot-' + i);
+    if (el)  el.classList.toggle('hidden', i !== _obStep);
+    if (dot) dot.style.background = i === _obStep ? '#E9C349' : 'rgba(242,229,240,0.2)';
+  }
+  $('ob-next-btn').textContent = _obStep < OB_TOTAL ? 'Next →' : 'Get Started';
+}
+
+function onboardingNext() {
+  if (_obStep < OB_TOTAL) {
+    _obStep++;
+    updateObStep();
+  } else {
+    dismissOnboarding();
+  }
+}
+
+function dismissOnboarding() {
+  $('onboarding-overlay').classList.add('hidden');
+  if (_obKey) localStorage.setItem(_obKey, '1');
+}
+// ─── End Onboarding ─────────────────────────────────────────
 
 // ─── Profile Panel ──────────────────────────────────────────
 function getInitials(name, email) {
