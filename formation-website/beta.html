@@ -389,10 +389,6 @@
         <select id="translation-select" onchange="loadChapter()" class="reader-select w-20">
           <option value="BSB">BSB</option>
           <option value="KJV">KJV</option>
-          <option value="NIV">NIV</option>
-          <option value="ESV">ESV</option>
-          <option value="NLT">NLT</option>
-          <option value="NASB">NASB</option>
         </select>
         <div class="flex gap-2">
           <button onclick="prevChapter()" class="reader-btn">◀</button>
@@ -868,13 +864,6 @@
         class="w-full bg-[#4A1D4D]/60 border border-[#f2e5f0]/15 rounded-xl px-3 py-2.5 text-[#f2e5f0] text-sm font-body focus:outline-none focus:border-[#E9C349]/50 transition-colors">
         <option value="BSB">BSB — Berean Standard Bible</option>
         <option value="KJV">KJV — King James Version</option>
-        <option value="NIV">NIV — New International Version</option>
-        <option value="ESV">ESV — English Standard Version</option>
-        <option value="NKJV">NKJV — New King James Version</option>
-        <option value="NLT">NLT — New Living Translation</option>
-        <option value="NASB">NASB — New American Standard</option>
-        <option value="AMP">AMP — Amplified Bible</option>
-        <option value="MSG">MSG — The Message</option>
       </select>
     </div>
 
@@ -2640,7 +2629,7 @@ function openLexicon(word) {
   // Set external links immediately
   $('lex-biblehub-link').href = `https://biblehub.com/search.php?q=${enc}`;
   $('lex-blb-link').href = `https://www.blueletterbible.org/search/search.cfm?Criteria=${enc}&t=KJV`;
-  $('lex-step-link').href = `https://www.stepbible.org/?q=version=ESV|reference=Gen.1|strong=H${enc}`;
+  $('lex-step-link').href = `https://www.stepbible.org/?q=version=KJV|reference=Gen.1|strong=H${enc}`;
   $('lexicon-overlay').classList.remove('hidden');
   document.body.style.overflow = 'hidden';
   // Try free lexicon lookup
