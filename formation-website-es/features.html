@@ -109,27 +109,8 @@
 <div class="orb orb-3"></div>
 
 <!-- Navegación -->
-<nav class="fixed top-0 w-full z-50 bg-[#3D1540]/80 backdrop-blur-xl shadow-[0_20px_40px_-5px_rgba(61,21,64,0.3)]">
-  <div class="flex justify-between items-center w-full px-8 py-4 max-w-7xl mx-auto">
-    <a href="index.html" class="text-2xl font-headline font-black text-[#FFB4A4]">Formación Bíblica</a>
-    <div class="hidden md:flex items-center space-x-12">
-      <a href="index.html" class="text-[#f2e5f0]/60 font-medium font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4] transition-colors">Inicio</a>
-      <a href="features.html" class="text-[#E9C349] font-bold border-b-2 border-[#E9C349] pb-1 font-label uppercase tracking-widest text-xs">Características</a>
-      <a href="pricing.html" class="text-[#f2e5f0]/60 font-medium font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4] transition-colors">Precios</a>
-      <a href="about.html" class="text-[#f2e5f0]/60 font-medium font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4] transition-colors">Acerca de</a>
-    </div>
-    <a href="signup.html" class="bg-[#FFB4A4] text-[#5D1809] px-6 py-2.5 rounded-full font-bold text-sm hover:brightness-110 transition-all">Únete a la Lista →</a>
-    <button id="nav-toggle" class="md:hidden text-on-surface ml-4" aria-label="Menú"><span class="material-symbols-outlined" style="font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;">menu</span></button>
-  </div>
-  <div id="mobile-menu" class="flex-col px-8 pb-6 space-y-4 bg-[#3D1540]/95 backdrop-blur-xl md:hidden">
-    <a href="index.html" class="block text-[#f2e5f0]/60 font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4]">Inicio</a>
-    <a href="features.html" class="block text-[#E9C349] font-label uppercase tracking-widest text-xs font-bold">Características</a>
-    <a href="pricing.html" class="block text-[#f2e5f0]/60 font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4]">Precios</a>
-    <a href="about.html" class="block text-[#f2e5f0]/60 font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4]">Acerca de</a>
-    <a href="signup.html" class="block text-[#E8816A] font-label uppercase tracking-widest text-xs font-bold">Únete a la Lista →</a>
-  </div>
-</nav>
-
+<div id="nav-placeholder"></div>
+<script src="nav.js"></script>
 <main class="pt-32 pb-24 overflow-x-hidden">
 
   <!-- Hero -->
@@ -354,9 +335,6 @@
 </footer>
 
 <script>
-  document.getElementById('nav-toggle').addEventListener('click', function() {
-    document.getElementById('mobile-menu').classList.toggle('open');
-  });
 
   // Animaciones activadas por scroll
   const animObserver = new IntersectionObserver((entries) => {
