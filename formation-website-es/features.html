@@ -1,7 +1,17 @@
 <!DOCTYPE html>
 <html class="dark" lang="es">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SVVTSFJX9T"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SVVTSFJX9T');
+</script>
   <meta charset="utf-8"/>
+  <meta name="msvalidate.01" content="54A0DE1D6E89B3C428FFAF7954F47043" />
+
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
   <title>Características — Formación Bíblica App | Estudio Inductivo, Planes de Lectura, 5 Traducciones</title>
   <meta name="description" content="Características de Formation Bible Study: método inductivo clásico, 5 traducciones bíblicas (RVR1960, NVI, DHH, RVC, LBLA), resaltado de versículos, notas, planes de lectura curados, referencias cruzadas, grupos comunitarios."/>
@@ -12,12 +22,12 @@
   <!-- Open Graph -->
   <meta property="og:type" content="website"/>
   <meta property="og:url" content="https://formacion-biblica.com/features"/>
-  <meta property="og:title" content="Características — Formation Bible Study App | Estudio Inductivo, Planes de Lectura, 5 Traducciones"/>
+  <meta property="og:title" content="Características — Formación Bíblica App | Estudio Inductivo, Planes de Lectura, 5 Traducciones"/>
   <meta property="og:description" content="Características de Formation Bible Study: método inductivo clásico, 5 traducciones bíblicas (RVR1960, NVI, DHH, RVC, LBLA), resaltado de versículos, notas, planes de lectura curados, grupos comunitarios."/>
   <meta property="og:site_name" content="Formación Bíblica"/>
   <meta property="og:locale" content="es_ES"/>
   <meta name="twitter:card" content="summary"/>
-  <meta name="twitter:title" content="Características — Formation Bible Study"/>
+  <meta name="twitter:title" content="Características — Formación Bíblica"/>
   <meta name="twitter:description" content="Método inductivo, 5 traducciones bíblicas (RVR1960, NVI, DHH + más), Asistente de Estudio IA, planes de lectura, grupos comunitarios."/>
   <meta name="robots" content="index, follow, max-snippet:-1"/>
   <meta name="language" content="es"/>
@@ -109,8 +119,27 @@
 <div class="orb orb-3"></div>
 
 <!-- Navegación -->
-<div id="nav-placeholder"></div>
-<script src="nav.js"></script>
+<nav class="fixed top-0 w-full z-50 bg-[#3D1540]/80 backdrop-blur-xl shadow-[0_20px_40px_-5px_rgba(61,21,64,0.3)]">
+  <div class="flex justify-between items-center w-full px-8 py-4 max-w-7xl mx-auto">
+    <a href="index.html" class="text-2xl font-headline font-black text-[#FFB4A4]">Formación Bíblica</a>
+    <div class="hidden md:flex items-center space-x-12">
+      <a href="index.html" class="text-[#f2e5f0]/60 font-medium font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4] transition-colors">Inicio</a>
+      <a href="features.html" class="text-[#E9C349] font-bold border-b-2 border-[#E9C349] pb-1 font-label uppercase tracking-widest text-xs">Características</a>
+      <a href="pricing.html" class="text-[#f2e5f0]/60 font-medium font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4] transition-colors">Precios</a>
+      <a href="about.html" class="text-[#f2e5f0]/60 font-medium font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4] transition-colors">Acerca de</a>
+    </div>
+    <a href="signup.html" class="bg-[#FFB4A4] text-[#5D1809] px-6 py-2.5 rounded-full font-bold text-sm hover:brightness-110 transition-all">Regístrate Gratis →</a>
+    <button id="nav-toggle" class="md:hidden text-on-surface ml-4" aria-label="Menú"><span class="material-symbols-outlined" style="font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;">menu</span></button>
+  </div>
+  <div id="mobile-menu" class="flex-col px-8 pb-6 space-y-4 bg-[#3D1540]/95 backdrop-blur-xl md:hidden">
+    <a href="index.html" class="block text-[#f2e5f0]/60 font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4]">Inicio</a>
+    <a href="features.html" class="block text-[#E9C349] font-label uppercase tracking-widest text-xs font-bold">Características</a>
+    <a href="pricing.html" class="block text-[#f2e5f0]/60 font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4]">Precios</a>
+    <a href="about.html" class="block text-[#f2e5f0]/60 font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4]">Acerca de</a>
+    <a href="signup.html" class="block text-[#E8816A] font-label uppercase tracking-widest text-xs font-bold">Regístrate Gratis →</a>
+  </div>
+</nav>
+
 <main class="pt-32 pb-24 overflow-x-hidden">
 
   <!-- Hero -->
@@ -313,7 +342,7 @@
       <h2 class="font-headline text-4xl md:text-5xl font-black text-[#5D1809] mb-6" data-animate="scale-up">Comienza tu investigación.</h2>
       <p class="text-[#5D1809]/80 text-lg md:text-xl mb-10 max-w-2xl mx-auto">Únete a eruditos y buscadores en el entorno de estudio bíblico digital más enfocado jamás construido.</p>
       <a href="signup.html" class="inline-block bg-[#3D1540] text-[#FFB4A4] px-10 py-4 rounded-full font-bold text-lg hover:scale-105 transition-transform shadow-xl">
-        Únete a la Lista de Espera Ahora
+        Regístrate Gratis Ahora
       </a>
     </div>
   </section>
@@ -335,6 +364,9 @@
 </footer>
 
 <script>
+  document.getElementById('nav-toggle').addEventListener('click', function() {
+    document.getElementById('mobile-menu').classList.toggle('open');
+  });
 
   // Animaciones activadas por scroll
   const animObserver = new IntersectionObserver((entries) => {
