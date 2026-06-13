@@ -1,7 +1,17 @@
 <!DOCTYPE html>
 <html class="dark" lang="es">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SVVTSFJX9T"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SVVTSFJX9T');
+</script>
   <meta charset="utf-8"/>
+  <meta name="msvalidate.01" content="54A0DE1D6E89B3C428FFAF7954F47043" />
+
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
   <title>Precios — Formación Bíblica | Gratis, $7, $12, $29/mes</title>
   <meta name="description" content="Formation Bible Study ofrece un nivel gratuito permanente más planes de pago desde $7 al mes. Sin anuncios en planes de pago. Prueba gratis de 14 días. Para estudiantes serios de las Escrituras."/>
@@ -12,12 +22,12 @@
   <!-- Open Graph -->
   <meta property="og:type" content="website"/>
   <meta property="og:url" content="https://formacion-biblica.com/pricing"/>
-  <meta property="og:title" content="Precios — Formation Bible Study | Gratis, $7, $12, $29/mes"/>
+  <meta property="og:title" content="Precios — Formación Bíblica | Gratis, $7, $12, $29/mes"/>
   <meta property="og:description" content="Formation Bible Study ofrece un nivel gratuito permanente más planes de pago desde $7 al mes. Sin anuncios en planes de pago. Prueba gratis de 14 días."/>
   <meta property="og:site_name" content="Formación Bíblica"/>
   <meta property="og:locale" content="es_ES"/>
   <meta name="twitter:card" content="summary"/>
-  <meta name="twitter:title" content="Precios — Formation Bible Study"/>
+  <meta name="twitter:title" content="Precios — Formación Bíblica"/>
   <meta name="twitter:description" content="Plan gratis + planes de pago desde $7/mes. Prueba gratis de 14 días. Sin anuncios en planes de pago."/>
   <meta name="robots" content="index, follow, max-snippet:-1"/>
   <meta name="language" content="es"/>
@@ -112,8 +122,26 @@
 <div class="orb orb-3"></div>
 
 <!-- Navegación -->
-<div id="nav-placeholder"></div>
-<script src="nav.js"></script>
+<nav class="fixed top-0 w-full z-50 bg-[#3D1540]/80 backdrop-blur-xl shadow-[0_20px_40px_-5px_rgba(61,21,64,0.3)]">
+  <div class="flex justify-between items-center w-full px-8 py-4 max-w-7xl mx-auto">
+    <a href="index.html" class="text-2xl font-headline font-black text-[#FFB4A4]">Formación Bíblica</a>
+    <div class="hidden md:flex gap-8 items-center">
+      <a href="index.html" class="text-[#f2e5f0]/60 font-medium font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4] transition-colors">Inicio</a>
+      <a href="features.html" class="text-[#f2e5f0]/60 font-medium font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4] transition-colors">Características</a>
+      <a href="pricing.html" class="text-[#E9C349] font-bold border-b-2 border-[#E9C349] pb-1 font-label uppercase tracking-widest text-xs">Precios</a>
+      <a href="about.html" class="text-[#f2e5f0]/60 font-medium font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4] transition-colors">Acerca de</a>
+    </div>
+    <a href="signup.html" class="bg-primary text-on-primary px-6 py-2 rounded-full font-bold text-sm hover:scale-105 active:scale-95 transition-all">Regístrate Gratis →</a>
+    <button id="nav-toggle" class="md:hidden text-on-surface ml-4" aria-label="Menú"><span class="material-symbols-outlined">menu</span></button>
+  </div>
+  <div id="mobile-menu" class="flex-col px-8 pb-6 space-y-4 bg-[#3D1540]/95 backdrop-blur-xl md:hidden">
+    <a href="index.html" class="block text-[#f2e5f0]/60 font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4]">Inicio</a>
+    <a href="features.html" class="block text-[#f2e5f0]/60 font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4]">Características</a>
+    <a href="pricing.html" class="block text-[#E9C349] font-label uppercase tracking-widest text-xs font-bold">Precios</a>
+    <a href="about.html" class="block text-[#f2e5f0]/60 font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4]">Acerca de</a>
+  </div>
+</nav>
+
 <main class="pt-32 pb-24 px-6 max-w-7xl mx-auto overflow-hidden">
 
   <!-- Hero -->
@@ -460,6 +488,9 @@
 </footer>
 
 <script>
+  document.getElementById('nav-toggle').addEventListener('click', function() {
+    document.getElementById('mobile-menu').classList.toggle('open');
+  });
 
   // Animaciones activadas por scroll
   const animObserver = new IntersectionObserver((entries) => {
