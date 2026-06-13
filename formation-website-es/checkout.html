@@ -236,16 +236,6 @@
         </p>
       </div>
 
-      <!-- Coming Soon Banner (remove when Stripe is live) -->
-      <div class="coming-soon-banner mb-10 max-w-2xl mx-auto" data-animate="fade-up">
-        <span class="material-symbols-outlined text-[#E9C349] text-2xl">hourglass_top</span>
-        <div>
-          <p class="font-body font-bold text-[#E9C349] text-sm">Pagos lanzando pronto</p>
-          <p class="font-body text-[#f2e5f0]/45 text-xs mt-0.5 leading-relaxed">Los planes de pago están siendo finalizados. Regístrate gratis ahora — sin tarjeta de crédito — y serás el primero en saber cuando las suscripciones estén disponibles.</p>
-        </div>
-        <a href="signup.html" class="ml-auto shrink-0 bg-[#E9C349]/15 border border-[#E9C349]/30 text-[#E9C349] px-4 py-2 rounded-full font-bold text-xs hover:bg-[#E9C349]/25 transition-colors whitespace-nowrap">Regístrate Gratis →</a>
-      </div>
-
       <!-- Steps indicator -->
       <div class="flex items-start gap-1 max-w-sm mx-auto mb-12" data-animate="fade-up">
         <div class="flex flex-col items-center">
@@ -851,13 +841,20 @@
       else { pw.type = 'password'; icon.textContent = 'visibility_off'; }
     });
 
-    // =========== Stripe Initialization ===========
+    // =========== Stripe Initialization (lazy — only when checkout view shown) ===========
     const STRIPE_PUBLISHABLE_KEY = 'pk_test_51TUGNUFtLzzT3Qk4AUsRnkB3sHNgvL2sWFTmMXZnR0Jkbyw7rCE2ZueyJihd7ec1JU9HlOVn0jhVn0W68d4iL4WG008RlP9N68';
 
-    const stripe = Stripe(STRIPE_PUBLISHABLE_KEY);
-    const elements = stripe.elements({
-      fonts: [{ cssSrc: 'https://fonts.googleapis.com/css2?family=Manrope:wght@400;500&display=swap' }]
-    });
+    let stripe = null;
+    let elements = null;
+
+    function initStripe() {
+      if (stripe) return;
+      if (typeof Stripe === 'undefined') return;
+      stripe = Stripe(STRIPE_PUBLISHABLE_KEY);
+      elements = stripe.elements({
+        fonts: [{ cssSrc: 'https://fonts.googleapis.com/css2?family=Manrope:wght@400;500&display=swap' }]
+      });
+    }
 
     const stripeStyle = {
       base: {
@@ -871,13 +868,16 @@
       invalid: { color: '#ff8a7a', iconColor: '#ff8a7a' }
     };
 
-    const cardNumber  = elements.create('cardNumber',  { style: stripeStyle, showIcon: true });
-    const cardExpiry  = elements.create('cardExpiry',  { style: stripeStyle });
-    const cardCvc     = elements.create('cardCvc',     { style: stripeStyle });
+    let cardNumber = null, cardExpiry = null, cardCvc = null;
 
     let stripeElementsMounted = false;
     function mountStripeElements() {
       if (stripeElementsMounted) return;
+      initStripe();
+      if (!stripe) return;
+      cardNumber = elements.create('cardNumber',  { style: stripeStyle, showIcon: true });
+      cardExpiry = elements.create('cardExpiry',  { style: stripeStyle });
+      cardCvc    = elements.create('cardCvc',     { style: stripeStyle });
       cardNumber.mount('#stripe-card-number');
       cardExpiry.mount('#stripe-card-expiry');
       cardCvc.mount('#stripe-card-cvc');
@@ -954,7 +954,7 @@
         }
 
         const BACKEND_URL = 'https://formation-backend-production.up.railway.app';
-        const res = await fetch(`${BACKEND_URL}/create-subscription`, {
+        const res = await fetch(`${BACKEND_URL}/api/billing/create-subscription`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
