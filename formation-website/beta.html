@@ -1799,12 +1799,34 @@ function renderResponse(data) {
 
   if (data.verification || data.verified !== undefined) {
     const rawV = data.verification;
-    const vText = (rawV
-      ? (typeof rawV === 'string' ? rawV : (rawV.summary || rawV.text || rawV.message || rawV.content || JSON.stringify(rawV)))
-      : (data.verified ? 'Theologically verified against Scripture.' : 'Could not fully verify — review with discernment.'));
-    verificationIcon.textContent = (data.verified !== false && !String(vText).toLowerCase().includes('could not')) ? '🟢' : '🟡';
-    verificationText.textContent = vText;
-    verificationSection.classList.remove('hidden');
+    let vText, verified;
+    if (rawV && typeof rawV === 'object') {
+      // Backend returns {accurate, confidence, notes}
+      if (rawV.accurate === null && !rawV.notes) {
+        // Empty verification — hide it
+        verificationSection.classList.add('hidden');
+        rawV; // skip rest
+      } else {
+        verified = rawV.accurate !== false;
+        const confidence = rawV.confidence ? ` (${rawV.confidence} confidence)` : '';
+        const notes = rawV.notes ? ` — ${rawV.notes}` : '';
+        vText = rawV.accurate === true
+          ? `Scripturally sound${confidence}${notes}`
+          : rawV.accurate === false
+            ? `Review with discernment${confidence}${notes}`
+            : (rawV.notes || 'Verification completed');
+        verificationIcon.textContent = verified ? '🟢' : '🟡';
+        verificationText.textContent = vText;
+        verificationSection.classList.remove('hidden');
+      }
+    } else {
+      vText = (typeof rawV === 'string' && rawV)
+        ? rawV
+        : (data.verified ? 'Theologically verified against Scripture.' : 'Could not fully verify — review with discernment.');
+      verificationIcon.textContent = (data.verified !== false && !String(vText).toLowerCase().includes('could not')) ? '🟢' : '🟡';
+      verificationText.textContent = vText;
+      verificationSection.classList.remove('hidden');
+    }
   } else verificationSection.classList.add('hidden');
 
   cachedIndicator.innerHTML = data.cached
