@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Help & FAQ — Formation Bible Study</title>
+  <meta name="description" content="Answers to common questions about Formation Bible Study — Ask the Word, Reading Plans, Groups, and more." />
+  <link rel="canonical" href="https://formationbible.com/help.html" />
+
+  <!-- GA4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PMJ8ESPZTF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-PMJ8ESPZTF');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&family=Manrope:wght@300;400;500;700;800&display=swap" rel="stylesheet"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --color-bg: #2A0D2E;
+      --color-surface: #3D1540;
+      --color-surface-2: #4A1D4D;
+      --color-on-surface: #f2e5f0;
+      --color-gold: #E9C349;
+      --color-muted: rgba(242,229,240,0.55);
+    }
+    * { box-sizing: border-box; }
+    body {
+      background: var(--color-bg);
+      color: var(--color-on-surface);
+      font-family: 'Manrope', sans-serif;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    /* ── NAV ── */
+    nav {
+      background: rgba(42,13,46,0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(242,229,240,0.08);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      padding: 0 1.5rem;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      font-family: 'Noto Serif', serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--color-on-surface);
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+    .nav-links a {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--color-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--color-on-surface); }
+    .nav-cta {
+      background: var(--color-gold);
+      color: #1a0820 !important;
+      padding: 0.4rem 1rem;
+      border-radius: 9999px;
+      font-weight: 700 !important;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      text-align: center;
+      padding: 4rem 1.5rem 2.5rem;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    .hero h1 {
+      font-family: 'Noto Serif', serif;
+      font-size: clamp(1.8rem, 5vw, 2.6rem);
+      font-weight: 700;
+      color: var(--color-on-surface);
+      margin-bottom: 0.75rem;
+    }
+    .hero p {
+      color: var(--color-muted);
+      font-size: 1rem;
+      line-height: 1.65;
+    }
+
+    /* ── SEARCH BAR ── */
+    .search-wrap {
+      max-width: 520px;
+      margin: 0 auto 3rem;
+      padding: 0 1.5rem;
+      position: relative;
+    }
+    .search-wrap input {
+      width: 100%;
+      padding: 0.85rem 1.25rem 0.85rem 3rem;
+      background: var(--color-surface);
+      border: 1px solid rgba(242,229,240,0.15);
+      border-radius: 14px;
+      color: var(--color-on-surface);
+      font-size: 0.95rem;
+      font-family: 'Manrope', sans-serif;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .search-wrap input:focus { border-color: var(--color-gold); }
+    .search-wrap input::placeholder { color: rgba(242,229,240,0.3); }
+    .search-icon {
+      position: absolute;
+      left: 2.1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: rgba(242,229,240,0.3);
+      font-size: 1.1rem;
+    }
+
+    /* ── LAYOUT ── */
+    .page-wrap {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 1.5rem 5rem;
+    }
+
+    /* ── SECTION NAV PILLS ── */
+    .section-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 3rem;
+      justify-content: center;
+    }
+    .section-pill {
+      padding: 0.45rem 1.1rem;
+      border-radius: 9999px;
+      border: 1px solid rgba(242,229,240,0.18);
+      background: var(--color-surface);
+      color: var(--color-muted);
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .section-pill:hover {
+      background: var(--color-surface-2);
+      color: var(--color-on-surface);
+      border-color: rgba(242,229,240,0.3);
+    }
+
+    /* ── FAQ SECTION ── */
+    .faq-section { margin-bottom: 3.5rem; }
+    .faq-section-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid rgba(242,229,240,0.1);
+    }
+    .faq-section-icon { font-size: 1.4rem; }
+    .faq-section-title {
+      font-family: 'Noto Serif', serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--color-on-surface);
+    }
+
+    /* ── ACCORDION ── */
+    .faq-item {
+      background: var(--color-surface);
+      border: 1px solid rgba(242,229,240,0.1);
+      border-radius: 14px;
+      margin-bottom: 0.6rem;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .faq-item:hover { border-color: rgba(242,229,240,0.22); }
+    .faq-item.open { border-color: rgba(233,195,73,0.35); }
+
+    .faq-q {
+      width: 100%;
+      text-align: left;
+      padding: 1.1rem 1.25rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      font-family: 'Manrope', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--color-on-surface);
+      line-height: 1.4;
+    }
+    .faq-q:hover { color: #fff; }
+    .faq-chevron {
+      flex-shrink: 0;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: rgba(242,229,240,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.25s, background 0.2s;
+      font-size: 0.7rem;
+    }
+    .faq-item.open .faq-chevron {
+      transform: rotate(180deg);
+      background: rgba(233,195,73,0.2);
+    }
+    .faq-a {
+      display: none;
+      padding: 0 1.25rem 1.25rem;
+      color: var(--color-muted);
+      font-size: 0.88rem;
+      line-height: 1.75;
+    }
+    .faq-item.open .faq-a { display: block; }
+    .faq-a p { margin: 0 0 0.6rem; }
+    .faq-a p:last-child { margin-bottom: 0; }
+    .faq-a strong { color: var(--color-on-surface); font-weight: 600; }
+    .faq-a ul {
+      margin: 0.4rem 0 0.6rem 1.2rem;
+      padding: 0;
+      list-style: disc;
+    }
+    .faq-a ul li { margin-bottom: 0.25rem; }
+
+    /* ── CALLOUT BOX ── */
+    .callout {
+      background: rgba(233,195,73,0.08);
+      border: 1px solid rgba(233,195,73,0.25);
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      margin: 0.75rem 0 0;
+      font-size: 0.85rem;
+      color: rgba(233,195,73,0.9);
+      line-height: 1.6;
+    }
+    .callout strong { color: var(--color-gold); }
+
+    /* ── TAG BADGES ── */
+    .badge {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.15rem 0.55rem;
+      border-radius: 9999px;
+      margin-left: 0.4rem;
+      vertical-align: middle;
+    }
+    .badge-free { background: rgba(80,200,120,0.15); color: #50c878; border: 1px solid rgba(80,200,120,0.3); }
+    .badge-plus { background: rgba(233,195,73,0.15); color: var(--color-gold); border: 1px solid rgba(233,195,73,0.3); }
+
+    /* ── CONTACT STRIP ── */
+    .contact-strip {
+      text-align: center;
+      background: var(--color-surface);
+      border: 1px solid rgba(242,229,240,0.1);
+      border-radius: 20px;
+      padding: 2.5rem 1.5rem;
+      margin-top: 4rem;
+    }
+    .contact-strip h2 {
+      font-family: 'Noto Serif', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .contact-strip p {
+      color: var(--color-muted);
+      font-size: 0.9rem;
+      margin-bottom: 1.25rem;
+    }
+    .contact-btn {
+      display: inline-block;
+      background: var(--color-gold);
+      color: #1a0820;
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 0.75rem 2rem;
+      border-radius: 9999px;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .contact-btn:hover { opacity: 0.88; }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 2rem 1.5rem;
+      color: rgba(242,229,240,0.25);
+      font-size: 0.78rem;
+      border-top: 1px solid rgba(242,229,240,0.06);
+    }
+    footer a { color: rgba(242,229,240,0.4); text-decoration: none; }
+    footer a:hover { color: var(--color-muted); }
+
+    /* ── NO RESULTS ── */
+    #no-results {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--color-muted);
+      display: none;
+    }
+
+    @media (max-width: 600px) {
+      .nav-links { gap: 0.75rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">Formation Bible Study</a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="beta.html" class="nav-cta">Open App</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <h1>Help &amp; FAQ</h1>
+  <p>Everything you need to get the most out of Formation Bible Study — from Ask the Word to Reading Plans and Groups.</p>
+</div>
+
+<!-- SEARCH -->
+<div class="search-wrap">
+  <span class="search-icon">🔍</span>
+  <input type="text" id="faq-search" placeholder="Search questions…" oninput="filterFAQ(this.value)" />
+</div>
+
+<!-- SECTION PILLS -->
+<div class="page-wrap">
+  <div class="section-nav">
+    <a href="#getting-started" class="section-pill">🚀 Getting Started</a>
+    <a href="#ask-the-word" class="section-pill">✨ Ask the Word</a>
+    <a href="#subtabs" class="section-pill">🔍 Research Tools</a>
+    <a href="#reading-plans" class="section-pill">📅 Reading Plans</a>
+    <a href="#groups" class="section-pill">👥 Groups</a>
+    <a href="#study-notes" class="section-pill">📝 Study Notes</a>
+    <a href="#progress" class="section-pill">📊 Progress</a>
+    <a href="#account" class="section-pill">⚙️ Account &amp; Plans</a>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       SECTION: GETTING STARTED
+  ════════════════════════════════════════ -->
+  <div class="faq-section" id="getting-started">
+    <div class="faq-section-header">
+      <span class="faq-section-icon">🚀</span>
+      <h2 class="faq-section-title">Getting Started</h2>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        What is Formation Bible Study?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>Formation is a Scripture-grounded Bible study app built for serious Christians who want depth without seminary complexity. You can read the Berean Standard Bible (BSB), ask any Bible question and receive answers rooted in Scripture, create study notes and highlights, follow a reading plan, and study alongside others in Groups.</p>
+        <p>Every answer Formation gives is grounded in the Word — not AI opinion. The goal is the Word interpreting itself.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        Do I need an account to use Formation?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>Yes — a free account is required to use the app. This lets Formation save your notes, highlights, reading plan progress, and Ask the Word history to your profile so nothing is lost.</p>
+        <p>Creating an account is free and takes under a minute. The Discovery tier (free) gives you permanent access to core features with no expiration.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        What Bible translation does Formation use?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>Formation uses the <strong>Berean Standard Bible (BSB)</strong> — a modern, accurate, freely available translation built for both readability and faithfulness to the original languages. It's ideal for personal study, devotion, and teaching.</p>
+        <p>Additional translations will be added in future updates.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        What are the different tabs in the app?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>Formation has six main tabs:</p>
+        <ul>
+          <li><strong>📖 Read</strong> — Browse and read the full BSB by book and chapter</li>
+          <li><strong>✨ Ask the Word</strong> — Ask any Bible question and receive a Scripture-grounded answer</li>
+          <li><strong>📝 Study Notes</strong> — Write, save, and organize your personal Bible study notes</li>
+          <li><strong>📅 Reading Plan</strong> — Follow a structured daily reading plan through Scripture</li>
+          <li><strong>👥 Groups</strong> — Study alongside others with a shared plan and group notes</li>
+          <li><strong>📊 Progress</strong> — Track your reading streak, chapters completed, and notes written</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       SECTION: ASK THE WORD
+  ════════════════════════════════════════ -->
+  <div class="faq-section" id="ask-the-word">
+    <div class="faq-section-header">
+      <span class="faq-section-icon">✨</span>
+      <h2 class="faq-section-title">Ask the Word</h2>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        What is Ask the Word?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>Ask the Word is Formation's core study feature. You type any Bible question — a doctrine, a verse, a person, an event — and receive a thorough, Scripture-grounded answer with supporting cross-references.</p>
+        <p>This is not an AI chatbot giving you its opinion. Formation is built so the Word interprets itself: every answer is built from Scripture, with specific verses cited.</p>
+        <div class="callout"><strong>Try it:</strong> "What does it mean to walk in the Spirit?" or "Who was Melchizedek?" or "What is the meaning of grace in Romans 5?"</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        How many questions can I ask per day?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>It depends on your plan:</p>
+        <ul>
+          <li><strong>Discovery (Free)</strong> — 5 questions per day</li>
+          <li><strong>Formation</strong> — 10 questions per day</li>
+          <li><strong>Formation Plus</strong> — 20 questions per day</li>
+          <li><strong>Formation Pro</strong> — Unlimited</li>
+        </ul>
+        <p>Limits reset at midnight. If you need more depth in a single session, consider upgrading to Formation Pro.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        What languages can I ask questions in?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>You can ask in <strong>English</strong> or <strong>Spanish</strong> — select your preferred language using the language toggle next to the Ask button. The answer will be returned in the language you selected.</p>
+        <p>Spanish speakers can also use the dedicated Spanish app at <a href="https://formacion-biblica.com" style="color: var(--color-gold);">formacion-biblica.com</a>.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        What is the Verification badge I see after an answer?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>The verification badge (🟢 or 🟡) appears when Formation has cross-checked the answer against Scripture for theological accuracy.</p>
+        <ul>
+          <li><strong>🟢 Scripturally sound</strong> — The answer aligns well with the whole counsel of Scripture</li>
+          <li><strong>🟡 Review with discernment</strong> — The answer touches an area with multiple interpretations; read carefully and search the Word yourself</li>
+        </ul>
+        <p>Formation is a study tool, not a pastor. Always test everything against Scripture (Acts 17:11).</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        Can I flag an answer I think is inaccurate?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>Yes — scroll to the bottom of any answer and click <strong>"Flag this answer."</strong> Your report helps the Formation team review and improve answer quality. We take theological accuracy seriously.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       SECTION: RESEARCH SUB-TABS
+  ════════════════════════════════════════ -->
+  <div class="faq-section" id="subtabs">
+    <div class="faq-section-header">
+      <span class="faq-section-icon">🔍</span>
+      <h2 class="faq-section-title">Research Tools — Cross-References, Context, Themes, Outline</h2>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        What are the research tools below Ask the Word?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>Below the Ask input, you'll see four research mode buttons: <strong>Cross-References</strong>, <strong>Context</strong>, <strong>Themes</strong>, and <strong>Outline</strong>. These are deeper study tools — not for general questions, but for deep-diving into a specific passage or book of Scripture.</p>
+        <p>Type a passage (e.g. "Matthew 5:1-12" or "Philippians 4") and select one of the four modes to begin.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        🔗 What does Cross-References do?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>Enter a passage and Cross-References will find every significant verse in Scripture that connects to it — thematically, linguistically, or theologically. Each reference is explained and grouped by theme where possible.</p>
+        <p>This is the feature that lets the Bible interpret itself. Use it when you want to understand a verse in the full light of Scripture rather than in isolation.</p>
+        <div class="callout"><strong>Example:</strong> Type "John 3:16" → Formation returns related passages from Genesis, Isaiah, Romans, 1 John, and more, with explanations of how they connect.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        📜 What does Context do?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>Context provides the <strong>historical, cultural, and literary background</strong> of a passage. Who was the author? Who was the original audience? What was happening in that culture? What literary genre is this?</p>
+        <p>Understanding context is essential to accurate interpretation. Context prevents you from reading a 1st-century letter as if it were written to 21st-century Americans.</p>
+        <div class="callout"><strong>Example:</strong> Type "1 Corinthians 11" → Formation explains the Corinthian church situation, Greco-Roman social customs around head coverings, and the letter's rhetorical purpose.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        ⛪ What does Themes do?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>Themes identifies the major <strong>theological threads</strong> running through a passage or book — covenant, redemption, holiness, faith, judgment, etc. — and traces each theme through the wider canon of Scripture.</p>
+        <p>Use it when you want to move from a single passage to seeing the big picture of what God is revealing across the whole Bible.</p>
+        <div class="callout"><strong>Example:</strong> Type "Genesis 1-2" → Formation identifies Creation, Image of God, Sabbath, and Marriage as major themes, with New Testament fulfillments for each.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        📋 What does Outline do?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>Outline builds a <strong>sermon or Bible study outline</strong> for any passage — with a title, main points, sub-points, supporting cross-references for each point, application questions, and a conclusion.</p>
+        <p>This is the tool for pastors, teachers, small group leaders, and anyone preparing to teach or share Scripture with others.</p>
+        <div class="callout"><strong>Example:</strong> Type "Romans 8:1-17" → Formation returns a structured outline with points on Condemnation Removed, Life in the Spirit, and Sonship — ready to build your message or lesson from.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        What's the difference between Ask and the research tools?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <ul>
+          <li><strong>Ask</strong> — For open questions: "What does the Bible say about forgiveness?" or "Who wrote Hebrews?"</li>
+          <li><strong>Research tools (Cross-References, Context, Themes, Outline)</strong> — For a specific passage: "Galatians 5:16-25"</li>
+        </ul>
+        <p>Think of Ask as your study companion and the research tools as your passage deep-dive toolkit.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       SECTION: READING PLANS
+  ════════════════════════════════════════ -->
+  <div class="faq-section" id="reading-plans">
+    <div class="faq-section-header">
+      <span class="faq-section-icon">📅</span>
+      <h2 class="faq-section-title">Reading Plans</h2>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        What reading plans are available?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>Formation currently includes four plans:</p>
+        <ul>
+          <li><strong>📖 Bible in a Year</strong> — All 66 books, Old and New Testament, in 365 days</li>
+          <li><strong>✝️ New Testament in 90 Days</strong> — All 27 NT books in 3 months</li>
+          <li><strong>🎵 Psalms in 30 Days</strong> — 5 psalms a day for a month of worship</li>
+          <li><strong>🌿 Proverbs in a Month</strong> — One chapter of wisdom every day for 31 days</li>
+        </ul>
+        <p>More plans are coming. If you have a plan you'd like to see added, let us know.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        How does the daily reading plan work?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>When you start a plan, Formation calculates your daily reading based on the plan's start date. Each day it shows you exactly which chapters are assigned for that day — along with upcoming days so you can plan ahead.</p>
+        <p>Mark days complete as you finish them. Your progress percentage updates automatically, and the Progress tab tracks your streak.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        Can I switch plans?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>Yes — tap the plan name while in the Reading Plan tab to change plans. <strong>Note:</strong> switching plans resets your progress for that plan, so you'll start fresh from Day 1.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        What if I miss a day?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>Formation doesn't penalize you for missing a day. The plan continues from today's calendar date. If you're behind, you can catch up at your own pace — just mark each day complete when you finish it.</p>
+        <p>Your reading streak in the Progress tab tracks consecutive days of activity, but missing a day doesn't cancel your plan or remove your completed days.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        Can a Group share a reading plan?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>Yes — this is one of the best features of Groups. The group admin can assign any reading plan to the group, and all members follow the same schedule together. Everyone sees the same daily readings, can post notes, and discuss inside the group. See the <a href="#groups" style="color: var(--color-gold);">Groups section</a> for more.</p>
+        <div class="callout"><strong>Requires:</strong> Formation Plus or higher. <span class="badge badge-plus">Plus</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       SECTION: GROUPS
+  ════════════════════════════════════════ -->
+  <div class="faq-section" id="groups">
+    <div class="faq-section-header">
+      <span class="faq-section-icon">👥</span>
+      <h2 class="faq-section-title">Groups</h2>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        What are Groups?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>Groups are Formation's accountability and community feature. A Group is a private space where a small number of people can:</p>
+        <ul>
+          <li>Follow the same reading plan together on the same schedule</li>
+          <li>Share study notes and reflections inside the group</li>
+          <li>Encourage and hold each other accountable in Scripture study</li>
+        </ul>
+        <p>Think of it as a private Bible study room — for your small group, family, church class, or accountability partners.</p>
+        <div class="callout"><strong>Requires:</strong> Formation Plus or higher. <span class="badge badge-plus">Plus</span></div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        How do I create a Group?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>Go to the <strong>Groups tab</strong> and tap <strong>"Create a Group."</strong> Give your group a name, then share the unique join code with the people you want to invite. Anyone with the code can join using <strong>"Join a Group"</strong> in the Groups tab.</p>
+        <p>As the group creator, you are the admin — you can assign the group's reading plan and manage the group.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        How do I join a Group someone else created?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>Go to the <strong>Groups tab</strong> and tap <strong>"Join a Group."</strong> Enter the join code shared by your group admin (it's a short uppercase code like <code style="background: rgba(242,229,240,0.1); padding: 0.1rem 0.4rem; border-radius: 4px;">STUDY7</code>) and you'll be added instantly.</p>
+        <p>You can be in more than one group at a time.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        Who sets the reading plan for a Group?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>Only the <strong>group admin</strong> (the person who created the group) can set or change the group's reading plan. Members follow the plan chosen by the admin.</p>
+        <p>Admins: go to your group → tap the <strong>Plan</strong> tab inside the group → choose from the available reading plans.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        How many Groups can I join?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>You can create or join multiple groups simultaneously. Your Groups tab will list all your active groups — tap any one to enter it.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        Can I post notes inside a Group?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>Yes — inside any group, go to the <strong>Notes</strong> tab to post reflections, insights, questions, or prayer requests visible to all group members. It's a shared space for group discussion grounded in that day's reading.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       SECTION: STUDY NOTES
+  ════════════════════════════════════════ -->
+  <div class="faq-section" id="study-notes">
+    <div class="faq-section-header">
+      <span class="faq-section-icon">📝</span>
+      <h2 class="faq-section-title">Study Notes</h2>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        How do I create a Study Note?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>Go to the <strong>Study Notes tab</strong>. Give your note a title, write your content, and tap Save. Notes are saved to your account and available any time you log in.</p>
+        <p>You can also highlight text directly in the Read tab — highlighted verses can be tied to notes for verse-specific study.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        How many notes can I save?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <ul>
+          <li><strong>Discovery (Free)</strong> — Up to 50 notes</li>
+          <li><strong>Formation and above</strong> — Unlimited notes</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        Are my notes private?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>Yes — your personal Study Notes are private and visible only to you. The only exception is notes you post inside a Group, which are shared with group members.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       SECTION: PROGRESS
+  ════════════════════════════════════════ -->
+  <div class="faq-section" id="progress">
+    <div class="faq-section-header">
+      <span class="faq-section-icon">📊</span>
+      <h2 class="faq-section-title">Progress</h2>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        What does the Progress tab show?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>The Progress tab is your personal study dashboard. It shows:</p>
+        <ul>
+          <li><strong>Reading streak</strong> — Consecutive days you've been in the Word</li>
+          <li><strong>Chapters read</strong> — Total chapters completed across all sessions</li>
+          <li><strong>Notes written</strong> — Total study notes saved</li>
+          <li><strong>Groups joined</strong> — How many groups you're part of</li>
+          <li><strong>Reading plan progress</strong> — Percentage complete for your active plan</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        How is my reading streak calculated?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>Your streak increases by one each day you open the Read tab or mark a reading plan day complete. If you miss a calendar day entirely, the streak resets to zero — but your total chapters read and notes are never lost.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       SECTION: ACCOUNT & PLANS
+  ════════════════════════════════════════ -->
+  <div class="faq-section" id="account">
+    <div class="faq-section-header">
+      <span class="faq-section-icon">⚙️</span>
+      <h2 class="faq-section-title">Account &amp; Plans</h2>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        Is the free plan really free forever?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>Yes — the Discovery tier is <strong>permanently free</strong>. It is not a trial. There is no expiration date, and you will never be forced to upgrade. Formation is built on the conviction that everyone should have access to Scripture-grounded study tools.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        What's the difference between the paid plans?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <ul>
+          <li><strong>Discovery (Free)</strong> — BSB reader, 5 Ask the Word/day, 50 notes, 1 reading plan, no Groups</li>
+          <li><strong>Formation ($7/mo)</strong> — Unlimited notes, 10 Ask/day, no ads</li>
+          <li><strong>Formation Plus ($12/mo)</strong> — Everything in Formation + Groups, 20 Ask/day, accountability partners</li>
+          <li><strong>Formation Pro ($29/mo)</strong> — Unlimited Ask the Word, priority support</li>
+        </ul>
+        <p>All paid plans are available monthly or annually (annual saves ~30%).</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        How do I upgrade my plan?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>Go to <a href="pricing.html" style="color: var(--color-gold);">formationbible.com/pricing.html</a> and choose your plan. You'll be taken through a secure checkout — a payment method is required to start any paid plan. Your card is never charged for the free Discovery tier.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        Can I cancel at any time?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>Yes — cancel any time from your account settings. When you cancel, your paid access continues until the end of your current billing period, then reverts to the free Discovery tier. Your notes, highlights, and reading progress are always preserved.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        Is my payment information secure?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>Yes. Formation uses <strong>Stripe</strong> for all payment processing — one of the most trusted payment platforms in the world. Formation never stores your card number. All transactions are encrypted and PCI-compliant.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        I forgot my password. How do I reset it?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>On the login screen, tap <strong>"Forgot password?"</strong> and enter your email address. You'll receive a reset link within a few minutes. Check your spam folder if you don't see it.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        Does Formation have a mobile app?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>Formation currently runs as a web app — it works in any modern browser on your phone, tablet, or computer. On iPhone or Android, you can add it to your home screen for an app-like experience: tap the share icon in your browser and choose <strong>"Add to Home Screen."</strong></p>
+        <p>Native iOS and Android apps are on the Formation roadmap.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- NO RESULTS -->
+  <div id="no-results">
+    <p style="font-size: 1.1rem; margin-bottom: 0.5rem;">No results found.</p>
+    <p>Try a different search term, or <a href="mailto:blackpearlcom1@gmail.com" style="color: var(--color-gold);">contact us</a> and we'll answer directly.</p>
+  </div>
+
+  <!-- CONTACT STRIP -->
+  <div class="contact-strip">
+    <h2>Still have a question?</h2>
+    <p>We're here to help. Reach out and we'll get back to you — usually within one business day.</p>
+    <a href="mailto:blackpearlcom1@gmail.com" class="contact-btn">Email Formation Support</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Berean Defense L.L.C. · Wyoming · All rights reserved</p>
+  <p style="margin-top: 0.5rem;">
+    <a href="index.html">Home</a> &nbsp;·&nbsp;
+    <a href="pricing.html">Pricing</a> &nbsp;·&nbsp;
+    <a href="help.html">Help</a> &nbsp;·&nbsp;
+    <a href="privacy.html">Privacy</a> &nbsp;·&nbsp;
+    <a href="terms.html">Terms</a>
+  </p>
+</footer>
+
+<script>
+  // ── Accordion toggle ────────────────────────────────
+  function toggle(btn) {
+    const item = btn.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    // Close all
+    document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+    // Open clicked (unless it was already open)
+    if (!isOpen) item.classList.add('open');
+  }
+
+  // ── FAQ search ──────────────────────────────────────
+  function filterFAQ(query) {
+    const q = query.toLowerCase().trim();
+    const items = document.querySelectorAll('.faq-item');
+    const sections = document.querySelectorAll('.faq-section');
+    let anyVisible = false;
+
+    if (!q) {
+      // Show everything
+      items.forEach(el => el.style.display = '');
+      sections.forEach(el => el.style.display = '');
+      document.getElementById('no-results').style.display = 'none';
+      return;
+    }
+
+    sections.forEach(section => {
+      let sectionHasMatch = false;
+      section.querySelectorAll('.faq-item').forEach(item => {
+        const text = item.textContent.toLowerCase();
+        const match = text.includes(q);
+        item.style.display = match ? '' : 'none';
+        if (match) {
+          sectionHasMatch = true;
+          anyVisible = true;
+          item.classList.add('open');
+        } else {
+          item.classList.remove('open');
+        }
+      });
+      section.style.display = sectionHasMatch ? '' : 'none';
+    });
+
+    document.getElementById('no-results').style.display = anyVisible ? 'none' : 'block';
+  }
+
+  // ── Smooth scroll for section pills ────────────────
+  document.querySelectorAll('.section-pill').forEach(pill => {
+    pill.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(pill.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+</script>
+</body>
+</html>
