@@ -3032,8 +3032,12 @@ function cardGateShouldShow() {
   return visits >= 2 && atw >= 1;
 }
 
+let _cgVisitCounted = false;   // guard: only increment once per page load
+
 function cardGateIncrementVisit() {
   if (!currentSession) return;
+  if (_cgVisitCounted) return;   // showStudy() can fire twice (getSession + onAuthStateChange); only count once
+  _cgVisitCounted = true;
   const k = cgKey('vc');
   const v = parseInt(localStorage.getItem(k) || '0', 10) + 1;
   localStorage.setItem(k, String(v));
