@@ -16,6 +16,7 @@
   <title>Estudio Bíblico Formation — Beta</title>
   <meta name="robots" content="noindex, nofollow" />
   <script src="https://unpkg.com/@supabase/supabase-js@2.39.0/dist/umd/supabase.js"></script>
+  <script src="https://js.stripe.com/v3/"></script>
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Manrope:wght@300;400;500;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
   <script id="tailwind-config">
@@ -198,9 +199,54 @@
       color: #E9C349;
       background: rgba(233,195,73,0.12);
     }
+    #card-gate-overlay {
+      display: none; position: fixed; inset: 0; z-index: 300;
+      background: rgba(20,5,25,0.88); backdrop-filter: blur(10px);
+      align-items: center; justify-content: center; padding: 16px;
+    }
+    #card-gate-overlay.open { display: flex; }
+    #card-gate-card-el {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(196,160,194,0.35);
+      border-radius: 10px; padding: 13px 14px;
+      transition: border-color 0.2s;
+    }
+    #card-gate-card-el.focused { border-color: #FFB4A4; }
+    #card-gate-card-el.error   { border-color: rgba(255,100,100,0.6); }
   </style>
 </head>
 <body class="font-body text-on-background selection:bg-primary/30 min-h-screen flex flex-col">
+
+<!-- ─── Card Gate Modal ─────────────────────────────────────────────────── -->
+<div id="card-gate-overlay" role="dialog" aria-modal="true" aria-labelledby="cg-title">
+  <div class="relative w-full max-w-sm bg-gradient-to-b from-[#4A1D4D] to-[#3D1540] border border-[#f2e5f0]/15 rounded-3xl shadow-2xl overflow-hidden">
+    <div style="background:#3D1540;padding:20px 28px 18px;">
+      <p class="font-headline text-lg font-bold text-[#FFB4A4]">Formation Bible Study</p>
+      <p class="font-body text-xs text-[#f2e5f0]/50 mt-0.5">Tu lugar seguro para aprender</p>
+    </div>
+    <div style="padding:24px 28px 20px;">
+      <p id="cg-title" class="font-headline text-xl font-bold text-[#f2e5f0] mb-2">Mantén tu cuenta activa</p>
+      <p class="font-body text-sm text-[#f2e5f0]/65 leading-relaxed mb-5">
+        Agrega una tarjeta para continuar. No se te cobrará — el plan Discovery es permanentemente gratuito.
+        Una tarjeta mantiene tu cuenta segura y lista si decides mejorar tu plan.
+      </p>
+      <label class="block font-body text-xs text-[#f2e5f0]/50 uppercase tracking-widest mb-2">Datos de la tarjeta</label>
+      <div id="card-gate-card-el"></div>
+      <p id="card-gate-error" class="hidden font-body text-xs text-[#ff7c7c] mt-2"></p>
+      <button id="card-gate-btn" onclick="cardGateSubmit()"
+        class="w-full mt-5 bg-[#FFB4A4] text-[#5D1809] font-body font-bold text-sm rounded-full py-3 hover:bg-[#ffa090] transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
+        <span id="card-gate-btn-label">Guardar tarjeta — Sin cargo ahora</span>
+      </button>
+      <p class="text-center mt-3">
+        <button onclick="cardGateSnooze()" class="font-body text-xs text-[#f2e5f0]/30 hover:text-[#f2e5f0]/55 transition-colors">Recuérdame mañana</button>
+      </p>
+    </div>
+    <div style="padding:12px 28px 16px;border-top:1px solid rgba(242,229,240,0.08);">
+      <p class="font-body text-xs text-[#f2e5f0]/25 text-center">Protegido por Stripe · Sin cargo · Cancela cuando quieras</p>
+    </div>
+  </div>
+</div>
+<!-- ─── End Card Gate Modal ──────────────────────────────────────────────── -->
 
 <!-- ─── Modal de Introducción ────────────────────────────── -->
 <div id="onboarding-overlay" class="hidden fixed inset-0 z-[200] flex items-center justify-center px-4" style="background:rgba(30,8,35,0.85);backdrop-filter:blur(8px);">
@@ -1270,6 +1316,9 @@ function showStudy(session) {
   if (!localStorage.getItem(obKey)) {
     setTimeout(() => showOnboarding(obKey), 600);
   }
+  // Card gate: increment visit count and check
+  cardGateIncrementVisit();
+  setTimeout(checkCardGate, 1200);
 }
 
 // ─── Modal de Introducción ──────────────────────────────────
@@ -1604,6 +1653,7 @@ async function askQuestion() {
     const data = await res.json();
     if (!res.ok) throw new Error(data.error || data.message || `Error del servidor ${res.status}`);
     renderResponse(data);
+    cardGateIncrementATW();   // track ATW usage for card gate
   } catch (err) {
     errorBox.textContent = '⚠ ' + err.message; errorBox.classList.remove('hidden');
   } finally {
@@ -2778,6 +2828,131 @@ flagBtn.addEventListener('click', async () => {
     });
   } catch(_) {}
 });
+
+// ─── Card Gate ──────────────────────────────────────────────────────────────
+let _cgStripe = null, _cgCardEl = null, _cgClientSecret = null;
+
+function cgKey(suffix) {
+  const uid = currentSession?.user?.id || 'guest';
+  return `fbs_cg_${suffix}_${uid}`;
+}
+
+function cardGateShouldShow() {
+  if (!currentSession) return false;
+  if (localStorage.getItem(cgKey('saved'))) return false;
+  const snooze = parseInt(localStorage.getItem(cgKey('snooze')) || '0', 10);
+  if (snooze && Date.now() < snooze) return false;
+  const visits = parseInt(localStorage.getItem(cgKey('vc')) || '0', 10);
+  const atw    = parseInt(localStorage.getItem(cgKey('atw')) || '0', 10);
+  return visits >= 2 && atw >= 1;
+}
+
+let _cgVisitCounted = false;   // guard: only increment once per page load
+
+function cardGateIncrementVisit() {
+  if (!currentSession) return;
+  if (_cgVisitCounted) return;   // showStudy() can fire twice (getSession + onAuthStateChange); only count once
+  _cgVisitCounted = true;
+  const k = cgKey('vc');
+  const v = parseInt(localStorage.getItem(k) || '0', 10) + 1;
+  localStorage.setItem(k, String(v));
+}
+
+function cardGateIncrementATW() {
+  if (!currentSession) return;
+  const k = cgKey('atw');
+  const v = parseInt(localStorage.getItem(k) || '0', 10) + 1;
+  localStorage.setItem(k, String(v));
+  checkCardGate();
+}
+
+async function checkCardGate() {
+  if (!cardGateShouldShow()) return;
+  const overlay = document.getElementById('card-gate-overlay');
+  if (overlay.classList.contains('open')) return;
+  await openCardGate();
+}
+
+async function openCardGate() {
+  const overlay = document.getElementById('card-gate-overlay');
+  overlay.classList.add('open');
+  try {
+    const { data: { session } } = await sb.auth.getSession();
+    const res = await fetch(`${BACKEND_URL}/api/billing/setup-intent`, {
+      method: 'POST',
+      headers: { 'Authorization': `Bearer ${session.access_token}` }
+    });
+    if (!res.ok) throw new Error('No se pudo inicializar el pago');
+    const { clientSecret, publishableKey } = await res.json();
+    _cgClientSecret = clientSecret;
+    _cgStripe = Stripe(publishableKey);
+    const elements = _cgStripe.elements();
+    _cgCardEl = elements.create('card', {
+      style: {
+        base: {
+          color: '#f2e5f0', fontFamily: 'Manrope, sans-serif',
+          fontSize: '14px', fontSmoothing: 'antialiased',
+          '::placeholder': { color: 'rgba(242,229,240,0.35)' },
+        },
+        invalid: { color: '#ff7c7c', iconColor: '#ff7c7c' },
+      },
+      hidePostalCode: true,
+    });
+    _cgCardEl.mount('#card-gate-card-el');
+    _cgCardEl.on('focus', () => document.getElementById('card-gate-card-el').classList.add('focused'));
+    _cgCardEl.on('blur',  () => document.getElementById('card-gate-card-el').classList.remove('focused'));
+    _cgCardEl.on('change', e => {
+      const errEl = document.getElementById('card-gate-error');
+      if (e.error) {
+        errEl.textContent = e.error.message;
+        errEl.classList.remove('hidden');
+        document.getElementById('card-gate-card-el').classList.add('error');
+      } else {
+        errEl.classList.add('hidden');
+        document.getElementById('card-gate-card-el').classList.remove('error');
+      }
+    });
+  } catch (err) {
+    console.error('[card-gate]', err.message);
+    cardGateSnooze();
+  }
+}
+
+async function cardGateSubmit() {
+  if (!_cgStripe || !_cgCardEl || !_cgClientSecret) return;
+  const btn = document.getElementById('card-gate-btn');
+  const label = document.getElementById('card-gate-btn-label');
+  btn.disabled = true;
+  label.innerHTML = '<span class="spinner mr-2" style="border-top-color:#5D1809"></span>Guardando…';
+  try {
+    const result = await _cgStripe.confirmCardSetup(_cgClientSecret, {
+      payment_method: { card: _cgCardEl }
+    });
+    if (result.error) {
+      const errEl = document.getElementById('card-gate-error');
+      errEl.textContent = result.error.message;
+      errEl.classList.remove('hidden');
+      btn.disabled = false;
+      label.textContent = 'Guardar tarjeta — Sin cargo ahora';
+      return;
+    }
+    localStorage.setItem(cgKey('saved'), '1');
+    document.getElementById('card-gate-overlay').classList.remove('open');
+    showToast('Tarjeta guardada — ¡Todo listo!', 'success');
+  } catch (err) {
+    const errEl = document.getElementById('card-gate-error');
+    errEl.textContent = 'Algo salió mal. Por favor intenta de nuevo.';
+    errEl.classList.remove('hidden');
+    btn.disabled = false;
+    label.textContent = 'Guardar tarjeta — Sin cargo ahora';
+  }
+}
+
+function cardGateSnooze() {
+  localStorage.setItem(cgKey('snooze'), String(Date.now() + 24 * 60 * 60 * 1000));
+  document.getElementById('card-gate-overlay').classList.remove('open');
+}
+// ─── End Card Gate ──────────────────────────────────────────────────────────
 </script>
 </body>
 </html>
