@@ -308,7 +308,7 @@
                 <span class="font-body text-sm text-[#f2e5f0]/30">Ad-supported</span>
               </div>
             </div>
-            <button class="btn-cta-free" onclick="selectPlan('free')">Start for Free</button>
+            <button class="btn-cta-free" onclick="selectAndAdvance('free')">Start for Free</button>
           </div>
 
           <!-- Formation Bible Study (Featured) -->
@@ -610,7 +610,7 @@
               </div>
               <div class="summary-row mb-3">
                 <span class="font-body text-[#E9C349]/70 text-sm">14-day free trial</span>
-                <span class="font-body text-[#E9C349]/70 text-sm">- $7</span>
+                <span class="font-body text-[#E9C349]/70 text-sm" id="summary-trial-discount">- $7</span>
               </div>
 
               <div class="summary-row summary-total">
@@ -809,6 +809,7 @@
       // Update order summary
       document.getElementById('summary-plan-name').textContent = plan.name + ' · ' + (isAnnual ? 'Annual' : 'Monthly');
       document.getElementById('summary-plan-price').textContent = currentPlan === 'free' ? '$0.00' : ('$' + price.toFixed(2) + '/mo');
+      document.getElementById('summary-trial-discount').textContent = currentPlan === 'free' ? '' : ('- $' + price.toFixed(2));
       document.getElementById('summary-due').textContent = '$0.00';
       document.getElementById('summary-rebill').textContent = currentPlan === 'free' ? 'Free forever. Upgrade anytime.' : 'After 14-day trial, ' + (isAnnual ? '$' + plan.annualTotal.toFixed(2) + '/year' : '$' + plan.monthlyPrice.toFixed(2) + '/month') + '. Cancel anytime.';
 
