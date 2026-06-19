@@ -974,8 +974,8 @@
       }
 
       // Validate fields first (before Turnstile, so user gets instant feedback)
-      const firstName  = document.getElementById('first-name').value.trim();
-      const lastName   = document.getElementById('last-name').value.trim();
+      const firstName  = _existingSession ? '' : (document.getElementById('first-name')?.value.trim() || '');
+      const lastName   = _existingSession ? '' : (document.getElementById('last-name')?.value.trim() || '');
       const email      = _existingSession ? _existingSession.user.email : document.getElementById('email-field').value.trim();
       const password   = _existingSession ? null : document.getElementById('password-field').value;
       const nameOnCard = document.getElementById('name-on-card').value.trim();
