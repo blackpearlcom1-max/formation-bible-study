@@ -14,7 +14,7 @@
 
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
   <title>Comenzar — Formation Bible Study</title>
-  <meta name="description" content="Comienza tu camino en Formation Bible Study. Gratis para siempre, o desbloquea la experiencia completa. Prueba gratuita de 14 días. Cancela cuando quieras."/>
+  <meta name="description" content="Comienza tu camino en Formation Bible Study. Gratis para siempre, o desbloquea la experiencia completa. Cancela cuando quieras."/>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -350,13 +350,9 @@
                 <span class="material-symbols-outlined feature-check text-[#FFB4A4] text-base" style="font-size:18px">check_circle</span>
                 <span class="font-body text-sm text-[#f2e5f0]/75">Sin anuncios</span>
               </div>
-              <div class="feature-row">
-                <span class="material-symbols-outlined feature-check text-[#FFB4A4] text-base" style="font-size:18px">check_circle</span>
-                <span class="font-body text-sm text-[#f2e5f0]/75">Prueba gratuita de 14 días</span>
-              </div>
             </div>
             <button class="btn-cta" onclick="selectAndAdvance('formation')">
-              Comenzar Prueba Gratuita
+              Comenzar
               <span class="material-symbols-outlined text-xl">arrow_forward</span>
             </button>
           </div>
@@ -390,13 +386,9 @@
                 <span class="material-symbols-outlined feature-check text-[#A8D8B9] text-base" style="font-size:18px">check_circle</span>
                 <span class="font-body text-sm text-[#f2e5f0]/75">Acceso anticipado a funciones</span>
               </div>
-              <div class="feature-row">
-                <span class="material-symbols-outlined feature-check text-[#A8D8B9] text-base" style="font-size:18px">check_circle</span>
-                <span class="font-body text-sm text-[#f2e5f0]/75">Prueba gratuita de 14 días</span>
-              </div>
             </div>
             <button class="btn-cta" style="background:linear-gradient(135deg,#A8D8B9,#4a9e6e);color:#0a1f12;" onclick="selectAndAdvance('plus')">
-              Comenzar Prueba Gratuita
+              Comenzar
               <span class="material-symbols-outlined text-xl">arrow_forward</span>
             </button>
           </div>
@@ -430,13 +422,9 @@
                 <span class="material-symbols-outlined feature-check text-[#E9C349] text-base" style="font-size:18px">check_circle</span>
                 <span class="font-body text-sm text-[#f2e5f0]/75">Soporte prioritario</span>
               </div>
-              <div class="feature-row">
-                <span class="material-symbols-outlined feature-check text-[#E9C349] text-base" style="font-size:18px">check_circle</span>
-                <span class="font-body text-sm text-[#f2e5f0]/75">Prueba gratuita de 14 días</span>
-              </div>
             </div>
             <button class="btn-cta" style="background:linear-gradient(135deg,#E9C349,#af8d11);color:#241a00;" onclick="selectAndAdvance('pro')">
-              Comenzar Prueba Gratuita
+              Comenzar
               <span class="material-symbols-outlined text-xl">arrow_forward</span>
             </button>
           </div>
@@ -452,10 +440,6 @@
           <div class="flex items-center gap-2 text-[#f2e5f0]/30">
             <span class="material-symbols-outlined text-base" style="font-size:16px">cancel</span>
             <span class="font-body text-xs">Cancela cuando quieras</span>
-          </div>
-          <div class="flex items-center gap-2 text-[#f2e5f0]/30">
-            <span class="material-symbols-outlined text-base" style="font-size:16px">credit_card_off</span>
-            <span class="font-body text-xs">Sin cargos durante la prueba</span>
           </div>
           <div class="flex items-center gap-2 text-[#f2e5f0]/30">
             <span class="material-symbols-outlined text-base" style="font-size:16px">shield</span>
@@ -485,7 +469,7 @@
                 </div>
                 <div>
                   <p class="font-body font-black text-[#f2e5f0] text-sm" id="pill-plan-name">Formation Bible Study</p>
-                  <p class="font-body text-[#f2e5f0]/40 text-xs" id="pill-plan-price">$7 / mes · Prueba gratuita de 14 días</p>
+                  <p class="font-body text-[#f2e5f0]/40 text-xs" id="pill-plan-price">$7 / mes · Cancela cuando quieras</p>
                 </div>
               </div>
               <button class="text-[#f2e5f0]/25 hover:text-[#FFB4A4] transition-colors" onclick="goBack()">
@@ -558,11 +542,11 @@
                   <input class="form-input" type="text" id="name-on-card" placeholder="Tal como aparece en tu tarjeta" autocomplete="cc-name"/>
                 </div>
 
-                <!-- Trial notice -->
-                <div class="bg-[#E9C349]/5 border border-[#E9C349]/15 rounded-xl p-4 mt-5">
+                <!-- Billing notice -->
+                <div class="bg-[#f2e5f0]/4 border border-[#f2e5f0]/10 rounded-xl p-4 mt-5">
                   <div class="flex items-start gap-3">
-                    <span class="material-symbols-outlined text-[#E9C349] text-base mt-0.5" style="font-size:16px">info</span>
-                    <p class="font-body text-[#f2e5f0]/50 text-xs leading-relaxed">Tu prueba gratuita de 14 días comienza hoy. No se te cobrará hasta el <strong id="trial-end-date" class="text-[#f2e5f0]/70"></strong>. Cancela cuando quieras sin costo.</p>
+                    <span class="material-symbols-outlined text-[#f2e5f0]/40 text-base mt-0.5" style="font-size:16px">lock</span>
+                    <p class="font-body text-[#f2e5f0]/50 text-xs leading-relaxed">Tu tarjeta está protegida por Stripe. Se te cobrará hoy y en la misma fecha cada ciclo de facturación.</p>
                   </div>
                 </div>
               </div>
@@ -589,11 +573,11 @@
 
             <button class="btn-cta" id="complete-btn" onclick="handleCheckout()">
               <span class="material-symbols-outlined text-xl" id="cta-icon">rocket_launch</span>
-              <span id="cta-text">Comenzar Prueba Gratuita</span>
+              <span id="cta-text">Comenzar</span>
             </button>
 
             <p class="font-body text-[#f2e5f0]/20 text-xs text-center mt-4">
-              Al continuar, aceptas ser facturado según el plan seleccionado después de cualquier período de prueba aplicable.
+              Al continuar, aceptas ser facturado según el plan seleccionado. Cancela cuando quieras.
               <a href="billing_terms.html" class="text-[#f2e5f0]/35 hover:text-[#FFB4A4] underline transition-colors">Términos de Facturación</a>
             </p>
           </div>
@@ -606,19 +590,15 @@
 
               <div class="summary-row mb-3">
                 <span class="font-body text-[#f2e5f0]/55 text-sm" id="summary-plan-name">Formation Bible Study · Mensual</span>
-                <span class="font-body text-[#f2e5f0]/55 text-sm" id="summary-plan-price">$7 / mes</span>
-              </div>
-              <div class="summary-row mb-3">
-                <span class="font-body text-[#E9C349]/70 text-sm">Prueba gratuita de 14 días</span>
-                <span class="font-body text-[#E9C349]/70 text-sm">- $7</span>
+                <span class="font-body text-[#f2e5f0]/55 text-sm" id="summary-plan-price">$7.00/mes</span>
               </div>
 
               <div class="summary-row summary-total">
                 <span class="font-body font-black text-[#f2e5f0] text-sm">Total hoy</span>
-                <span class="font-body font-black text-[#f2e5f0] text-sm" id="summary-due">$0.00</span>
+                <span class="font-body font-black text-[#f2e5f0] text-sm" id="summary-due">$7.00</span>
               </div>
 
-              <p class="font-body text-[#f2e5f0]/25 text-xs mt-3 leading-relaxed" id="summary-rebill">Después de la prueba, $7/mes. Cancela cuando quieras.</p>
+              <p class="font-body text-[#f2e5f0]/25 text-xs mt-3 leading-relaxed" id="summary-rebill">Facturado $7/mes. Cancela cuando quieras.</p>
             </div>
 
             <div class="bg-[#3D1540]/40 border border-[#f2e5f0]/8 rounded-2xl p-5">
@@ -713,9 +693,9 @@
 
     const planData = {
       free:      { name: 'Gratis',               monthlyPrice: 0,  annualMonthly: 0,  annualTotal: 0,   color: '#f2e5f0', features: ['Biblia Berean Standard','1 plan de lectura','50 notas de estudio','5 consultas IA/día','Comunidad solo lectura'] },
-      formation: { name: 'Formation Bible Study', monthlyPrice: 7,  annualMonthly: 5,  annualTotal: 60,  color: '#FFB4A4', features: ['Todo en Gratis','Notas y planes ilimitados','Asistente de Estudio IA completo','Acceso completo a la comunidad','Sin anuncios','Prueba gratuita de 14 días'] },
-      plus:      { name: 'Formation Plus',         monthlyPrice: 12, annualMonthly: 9,  annualTotal: 108, color: '#A8D8B9', features: ['Todo en Formation Bible Study','Compañeros de rendición de cuentas','Acceso anticipado a funciones','Prueba gratuita de 14 días'] },
-      pro:       { name: 'Formation Pro',          monthlyPrice: 29, annualMonthly: 22, annualTotal: 264, color: '#E9C349', features: ['Todo en Formation Plus','Consultas IA ilimitadas','Soporte prioritario','Prueba gratuita de 14 días'] }
+      formation: { name: 'Formation Bible Study', monthlyPrice: 7,  annualMonthly: 5,  annualTotal: 60,  color: '#FFB4A4', features: ['Todo en Gratis','Notas y planes ilimitados','Asistente de Estudio IA completo','Acceso completo a la comunidad','Sin anuncios'] },
+      plus:      { name: 'Formation Plus',         monthlyPrice: 12, annualMonthly: 9,  annualTotal: 108, color: '#A8D8B9', features: ['Todo en Formation Bible Study','Compañeros de rendición de cuentas','Acceso anticipado a funciones'] },
+      pro:       { name: 'Formation Pro',          monthlyPrice: 29, annualMonthly: 22, annualTotal: 264, color: '#E9C349', features: ['Todo en Formation Plus','Consultas IA ilimitadas','Soporte prioritario'] }
     };
 
     // =========== Billing toggle ===========
@@ -796,21 +776,18 @@
       document.getElementById('step2-label').classList.add('active');
 
       document.getElementById('pill-plan-name').textContent = plan.name;
-      document.getElementById('pill-plan-price').textContent = currentPlan === 'free' ? 'Gratis para siempre · Sin tarjeta de crédito' : priceLabel + ' · Prueba gratuita de 14 días';
+      document.getElementById('pill-plan-price').textContent = currentPlan === 'free' ? 'Gratis para siempre · Sin tarjeta de crédito' : priceLabel + ' · Cancela cuando quieras';
 
       document.getElementById('summary-plan-name').textContent = plan.name + ' · ' + (isAnnual ? 'Anual' : 'Mensual');
       document.getElementById('summary-plan-price').textContent = currentPlan === 'free' ? '$0.00' : ('$' + price.toFixed(2) + '/mes');
-      document.getElementById('summary-due').textContent = '$0.00';
-      document.getElementById('summary-rebill').textContent = currentPlan === 'free' ? 'Gratis para siempre. Mejora cuando quieras.' : 'Después de 14 días de prueba, ' + (isAnnual ? '$' + plan.annualTotal.toFixed(2) + '/año' : '$' + plan.monthlyPrice.toFixed(2) + '/mes') + '. Cancela cuando quieras.';
+      document.getElementById('summary-due').textContent = currentPlan === 'free' ? '$0.00' : ('$' + (isAnnual ? plan.annualTotal.toFixed(2) : price.toFixed(2)));
+      document.getElementById('summary-rebill').textContent = currentPlan === 'free' ? 'Gratis para siempre. Mejora cuando quieras.' : 'Facturado $' + plan.monthlyPrice.toFixed(2) + '/mes. Cancela cuando quieras.';
 
       const featEl = document.getElementById('summary-features');
       featEl.innerHTML = plan.features.map(f => `<div class="flex items-center gap-2"><span class="material-symbols-outlined text-[#FFB4A4] text-base" style="font-size:15px">check</span><span class="font-body text-[#f2e5f0]/55 text-xs">${f}</span></div>`).join('');
 
-      document.getElementById('cta-text').textContent = currentPlan === 'free' ? 'Crear Cuenta Gratis' : 'Comenzar Prueba Gratuita';
+      document.getElementById('cta-text').textContent = currentPlan === 'free' ? 'Crear Cuenta Gratis' : 'Comenzar';
       document.getElementById('cta-icon').textContent = currentPlan === 'free' ? 'person_add' : 'rocket_launch';
-
-      const trialEnd = new Date(); trialEnd.setDate(trialEnd.getDate() + 14);
-      document.getElementById('trial-end-date').textContent = trialEnd.toLocaleDateString('es-MX', {month:'long',day:'numeric',year:'numeric'});
 
       document.getElementById('payment-fields').style.display = currentPlan === 'free' ? 'none' : 'block';
       document.getElementById('free-notice').style.display = currentPlan === 'free' ? 'block' : 'none';
@@ -949,7 +926,7 @@
           showStripeError(error.message);
           btn.disabled = false;
           icon.textContent = 'rocket_launch';
-          text.textContent = 'Comenzar Prueba Gratuita';
+          text.textContent = 'Comenzar';
           return;
         }
 
@@ -974,7 +951,7 @@
           showStripeError(data.error || 'Algo salió mal. Por favor intenta de nuevo.');
           btn.disabled = false;
           icon.textContent = 'rocket_launch';
-          text.textContent = 'Comenzar Prueba Gratuita';
+          text.textContent = 'Comenzar';
           return;
         }
 
@@ -984,7 +961,7 @@
             showStripeError(confirmError.message);
             btn.disabled = false;
             icon.textContent = 'rocket_launch';
-            text.textContent = 'Comenzar Prueba Gratuita';
+            text.textContent = 'Comenzar';
             return;
           }
         }
