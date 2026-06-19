@@ -992,15 +992,16 @@
       const text = document.getElementById('cta-text');
 
       // Turnstile — token should already be set (widget auto-executes on render)
-      // If for some reason it's not ready yet, reset widget and wait for callback
-      if (!turnstileToken) {
+      // If Turnstile JS failed to load (ad blocker etc.), proceed with empty token — backend handles gracefully
+      if (!turnstileToken && typeof turnstile !== 'undefined' && turnstileWidgetId !== null) {
         btn.disabled = true;
         icon.textContent = 'hourglass_top';
         text.textContent = 'Verifying…';
         pendingSubmit = true;
-        if (turnstileWidgetId !== null) { turnstile.reset(turnstileWidgetId); }
+        turnstile.reset(turnstileWidgetId);
         return; // callback will auto-call handleCheckout() once token arrives
       }
+      // If turnstile didn't load at all, use empty string — backend will handle
 
       // Loading state
       btn.disabled = true;
