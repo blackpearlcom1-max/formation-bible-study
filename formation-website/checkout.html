@@ -123,10 +123,11 @@
     /* Checkout form */
     .form-label { font-family: Manrope, sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.03em; color: rgba(242,229,240,0.45); display: block; margin-bottom: 6px; }
     .form-input {
-      width: 100%; background: rgba(61,21,64,0.6); border: 1px solid rgba(242,229,240,0.12);
+      width: 100%; background: rgba(61,21,64,0.6) !important; border: 1px solid rgba(242,229,240,0.12) !important;
       border-radius: 10px; padding: 13px 14px;
-      font-family: Manrope, sans-serif; font-size: 0.9rem; color: #f2e5f0;
+      font-family: Manrope, sans-serif; font-size: 0.9rem; color: #f2e5f0 !important;
       transition: border-color 0.2s, box-shadow 0.2s; outline: none;
+      box-shadow: none !important;
     }
     .form-input::placeholder { color: rgba(242,229,240,0.2); }
     .form-input:focus { border-color: rgba(255,180,164,0.4); box-shadow: 0 0 0 3px rgba(255,180,164,0.08); }
