@@ -130,6 +130,17 @@
     }
     .form-input::placeholder { color: rgba(242,229,240,0.2); }
     .form-input:focus { border-color: rgba(255,180,164,0.4); box-shadow: 0 0 0 3px rgba(255,180,164,0.08); }
+    /* Fix browser autofill white background override */
+    .form-input:-webkit-autofill,
+    .form-input:-webkit-autofill:hover,
+    .form-input:-webkit-autofill:focus,
+    .form-input:-webkit-autofill:active {
+      -webkit-box-shadow: 0 0 0 1000px rgba(50,16,52,0.98) inset !important;
+      box-shadow: 0 0 0 1000px rgba(50,16,52,0.98) inset !important;
+      -webkit-text-fill-color: #f2e5f0 !important;
+      caret-color: #f2e5f0;
+      border-color: rgba(242,229,240,0.12) !important;
+    }
 
     /* Stripe Elements container */
     .stripe-element {
@@ -683,9 +694,10 @@
     // TODO: Replace with real site key after creating widget at dash.cloudflare.com/turnstile
     // Widget name: "Formation Checkout" | Mode: Invisible | Domains: formationbible.com, formacion-biblica.com, fbsapp.pages.dev, fbsapp-es.pages.dev
     // After creating: copy Site Key below, copy Secret Key to Railway env as TURNSTILE_SECRET_KEY
-    const TURNSTILE_SITE_KEY = '0x4AAAAAADndd0n_FPDJi3Oj'; // CF test key — replace with production key
+    const TURNSTILE_SITE_KEY = '0x4AAAAAADndd0n_FPDJi3Oj'; // CF widget key
     let turnstileToken = null;
     let turnstileWidgetId = null;
+    let pendingSubmit = false; // set true when user submits before token is ready
 
     function renderTurnstile() {
       if (typeof turnstile === 'undefined') return;
@@ -696,9 +708,28 @@
       }
       turnstileWidgetId = turnstile.render('#turnstile-container', {
         sitekey: TURNSTILE_SITE_KEY,
-        callback:          (token) => { turnstileToken = token; },
-        'expired-callback': ()      => { turnstileToken = null; },
-        'error-callback':   ()      => { turnstileToken = null; },
+        execution: 'execute',         // we control when verification fires
+        callback: (token) => {
+          turnstileToken = token;
+          if (pendingSubmit) {        // user already clicked submit — auto-proceed
+            pendingSubmit = false;
+            handleCheckout();
+          }
+        },
+        'expired-callback': () => { turnstileToken = null; },
+        'error-callback':   () => {
+          turnstileToken = null;
+          if (pendingSubmit) {
+            pendingSubmit = false;
+            const btn  = document.getElementById('complete-btn');
+            const icon = document.getElementById('cta-icon');
+            const text = document.getElementById('cta-text');
+            btn.disabled = false;
+            icon.textContent = 'rocket_launch';
+            text.textContent = 'Get Started';
+            showStripeError('Security verification failed. Please refresh the page and try again.');
+          }
+        },
         theme: 'dark',
         appearance: 'interaction-only',
       });
@@ -934,21 +965,11 @@
         return;
       }
 
-      // Turnstile check — must have a valid token before hitting the backend
-      if (!turnstileToken) {
-        alert('Security check not complete. Please wait a moment and try again.');
-        return;
-      }
-
-      const btn  = document.getElementById('complete-btn');
-      const icon = document.getElementById('cta-icon');
-      const text = document.getElementById('cta-text');
-
-      // Validate account fields
-      const firstName = document.getElementById('first-name').value.trim();
-      const lastName  = document.getElementById('last-name').value.trim();
-      const email     = document.getElementById('email-field').value.trim();
-      const password  = document.getElementById('password-field').value;
+      // Validate fields first (before Turnstile, so user gets instant feedback)
+      const firstName  = document.getElementById('first-name').value.trim();
+      const lastName   = document.getElementById('last-name').value.trim();
+      const email      = document.getElementById('email-field').value.trim();
+      const password   = document.getElementById('password-field').value;
       const nameOnCard = document.getElementById('name-on-card').value.trim();
 
       if (!firstName || !lastName || !email || !password) {
@@ -956,6 +977,20 @@
       }
       if (password.length < 8) {
         alert('Password must be at least 8 characters.'); return;
+      }
+
+      const btn  = document.getElementById('complete-btn');
+      const icon = document.getElementById('cta-icon');
+      const text = document.getElementById('cta-text');
+
+      // Turnstile — trigger verification if we don't have a token yet
+      if (!turnstileToken) {
+        btn.disabled = true;
+        icon.textContent = 'hourglass_top';
+        text.textContent = 'Verifying…';
+        pendingSubmit = true;
+        if (turnstileWidgetId !== null) turnstile.execute(turnstileWidgetId);
+        return; // callback will auto-call handleCheckout() once token arrives
       }
 
       // Loading state
@@ -1033,7 +1068,7 @@
         showStripeError('Network error. Please check your connection and try again.');
         btn.disabled = false;
         icon.textContent = 'rocket_launch';
-        text.textContent = 'Start Free Trial';
+        text.textContent = 'Get Started';
       }
     }
 
