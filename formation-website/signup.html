@@ -247,7 +247,7 @@
       <a class="text-[#f2e5f0]/40 hover:text-[#E8816A] transition-all text-sm" href="terms.html">Terms</a>
       <a class="text-[#f2e5f0]/40 hover:text-[#E8816A] transition-all text-sm" href="contact.html">Contact</a>
     </div>
-    <div class="text-[#f2e5f0]/30 text-[10px] font-label uppercase tracking-widest">© 2025 Berean Defense LLC.</div>
+    <div class="text-[#f2e5f0]/30 text-[10px] font-label uppercase tracking-widest">© 2026 Berean Defense LLC.</div>
   </div>
 </footer>
 
@@ -259,24 +259,37 @@
 
   // Where to land after a successful sign-in
   const BETA_URL = 'https://app.formationbible.com';
+  const CHECKOUT_URL = 'https://fbsapp.pages.dev/checkout';
+
+  // Helper: resolve redirect URL based on selected plan
+  function getRedirectUrl(plan) {
+    return (plan && plan !== 'free') ? CHECKOUT_URL : BETA_URL;
+  }
 
   // ── On load: handle magic link callback & check existing session ─────────
   (async function init() {
+    var plan = new URLSearchParams(window.location.search).get('plan');
+
     // Supabase writes tokens into the URL hash after OAuth/magic link redirect
     const { data: { session } } = await sb.auth.getSession();
     if (session) {
-      // Already logged in — send straight to the app
-      window.location.href = BETA_URL;
+      // Already logged in — if pending plan, go to checkout; otherwise app
+      var pendingPlan = localStorage.getItem('pendingPlan');
+      var dest = (pendingPlan && pendingPlan !== 'free') ? CHECKOUT_URL : BETA_URL;
+      window.location.href = dest;
       return;
     }
 
     // Listen for auth events (magic link click lands here)
     sb.auth.onAuthStateChange((_event, session) => {
-      if (session) window.location.href = BETA_URL;
+      if (session) {
+        var pendingPlan = localStorage.getItem('pendingPlan');
+        var dest = (pendingPlan && pendingPlan !== 'free') ? CHECKOUT_URL : BETA_URL;
+        window.location.href = dest;
+      }
     });
 
-    // Read plan badge from URL (legacy, kept for future use)
-    var plan = new URLSearchParams(window.location.search).get('plan');
+    // Show plan badge
     if (plan && plan !== 'free') {
       var planNames = { formation: 'Formation Bible Study — $7/mo', plus: 'Formation Plus — $12/mo', pro: 'Formation Pro — $29/mo' };
       var badge = document.getElementById('plan-badge');
@@ -290,9 +303,11 @@
 
   // ── Google OAuth ─────────────────────────────────────────────────────────
   async function signInWithGoogle() {
+    var plan = new URLSearchParams(window.location.search).get('plan');
+    if (plan && plan !== 'free') localStorage.setItem('pendingPlan', plan);
     const { error } = await sb.auth.signInWithOAuth({
       provider: 'google',
-      options: { redirectTo: BETA_URL }
+      options: { redirectTo: getRedirectUrl(plan) }
     });
     if (error) alert('Google sign-in failed: ' + error.message);
   }
@@ -309,6 +324,9 @@
     var submitBtn = document.getElementById(isSignup ? 'signup-submit-btn' : 'login-submit-btn');
     var formEl = document.getElementById(formId);
 
+    var plan = new URLSearchParams(window.location.search).get('plan');
+    if (plan && plan !== 'free') localStorage.setItem('pendingPlan', plan);
+
     var email = emailInput.value.trim();
     submitBtn.textContent = 'Sending…';
     submitBtn.disabled = true;
@@ -316,7 +334,7 @@
 
     var { error } = await sb.auth.signInWithOtp({
       email: email,
-      options: { emailRedirectTo: BETA_URL }
+      options: { emailRedirectTo: getRedirectUrl(plan) }
     });
 
     if (error) {
