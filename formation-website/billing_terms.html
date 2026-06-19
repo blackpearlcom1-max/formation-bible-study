@@ -1,7 +1,17 @@
 <!DOCTYPE html>
 <html class="dark" lang="en">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PMJ8ESPZTF"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-PMJ8ESPZTF');
+</script>
   <meta charset="utf-8"/>
+  <meta name="msvalidate.01" content="54A0DE1D6E89B3C428FFAF7954F47043" />
+
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
   <title>Billing Terms — Formation Bible Study</title>
   <meta name="description" content="Formation Bible Study's billing terms explain subscriptions, pricing, auto-renewal, refund policy, and how to cancel your plan."/>
@@ -165,9 +175,28 @@
   <div class="orb orb-3"></div>
 
   <!-- Navigation -->
-  <div id="nav-placeholder"></div>
-<script src="nav.js"></script>
-<!-- Page Header -->
+  <nav id="main-nav" class="fixed top-0 w-full z-50 bg-[#3D1540]/80 backdrop-blur-xl shadow-[0_20px_40px_-5px_rgba(61,21,64,0.3)] transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="index.html" class="text-2xl font-headline font-black text-[#FFB4A4] hover:opacity-80 transition-opacity">Formation Bible Study</a>
+      <div class="hidden md:flex items-center gap-8">
+        <a href="index.html" class="text-[#f2e5f0]/70 font-body text-sm hover:text-[#FFB4A4] transition-colors">Home</a>
+        <a href="features.html" class="text-[#f2e5f0]/70 font-body text-sm hover:text-[#FFB4A4] transition-colors">Features</a>
+        <a href="pricing.html" class="text-[#f2e5f0]/70 font-body text-sm hover:text-[#FFB4A4] transition-colors">Pricing</a>
+        <a href="signup.html" class="bg-gradient-to-br from-[#FFB4A4] to-[#6E2414] text-[#5D1809] px-6 py-2.5 rounded-full font-bold text-sm hover:opacity-90 transition-opacity">Sign Up Free →</a>
+      </div>
+      <button id="nav-toggle" class="md:hidden text-[#f2e5f0] p-2" aria-label="Open menu">
+        <span class="material-symbols-outlined">menu</span>
+      </button>
+    </div>
+    <div id="mobile-menu" class="flex-col bg-[#3D1540] px-6 pb-6 gap-4 md:hidden">
+      <a href="index.html" class="text-[#f2e5f0]/80 font-body text-base py-2 border-b border-[#f2e5f0]/10">Home</a>
+      <a href="features.html" class="text-[#f2e5f0]/80 font-body text-base py-2 border-b border-[#f2e5f0]/10">Features</a>
+      <a href="pricing.html" class="text-[#f2e5f0]/80 font-body text-base py-2 border-b border-[#f2e5f0]/10">Pricing</a>
+      <a href="signup.html" class="bg-gradient-to-br from-[#FFB4A4] to-[#6E2414] text-[#5D1809] px-6 py-3 rounded-full font-bold text-sm text-center mt-2">Sign Up Free →</a>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
   <section class="relative z-10 pt-36 pb-12 px-6">
     <div class="max-w-3xl mx-auto">
       <div data-animate="fade-up" class="inline-flex items-center gap-2 bg-[#3D1540]/70 border border-[#f2e5f0]/10 rounded-full px-4 py-1.5 mb-6">
@@ -199,14 +228,14 @@
           <div>
             <h2 class="font-headline font-bold text-[#E9C349] text-base mb-1">The Short Version</h2>
             <p class="font-body text-[#f2e5f0]/70 text-sm leading-relaxed">
-              Paid plans auto-renew unless you cancel before the renewal date. Paid subscriptions include a 14-day free trial — you won't be charged until it ends. Cancel anytime from your account settings. We do not offer refunds for partial billing periods, but we honor refund requests within 48 hours of an unintended charge. Payments are processed securely by Stripe.
+              Paid plans auto-renew unless you cancel before the renewal date. Paid subscriptions auto-renew unless cancelled. Cancel anytime from your account settings. We do not offer refunds for partial billing periods, but we honor refund requests within 48 hours of an unintended charge. Payments are processed securely by Stripe.
             </p>
           </div>
         </div>
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-4">
           <div class="flex flex-col items-center gap-1 bg-[#5C2A5A]/60 rounded-xl p-3">
             <span class="material-symbols-outlined text-[#FFB4A4] text-xl">free_cancellation</span>
-            <span class="font-label text-[10px] uppercase tracking-wider text-[#f2e5f0]/50 text-center">14-day free trial</span>
+            <span class="font-label text-[10px] uppercase tracking-wider text-[#f2e5f0]/50 text-center">cancel anytime</span>
           </div>
           <div class="flex flex-col items-center gap-1 bg-[#5C2A5A]/60 rounded-xl p-3">
             <span class="material-symbols-outlined text-[#FFB4A4] text-xl">autorenew</span>
@@ -232,7 +261,7 @@
         <h2 class="font-label text-[11px] uppercase tracking-widest text-[#f2e5f0]/40 mb-4">Contents</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
           <a href="#plans" class="font-body text-sm text-[#f2e5f0]/60 hover:text-[#FFB4A4] transition-colors flex items-center gap-2"><span class="text-[#E9C349] font-bold text-xs">01</span> Subscription Plans &amp; Pricing</a>
-          <a href="#free-trial" class="font-body text-sm text-[#f2e5f0]/60 hover:text-[#FFB4A4] transition-colors flex items-center gap-2"><span class="text-[#E9C349] font-bold text-xs">02</span> Free Trial</a>
+          <a href="#cancellation" class="font-body text-sm text-[#f2e5f0]/60 hover:text-[#FFB4A4] transition-colors flex items-center gap-2"><span class="text-[#E9C349] font-bold text-xs">02</span> Cancellation</a>
           <a href="#billing-cycle" class="font-body text-sm text-[#f2e5f0]/60 hover:text-[#FFB4A4] transition-colors flex items-center gap-2"><span class="text-[#E9C349] font-bold text-xs">03</span> Billing Cycle &amp; Auto-Renewal</a>
           <a href="#payment" class="font-body text-sm text-[#f2e5f0]/60 hover:text-[#FFB4A4] transition-colors flex items-center gap-2"><span class="text-[#E9C349] font-bold text-xs">04</span> Payment Processing</a>
           <a href="#cancellation" class="font-body text-sm text-[#f2e5f0]/60 hover:text-[#FFB4A4] transition-colors flex items-center gap-2"><span class="text-[#E9C349] font-bold text-xs">05</span> Cancellation</a>
@@ -289,7 +318,7 @@
               <p class="font-body text-[#f2e5f0]/40 text-xs">or $60/yr (save 29%)</p>
             </div>
           </div>
-          <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed mb-3">14-day free trial. Full Bible study experience, no ads.</p>
+          <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed mb-3">cancel anytime. Full Bible study experience, no ads.</p>
           <ul class="space-y-1">
             <li class="flex items-center gap-2 font-body text-[#f2e5f0]/50 text-xs"><span class="text-[#E9C349]">›</span> Everything in Free</li>
             <li class="flex items-center gap-2 font-body text-[#f2e5f0]/50 text-xs"><span class="text-[#E9C349]">›</span> Full BSB + future Bible translations</li>
@@ -309,7 +338,7 @@
               <p class="font-body text-[#f2e5f0]/40 text-xs">or $108/yr (save 25%)</p>
             </div>
           </div>
-          <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed mb-3">14-day free trial. For the serious student who wants everything.</p>
+          <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed mb-3">cancel anytime. For the serious student who wants everything.</p>
           <ul class="space-y-1">
             <li class="flex items-center gap-2 font-body text-[#f2e5f0]/50 text-xs"><span class="text-[#FFB4A4]">›</span> Everything in Formation Bible Study</li>
             <li class="flex items-center gap-2 font-body text-[#f2e5f0]/50 text-xs"><span class="text-[#FFB4A4]">›</span> Unlimited AI queries with priority access</li>
@@ -325,35 +354,35 @@
 
     <hr class="section-divider"/>
 
-    <!-- 2. Free Trial -->
+    <!-- 2. Cancellation -->
     <section id="free-trial" data-animate="fade-up">
       <div class="flex items-center gap-3 mb-5">
         <span class="text-[#E9C349] font-headline font-black text-lg">02</span>
-        <h2 class="font-headline text-2xl font-bold text-[#FFB4A4]">Free Trial</h2>
+        <h2 class="font-headline text-2xl font-bold text-[#FFB4A4]">Cancellation</h2>
       </div>
       <p class="font-body text-[#f2e5f0]/70 leading-relaxed mb-6">
-        Both the Formation Bible Study and Formation Pro paid plans include a <strong class="text-[#f2e5f0]">14-day free trial</strong> for new subscribers. During your trial you have full access to all features included in your chosen plan.
+        Both the Formation Bible Study and Formation Pro paid plans include a <strong class="text-[#f2e5f0]">cancel anytime</strong> for new subscribers. During your trial you have full access to all features included in your chosen plan.
       </p>
       <div class="space-y-3">
         <div class="info-card flex items-start gap-3">
           <span class="material-symbols-outlined text-[#E9C349] text-xl mt-0.5">credit_card_off</span>
           <div>
             <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">No charge during your trial</p>
-            <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">A valid payment method is required to start a paid plan, but your card will not be charged until your 14-day trial ends. You will receive an email reminder 3 days before your trial expires.</p>
+            <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">A valid payment method is required to start a paid plan. You will be billed immediately on signup.</p>
           </div>
         </div>
         <div class="info-card flex items-start gap-3">
           <span class="material-symbols-outlined text-[#E9C349] text-xl mt-0.5">person_add</span>
           <div>
             <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">One trial per person</p>
-            <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">Free trials are available once per customer, per plan level. Creating additional accounts to obtain multiple free trials is a violation of our Terms of Service.</p>
+            <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">You may cancel your subscription at any time from Account Settings. Cancellation takes effect at the end of your current billing period.</p>
           </div>
         </div>
         <div class="info-card flex items-start gap-3">
           <span class="material-symbols-outlined text-[#E9C349] text-xl mt-0.5">cancel</span>
           <div>
             <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Cancel before trial ends to pay nothing</p>
-            <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">If you cancel your subscription before your 14-day trial ends, you will not be charged. Your account will revert to the Free plan and your study content will be preserved.</p>
+            <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">If you cancel your subscription, your account will revert to the Free plan at the end of your billing period. Your study content will be preserved.</p>
           </div>
         </div>
       </div>
@@ -485,7 +514,7 @@
           <span class="material-symbols-outlined text-[#E9C349] text-xl mt-0.5">undo</span>
           <div>
             <p class="font-body font-semibold text-[#f2e5f0] text-sm mb-1">Reactivation</p>
-            <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">You can resubscribe at any time from Account Settings. Reactivating restores full paid features immediately. Note that reactivation after a cancellation does not restart a free trial — trials are available to new subscribers only.</p>
+            <p class="font-body text-[#f2e5f0]/60 text-sm leading-relaxed">You can resubscribe at any time from Account Settings. Reactivating restores full paid features immediately. </p>
           </div>
         </div>
       </div>
