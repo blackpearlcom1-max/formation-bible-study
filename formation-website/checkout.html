@@ -709,10 +709,10 @@
       }
       turnstileWidgetId = turnstile.render('#turnstile-container', {
         sitekey: TURNSTILE_SITE_KEY,
-        execution: 'execute',         // we control when verification fires
+        // auto-execute on render — token is set before user finishes typing
         callback: (token) => {
           turnstileToken = token;
-          if (pendingSubmit) {        // user already clicked submit — auto-proceed
+          if (pendingSubmit) {        // user submitted before token was ready — auto-proceed
             pendingSubmit = false;
             handleCheckout();
           }
@@ -728,7 +728,7 @@
             btn.disabled = false;
             icon.textContent = 'rocket_launch';
             text.textContent = 'Get Started';
-            showStripeError('Security verification failed. Please refresh the page and try again.');
+            showStripeError('Security verification failed. Please try again.');
           }
         },
         theme: 'dark',
@@ -984,13 +984,14 @@
       const icon = document.getElementById('cta-icon');
       const text = document.getElementById('cta-text');
 
-      // Turnstile — trigger verification if we don't have a token yet
+      // Turnstile — token should already be set (widget auto-executes on render)
+      // If for some reason it's not ready yet, reset widget and wait for callback
       if (!turnstileToken) {
         btn.disabled = true;
         icon.textContent = 'hourglass_top';
         text.textContent = 'Verifying…';
         pendingSubmit = true;
-        if (turnstileWidgetId !== null) turnstile.execute(turnstileWidgetId);
+        if (turnstileWidgetId !== null) { turnstile.reset(turnstileWidgetId); }
         return; // callback will auto-call handleCheckout() once token arrives
       }
 
