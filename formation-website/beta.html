@@ -13,8 +13,14 @@
 
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Formation Bible Study — Beta</title>
+  <title>Formation Bible Study</title>
   <meta name="robots" content="noindex, nofollow" />
+  <script>
+    // Snap URL back to / — user arrived via auth gate from index.html
+    if (window.location.pathname === '/beta.html' || window.location.pathname === '/beta') {
+      history.replaceState(null, '', '/');
+    }
+  </script>
   <script src="https://unpkg.com/@supabase/supabase-js@2.39.0/dist/umd/supabase.js"></script>
   <script src="https://js.stripe.com/v3/"></script>
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
