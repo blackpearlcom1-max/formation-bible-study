@@ -19,10 +19,12 @@
       return;
     }
   } catch(e) { /* fall through to marketing page on any error */ }
-  // Not logged in — show marketing page
-  document.addEventListener('DOMContentLoaded', () => {
+  // Not logged in — show marketing page (DOM is ready by the time async resolves)
+  if (document.body) {
     document.body.style.visibility = '';
-  });
+  } else {
+    document.addEventListener('DOMContentLoaded', () => { document.body.style.visibility = ''; });
+  }
 })();
 </script>
 <!-- Google tag (gtag.js) -->
