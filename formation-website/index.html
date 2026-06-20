@@ -2,6 +2,33 @@
 <!-- deploy: 2026-05-28 -->
 <html class="dark" lang="en">
 <head>
+<!-- Auth gate: logged-in users see the app at formationbible.com, not /beta -->
+<script src="https://unpkg.com/@supabase/supabase-js@2.39.0/dist/umd/supabase.js"></script>
+<style>body { visibility: hidden; }</style>
+<script>
+(async () => {
+  try {
+    const _sb = supabase.createClient(
+      'https://tdlaxuquplqejvijqiow.supabase.co',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRkbGF4dXF1cGxxZWp2aWpxaW93Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgxMTQ5NDksImV4cCI6MjA5MzY5MDk0OX0._-I3akq5PV0JqCdSV3mSMP03g1VRmWxxROsDo5UpaaY'
+    );
+    const { data: { session } } = await _sb.auth.getSession();
+    if (session) {
+      // Logged in — load the app in place, URL stays formationbible.com
+      const r = await fetch('/beta.html');
+      const html = await r.text();
+      document.open('text/html', 'replace');
+      document.write(html);
+      document.close();
+      return;
+    }
+  } catch(e) { /* fall through to marketing page on any error */ }
+  // Not logged in — show marketing page
+  document.addEventListener('DOMContentLoaded', () => {
+    document.body.style.visibility = '';
+  });
+})();
+</script>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-PMJ8ESPZTF"></script>
 <script>
