@@ -754,6 +754,7 @@
     const SUPABASE_URL  = 'https://tdlaxuquplqejvijqiow.supabase.co';
     const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRkbGF4dXF1cGxxZWp2aWpxaW93Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgxMTQ5NDksImV4cCI6MjA5MzY5MDk0OX0._-I3akq5PV0JqCdSV3mSMP03g1VRmWxxROsDo5UpaaY';
     const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+    const BACKEND_URL = 'https://formation-backend-production.up.railway.app';
     let _existingSession = null; // set if user arrives already authenticated
 
     // =========== State ===========
@@ -1040,8 +1041,7 @@
           return;
         }
 
-        // POST to Railway backend
-        const BACKEND_URL = 'https://formation-backend-production.up.railway.app';
+        // POST to Railway backend (BACKEND_URL declared at top of script)
 
         // Choose endpoint: already-authed users (magic link / OAuth) vs. new signup
         let res;
