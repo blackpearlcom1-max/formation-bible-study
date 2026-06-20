@@ -852,19 +852,11 @@
     });
 
     // =========== Stripe Initialization (lazy — only when checkout view shown) ===========
-    const STRIPE_PUBLISHABLE_KEY = 'pk_test_51TUGNUFtLzzT3Qk4AUsRnkB3sHNgvL2sWFTmMXZnR0Jkbyw7rCE2ZueyJihd7ec1JU9HlOVn0jhVn0W68d4iL4WG008RlP9N68';
-
+    // Key fetched from backend so Railway STRIPE_PUBLISHABLE_KEY controls test vs live.
     let stripe = null;
     let elements = null;
-
-    function initStripe() {
-      if (stripe) return;
-      if (typeof Stripe === 'undefined') return;
-      stripe = Stripe(STRIPE_PUBLISHABLE_KEY);
-      elements = stripe.elements({
-        fonts: [{ cssSrc: 'https://fonts.googleapis.com/css2?family=Manrope:wght@400;500&display=swap' }]
-      });
-    }
+    let _stripeReady = false;
+    let _pendingMount = false;
 
     const stripeStyle = {
       base: {
@@ -880,11 +872,25 @@
 
     let cardNumber = null, cardExpiry = null, cardCvc = null;
 
+    (async function initStripe() {
+      try {
+        const r = await fetch(`${BACKEND_URL}/api/billing/config`);
+        const { publishableKey } = await r.json();
+        stripe   = Stripe(publishableKey);
+        elements = stripe.elements({
+          fonts: [{ cssSrc: 'https://fonts.googleapis.com/css2?family=Manrope:wght@400;500&display=swap' }]
+        });
+        _stripeReady = true;
+        if (_pendingMount) mountStripeElements();
+      } catch (e) {
+        console.error('Stripe init failed:', e);
+      }
+    })();
+
     let stripeElementsMounted = false;
     function mountStripeElements() {
+      if (!_stripeReady) { _pendingMount = true; return; }
       if (stripeElementsMounted) return;
-      initStripe();
-      if (!stripe) return;
       cardNumber = elements.create('cardNumber',  { style: stripeStyle, showIcon: true });
       cardExpiry = elements.create('cardExpiry',  { style: stripeStyle });
       cardCvc    = elements.create('cardCvc',     { style: stripeStyle });
