@@ -683,6 +683,7 @@
     // TODO: Replace with real site key after creating widget at dash.cloudflare.com/turnstile
     // Widget name: "Formation Checkout" | Mode: Invisible | Domains: formationbible.com, formacion-biblica.com, fbsapp.pages.dev, fbsapp-es.pages.dev
     // After creating: copy Site Key below, copy Secret Key to Railway env as TURNSTILE_SECRET_KEY
+    const BACKEND_URL = 'https://formation-backend-production.up.railway.app';
     const TURNSTILE_SITE_KEY = '0x4AAAAAADndd0n_FPDJi3Oj'; // CF test key — replace with production key
     let turnstileToken = null;
     let turnstileWidgetId = null;
@@ -976,7 +977,6 @@
           return;
         }
 
-        const BACKEND_URL = 'https://formation-backend-production.up.railway.app';
         const res = await fetch(`${BACKEND_URL}/api/billing/create-subscription`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
