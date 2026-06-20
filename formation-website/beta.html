@@ -330,7 +330,7 @@
 <!-- ─── End Card Gate ─────────────────────────────────────────── -->
 
 <!-- ─── First-Time Onboarding Modal ─────────────────────────── -->
-<div id="onboarding-overlay" class="hidden fixed inset-0 z-[200] flex items-center justify-center px-4" style="background:rgba(30,8,35,0.85);backdrop-filter:blur(8px);">
+<div id="onboarding-overlay" style="display:none;position:fixed;inset:0;z-index:200;align-items:center;justify-content:center;padding:0 1rem;background:rgba(30,8,35,0.85);backdrop-filter:blur(8px);">
   <div class="relative w-full max-w-md bg-gradient-to-b from-[#4A1D4D] to-[#3D1540] border border-[#f2e5f0]/15 rounded-3xl shadow-2xl p-8 flex flex-col gap-6">
 
     <!-- Skip -->
@@ -399,7 +399,6 @@
       <a href="features.html" class="text-[#f2e5f0]/60 font-medium font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4] transition-colors duration-300">Features</a>
       <a href="pricing.html" class="text-[#f2e5f0]/60 font-medium font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4] transition-colors duration-300">Pricing</a>
       <a href="about.html" class="text-[#f2e5f0]/60 font-medium font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4] transition-colors duration-300">About</a>
-      <span class="text-[#E9C349] font-bold font-label uppercase tracking-widest text-xs border-b-2 border-[#E9C349] pb-1">Beta</span>
     </div>
     <div class="flex items-center gap-3">
       <div id="nav-user-info" class="hidden items-center gap-3">
@@ -424,7 +423,6 @@
     <a href="features.html" class="block text-[#f2e5f0]/60 font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4]">Features</a>
     <a href="pricing.html" class="block text-[#f2e5f0]/60 font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4]">Pricing</a>
     <a href="about.html" class="block text-[#f2e5f0]/60 font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4]">About</a>
-    <span class="block text-[#E9C349] font-label uppercase tracking-widest text-xs font-bold">Beta ✦</span>
   </div>
 </nav>
 
@@ -435,10 +433,10 @@
   <div id="auth-screen" class="max-w-md mx-auto mt-16">
     <div class="text-center mb-10">
       <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#f2e5f0]/20 font-label text-[10px] uppercase tracking-[0.2em] text-[#f2e5f0]/50 mb-6">
-        <span class="text-[#E9C349]">✦</span> Beta Access
+        <span class="text-[#E9C349]">✦</span> Formation Bible Study
       </div>
       <h1 class="font-headline text-4xl font-bold text-on-surface mb-3">Formation Bible Study</h1>
-      <p class="text-on-surface-variant leading-relaxed text-sm">Scripture-grounded Bible study tools built to support your ministry.<br>Sign in to access your beta session.</p>
+      <p class="text-on-surface-variant leading-relaxed text-sm">Scripture-grounded Bible study tools built to support your ministry.<br>Sign in to begin your study.</p>
     </div>
 
     <div class="bg-[#4A1D4D]/70 backdrop-blur-xl border border-[#f2e5f0]/10 rounded-3xl p-8 shadow-2xl">
@@ -477,7 +475,7 @@
     <!-- Header -->
     <div class="text-center mb-6 mt-6">
       <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#f2e5f0]/20 font-label text-[10px] uppercase tracking-[0.2em] text-[#f2e5f0]/50 mb-4">
-        <span class="text-[#E9C349]">✦</span> Beta · Ministry Companion
+        <span class="text-[#E9C349]">✦</span> Ministry Companion
       </div>
       <h1 class="font-headline text-3xl md:text-4xl font-bold text-on-surface mb-2">Formation Bible Study</h1>
       <p class="text-on-surface-variant text-sm leading-relaxed max-w-xl mx-auto">Read Scripture, ask any Bible question, and receive theologically grounded answers — cross-referenced and rooted in the Word.</p>
@@ -947,7 +945,7 @@
 <!-- ── Footer ──────────────────────────────────────────── -->
 <footer class="relative z-10 border-t border-[#f2e5f0]/10 py-8 px-8 mt-auto">
   <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-    <p class="font-label text-[#f2e5f0]/30 text-xs">© 2026 Berean Defense LLC · Formation Bible Study Beta</p>
+    <p class="font-label text-[#f2e5f0]/30 text-xs">© 2026 Berean Defense LLC · Formation Bible Study</p>
     <nav class="flex flex-wrap gap-5 justify-center">
       <a href="privacy_policy.html" class="font-label text-[11px] text-[#f2e5f0]/30 hover:text-[#FFB4A4] transition-colors uppercase tracking-widest">Privacy</a>
       <a href="terms.html" class="font-label text-[11px] text-[#f2e5f0]/30 hover:text-[#FFB4A4] transition-colors uppercase tracking-widest">Terms</a>
@@ -1416,7 +1414,7 @@ function showOnboarding(key) {
   _obKey  = key;
   _obStep = 1;
   updateObStep();
-  $('onboarding-overlay').classList.remove('hidden');
+  $('onboarding-overlay').style.display = 'flex';
 }
 
 function updateObStep() {
@@ -1439,7 +1437,7 @@ function onboardingNext() {
 }
 
 function dismissOnboarding() {
-  $('onboarding-overlay').classList.add('hidden');
+  $('onboarding-overlay').style.display = 'none';
   if (_obKey) localStorage.setItem(_obKey, '1');
 }
 // ─── End Onboarding ─────────────────────────────────────────
