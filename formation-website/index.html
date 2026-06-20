@@ -2,7 +2,7 @@
 <!-- deploy: 2026-05-28 -->
 <html class="dark" lang="en">
 <head>
-<!-- Auth gate: logged-in users see the app at formationbible.com, not /beta -->
+<!-- Auth gate: logged-in users go to the app, URL snaps back to formationbible.com -->
 <script src="https://unpkg.com/@supabase/supabase-js@2.39.0/dist/umd/supabase.js"></script>
 <style>body { visibility: hidden; }</style>
 <script>
@@ -14,12 +14,8 @@
     );
     const { data: { session } } = await _sb.auth.getSession();
     if (session) {
-      // Logged in — load the app in place, URL stays formationbible.com
-      const r = await fetch('/beta.html');
-      const html = await r.text();
-      document.open('text/html', 'replace');
-      document.write(html);
-      document.close();
+      // Logged in — go to the app. beta.html will snap URL back to / on load.
+      window.location.replace('/beta.html');
       return;
     }
   } catch(e) { /* fall through to marketing page on any error */ }
