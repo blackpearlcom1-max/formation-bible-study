@@ -47,6 +47,7 @@
     }
   }
   </script>
+  <script src="/components.js"></script>
   <link rel="stylesheet" href="/tailwind.css"/>
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Manrope:wght@300;400;500;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
@@ -119,26 +120,7 @@
 <div class="orb orb-2"></div>
 <div class="orb orb-3"></div>
 
-<!-- Navigation -->
-<nav class="fixed top-0 w-full z-50 bg-[#3D1540]/80 backdrop-blur-xl shadow-[0_20px_40px_-5px_rgba(61,21,64,0.3)]">
-  <div class="flex justify-between items-center w-full px-8 py-4 max-w-7xl mx-auto">
-    <a href="index.html" class="text-2xl font-headline font-black text-[#FFB4A4]">Formation Bible Study</a>
-    <div class="hidden md:flex gap-8 items-center">
-      <a href="index.html" class="text-[#f2e5f0]/60 font-medium font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4] transition-colors">Home</a>
-      <a href="features.html" class="text-[#f2e5f0]/60 font-medium font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4] transition-colors">Features</a>
-      <a href="pricing.html" class="text-[#E9C349] font-bold border-b-2 border-[#E9C349] pb-1 font-label uppercase tracking-widest text-xs">Pricing</a>
-      <a href="about.html" class="text-[#f2e5f0]/60 font-medium font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4] transition-colors">About</a>
-    </div>
-    <a href="signup.html" class="bg-primary text-on-primary px-6 py-2 rounded-full font-bold text-sm hover:scale-105 active:scale-95 transition-all">Sign Up Free →</a>
-    <button id="nav-toggle" class="md:hidden text-on-surface ml-4"><span class="material-symbols-outlined">menu</span></button>
-  </div>
-  <div id="mobile-menu" class="flex-col px-8 pb-6 space-y-4 bg-[#3D1540]/95 backdrop-blur-xl md:hidden">
-    <a href="index.html" class="block text-[#f2e5f0]/60 font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4]">Home</a>
-    <a href="features.html" class="block text-[#f2e5f0]/60 font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4]">Features</a>
-    <a href="pricing.html" class="block text-[#E9C349] font-label uppercase tracking-widest text-xs font-bold">Pricing</a>
-    <a href="about.html" class="block text-[#f2e5f0]/60 font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4]">About</a>
-  </div>
-</nav>
+<div id="site-nav"></div>
 
 <main class="pt-32 pb-24 px-6 max-w-7xl mx-auto overflow-hidden">
 
@@ -495,28 +477,9 @@
 
 </main>
 
-<!-- Footer -->
-<footer class="bg-[#3D1540] w-full py-12 border-t border-[#f2e5f0]/10">
-  <div class="flex flex-col md:flex-row justify-between items-center w-full px-8 max-w-7xl mx-auto gap-8">
-    <div class="flex flex-col items-center md:items-start gap-1">
-      <div class="text-xl font-headline font-bold text-[#FFB4A4]">Formation Bible Study</div>
-      <p class="text-[10px] font-label uppercase tracking-widest text-[#f2e5f0]/40">Your Safe Place to Learn</p>
-    </div>
-    <div class="flex flex-wrap justify-center gap-8">
-      <a class="text-sm font-body text-[#f2e5f0]/50 hover:text-[#E8816A] transition-all" href="privacy_policy.html">Privacy Policy</a>
-      <a class="text-sm font-body text-[#f2e5f0]/50 hover:text-[#E8816A] transition-all" href="terms.html">Terms of Service</a>
-      <a class="text-sm font-body text-[#f2e5f0]/50 hover:text-[#E8816A] transition-all" href="cookie_policy.html">Cookie Policy</a>
-      <a class="text-sm font-body text-[#f2e5f0]/50 hover:text-[#E8816A] transition-all" href="contact.html">Contact</a>
-    </div>
-    <div class="text-[10px] font-label uppercase tracking-widest text-[#f2e5f0]/40">© 2026 Berean Defense LLC. All rights reserved.</div>
-  </div>
-</footer>
+<div id="site-footer"></div>
 
 <script>
-  document.getElementById('nav-toggle').addEventListener('click', function() {
-    document.getElementById('mobile-menu').classList.toggle('open');
-  });
-
   // Scroll-triggered animations
   const animObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {

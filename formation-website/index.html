@@ -217,6 +217,7 @@
   <meta name="topic" content="Bible Study, Christian Education, Scripture, Faith"/>
   <meta name="classification" content="Religious Education, Mobile Application"/>
 
+  <script src="/components.js"></script>
   <link rel="stylesheet" href="/tailwind.css"/>
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Manrope:wght@300;400;500;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
@@ -315,32 +316,7 @@
 <div class="orb orb-2"></div>
 <div class="orb orb-3"></div>
 
-<!-- Navigation -->
-<nav id="main-nav" class="fixed top-0 w-full z-50 bg-[#3D1540]/80 backdrop-blur-xl shadow-[0_20px_40px_-5px_rgba(61,21,64,0.3)]">
-  <div class="flex justify-between items-center w-full px-8 py-4 max-w-7xl mx-auto">
-    <a href="index.html" class="text-2xl font-headline font-black text-[#FFB4A4] no-underline">Formation Bible Study</a>
-    <div class="hidden md:flex items-center space-x-8">
-      <a href="index.html" class="text-[#E9C349] font-bold border-b-2 border-[#E9C349] pb-1 font-label uppercase tracking-widest text-xs">Home</a>
-      <a href="features.html" class="text-[#f2e5f0]/60 font-medium font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4] transition-colors duration-300">Features</a>
-      <a href="pricing.html" class="text-[#f2e5f0]/60 font-medium font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4] transition-colors duration-300">Pricing</a>
-      <a href="about.html" class="text-[#f2e5f0]/60 font-medium font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4] transition-colors duration-300">About</a>
-    </div>
-    <a href="/beta.html" class="bg-gradient-to-br from-[#FFB4A4] to-[#6E2414] text-[#5D1809] px-6 py-2.5 rounded-full font-bold text-sm hover:brightness-110 transition-all shadow-lg">
-      Sign Up Free →
-    </a>
-    <button id="nav-toggle" class="md:hidden text-on-surface ml-4" aria-label="Menu">
-      <span class="material-symbols-outlined">menu</span>
-    </button>
-  </div>
-  <div id="mobile-menu" class="flex-col px-8 pb-6 space-y-4 bg-[#3D1540]/95 backdrop-blur-xl md:hidden">
-    <a href="index.html" class="block text-[#E9C349] font-label uppercase tracking-widest text-xs font-bold">Home</a>
-    <a href="features.html" class="block text-[#f2e5f0]/60 font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4]">Features</a>
-    <a href="pricing.html" class="block text-[#f2e5f0]/60 font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4]">Pricing</a>
-    <a href="/beta.html" class="block text-[#FFB4A4] font-label uppercase tracking-widest text-xs font-bold">✨ Ask the Word</a>
-    <a href="/beta.html" class="block text-[#E8816A] font-label uppercase tracking-widest text-xs font-bold">Sign Up Free →</a>
-    <a href="about.html" class="block text-[#f2e5f0]/60 font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4]">About</a>
-  </div>
-</nav>
+<div id="site-nav"></div>
 
 <main class="pt-24">
 
@@ -387,6 +363,36 @@
           </div>
         </div>
         <p class="text-xs text-on-surface-variant leading-relaxed">Cross-referencing 2,400+ years of scholarly commentary in seconds.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Strip -->
+  <section class="py-10 px-8 border-y border-[#f2e5f0]/10 bg-[#3D1540]/60 backdrop-blur-sm">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex flex-wrap justify-center md:justify-between items-center gap-8 text-center">
+        <div class="flex items-center gap-3" data-animate="fade-up" data-delay="0">
+          <span class="material-symbols-outlined text-secondary text-xl" style="font-variation-settings: 'FILL' 1;">verified</span>
+          <span class="font-label text-[11px] uppercase tracking-widest text-on-surface-variant">Built on the BSB — Free &amp; Open License</span>
+        </div>
+        <div class="hidden md:block w-px h-6 bg-[#f2e5f0]/15"></div>
+        <div class="flex items-center gap-3" data-animate="fade-up" data-delay="100">
+          <span class="material-symbols-outlined text-secondary text-xl" style="font-variation-settings: 'FILL' 1;">gpp_good</span>
+          <span class="font-label text-[11px] uppercase tracking-widest text-on-surface-variant">Scripture-Grounded Answers — No Hallucinations</span>
+        </div>
+        <div class="hidden md:block w-px h-6 bg-[#f2e5f0]/15"></div>
+        <div class="flex items-center gap-3" data-animate="fade-up" data-delay="200">
+          <span class="material-symbols-outlined text-secondary text-xl" style="font-variation-settings: 'FILL' 1;">lock_open</span>
+          <span class="font-label text-[11px] uppercase tracking-widest text-on-surface-variant">Free Tier Is Permanent — No Pressure</span>
+        </div>
+        <div class="hidden md:block w-px h-6 bg-[#f2e5f0]/15"></div>
+        <div class="flex items-center gap-3" data-animate="fade-up" data-delay="300">
+          <span class="material-symbols-outlined text-secondary text-xl" style="font-variation-settings: 'FILL' 1;">translate</span>
+          <span class="font-label text-[11px] uppercase tracking-widest text-on-surface-variant">
+            También en Español —
+            <a href="https://formacion-biblica.com" class="text-secondary hover:underline">formacion-biblica.com</a>
+          </span>
+        </div>
       </div>
     </div>
   </section>
@@ -439,8 +445,56 @@
   </section>
 
 
+  <!-- How It Works -->
+  <section class="py-32 px-8 bg-surface-container-lowest">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-20" data-animate="fade-up">
+        <p class="font-label text-[10px] uppercase tracking-[0.25em] text-secondary mb-4">The Method</p>
+        <h2 class="font-headline text-4xl font-bold mb-4 text-on-surface">Three Steps. A Lifetime of Depth.</h2>
+        <p class="font-body text-on-surface-variant max-w-xl mx-auto">Formation is built around the classical inductive method — the same approach serious scholars have used for centuries. It's not complicated. It's just faithful.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+        <!-- Connector line (desktop only) -->
+        <div class="hidden md:block absolute top-16 left-1/4 right-1/4 h-px bg-gradient-to-r from-[#f2e5f0]/10 via-secondary/40 to-[#f2e5f0]/10 pointer-events-none"></div>
+
+        <!-- Step 1 -->
+        <div class="relative p-10 bg-surface-container rounded-3xl border border-[#f2e5f0]/10 text-center" data-animate="fade-up" data-delay="0">
+          <div class="w-14 h-14 rounded-full bg-secondary/20 border border-secondary/40 flex items-center justify-center mx-auto mb-6">
+            <span class="font-headline font-bold text-secondary text-xl">1</span>
+          </div>
+          <span class="material-symbols-outlined text-3xl text-primary mb-4 block" style="font-variation-settings: 'FILL' 1;">search</span>
+          <h3 class="font-headline text-xl font-bold mb-3 text-on-surface">Observe</h3>
+          <p class="text-on-surface-variant text-sm leading-relaxed">Open any passage and read it fresh — with BSB clarity and original language context at your side. Ask: <em class="text-on-surface/70">What does the text actually say?</em></p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="relative p-10 bg-surface-container rounded-3xl border border-secondary/30 text-center" data-animate="fade-up" data-delay="150">
+          <div class="w-14 h-14 rounded-full bg-secondary/20 border border-secondary/40 flex items-center justify-center mx-auto mb-6">
+            <span class="font-headline font-bold text-secondary text-xl">2</span>
+          </div>
+          <span class="material-symbols-outlined text-3xl text-secondary mb-4 block" style="font-variation-settings: 'FILL' 1;">psychology</span>
+          <h3 class="font-headline text-xl font-bold mb-3 text-on-surface">Interpret</h3>
+          <p class="text-on-surface-variant text-sm leading-relaxed">Ask the Word, dig into commentaries, trace cross-references. 2,400+ years of orthodox scholarship — on demand, in plain language. Ask: <em class="text-on-surface/70">What does it mean?</em></p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="relative p-10 bg-surface-container rounded-3xl border border-[#f2e5f0]/10 text-center" data-animate="fade-up" data-delay="300">
+          <div class="w-14 h-14 rounded-full bg-secondary/20 border border-secondary/40 flex items-center justify-center mx-auto mb-6">
+            <span class="font-headline font-bold text-secondary text-xl">3</span>
+          </div>
+          <span class="material-symbols-outlined text-3xl text-primary mb-4 block" style="font-variation-settings: 'FILL' 1;">volunteer_activism</span>
+          <h3 class="font-headline text-xl font-bold mb-3 text-on-surface">Apply</h3>
+          <p class="text-on-surface-variant text-sm leading-relaxed">Write your insights in the margins, share with your study group, and carry the Word into your week. Ask: <em class="text-on-surface/70">What does it mean for my life?</em></p>
+        </div>
+      </div>
+      <div class="text-center mt-16" data-animate="fade-up">
+        <a href="how_it_works.html" class="text-secondary font-label uppercase tracking-widest text-xs border-b border-secondary/30 pb-1 hover:border-secondary transition-all">See how the method works in the app →</a>
+      </div>
+    </div>
+  </section>
+
   <!-- Pricing Preview -->
-  <section class="py-32 bg-surface-container-lowest">
+  <section class="py-32 bg-surface-container-low">
     <div class="max-w-7xl mx-auto px-8">
       <div class="text-center mb-20">
         <h2 class="font-headline text-4xl font-bold mb-4 text-on-surface" data-animate="fade-up">Invest in the Word</h2>
@@ -527,30 +581,9 @@
 
 </main>
 
-<!-- Footer -->
-<footer class="w-full py-12 border-t border-[#f2e5f0]/10 bg-[#3D1540]">
-  <div class="flex flex-col md:flex-row justify-between items-center w-full px-8 max-w-7xl mx-auto gap-8">
-    <div class="text-xl font-headline font-bold text-[#FFB4A4]">Formation Bible Study</div>
-    <div class="flex flex-wrap justify-center gap-8">
-      <a class="text-[#f2e5f0]/50 font-body text-sm hover:text-[#E8816A] transition-all" href="privacy_policy.html">Privacy Policy</a>
-      <a class="text-[#f2e5f0]/50 font-body text-sm hover:text-[#E8816A] transition-all" href="terms.html">Terms of Service</a>
-      <a class="text-[#f2e5f0]/50 font-body text-sm hover:text-[#E8816A] transition-all" href="cookie_policy.html">Cookie Policy</a>
-      <a class="text-[#f2e5f0]/50 font-body text-sm hover:text-[#E8816A] transition-all" href="contact.html">Contact</a>
-    </div>
-    <p class="text-[#f2e5f0]/40 font-body text-[10px] uppercase tracking-widest">© 2026 Berean Defense LLC. All rights reserved.</p>
-  </div>
-</footer>
+<div id="site-footer"></div>
 
 <script>
-  document.getElementById('nav-toggle').addEventListener('click', function() {
-    document.getElementById('mobile-menu').classList.toggle('open');
-  });
-  // Nav scroll shadow
-  window.addEventListener('scroll', () => {
-    const nav = document.getElementById('main-nav');
-    if (nav) nav.classList.toggle('nav-scrolled', window.scrollY > 50);
-  }, { passive: true });
-
   // Scroll-triggered animations via Intersection Observer
   const animObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
