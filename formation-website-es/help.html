@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ayuda y Preguntas Frecuentes — Formation Bible Study</title>
+  <meta name="description" content="Respuestas a preguntas frecuentes sobre Formation Bible Study — Pregúntale a la Palabra, Planes de Lectura, Grupos y más." />
+  <link rel="canonical" href="https://formacion-biblica.com/help" />
+
+  <!-- GA4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-SVVTSFJX9T"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-SVVTSFJX9T');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&family=Manrope:wght@300;400;500;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/tailwind.css"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --color-bg: #2A0D2E;
+      --color-surface: #3D1540;
+      --color-surface-2: #4A1D4D;
+      --color-on-surface: #f2e5f0;
+      --color-gold: #E9C349;
+      --color-muted: rgba(242,229,240,0.55);
+    }
+    * { box-sizing: border-box; }
+    body {
+      background: var(--color-bg);
+      color: var(--color-on-surface);
+      font-family: 'Manrope', sans-serif;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      text-align: center;
+      padding: 4rem 1.5rem 2.5rem;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    .hero h1 {
+      font-family: 'Noto Serif', serif;
+      font-size: clamp(1.8rem, 5vw, 2.6rem);
+      font-weight: 700;
+      color: var(--color-on-surface);
+      margin-bottom: 0.75rem;
+    }
+    .hero p {
+      color: var(--color-muted);
+      font-size: 1rem;
+      line-height: 1.65;
+    }
+
+    /* ── SEARCH BAR ── */
+    .search-wrap {
+      max-width: 520px;
+      margin: 0 auto 3rem;
+      padding: 0 1.5rem;
+      position: relative;
+    }
+    .search-wrap input {
+      width: 100%;
+      padding: 0.85rem 1.25rem 0.85rem 3rem;
+      background: var(--color-surface);
+      border: 1px solid rgba(242,229,240,0.15);
+      border-radius: 14px;
+      color: var(--color-on-surface);
+      font-size: 0.95rem;
+      font-family: 'Manrope', sans-serif;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .search-wrap input:focus { border-color: var(--color-gold); }
+    .search-wrap input::placeholder { color: rgba(242,229,240,0.3); }
+    .search-icon {
+      position: absolute;
+      left: 2.1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: rgba(242,229,240,0.3);
+      font-size: 1.1rem;
+    }
+
+    /* ── LAYOUT ── */
+    .page-wrap {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 1.5rem 5rem;
+    }
+
+    /* ── SECTION NAV PILLS ── */
+    .section-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 3rem;
+      justify-content: center;
+    }
+    .section-pill {
+      padding: 0.45rem 1.1rem;
+      border-radius: 9999px;
+      border: 1px solid rgba(242,229,240,0.18);
+      background: var(--color-surface);
+      color: var(--color-muted);
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .section-pill:hover {
+      background: var(--color-surface-2);
+      color: var(--color-on-surface);
+      border-color: rgba(242,229,240,0.3);
+    }
+
+    /* ── FAQ SECTION ── */
+    .faq-section { margin-bottom: 3.5rem; }
+    .faq-section-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid rgba(242,229,240,0.1);
+    }
+    .faq-section-icon { font-size: 1.4rem; }
+    .faq-section-title {
+      font-family: 'Noto Serif', serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--color-on-surface);
+    }
+
+    /* ── ACCORDION ── */
+    .faq-item {
+      background: var(--color-surface);
+      border: 1px solid rgba(242,229,240,0.1);
+      border-radius: 14px;
+      margin-bottom: 0.6rem;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .faq-item:hover { border-color: rgba(242,229,240,0.22); }
+    .faq-item.open { border-color: rgba(233,195,73,0.35); }
+    .faq-q {
+      width: 100%;
+      text-align: left;
+      padding: 1.1rem 1.25rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      font-family: 'Manrope', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--color-on-surface);
+      line-height: 1.4;
+    }
+    .faq-q:hover { color: #fff; }
+    .faq-chevron {
+      flex-shrink: 0;
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      background: rgba(242,229,240,0.08);
+      display: flex; align-items: center; justify-content: center;
+      transition: transform 0.25s, background 0.2s;
+      font-size: 0.7rem;
+    }
+    .faq-item.open .faq-chevron { transform: rotate(180deg); background: rgba(233,195,73,0.2); }
+    .faq-a {
+      display: none;
+      padding: 0 1.25rem 1.25rem;
+      color: var(--color-muted);
+      font-size: 0.88rem;
+      line-height: 1.75;
+    }
+    .faq-item.open .faq-a { display: block; }
+    .faq-a p { margin: 0 0 0.6rem; }
+    .faq-a p:last-child { margin-bottom: 0; }
+    .faq-a strong { color: var(--color-on-surface); font-weight: 600; }
+    .faq-a ul { margin: 0.4rem 0 0.6rem 1.2rem; padding: 0; list-style: disc; }
+    .faq-a ul li { margin-bottom: 0.25rem; }
+
+    /* ── CALLOUT BOX ── */
+    .callout {
+      background: rgba(233,195,73,0.08);
+      border: 1px solid rgba(233,195,73,0.25);
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      margin: 0.75rem 0 0;
+      font-size: 0.85rem;
+      color: rgba(233,195,73,0.9);
+      line-height: 1.6;
+    }
+    .callout strong { color: var(--color-gold); }
+
+    /* ── TAG BADGES ── */
+    .badge {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.15rem 0.55rem;
+      border-radius: 9999px;
+      margin-left: 0.4rem;
+      vertical-align: middle;
+    }
+    .badge-free { background: rgba(80,200,120,0.15); color: #50c878; border: 1px solid rgba(80,200,120,0.3); }
+    .badge-plus { background: rgba(233,195,73,0.15); color: var(--color-gold); border: 1px solid rgba(233,195,73,0.3); }
+
+    /* ── CONTACT STRIP ── */
+    .contact-strip {
+      text-align: center;
+      background: var(--color-surface);
+      border: 1px solid rgba(242,229,240,0.1);
+      border-radius: 20px;
+      padding: 2.5rem 1.5rem;
+      margin-top: 4rem;
+    }
+    .contact-strip h2 {
+      font-family: 'Noto Serif', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .contact-strip p { color: var(--color-muted); font-size: 0.9rem; margin-bottom: 1.25rem; }
+    .contact-btn {
+      display: inline-block;
+      background: var(--color-gold);
+      color: #1a0820;
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 0.75rem 2rem;
+      border-radius: 9999px;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .contact-btn:hover { opacity: 0.88; }
+
+    /* ── NO RESULTS ── */
+    #no-results {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--color-muted);
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<div id="site-nav"></div>
+
+<!-- HERO -->
+<div class="hero">
+  <h1>Ayuda y Preguntas Frecuentes</h1>
+  <p>Todo lo que necesitas para aprovechar al máximo Formation Bible Study — desde Pregúntale a la Palabra hasta Planes de Lectura y Grupos.</p>
+</div>
+
+<!-- SEARCH -->
+<div class="search-wrap">
+  <span class="search-icon">🔍</span>
+  <input type="text" id="faq-search" placeholder="Buscar preguntas…" oninput="filterFAQ(this.value)" />
+</div>
+
+<!-- SECTION PILLS -->
+<div class="page-wrap">
+  <div class="section-nav">
+    <a href="#primeros-pasos" class="section-pill">🚀 Primeros Pasos</a>
+    <a href="#preguntale" class="section-pill">✨ Pregúntale a la Palabra</a>
+    <a href="#herramientas" class="section-pill">🔍 Herramientas de Investigación</a>
+    <a href="#planes-lectura" class="section-pill">📅 Planes de Lectura</a>
+    <a href="#grupos" class="section-pill">👥 Grupos</a>
+    <a href="#notas" class="section-pill">📝 Notas de Estudio</a>
+    <a href="#progreso" class="section-pill">📊 Progreso</a>
+    <a href="#cuenta" class="section-pill">⚙️ Cuenta y Planes</a>
+  </div>
+
+  <!-- PRIMEROS PASOS -->
+  <div class="faq-section" id="primeros-pasos">
+    <div class="faq-section-header">
+      <span class="faq-section-icon">🚀</span>
+      <h2 class="faq-section-title">Primeros Pasos</h2>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        ¿Qué es Formation Bible Study?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>Formation es una aplicación de estudio bíblico fundamentada en la Escritura, construida para cristianos serios que quieren profundidad sin la complejidad del seminario. Puedes leer la Biblia Estándar Berean (BSE), hacer cualquier pregunta bíblica y recibir respuestas arraigadas en la Escritura, crear notas y resaltados de estudio, seguir un plan de lectura y estudiar junto a otros en Grupos.</p>
+        <p>Cada respuesta que Formation da está fundamentada en la Palabra — no en la opinión de la IA. El objetivo es que la Palabra se interprete a sí misma.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        ¿Necesito una cuenta para usar Formation?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>Sí — se requiere una cuenta gratuita para usar la aplicación. Esto permite que Formation guarde tus notas, resaltados, progreso del plan de lectura e historial de Pregúntale a la Palabra en tu perfil para que nada se pierda.</p>
+        <p>Crear una cuenta es gratuito y toma menos de un minuto. El nivel Discovery (gratuito) te da acceso permanente a las funciones principales sin fecha de vencimiento.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        ¿Qué traducción bíblica usa Formation?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>Formation usa la <strong>Biblia Estándar Berean (BSE)</strong> — una traducción moderna, precisa y de libre acceso construida tanto para la legibilidad como para la fidelidad a los idiomas originales. Es ideal para el estudio personal, la devoción y la enseñanza.</p>
+        <p>Se añadirán traducciones adicionales en futuras actualizaciones.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        ¿Cuáles son las diferentes pestañas en la aplicación?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>Formation tiene seis pestañas principales:</p>
+        <ul>
+          <li><strong>📖 Leer</strong> — Navega y lee la BSE completa por libro y capítulo</li>
+          <li><strong>✨ Pregúntale a la Palabra</strong> — Haz cualquier pregunta bíblica y recibe una respuesta fundamentada en la Escritura</li>
+          <li><strong>📝 Notas de Estudio</strong> — Escribe, guarda y organiza tus notas personales de estudio bíblico</li>
+          <li><strong>📅 Plan de Lectura</strong> — Sigue un plan de lectura diario estructurado a través de la Escritura</li>
+          <li><strong>👥 Grupos</strong> — Estudia junto a otros con un plan compartido y notas del grupo</li>
+          <li><strong>📊 Progreso</strong> — Rastrea tu racha de lectura, capítulos completados y notas escritas</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- PREGÚNTALE A LA PALABRA -->
+  <div class="faq-section" id="preguntale">
+    <div class="faq-section-header">
+      <span class="faq-section-icon">✨</span>
+      <h2 class="faq-section-title">Pregúntale a la Palabra</h2>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        ¿Qué es Pregúntale a la Palabra?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>Pregúntale a la Palabra es la función principal de estudio de Formation. Escribes cualquier pregunta bíblica — una doctrina, un versículo, una persona, un evento — y recibes una respuesta completa y fundamentada en la Escritura con referencias cruzadas de apoyo.</p>
+        <p>Esto no es un chatbot de IA que te da su opinión. Formation está construido para que la Palabra se interprete a sí misma: cada respuesta está construida desde la Escritura, con versículos específicos citados.</p>
+        <div class="callout"><strong>Pruébalo:</strong> "¿Qué significa caminar en el Espíritu?" o "¿Quién fue Melquisedec?" o "¿Cuál es el significado de la gracia en Romanos 5?"</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        ¿Cuántas preguntas puedo hacer por día?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>Depende de tu plan:</p>
+        <ul>
+          <li><strong>Discovery (Gratuito)</strong> — 5 preguntas por día</li>
+          <li><strong>Formation</strong> — 10 preguntas por día</li>
+          <li><strong>Formation Plus</strong> — 20 preguntas por día</li>
+          <li><strong>Formation Pro</strong> — Ilimitado</li>
+        </ul>
+        <p>Los límites se reinician a medianoche. Si necesitas más profundidad en una sola sesión, considera actualizar a Formation Pro.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        ¿En qué idiomas puedo hacer preguntas?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>Puedes preguntar en <strong>español</strong> o <strong>inglés</strong> — selecciona tu idioma preferido usando el selector de idioma junto al botón de preguntar. La respuesta se devolverá en el idioma que seleccionaste.</p>
+        <p>Los hispanohablantes también pueden usar la aplicación en español en <a href="https://formacion-biblica.com" style="color: var(--color-gold);">formacion-biblica.com</a>.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        ¿Qué es la insignia de Verificación que veo después de una respuesta?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>La insignia de verificación (🟢 o 🟡) aparece cuando Formation ha comparado la respuesta con la Escritura para verificar su precisión teológica.</p>
+        <ul>
+          <li><strong>🟢 Bíblicamente sólido</strong> — La respuesta se alinea bien con el consejo completo de la Escritura</li>
+          <li><strong>🟡 Revisar con discernimiento</strong> — La respuesta toca un área con múltiples interpretaciones; léela cuidadosamente y busca en la Palabra tú mismo</li>
+        </ul>
+        <p>Formation es una herramienta de estudio, no un pastor. Siempre prueba todo contra la Escritura (Hechos 17:11).</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        ¿Puedo marcar una respuesta que creo que es inexacta?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>Sí — desplázate hasta el final de cualquier respuesta y haz clic en <strong>"Marcar esta respuesta."</strong> Tu reporte ayuda al equipo de Formation a revisar y mejorar la calidad de las respuestas. Nos tomamos muy en serio la precisión teológica.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERRAMIENTAS DE INVESTIGACIÓN -->
+  <div class="faq-section" id="herramientas">
+    <div class="faq-section-header">
+      <span class="faq-section-icon">🔍</span>
+      <h2 class="faq-section-title">Herramientas de Investigación — Referencias Cruzadas, Contexto, Temas, Esquema</h2>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        ¿Cuáles son las herramientas de investigación debajo de Pregúntale a la Palabra?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>Debajo del campo de pregunta, verás cuatro botones de modo de investigación: <strong>Referencias Cruzadas</strong>, <strong>Contexto</strong>, <strong>Temas</strong> y <strong>Esquema</strong>. Estas son herramientas de estudio más profundas — no para preguntas generales, sino para profundizar en un pasaje o libro específico de la Escritura.</p>
+        <p>Escribe un pasaje (ej. "Mateo 5:1-12" o "Filipenses 4") y selecciona uno de los cuatro modos para comenzar.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        🔗 ¿Qué hace Referencias Cruzadas?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>Ingresa un pasaje y Referencias Cruzadas encontrará cada versículo significativo en la Escritura que se conecta con él — temática, lingüística o teológicamente. Cada referencia se explica y se agrupa por tema donde sea posible.</p>
+        <p>Esta es la función que permite que la Biblia se interprete a sí misma. Úsala cuando quieras entender un versículo a la luz completa de la Escritura en lugar de de forma aislada.</p>
+        <div class="callout"><strong>Ejemplo:</strong> Escribe "Juan 3:16" → Formation devuelve pasajes relacionados de Génesis, Isaías, Romanos, 1 Juan y más, con explicaciones de cómo se conectan.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        📜 ¿Qué hace Contexto?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>Contexto proporciona el <strong>trasfondo histórico, cultural y literario</strong> de un pasaje. ¿Quién fue el autor? ¿Quién fue la audiencia original? ¿Qué estaba pasando en esa cultura? ¿Qué género literario es este?</p>
+        <p>Entender el contexto es esencial para una interpretación precisa. El contexto evita que leas una carta del siglo I como si hubiera sido escrita para los del siglo XXI.</p>
+        <div class="callout"><strong>Ejemplo:</strong> Escribe "1 Corintios 11" → Formation explica la situación de la iglesia de Corinto, las costumbres sociales grecorromanas sobre los tocados y el propósito retórico de la carta.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        ⛪ ¿Qué hace Temas?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>Temas identifica los principales <strong>hilos teológicos</strong> que corren a través de un pasaje o libro — pacto, redención, santidad, fe, juicio, etc. — y traza cada tema a través del canon más amplio de la Escritura.</p>
+        <p>Úsalo cuando quieras pasar de un solo pasaje a ver el panorama completo de lo que Dios está revelando en toda la Biblia.</p>
+        <div class="callout"><strong>Ejemplo:</strong> Escribe "Génesis 1-2" → Formation identifica la Creación, la Imagen de Dios, el Sábado y el Matrimonio como temas principales, con cumplimientos en el Nuevo Testamento para cada uno.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        📋 ¿Qué hace Esquema?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>Esquema construye un <strong>esquema de sermón o estudio bíblico</strong> para cualquier pasaje — con un título, puntos principales, subpuntos, referencias cruzadas de apoyo para cada punto, preguntas de aplicación y una conclusión.</p>
+        <p>Esta es la herramienta para pastores, maestros, líderes de grupos pequeños y cualquiera que se prepare para enseñar o compartir la Escritura con otros.</p>
+        <div class="callout"><strong>Ejemplo:</strong> Escribe "Romanos 8:1-17" → Formation devuelve un esquema estructurado con puntos sobre la Condenación Eliminada, la Vida en el Espíritu y la Filiación — listo para construir tu mensaje o lección.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        ¿Cuál es la diferencia entre Preguntar y las herramientas de investigación?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <ul>
+          <li><strong>Preguntar</strong> — Para preguntas abiertas: "¿Qué dice la Biblia sobre el perdón?" o "¿Quién escribió Hebreos?"</li>
+          <li><strong>Herramientas de investigación (Referencias Cruzadas, Contexto, Temas, Esquema)</strong> — Para un pasaje específico: "Gálatas 5:16-25"</li>
+        </ul>
+        <p>Piensa en Preguntar como tu compañero de estudio y las herramientas de investigación como tu kit de profundización de pasajes.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PLANES DE LECTURA -->
+  <div class="faq-section" id="planes-lectura">
+    <div class="faq-section-header">
+      <span class="faq-section-icon">📅</span>
+      <h2 class="faq-section-title">Planes de Lectura</h2>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        ¿Qué planes de lectura están disponibles?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>Formation incluye actualmente cuatro planes:</p>
+        <ul>
+          <li><strong>📖 La Biblia en un Año</strong> — Los 66 libros, Antiguo y Nuevo Testamento, en 365 días</li>
+          <li><strong>✝️ Nuevo Testamento en 90 Días</strong> — Los 27 libros del NT en 3 meses</li>
+          <li><strong>🎵 Salmos en 30 Días</strong> — 5 salmos al día durante un mes de adoración</li>
+          <li><strong>🌿 Proverbios en un Mes</strong> — Un capítulo de sabiduría cada día durante 31 días</li>
+        </ul>
+        <p>Hay más planes en camino. Si hay un plan que te gustaría ver añadido, háznoslo saber.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        ¿Cómo funciona el plan de lectura diario?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>Cuando comienzas un plan, Formation calcula tu lectura diaria basándose en la fecha de inicio del plan. Cada día te muestra exactamente qué capítulos están asignados para ese día — junto con los días siguientes para que puedas planificar con anticipación.</p>
+        <p>Marca los días como completados a medida que los terminas. Tu porcentaje de progreso se actualiza automáticamente, y la pestaña de Progreso rastrea tu racha.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        ¿Puedo cambiar de plan?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>Sí — toca el nombre del plan mientras estás en la pestaña Plan de Lectura para cambiar de plan. <strong>Nota:</strong> cambiar de plan reinicia tu progreso para ese plan, así que empezarás de nuevo desde el Día 1.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        ¿Qué pasa si me pierdo un día?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>Formation no te penaliza por perderte un día. El plan continúa desde la fecha del calendario de hoy. Si estás atrasado, puedes ponerte al día a tu propio ritmo — solo marca cada día como completado cuando lo termines.</p>
+        <p>Tu racha de lectura en la pestaña de Progreso rastrea los días consecutivos de actividad, pero perderse un día no cancela tu plan ni elimina tus días completados.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        ¿Puede un Grupo compartir un plan de lectura?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>Sí — esta es una de las mejores funciones de los Grupos. El administrador del grupo puede asignar cualquier plan de lectura al grupo, y todos los miembros siguen el mismo horario juntos. Todos ven las mismas lecturas diarias, pueden publicar notas y discutir dentro del grupo. Ve la <a href="#grupos" style="color: var(--color-gold);">sección de Grupos</a> para más información.</p>
+        <div class="callout"><strong>Requiere:</strong> Formation Plus o superior. <span class="badge badge-plus">Plus</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GRUPOS -->
+  <div class="faq-section" id="grupos">
+    <div class="faq-section-header">
+      <span class="faq-section-icon">👥</span>
+      <h2 class="faq-section-title">Grupos</h2>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        ¿Qué son los Grupos?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>Los Grupos son la función de responsabilidad y comunidad de Formation. Un Grupo es un espacio privado donde un pequeño número de personas puede:</p>
+        <ul>
+          <li>Seguir el mismo plan de lectura juntos en el mismo horario</li>
+          <li>Compartir notas de estudio y reflexiones dentro del grupo</li>
+          <li>Animarse y responsabilizarse mutuamente en el estudio de la Escritura</li>
+        </ul>
+        <p>Piénsalo como una sala privada de estudio bíblico — para tu grupo pequeño, familia, clase de iglesia o compañeros de responsabilidad.</p>
+        <div class="callout"><strong>Requiere:</strong> Formation Plus o superior. <span class="badge badge-plus">Plus</span></div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        ¿Cómo creo un Grupo?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>Ve a la <strong>pestaña Grupos</strong> y toca <strong>"Crear un Grupo."</strong> Dale un nombre a tu grupo, luego comparte el código único de unión con las personas que quieres invitar. Cualquiera con el código puede unirse usando <strong>"Unirse a un Grupo"</strong> en la pestaña Grupos.</p>
+        <p>Como creador del grupo, eres el administrador — puedes asignar el plan de lectura del grupo y gestionar el grupo.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        ¿Cómo me uno a un Grupo que alguien más creó?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>Ve a la <strong>pestaña Grupos</strong> y toca <strong>"Unirse a un Grupo."</strong> Ingresa el código de unión compartido por tu administrador del grupo (es un código corto en mayúsculas como <code style="background: rgba(242,229,240,0.1); padding: 0.1rem 0.4rem; border-radius: 4px;">ESTUDIO7</code>) y serás añadido instantáneamente.</p>
+        <p>Puedes estar en más de un grupo a la vez.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        ¿Quién establece el plan de lectura para un Grupo?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>Solo el <strong>administrador del grupo</strong> (la persona que creó el grupo) puede establecer o cambiar el plan de lectura del grupo. Los miembros siguen el plan elegido por el administrador.</p>
+        <p>Administradores: ve a tu grupo → toca la pestaña <strong>Plan</strong> dentro del grupo → elige entre los planes de lectura disponibles.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        ¿Cuántos Grupos puedo unirme?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>Puedes crear o unirte a múltiples grupos simultáneamente. Tu pestaña de Grupos listará todos tus grupos activos — toca cualquiera para entrar.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        ¿Puedo publicar notas dentro de un Grupo?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>Sí — dentro de cualquier grupo, ve a la pestaña <strong>Notas</strong> para publicar reflexiones, perspectivas, preguntas o peticiones de oración visibles para todos los miembros del grupo. Es un espacio compartido para la discusión del grupo fundamentado en la lectura de ese día.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- NOTAS DE ESTUDIO -->
+  <div class="faq-section" id="notas">
+    <div class="faq-section-header">
+      <span class="faq-section-icon">📝</span>
+      <h2 class="faq-section-title">Notas de Estudio</h2>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        ¿Cómo creo una Nota de Estudio?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>Ve a la <strong>pestaña Notas de Estudio</strong>. Dale un título a tu nota, escribe tu contenido y toca Guardar. Las notas se guardan en tu cuenta y están disponibles cada vez que inicias sesión.</p>
+        <p>También puedes resaltar texto directamente en la pestaña Leer — los versículos resaltados pueden vincularse a notas para el estudio específico de versículos.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        ¿Cuántas notas puedo guardar?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <ul>
+          <li><strong>Discovery (Gratuito)</strong> — Hasta 50 notas</li>
+          <li><strong>Formation y superior</strong> — Notas ilimitadas</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        ¿Son privadas mis notas?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>Sí — tus Notas de Estudio personales son privadas y solo visibles para ti. La única excepción son las notas que publicas dentro de un Grupo, que se comparten con los miembros del grupo.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROGRESO -->
+  <div class="faq-section" id="progreso">
+    <div class="faq-section-header">
+      <span class="faq-section-icon">📊</span>
+      <h2 class="faq-section-title">Progreso</h2>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        ¿Qué muestra la pestaña de Progreso?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>La pestaña de Progreso es tu panel personal de estudio. Muestra:</p>
+        <ul>
+          <li><strong>Racha de lectura</strong> — Días consecutivos que has estado en la Palabra</li>
+          <li><strong>Capítulos leídos</strong> — Total de capítulos completados en todas las sesiones</li>
+          <li><strong>Notas escritas</strong> — Total de notas de estudio guardadas</li>
+          <li><strong>Grupos unidos</strong> — Cuántos grupos formas parte</li>
+          <li><strong>Progreso del plan de lectura</strong> — Porcentaje completado de tu plan activo</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        ¿Cómo se calcula mi racha de lectura?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>Tu racha aumenta en uno cada día que abres la pestaña Leer o marcas un día del plan de lectura como completado. Si te pierdes un día del calendario por completo, la racha se reinicia a cero — pero tus capítulos leídos totales y notas nunca se pierden.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CUENTA Y PLANES -->
+  <div class="faq-section" id="cuenta">
+    <div class="faq-section-header">
+      <span class="faq-section-icon">⚙️</span>
+      <h2 class="faq-section-title">Cuenta y Planes</h2>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        ¿El plan gratuito es realmente gratuito para siempre?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>Sí — el nivel Discovery es <strong>permanentemente gratuito</strong>. No es una prueba. No tiene fecha de vencimiento y nunca se te obligará a actualizar. Formation está construido sobre la convicción de que todos deberían tener acceso a herramientas de estudio fundamentadas en la Escritura.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        ¿Cuál es la diferencia entre los planes de pago?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <ul>
+          <li><strong>Discovery (Gratuito)</strong> — Lector BSE, 5 Pregúntale al Día, 50 notas, 1 plan de lectura, sin Grupos</li>
+          <li><strong>Formation ($7/mes)</strong> — Notas ilimitadas, 10 Preguntas/día, sin anuncios</li>
+          <li><strong>Formation Plus ($12/mes)</strong> — Todo en Formation + Grupos, 20 Preguntas/día, compañeros de responsabilidad</li>
+          <li><strong>Formation Pro ($29/mes)</strong> — Pregúntale a la Palabra ilimitado, soporte prioritario</li>
+        </ul>
+        <p>Todos los planes de pago están disponibles mensual o anualmente (el plan anual ahorra ~30%).</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        ¿Cómo actualizo mi plan?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>Ve a <a href="/pricing.html" style="color: var(--color-gold);">formacion-biblica.com/pricing</a> y elige tu plan. Se te llevará a través de un proceso de pago seguro — se requiere un método de pago para comenzar cualquier plan de pago. Tu tarjeta nunca se cobra por el nivel Discovery gratuito.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        ¿Puedo cancelar en cualquier momento?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>Sí — cancela en cualquier momento desde la configuración de tu cuenta. Cuando cancelas, tu acceso de pago continúa hasta el final de tu período de facturación actual, luego vuelve al nivel Discovery gratuito. Tus notas, resaltados y progreso de lectura siempre se conservan.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        ¿Es segura mi información de pago?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>Sí. Formation usa <strong>Stripe</strong> para todo el procesamiento de pagos — una de las plataformas de pago más confiables del mundo. Formation nunca almacena tu número de tarjeta. Todas las transacciones están encriptadas y son conformes con PCI.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        Olvidé mi contraseña. ¿Cómo la restablezco?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>En la pantalla de inicio de sesión, toca <strong>"¿Olvidaste tu contraseña?"</strong> e ingresa tu dirección de correo electrónico. Recibirás un enlace de restablecimiento en pocos minutos. Revisa tu carpeta de spam si no lo ves.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        ¿Tiene Formation una aplicación móvil?
+        <span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">
+        <p>Formation actualmente funciona como una aplicación web — funciona en cualquier navegador moderno en tu teléfono, tableta o computadora. En iPhone o Android, puedes añadirla a tu pantalla de inicio para una experiencia similar a una aplicación: toca el icono de compartir en tu navegador y elige <strong>"Añadir a pantalla de inicio."</strong></p>
+        <p>Las aplicaciones nativas para iOS y Android están en la hoja de ruta de Formation.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- NO RESULTS -->
+  <div id="no-results">
+    <p style="font-size: 1.1rem; margin-bottom: 0.5rem;">No se encontraron resultados.</p>
+    <p>Prueba con un término de búsqueda diferente, o <a href="mailto:blackpearlcom1@gmail.com" style="color: var(--color-gold);">contáctanos</a> y responderemos directamente.</p>
+  </div>
+
+  <!-- CONTACT STRIP -->
+  <div class="contact-strip">
+    <h2>¿Todavía tienes una pregunta?</h2>
+    <p>Estamos aquí para ayudar. Escríbenos y te responderemos — generalmente dentro de un día hábil.</p>
+    <a href="mailto:blackpearlcom1@gmail.com" class="contact-btn">Enviar Correo al Soporte</a>
+  </div>
+</div>
+
+<div id="site-footer"></div>
+
+<script src="/components.js"></script>
+<script>
+  // ── Accordion toggle ────────────────────────────────
+  function toggle(btn) {
+    const item = btn.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+
+  // ── FAQ search ──────────────────────────────────────
+  function filterFAQ(query) {
+    const q = query.toLowerCase().trim();
+    const items = document.querySelectorAll('.faq-item');
+    const sections = document.querySelectorAll('.faq-section');
+    let anyVisible = false;
+
+    if (!q) {
+      items.forEach(el => el.style.display = '');
+      sections.forEach(el => el.style.display = '');
+      document.getElementById('no-results').style.display = 'none';
+      return;
+    }
+
+    sections.forEach(section => {
+      let sectionHasMatch = false;
+      section.querySelectorAll('.faq-item').forEach(item => {
+        const text = item.textContent.toLowerCase();
+        const match = text.includes(q);
+        item.style.display = match ? '' : 'none';
+        if (match) {
+          sectionHasMatch = true;
+          anyVisible = true;
+          item.classList.add('open');
+        } else {
+          item.classList.remove('open');
+        }
+      });
+      section.style.display = sectionHasMatch ? '' : 'none';
+    });
+
+    document.getElementById('no-results').style.display = anyVisible ? 'none' : 'block';
+  }
+
+  // ── Smooth scroll for section pills ────────────────
+  document.querySelectorAll('.section-pill').forEach(pill => {
+    pill.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(pill.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+</script>
+</body>
+</html>
