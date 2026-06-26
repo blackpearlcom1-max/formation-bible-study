@@ -94,6 +94,9 @@
       <p class="text-[#f2e5f0]/30 font-body text-[10px] uppercase tracking-widest">© 2026 Berean Defense LLC. All rights reserved.</p>
       <p class="text-[#f2e5f0]/20 font-body text-[10px]">Wyoming · EIN on file · formationbible.com</p>
     </div>
+    <div class="pt-6 text-center">
+      <a href="https://sellwithboost.com/startups/formation-bible-study" target="_blank" rel="noopener"><img src="https://sellwithboost.com/badge/formation-bible-study.svg" alt="Listed on Sell With boost" width="160" height="40" style="display:inline-block;vertical-align:middle;opacity:0.7;"></a>
+    </div>
   </div>
 </footer>`;
 
