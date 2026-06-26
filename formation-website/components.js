@@ -95,7 +95,7 @@
       <p class="text-[#f2e5f0]/20 font-body text-[10px]">Wyoming · EIN on file · formationbible.com</p>
     </div>
     <div class="pt-6 text-center">
-      <a href="https://sellwithboost.com/startups/formation-bible-study" target="_blank" rel="noopener"><img src="https://sellwithboost.com/badge/formation-bible-study.svg" alt="Listed on Sell With boost" width="160" height="40" style="display:inline-block;vertical-align:middle;opacity:0.7;"></a>
+      <a href="https://sellwithboost.com" target="_blank" rel="noopener noreferrer"><img src="https://sellwithboost.com/badge/listing.svg" alt="Listed on Sell With boost" style="height:40px;width:auto;display:inline-block;opacity:0.7;"></a>
     </div>
   </div>
 </footer>`;
