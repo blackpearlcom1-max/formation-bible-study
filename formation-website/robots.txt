@@ -56,4 +56,3 @@ Allow: /
 
 # ─── Sitemap ─────────────────────────────────────────────────────────────────
 Sitemap: https://formationbible.com/sitemap.xml
-Sitemap: https://formationbible.com/llms.txt
