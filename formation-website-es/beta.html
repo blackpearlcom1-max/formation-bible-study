@@ -262,7 +262,7 @@
     <div id="ob-step-2" class="ob-step hidden flex flex-col gap-4">
       <div class="text-5xl text-center">📖</div>
       <h2 class="font-headline text-2xl font-bold text-center text-on-surface">Lee la Palabra</h2>
-      <p class="font-body text-sm text-[#f2e5f0]/65 text-center leading-relaxed">La pestaña <strong class="text-[#f2e5f0]/90">Leer</strong> te da acceso a cualquier libro, capítulo y versículo en Reina-Valera 1909 o Biblia Viva. Tu última posición se guarda automáticamente.</p>
+      <p class="font-body text-sm text-[#f2e5f0]/65 text-center leading-relaxed">La pestaña <strong class="text-[#f2e5f0]/90">Leer</strong> te da acceso a cualquier libro, capítulo y versículo en Reina-Valera 1909 u Open Nueva Biblia Viva. Tu última posición se guarda automáticamente.</p>
       <div class="bg-[#3D1540]/60 border border-[#f2e5f0]/10 rounded-2xl px-5 py-4 text-center">
         <p class="text-[#E9C349] font-label text-xs uppercase tracking-widest mb-1">Versículo del día</p>
         <p class="font-body text-sm text-[#f2e5f0]/80 italic">Escritura entregada diariamente para guiar tu lectura.</p>
@@ -440,7 +440,7 @@
         <select id="chapter-select" onchange="loadChapter()" class="reader-select w-20"></select>
         <select id="translation-select" onchange="loadChapter()" class="reader-select w-20">
           <option value="RVR1909">RVR1909</option>
-          <option value="ONBV">Biblia Viva</option>
+          <option value="ONBV">Open Nueva Biblia Viva</option>
         </select>
         <div class="flex gap-2">
           <button onclick="prevChapter()" class="reader-btn">◀</button>
@@ -890,7 +890,7 @@
       <select id="profile-translation-select"
         class="w-full bg-[#4A1D4D]/60 border border-[#f2e5f0]/15 rounded-xl px-3 py-2.5 text-[#f2e5f0] text-sm font-body focus:outline-none focus:border-[#E9C349]/50 transition-colors">
         <option value="RVR1909">RVR1909 — Reina-Valera 1909</option>
-        <option value="ONBV">Biblia Viva — Nueva Versión Viva</option>
+        <option value="ONBV">ONBV — Open Nueva Biblia Viva</option>
         <option value="BSB">BSB — Berean Standard Bible</option>
         <option value="KJV">KJV — King James Version</option>
       </select>
