@@ -1023,6 +1023,10 @@
       icon.textContent = 'hourglass_top';
       text.textContent = 'Processing…';
 
+      if (typeof gtag === 'function') {
+        gtag('event', 'checkout_started', { plan: currentPlan, billing: billingAnnual ? 'annual' : 'monthly' });
+      }
+
       try {
         // Create Stripe PaymentMethod
         const { paymentMethod, error } = await stripe.createPaymentMethod({
@@ -1106,6 +1110,9 @@
         // Success
         icon.textContent = 'check_circle';
         text.textContent = 'Success! Redirecting…';
+        if (typeof gtag === 'function') {
+          gtag('event', 'subscription_started', { plan: currentPlan, billing: billingAnnual ? 'annual' : 'monthly' });
+        }
         setTimeout(() => { window.location.href = 'https://formationbible.com'; }, 1200);
 
       } catch (err) {
@@ -1127,6 +1134,9 @@
 
       // Always select the plan first
       selectPlan(effectivePlan);
+      if (typeof gtag === 'function') {
+        gtag('event', 'plan_selected', { plan: effectivePlan, funnel_step: 'checkout_page' });
+      }
 
       // Check if user is already authenticated (arrived via magic link or Google OAuth)
       const { data: { session } } = await sb.auth.getSession();
