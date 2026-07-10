@@ -1313,6 +1313,7 @@ function showStudy(session) {
   // Mostrar introducción al primer inicio de sesión
   const obKey = 'fbs_onboarding_done_es_' + (email || 'user');
   if (!localStorage.getItem(obKey)) {
+    if (typeof gtag === 'function') gtag('event', 'signup_completed', { method: 'app_first_login' });
     setTimeout(() => showOnboarding(obKey), 600);
   }
   // Card gate: increment visit count and check
@@ -1652,6 +1653,11 @@ async function askQuestion() {
     const data = await res.json();
     if (!res.ok) throw new Error(data.error || data.message || `Error del servidor ${res.status}`);
     renderResponse(data);
+    if (typeof gtag === 'function') {
+      const atwSoFar = parseInt(localStorage.getItem(cgKey('atw')) || '0', 10);
+      gtag('event', 'ask_the_word_query', { mode: currentResearchMode });
+      if (atwSoFar === 0) gtag('event', 'first_ai_question', { mode: currentResearchMode });
+    }
     cardGateIncrementATW();   // track ATW usage for card gate
   } catch (err) {
     errorBox.textContent = '⚠ ' + err.message; errorBox.classList.remove('hidden');
@@ -2876,6 +2882,7 @@ async function checkCardGate() {
 async function openCardGate() {
   const overlay = document.getElementById('card-gate-overlay');
   overlay.classList.add('open');
+  if (typeof gtag === 'function') gtag('event', 'paywall_viewed', { gate: 'card_gate' });
   try {
     const { data: { session } } = await sb.auth.getSession();
     const res = await fetch(`${BACKEND_URL}/api/billing/setup-intent`, {
