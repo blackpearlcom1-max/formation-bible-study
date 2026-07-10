@@ -2965,7 +2965,7 @@ flagBtn.addEventListener('click', async () => {
 });
 
 // ─── Card Gate ──────────────────────────────────────────────────────────────
-// Shows after: return visit (≥2nd visit) AND ≥1 Ask the Word query used.
+// Shows after: 2 complete free sessions (≥3rd visit) AND ≥1 Ask the Word query used.
 // Uses Stripe SetupIntent — saves card, no charge. Dismisses permanently once saved.
 // "Remind me tomorrow" snoozes for 24h.
 
@@ -2983,7 +2983,7 @@ function cardGateShouldShow() {
   if (snooze && Date.now() < snooze) return false;                 // snoozed
   const visits = parseInt(localStorage.getItem(cgKey('vc')) || '0', 10);
   const atw    = parseInt(localStorage.getItem(cgKey('atw')) || '0', 10);
-  return visits >= 2 && atw >= 1;
+  return visits >= 3 && atw >= 1;
 }
 
 let _cgVisitCounted = false;   // guard: only increment once per page load
