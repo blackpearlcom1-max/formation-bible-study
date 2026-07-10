@@ -290,6 +290,11 @@
       }
     });
 
+    // Analytics: funnel event — plan the user arrived with (defaults to free)
+    if (typeof gtag === 'function') {
+      gtag('event', 'plan_selected', { plan: plan || 'free', funnel_step: 'signup_page' });
+    }
+
     // Show plan badge
     if (plan && plan !== 'free') {
       var planNames = { formation: 'Formation Bible Study — $7/mo', plus: 'Formation Plus — $12/mo', pro: 'Formation Pro — $29/mo' };
@@ -306,6 +311,7 @@
   async function signInWithGoogle() {
     var plan = new URLSearchParams(window.location.search).get('plan');
     if (plan && plan !== 'free') localStorage.setItem('pendingPlan', plan);
+    if (typeof gtag === 'function') gtag('event', 'signup_started', { method: 'google', plan: plan || 'free' });
     const { error } = await sb.auth.signInWithOAuth({
       provider: 'google',
       options: { redirectTo: getRedirectUrl(plan) }
@@ -333,6 +339,8 @@
     submitBtn.disabled = true;
     errorEl.classList.add('hidden');
 
+    if (isSignup && typeof gtag === 'function') gtag('event', 'signup_started', { method: 'email', plan: plan || 'free' });
+
     var { error } = await sb.auth.signInWithOtp({
       email: email,
       options: { emailRedirectTo: getRedirectUrl(plan) }
@@ -344,6 +352,7 @@
       submitBtn.textContent = 'Send Me a Sign-In Link';
       submitBtn.disabled = false;
     } else {
+      if (typeof gtag === 'function') gtag('event', isSignup ? 'magic_link_sent' : 'login_magic_link_sent', { plan: plan || 'free' });
       formEl.classList.add('hidden');
       sentEmailEl.textContent = email;
       sentEl.classList.remove('hidden');
