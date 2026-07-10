@@ -14,7 +14,7 @@
 
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
   <title>Get Started — Formation Bible Study</title>
-  <meta name="description" content="Start your Formation Bible Study journey. Free forever, or unlock the full experience with Formation Bible Study or Formation Pro. Cancel anytime."/>
+  <meta name="description" content="Start your Formation Bible Study journey. Free to start, or unlock the full experience with Formation Bible Study or Formation Pro. Cancel anytime."/>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -248,7 +248,7 @@
           Begin Your <span class="shimmer-text">Berean Journey</span>
         </h1>
         <p class="font-body text-[#f2e5f0]/55 text-lg max-w-xl mx-auto leading-relaxed">
-          Choose the plan that fits where you are. Free forever, or unlock the full depth of Formation Bible Study.
+          Choose the plan that fits where you are. Free to start, or unlock the full depth of Formation Bible Study.
         </p>
       </div>
 
@@ -294,7 +294,7 @@
           <div class="plan-card" id="card-free" data-plan="free" tabindex="0" role="radio" aria-checked="false">
             <div class="flex items-start justify-between mb-5">
               <div class="plan-radio" id="radio-free"></div>
-              <span class="plan-badge bg-[#f2e5f0]/8 text-[#f2e5f0]/40 border border-[#f2e5f0]/10">Free Forever</span>
+              <span class="plan-badge bg-[#f2e5f0]/8 text-[#f2e5f0]/40 border border-[#f2e5f0]/10">Discovery Plan</span>
             </div>
             <p class="font-headline font-black text-2xl text-[#f2e5f0] mb-1">Free</p>
             <p class="font-body text-[#f2e5f0]/35 text-sm mb-6">$0 / month, always</p>
@@ -855,13 +855,13 @@
 
       // Update pill
       document.getElementById('pill-plan-name').textContent = plan.name;
-      document.getElementById('pill-plan-price').textContent = currentPlan === 'free' ? 'Free forever · No credit card needed' : priceLabel + ' · Cancel anytime';
+      document.getElementById('pill-plan-price').textContent = currentPlan === 'free' ? '$0 · No credit card needed to sign up' : priceLabel + ' · Cancel anytime';
 
       // Update order summary
       document.getElementById('summary-plan-name').textContent = plan.name + ' · ' + (isAnnual ? 'Annual' : 'Monthly');
       document.getElementById('summary-plan-price').textContent = currentPlan === 'free' ? '$0.00' : ('$' + price.toFixed(2) + '/mo');
       document.getElementById('summary-due').textContent = currentPlan === 'free' ? '$0.00' : ('$' + (isAnnual ? plan.annualTotal.toFixed(2) : price.toFixed(2)));
-      document.getElementById('summary-rebill').textContent = currentPlan === 'free' ? 'Free forever. Upgrade anytime.' : (isAnnual ? 'Billed $' + plan.annualTotal.toFixed(2) + '/year. Cancel anytime.' : 'Billed $' + plan.monthlyPrice.toFixed(2) + '/month. Cancel anytime.');
+      document.getElementById('summary-rebill').textContent = currentPlan === 'free' ? 'Free to use. Upgrade anytime.' : (isAnnual ? 'Billed $' + plan.annualTotal.toFixed(2) + '/year. Cancel anytime.' : 'Billed $' + plan.monthlyPrice.toFixed(2) + '/month. Cancel anytime.');
 
       // Summary features
       const featEl = document.getElementById('summary-features');
