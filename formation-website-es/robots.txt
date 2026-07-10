@@ -58,4 +58,3 @@ Allow: /
 
 # ─── Sitemap ─────────────────────────────────────────────────────────────────
 Sitemap: https://formacion-biblica.com/sitemap.xml
-Sitemap: https://formacion-biblica.com/llms.txt
