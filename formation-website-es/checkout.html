@@ -14,7 +14,7 @@
 
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
   <title>Comenzar — Formation Bible Study</title>
-  <meta name="description" content="Comienza tu camino en Formation Bible Study. Gratis para siempre, o desbloquea la experiencia completa. Cancela cuando quieras."/>
+  <meta name="description" content="Comienza tu camino en Formation Bible Study. Gratis para empezar, o desbloquea la experiencia completa. Cancela cuando quieras."/>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -234,7 +234,7 @@
           Comienza Tu <span class="shimmer-text">Viaje Bereano</span>
         </h1>
         <p class="font-body text-[#f2e5f0]/55 text-lg max-w-xl mx-auto leading-relaxed">
-          Elige el plan que se adapta a donde estás. Gratis para siempre, o desbloquea toda la profundidad de Formation Bible Study.
+          Elige el plan que se adapta a donde estás. Gratis para empezar, o desbloquea toda la profundidad de Formation Bible Study.
         </p>
       </div>
 
@@ -807,12 +807,12 @@
       document.getElementById('step2-label').classList.add('active');
 
       document.getElementById('pill-plan-name').textContent = plan.name;
-      document.getElementById('pill-plan-price').textContent = currentPlan === 'free' ? 'Gratis para siempre · Sin tarjeta de crédito' : priceLabel + ' · Cancela cuando quieras';
+      document.getElementById('pill-plan-price').textContent = currentPlan === 'free' ? '$0 · Sin tarjeta de crédito para registrarte' : priceLabel + ' · Cancela cuando quieras';
 
       document.getElementById('summary-plan-name').textContent = plan.name + ' · ' + (isAnnual ? 'Anual' : 'Mensual');
       document.getElementById('summary-plan-price').textContent = currentPlan === 'free' ? '$0.00' : ('$' + price.toFixed(2) + '/mes');
       document.getElementById('summary-due').textContent = currentPlan === 'free' ? '$0.00' : ('$' + (isAnnual ? plan.annualTotal.toFixed(2) : price.toFixed(2)));
-      document.getElementById('summary-rebill').textContent = currentPlan === 'free' ? 'Gratis para siempre. Mejora cuando quieras.' : 'Facturado $' + plan.monthlyPrice.toFixed(2) + '/mes. Cancela cuando quieras.';
+      document.getElementById('summary-rebill').textContent = currentPlan === 'free' ? 'Gratis de usar. Mejora cuando quieras.' : 'Facturado $' + plan.monthlyPrice.toFixed(2) + '/mes. Cancela cuando quieras.';
 
       const featEl = document.getElementById('summary-features');
       featEl.innerHTML = plan.features.map(f => `<div class="flex items-center gap-2"><span class="material-symbols-outlined text-[#FFB4A4] text-base" style="font-size:15px">check</span><span class="font-body text-[#f2e5f0]/55 text-xs">${f}</span></div>`).join('');
