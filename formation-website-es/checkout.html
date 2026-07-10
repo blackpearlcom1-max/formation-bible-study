@@ -959,6 +959,10 @@
       icon.textContent = 'hourglass_top';
       text.textContent = 'Procesando…';
 
+      if (typeof gtag === 'function') {
+        gtag('event', 'checkout_started', { plan: currentPlan, billing: billingAnnual ? 'annual' : 'monthly' });
+      }
+
       try {
         const { paymentMethod, error } = await stripe.createPaymentMethod({
           type: 'card',
@@ -1017,6 +1021,9 @@
 
         icon.textContent = 'check_circle';
         text.textContent = '¡Éxito! Redirigiendo…';
+        if (typeof gtag === 'function') {
+          gtag('event', 'subscription_started', { plan: currentPlan, billing: billingAnnual ? 'annual' : 'monthly' });
+        }
         setTimeout(() => { window.location.href = 'signup.html?welcome=1&plan=' + currentPlan; }, 1200);
 
       } catch (err) {
@@ -1030,6 +1037,9 @@
 
     // Initialize
     selectPlan('formation');
+    if (typeof gtag === 'function') {
+      gtag('event', 'plan_selected', { plan: currentPlan, funnel_step: 'checkout_page' });
+    }
   </script>
 </body>
 </html>
