@@ -250,6 +250,9 @@
   // Leer plan desde la URL
   var urlParams = new URLSearchParams(window.location.search);
   var plan = urlParams.get('plan');
+  if (typeof gtag === 'function') {
+    gtag('event', 'plan_selected', { plan: plan || 'free', funnel_step: 'signup_page' });
+  }
   if (plan && plan !== 'free') {
     var planNames = { formation: 'Formation Bible Study — $7/mes', plus: 'Formation Plus — $12/mes', pro: 'Formation Pro — $29/mes' };
     var badge = document.getElementById('plan-badge');
@@ -294,6 +297,15 @@
   if (new URLSearchParams(window.location.search).get('success') === 'true') {
     document.getElementById('signup-form').style.display = 'none';
     document.getElementById('signup-success').classList.remove('hidden');
+    if (typeof gtag === 'function') gtag('event', 'waitlist_signup_completed', { plan: plan || 'free' });
+  }
+
+  // Analytics: fire before the native Formspree POST navigates away
+  var waitlistForm = document.getElementById('signup-form');
+  if (waitlistForm) {
+    waitlistForm.addEventListener('submit', function() {
+      if (typeof gtag === 'function') gtag('event', 'waitlist_signup_submitted', { plan: plan || 'free' });
+    });
   }
 </script>
 </body>
