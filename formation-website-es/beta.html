@@ -2830,6 +2830,7 @@ flagBtn.addEventListener('click', async () => {
 });
 
 // ─── Card Gate ──────────────────────────────────────────────────────────────
+// Shows after: 2 complete free sessions (≥3rd visit) AND ≥1 Ask the Word query used.
 let _cgStripe = null, _cgCardEl = null, _cgClientSecret = null;
 
 function cgKey(suffix) {
@@ -2844,7 +2845,7 @@ function cardGateShouldShow() {
   if (snooze && Date.now() < snooze) return false;
   const visits = parseInt(localStorage.getItem(cgKey('vc')) || '0', 10);
   const atw    = parseInt(localStorage.getItem(cgKey('atw')) || '0', 10);
-  return visits >= 2 && atw >= 1;
+  return visits >= 3 && atw >= 1;
 }
 
 let _cgVisitCounted = false;   // guard: only increment once per page load
