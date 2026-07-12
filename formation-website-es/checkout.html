@@ -280,30 +280,26 @@
           <div class="plan-card" id="card-free" data-plan="free" tabindex="0" role="radio" aria-checked="false">
             <div class="flex items-start justify-between mb-5">
               <div class="plan-radio" id="radio-free"></div>
-              <span class="plan-badge bg-[#f2e5f0]/8 text-[#f2e5f0]/40 border border-[#f2e5f0]/10">Siempre Gratis</span>
+              <span class="plan-badge bg-[#f2e5f0]/8 text-[#f2e5f0]/40 border border-[#f2e5f0]/10">Plan Descubrimiento</span>
             </div>
             <p class="font-headline font-black text-2xl text-[#f2e5f0] mb-1">Gratis</p>
-            <p class="font-body text-[#f2e5f0]/35 text-sm mb-6">$0 / mes, siempre</p>
+            <p class="font-body text-[#f2e5f0]/35 text-sm mb-6">$0 / mes</p>
             <div class="flex flex-col gap-3 mb-6">
               <div class="feature-row">
                 <span class="material-symbols-outlined feature-check text-[#f2e5f0]/40 text-base" style="font-size:18px">check_circle</span>
-                <span class="font-body text-sm text-[#f2e5f0]/60">Reina-Valera 1909 (RVR1909)</span>
+                <span class="font-body text-sm text-[#f2e5f0]/60">Traducciones Bíblicas (RVR1909, ONBV)</span>
               </div>
               <div class="feature-row">
                 <span class="material-symbols-outlined feature-check text-[#f2e5f0]/40 text-base" style="font-size:18px">check_circle</span>
-                <span class="font-body text-sm text-[#f2e5f0]/60">1 plan de lectura</span>
+                <span class="font-body text-sm text-[#f2e5f0]/60">Resaltado Básico (10/mes)</span>
               </div>
               <div class="feature-row">
                 <span class="material-symbols-outlined feature-check text-[#f2e5f0]/40 text-base" style="font-size:18px">check_circle</span>
-                <span class="font-body text-sm text-[#f2e5f0]/60">50 notas de estudio</span>
+                <span class="font-body text-sm text-[#f2e5f0]/60">1 Grupo de Estudio Público</span>
               </div>
               <div class="feature-row">
                 <span class="material-symbols-outlined feature-check text-[#f2e5f0]/40 text-base" style="font-size:18px">check_circle</span>
-                <span class="font-body text-sm text-[#f2e5f0]/60">5 consultas IA / día</span>
-              </div>
-              <div class="feature-row">
-                <span class="material-symbols-outlined feature-check text-[#f2e5f0]/40 text-base" style="font-size:18px">check_circle</span>
-                <span class="font-body text-sm text-[#f2e5f0]/60">Comunidad solo lectura</span>
+                <span class="font-body text-sm text-[#f2e5f0]/60">Ask the Word — 5 por día</span>
               </div>
               <div class="feature-row">
                 <span class="material-symbols-outlined feature-check text-[#f2e5f0]/40 text-base" style="font-size:18px">remove_circle_outline</span>
@@ -723,7 +719,7 @@
     let billingAnnual = false;
 
     const planData = {
-      free:      { name: 'Gratis',               monthlyPrice: 0,  annualMonthly: 0,  annualTotal: 0,   color: '#f2e5f0', features: ['Reina-Valera 1909 (RVR1909)','1 plan de lectura','50 notas de estudio','5 consultas IA/día','Comunidad solo lectura'] },
+      free:      { name: 'Gratis',               monthlyPrice: 0,  annualMonthly: 0,  annualTotal: 0,   color: '#f2e5f0', features: ['Traducciones Bíblicas (RVR1909, ONBV)','Resaltado Básico (10/mes)','1 Grupo de Estudio Público','Ask the Word — 5 por día'] },
       formation: { name: 'Formation Bible Study', monthlyPrice: 7,  annualMonthly: 5,  annualTotal: 60,  color: '#FFB4A4', features: ['Todo en Gratis','Notas y planes ilimitados','Asistente de Estudio IA completo','Acceso completo a la comunidad','Sin anuncios'] },
       plus:      { name: 'Formation Plus',         monthlyPrice: 12, annualMonthly: 9,  annualTotal: 108, color: '#A8D8B9', features: ['Todo en Formation Bible Study','Compañeros de rendición de cuentas','Acceso anticipado a funciones'] },
       pro:       { name: 'Formation Pro',          monthlyPrice: 29, annualMonthly: 22, annualTotal: 264, color: '#E9C349', features: ['Todo en Formation Plus','Consultas IA ilimitadas','Soporte prioritario'] }
