@@ -24,6 +24,7 @@
       <a href="/features.html"    data-nav="features"  class="nav-link font-label uppercase tracking-widest text-xs transition-colors duration-300">Features</a>
       <a href="/pricing.html"     data-nav="pricing"   class="nav-link font-label uppercase tracking-widest text-xs transition-colors duration-300">Pricing</a>
       <a href="/about.html"       data-nav="about"     class="nav-link font-label uppercase tracking-widest text-xs transition-colors duration-300">About</a>
+      <a href="/demo"             data-nav="demo"      class="nav-link font-label uppercase tracking-widest text-xs transition-colors duration-300">Try the Demo</a>
     </div>
     <a href="/beta.html" class="bg-gradient-to-br from-[#FFB4A4] to-[#6E2414] text-[#5D1809] px-6 py-2.5 rounded-full font-bold text-sm hover:brightness-110 transition-all shadow-lg">Sign Up Free →</a>
     <button id="nav-toggle" class="md:hidden text-[#f2e5f0] ml-4" aria-label="Open menu">
@@ -35,6 +36,7 @@
     <a href="/features.html" class="block text-[#f2e5f0]/60 font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4]">Features</a>
     <a href="/pricing.html"  class="block text-[#f2e5f0]/60 font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4]">Pricing</a>
     <a href="/about.html"    class="block text-[#f2e5f0]/60 font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4]">About</a>
+    <a href="/demo"          class="block text-[#f2e5f0]/60 font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4]">Try the Demo</a>
     <a href="/beta.html"     class="block text-[#FFB4A4] font-label uppercase tracking-widest text-xs font-bold">✨ Ask the Word</a>
     <a href="/beta.html"     class="block text-[#E8816A] font-label uppercase tracking-widest text-xs font-bold">Sign Up Free →</a>
   </div>
@@ -107,6 +109,7 @@
     features: ['/features.html', '/features'],
     pricing:  ['/pricing.html',  '/pricing'],
     about:    ['/about.html',    '/about'],
+    demo:     ['/demo.html',     '/demo'],
   };
 
   function setActiveNav() {
