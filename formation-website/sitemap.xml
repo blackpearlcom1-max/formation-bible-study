@@ -7,8 +7,8 @@
 
   <!-- Home -->
   <url>
-    <loc>https://formationbible.com/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://formationbible.com/"/>
+    <loc>https://www.formationbible.com/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formationbible.com/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://formacion-biblica.com/"/>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
@@ -16,8 +16,8 @@
 
   <!-- Features -->
   <url>
-    <loc>https://formationbible.com/features</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://formationbible.com/features"/>
+    <loc>https://www.formationbible.com/features</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formationbible.com/features"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://formacion-biblica.com/features"/>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
@@ -25,8 +25,8 @@
 
   <!-- Pricing -->
   <url>
-    <loc>https://formationbible.com/pricing</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://formationbible.com/pricing"/>
+    <loc>https://www.formationbible.com/pricing</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formationbible.com/pricing"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://formacion-biblica.com/pricing"/>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
@@ -34,8 +34,8 @@
 
   <!-- Signup -->
   <url>
-    <loc>https://formationbible.com/signup</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://formationbible.com/signup"/>
+    <loc>https://www.formationbible.com/signup</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formationbible.com/signup"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://formacion-biblica.com/signup"/>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
@@ -43,8 +43,8 @@
 
   <!-- FAQ -->
   <url>
-    <loc>https://formationbible.com/faq</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://formationbible.com/faq"/>
+    <loc>https://www.formationbible.com/faq</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formationbible.com/faq"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://formacion-biblica.com/faq"/>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -52,8 +52,8 @@
 
   <!-- How It Works -->
   <url>
-    <loc>https://formationbible.com/how_it_works</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://formationbible.com/how_it_works"/>
+    <loc>https://www.formationbible.com/how_it_works</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formationbible.com/how_it_works"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://formacion-biblica.com/how_it_works"/>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -61,8 +61,8 @@
 
   <!-- About -->
   <url>
-    <loc>https://formationbible.com/about</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://formationbible.com/about"/>
+    <loc>https://www.formationbible.com/about</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formationbible.com/about"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://formacion-biblica.com/about"/>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -70,8 +70,8 @@
 
   <!-- Mission -->
   <url>
-    <loc>https://formationbible.com/mission</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://formationbible.com/mission"/>
+    <loc>https://www.formationbible.com/mission</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formationbible.com/mission"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://formacion-biblica.com/mission"/>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -79,8 +79,8 @@
 
   <!-- Contact (was missing from this sitemap entirely — added Jul 10, 2026) -->
   <url>
-    <loc>https://formationbible.com/contact</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://formationbible.com/contact"/>
+    <loc>https://www.formationbible.com/contact</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formationbible.com/contact"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://formacion-biblica.com/contact"/>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -88,8 +88,8 @@
 
   <!-- Statement of Faith -->
   <url>
-    <loc>https://formationbible.com/statement_of_faith</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://formationbible.com/statement_of_faith"/>
+    <loc>https://www.formationbible.com/statement_of_faith</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formationbible.com/statement_of_faith"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://formacion-biblica.com/statement_of_faith"/>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
@@ -97,43 +97,43 @@
 
   <!-- Legal & Policy Pages -->
   <url>
-    <loc>https://formationbible.com/privacy_policy</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://formationbible.com/privacy_policy"/>
+    <loc>https://www.formationbible.com/privacy_policy</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formationbible.com/privacy_policy"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://formacion-biblica.com/privacy_policy"/>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
   </url>
   <url>
-    <loc>https://formationbible.com/terms</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://formationbible.com/terms"/>
+    <loc>https://www.formationbible.com/terms</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formationbible.com/terms"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://formacion-biblica.com/terms"/>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
   </url>
   <url>
-    <loc>https://formationbible.com/ai_disclaimer</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://formationbible.com/ai_disclaimer"/>
+    <loc>https://www.formationbible.com/ai_disclaimer</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formationbible.com/ai_disclaimer"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://formacion-biblica.com/ai_disclaimer"/>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
   </url>
   <url>
-    <loc>https://formationbible.com/billing_terms</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://formationbible.com/billing_terms"/>
+    <loc>https://www.formationbible.com/billing_terms</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formationbible.com/billing_terms"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://formacion-biblica.com/billing_terms"/>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://formationbible.com/cookie_policy</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://formationbible.com/cookie_policy"/>
+    <loc>https://www.formationbible.com/cookie_policy</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formationbible.com/cookie_policy"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://formacion-biblica.com/cookie_policy"/>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://formationbible.com/coppa</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://formationbible.com/coppa"/>
+    <loc>https://www.formationbible.com/coppa</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formationbible.com/coppa"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://formacion-biblica.com/coppa"/>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
@@ -141,8 +141,8 @@
 
   <!-- Error Reporting (was missing from this sitemap entirely — added Jul 10, 2026) -->
   <url>
-    <loc>https://formationbible.com/error_reporting</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://formationbible.com/error_reporting"/>
+    <loc>https://www.formationbible.com/error_reporting</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formationbible.com/error_reporting"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://formacion-biblica.com/error_reporting"/>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>

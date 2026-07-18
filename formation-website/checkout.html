@@ -20,9 +20,9 @@
     "@context": "https://schema.org",
     "@type": "WebPage",
     "name": "Formation Bible Study — Get Started",
-    "url": "https://formationbible.com/checkout",
+    "url": "https://www.formationbible.com/checkout",
     "description": "Start your Formation Bible Study subscription. Choose your plan, enter payment details, and begin your Berean journey today.",
-    "isPartOf": { "@type": "WebSite", "name": "Formation Bible Study", "url": "https://formationbible.com" }
+    "isPartOf": { "@type": "WebSite", "name": "Formation Bible Study", "url": "https://www.formationbible.com" }
   }
   </script>
   <script src="https://js.stripe.com/v3/"></script>
@@ -1109,7 +1109,7 @@
         if (typeof gtag === 'function') {
           gtag('event', 'subscription_started', { plan: currentPlan, billing: billingAnnual ? 'annual' : 'monthly' });
         }
-        setTimeout(() => { window.location.href = 'https://formationbible.com'; }, 1200);
+        setTimeout(() => { window.location.href = 'https://www.formationbible.com'; }, 1200);
 
       } catch (err) {
         console.error('Checkout error:', err);

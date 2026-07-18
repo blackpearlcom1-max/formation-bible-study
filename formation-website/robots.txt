@@ -1,5 +1,5 @@
 # Formation Bible Study — robots.txt
-# https://formationbible.com/robots.txt
+# https://www.formationbible.com/robots.txt
 
 # ─── Standard Search Crawlers ───────────────────────────────────────────────
 User-agent: *
@@ -55,4 +55,4 @@ User-agent: Diffbot
 Allow: /
 
 # ─── Sitemap ─────────────────────────────────────────────────────────────────
-Sitemap: https://formationbible.com/sitemap.xml
+Sitemap: https://www.formationbible.com/sitemap.xml

@@ -1514,7 +1514,7 @@ googleBtn.addEventListener('click', async () => {
   googleBtn.innerHTML = '<span class="spinner mr-2" style="border-top-color:#FFB4A4"></span>Redirecting…';
   const { error } = await sb.auth.signInWithOAuth({
     provider: 'google',
-    options: { redirectTo: 'https://formationbible.com/beta' }
+    options: { redirectTo: 'https://www.formationbible.com/beta' }
   });
   if (error) {
     showToast('Google sign-in failed: ' + error.message, 'error');
@@ -1531,7 +1531,7 @@ async function sendMagicLink() {
   if (!email || !email.includes('@')) { showToast('Please enter a valid email address', 'error'); magicEmail.focus(); return; }
   magicBtn.disabled = true;
   magicBtn.innerHTML = '<span class="spinner mr-1" style="border-top-color:#241a00"></span> Sending…';
-  const { error } = await sb.auth.signInWithOtp({ email, options: { emailRedirectTo: 'https://formationbible.com/beta' } });
+  const { error } = await sb.auth.signInWithOtp({ email, options: { emailRedirectTo: 'https://www.formationbible.com/beta' } });
   if (error) {
     showToast('Error: ' + error.message, 'error'); magicBtn.disabled = false; magicBtn.textContent = 'Send magic link';
   } else {
