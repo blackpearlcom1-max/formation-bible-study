@@ -86,6 +86,44 @@
     <priority>0.7</priority>
   </url>
 
+  <!-- Interactive Demo — added Jul 18, 2026 (roadmap 1.1, was live but missing from sitemap; no ES version yet) -->
+  <url>
+    <loc>https://www.formationbible.com/demo</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formationbible.com/demo"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Ask the Word — added Jul 18, 2026 (was live and linked from homepage, but missing from this sitemap) -->
+  <url>
+    <loc>https://www.formationbible.com/ask_the_word</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formationbible.com/ask_the_word"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://formacion-biblica.com/ask_the_word"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- SEO Content Guides (roadmap 2.1) — added Jul 18, 2026. These 3 guides were already written and live but were
+       completely orphaned: not in this sitemap, not linked from any nav/footer/other page. No ES versions exist yet. -->
+  <url>
+    <loc>https://www.formationbible.com/inductive-study-romans</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formationbible.com/inductive-study-romans"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.formationbible.com/color-coding-bible</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formationbible.com/color-coding-bible"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.formationbible.com/greek-interlinear-beginners</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formationbible.com/greek-interlinear-beginners"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
   <!-- Statement of Faith -->
   <url>
     <loc>https://www.formationbible.com/statement_of_faith</loc>

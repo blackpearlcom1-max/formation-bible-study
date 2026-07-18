@@ -74,6 +74,9 @@
           <li><a href="/about.html"            class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">About Us</a></li>
           <li><a href="/mission.html"          class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Our Mission</a></li>
           <li><a href="/statement_of_faith.html" class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Statement of Faith</a></li>
+          <li><a href="/inductive-study-romans.html" class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Guide: Studying Romans</a></li>
+          <li><a href="/color-coding-bible.html" class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Guide: Color-Coding Your Bible</a></li>
+          <li><a href="/greek-interlinear-beginners.html" class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Guide: Greek Interlinear for Beginners</a></li>
           <li><a href="/help.html"             class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Help Center</a></li>
           <li><a href="/contact.html"          class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Contact</a></li>
         </ul>
