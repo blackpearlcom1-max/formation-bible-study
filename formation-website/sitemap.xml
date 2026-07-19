@@ -86,10 +86,11 @@
     <priority>0.7</priority>
   </url>
 
-  <!-- Interactive Demo — added Jul 18, 2026 (roadmap 1.1, was live but missing from sitemap; no ES version yet) -->
+  <!-- Interactive Demo — added Jul 18, 2026 (roadmap 1.1, was live but missing from sitemap). ES version added Jul 19, 2026. -->
   <url>
     <loc>https://www.formationbible.com/demo</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.formationbible.com/demo"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://formacion-biblica.com/demo"/>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -104,31 +105,35 @@
   </url>
 
   <!-- SEO Content Guides (roadmap 2.1) — added Jul 18, 2026. These 3 guides were already written and live but were
-       completely orphaned: not in this sitemap, not linked from any nav/footer/other page. No ES versions exist yet. -->
+       completely orphaned: not in this sitemap, not linked from any nav/footer/other page. ES versions added Jul 19, 2026. -->
   <url>
     <loc>https://www.formationbible.com/inductive-study-romans</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.formationbible.com/inductive-study-romans"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://formacion-biblica.com/inductive-study-romans"/>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.formationbible.com/color-coding-bible</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.formationbible.com/color-coding-bible"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://formacion-biblica.com/color-coding-bible"/>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.formationbible.com/greek-interlinear-beginners</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.formationbible.com/greek-interlinear-beginners"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://formacion-biblica.com/greek-interlinear-beginners"/>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <!-- Study Library (roadmap 2.2, public proof library) — added Jul 19, 2026. New page, first example (Romans 8:1-4)
-       reuses already-Tony-reviewed content from the /demo page. No ES version yet. -->
+       reuses already-Tony-reviewed content from the /demo page. ES version added Jul 19, 2026. -->
   <url>
     <loc>https://www.formationbible.com/study-library</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.formationbible.com/study-library"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://formacion-biblica.com/study-library"/>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
