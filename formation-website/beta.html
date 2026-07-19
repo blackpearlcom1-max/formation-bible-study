@@ -2654,6 +2654,7 @@ async function createGroup() {
     const { group } = await groupFetch('/', 'POST', { name });
     $('group-name-input').value = '';
     showToast(`Group "${group.name}" created!`, 'success');
+    if (typeof gtag === 'function') gtag('event', 'group_created', { group_id: group.id });
     await openGroup(group.id);
   } catch (err) {
     showToast('Error: ' + err.message, 'error');
@@ -2667,6 +2668,7 @@ async function joinGroup() {
     const { group } = await groupFetch('/join', 'POST', { invite_code: code });
     $('invite-code-input').value = '';
     showToast(`Joined "${group.name}"!`, 'success');
+    if (typeof gtag === 'function') gtag('event', 'invite_accepted', { group_id: group.id });
     await openGroup(group.id);
   } catch (err) {
     showToast('Error: ' + err.message, 'error');
@@ -2698,7 +2700,12 @@ function showGroupsLanding() {
 
 function copyInviteCode() {
   if (!currentGroupData) return;
-  navigator.clipboard.writeText(currentGroupData.invite_code).then(() => showToast('Invite code copied!', 'success'));
+  navigator.clipboard.writeText(currentGroupData.invite_code).then(() => {
+    showToast('Invite code copied!', 'success');
+    // Proxy for "invite_sent" — we don't send invites directly, but copying the
+    // code to share with someone is the closest real signal we have (roadmap 2.7).
+    if (typeof gtag === 'function') gtag('event', 'invite_sent', { group_id: currentGroupId, method: 'copy_code' });
+  });
 }
 
 function switchGroupTab(name) {
