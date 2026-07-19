@@ -62,6 +62,7 @@
           <li><a href="/features.html"    class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Features</a></li>
           <li><a href="/pricing.html"     class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Pricing</a></li>
           <li><a href="/how_it_works.html" class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">How It Works</a></li>
+          <li><a href="/study-library.html" class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Study Library</a></li>
           <li><a href="/faq.html"         class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">FAQ</a></li>
           <li><a href="/beta.html"        class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Sign Up Free</a></li>
         </ul>

@@ -124,6 +124,15 @@
     <priority>0.7</priority>
   </url>
 
+  <!-- Study Library (roadmap 2.2, public proof library) — added Jul 19, 2026. New page, first example (Romans 8:1-4)
+       reuses already-Tony-reviewed content from the /demo page. No ES version yet. -->
+  <url>
+    <loc>https://www.formationbible.com/study-library</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formationbible.com/study-library"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
   <!-- Statement of Faith -->
   <url>
     <loc>https://www.formationbible.com/statement_of_faith</loc>
