@@ -284,42 +284,60 @@
 </div>
 <!-- ─── End Card Gate ─────────────────────────────────────────── -->
 
-<!-- ─── First-Time Onboarding Modal ─────────────────────────── -->
+<!-- ─── First-Time Onboarding Modal (roadmap 1.3 — active guided first study) ─── -->
 <div id="onboarding-overlay" style="display:none;position:fixed;inset:0;z-index:200;align-items:center;justify-content:center;padding:0 1rem;background:rgba(30,8,35,0.85);backdrop-filter:blur(8px);">
-  <div class="relative w-full max-w-md bg-gradient-to-b from-[#4A1D4D] to-[#3D1540] border border-[#f2e5f0]/15 rounded-3xl shadow-2xl p-8 flex flex-col gap-6">
+  <div class="relative w-full max-w-lg bg-gradient-to-b from-[#4A1D4D] to-[#3D1540] border border-[#f2e5f0]/15 rounded-3xl shadow-2xl p-8 flex flex-col gap-6">
 
     <!-- Skip -->
     <button onclick="dismissOnboarding()" class="absolute top-5 right-5 text-[#f2e5f0]/35 hover:text-[#f2e5f0]/70 text-xs font-label uppercase tracking-widest transition-colors">Skip</button>
 
-    <!-- Steps -->
-    <div id="ob-step-1" class="ob-step flex flex-col gap-4">
+    <!-- STEP 1 — Goal selection -->
+    <div id="ob-step-1" class="ob-step flex flex-col gap-5">
       <div class="text-5xl text-center">✝️</div>
       <h2 class="font-headline text-2xl font-bold text-center text-on-surface">Welcome to Formation</h2>
-      <p class="font-body text-sm text-[#f2e5f0]/65 text-center leading-relaxed">You're one of the first pastors to access Formation Bible Study. This quick tour shows you the three things worth knowing.</p>
-    </div>
-
-    <div id="ob-step-2" class="ob-step hidden flex flex-col gap-4">
-      <div class="text-5xl text-center">📖</div>
-      <h2 class="font-headline text-2xl font-bold text-center text-on-surface">Read the Word</h2>
-      <p class="font-body text-sm text-[#f2e5f0]/65 text-center leading-relaxed">The <strong class="text-[#f2e5f0]/90">Read tab</strong> gives you any book, chapter, and verse in the Berean Standard Bible or KJV. Your last position is saved automatically.</p>
-      <div class="bg-[#3D1540]/60 border border-[#f2e5f0]/10 rounded-2xl px-5 py-4 text-center">
-        <p class="text-[#E9C349] font-label text-xs uppercase tracking-widest mb-1">Today's verse</p>
-        <p class="font-body text-sm text-[#f2e5f0]/80 italic">Scripture delivered daily to guide your reading.</p>
+      <p class="font-body text-sm text-[#f2e5f0]/65 text-center leading-relaxed">Let's get you to a real, saved study — about three minutes. What brings you here today?</p>
+      <div class="grid grid-cols-2 gap-3">
+        <button onclick="selectOnboardingGoal('consistency')" class="ob-goal-card bg-[#3D1540]/60 border border-[#f2e5f0]/10 rounded-2xl p-4 text-center hover:border-[#E9C349]/40 hover:bg-[#5C2A5A]/60 transition-all">
+          <div class="text-2xl mb-2">📅</div>
+          <div class="font-label text-xs text-[#f2e5f0]/85 leading-snug">Build a daily habit</div>
+        </button>
+        <button onclick="selectOnboardingGoal('passage')" class="ob-goal-card bg-[#3D1540]/60 border border-[#f2e5f0]/10 rounded-2xl p-4 text-center hover:border-[#E9C349]/40 hover:bg-[#5C2A5A]/60 transition-all">
+          <div class="text-2xl mb-2">🔍</div>
+          <div class="font-label text-xs text-[#f2e5f0]/85 leading-snug">Understand a passage</div>
+        </button>
+        <button onclick="selectOnboardingGoal('question')" class="ob-goal-card bg-[#3D1540]/60 border border-[#f2e5f0]/10 rounded-2xl p-4 text-center hover:border-[#E9C349]/40 hover:bg-[#5C2A5A]/60 transition-all">
+          <div class="text-2xl mb-2">💬</div>
+          <div class="font-label text-xs text-[#f2e5f0]/85 leading-snug">Get an answer to a question</div>
+        </button>
+        <button onclick="selectOnboardingGoal('group')" class="ob-goal-card bg-[#3D1540]/60 border border-[#f2e5f0]/10 rounded-2xl p-4 text-center hover:border-[#E9C349]/40 hover:bg-[#5C2A5A]/60 transition-all">
+          <div class="text-2xl mb-2">👥</div>
+          <div class="font-label text-xs text-[#f2e5f0]/85 leading-snug">Lead a group</div>
+        </button>
       </div>
     </div>
 
-    <div id="ob-step-3" class="ob-step hidden flex flex-col gap-4">
-      <div class="text-5xl text-center">✨</div>
-      <h2 class="font-headline text-2xl font-bold text-center text-on-surface">Ask the Word</h2>
-      <p class="font-body text-sm text-[#f2e5f0]/65 text-center leading-relaxed">This is the heart of Formation. Type any Bible question and get a <strong class="text-[#f2e5f0]/90">Scripture-grounded answer</strong> with cross-references — not AI opinion, but the Word interpreting itself.</p>
-      <div class="bg-[#3D1540]/60 border border-[#f2e5f0]/10 rounded-2xl px-5 py-3 font-body text-sm text-[#f2e5f0]/60 italic text-center">"What does grace mean?" · "Explain Romans 8" · "Who was Melchizedek?"</div>
+    <!-- STEP 2 — Starter passage (Romans 8:1–4, same reviewed BSB text as demo.html) -->
+    <div id="ob-step-2" class="ob-step hidden flex flex-col gap-4">
+      <div class="flex items-center justify-between">
+        <h2 class="font-headline text-xl font-bold text-on-surface">Romans 8:1&ndash;4</h2>
+        <span class="text-[#f2e5f0]/40 text-xs font-label">Berean Standard Bible</span>
+      </div>
+      <p class="font-body text-[.95rem] leading-relaxed text-[#f2e5f0]/85">
+        <sup class="text-[#E9C349] text-xs mr-1">1</sup>Therefore, there is now no condemnation for those who are in Christ Jesus.
+        <sup class="text-[#E9C349] text-xs mr-1 ml-1">2</sup>For in Christ Jesus the law of the Spirit of life set you free from the law of sin and death.
+        <sup class="text-[#E9C349] text-xs mr-1 ml-1">3</sup>For what the law was powerless to do in that it was weakened by the flesh, God did by sending His own Son in the likeness of sinful man, as an offering for sin. He thus condemned sin in the flesh,
+        <sup class="text-[#E9C349] text-xs mr-1 ml-1">4</sup>so that the righteous standard of the law might be fulfilled in us, who do not walk according to the flesh but according to the Spirit.
+      </p>
+      <p class="font-body text-xs text-[#f2e5f0]/45 text-center">One real passage to work through together — not a demo.</p>
     </div>
 
-    <div id="ob-step-4" class="ob-step hidden flex flex-col gap-4">
-      <div class="text-5xl text-center">📅</div>
-      <h2 class="font-headline text-2xl font-bold text-center text-on-surface">Reading Plans &amp; Notes</h2>
-      <p class="font-body text-sm text-[#f2e5f0]/65 text-center leading-relaxed">Stay in the Word daily with a <strong class="text-[#f2e5f0]/90">reading plan</strong>, capture insights in <strong class="text-[#f2e5f0]/90">Study Notes</strong>, and track your streak in <strong class="text-[#f2e5f0]/90">Progress</strong>. Everything saves to your account.</p>
-      <p class="font-body text-sm text-[#E9C349]/80 text-center">That's it. You're ready. God bless your study.</p>
+    <!-- STEP 3 — Guided observation (saves as a real Study Note) -->
+    <div id="ob-step-3" class="ob-step hidden flex flex-col gap-4">
+      <h2 class="font-headline text-xl font-bold text-on-surface text-center">Observe</h2>
+      <p class="font-body text-sm text-[#f2e5f0]/65 text-center leading-relaxed">The inductive method starts before interpretation — just notice what's actually on the page.</p>
+      <p class="font-body text-sm font-bold text-[#f2e5f0]/90 text-center">What word describes the freedom in verse 2, and what two things is it freedom <em>from</em>?</p>
+      <textarea id="ob-observe-input" rows="3" placeholder="Type what you notice — this saves as your first real study note." class="w-full bg-[#3D1540]/60 border border-[#f2e5f0]/10 rounded-xl p-4 text-sm text-on-surface placeholder:text-[#f2e5f0]/35 focus:border-[#E9C349]/40 focus:outline-none"></textarea>
+      <p class="font-body text-[11px] text-[#f2e5f0]/35 text-center">Skip this and it just won't be saved — everything else still works.</p>
     </div>
 
     <!-- Progress dots -->
@@ -327,18 +345,28 @@
       <span id="ob-dot-1" class="ob-dot w-2 h-2 rounded-full bg-[#E9C349] transition-all"></span>
       <span id="ob-dot-2" class="ob-dot w-2 h-2 rounded-full bg-[#f2e5f0]/20 transition-all"></span>
       <span id="ob-dot-3" class="ob-dot w-2 h-2 rounded-full bg-[#f2e5f0]/20 transition-all"></span>
-      <span id="ob-dot-4" class="ob-dot w-2 h-2 rounded-full bg-[#f2e5f0]/20 transition-all"></span>
     </div>
 
-    <!-- Button -->
+    <!-- Button (hidden on step 1 — goal cards advance instead) -->
     <button id="ob-next-btn" onclick="onboardingNext()"
       class="w-full py-3 rounded-xl bg-gradient-to-br from-[#E9C349] to-[#c9a030] text-[#3D1540] font-bold font-label text-sm tracking-wide hover:brightness-110 transition-all">
-      Next →
+      Continue →
     </button>
 
   </div>
 </div>
 <!-- ─── End Onboarding Modal ─────────────────────────────────── -->
+
+<!-- ─── Onboarding Completion Banner (roadmap 1.3 — appears after the real Ask the Word answer renders) ─── -->
+<div id="onboarding-complete-banner" class="hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-[190] w-[calc(100%-2rem)] max-w-md bg-gradient-to-b from-[#4A1D4D] to-[#3D1540] border border-[#E9C349]/30 rounded-2xl shadow-2xl p-6 flex flex-col gap-3">
+  <div class="flex items-start justify-between gap-3">
+    <p class="font-headline text-base font-bold text-on-surface">That's a full study — read, observe, ask, and check the evidence.</p>
+    <button onclick="dismissOnboardingBanner()" class="text-[#f2e5f0]/35 hover:text-[#f2e5f0]/70 text-lg leading-none flex-shrink-0">×</button>
+  </div>
+  <p id="ob-banner-sub" class="font-body text-xs text-[#f2e5f0]/55 leading-relaxed"></p>
+  <button id="ob-banner-cta" onclick="onboardingBannerCta()" class="w-full py-2.5 rounded-xl bg-gradient-to-br from-[#E9C349] to-[#c9a030] text-[#3D1540] font-bold font-label text-xs tracking-wide hover:brightness-110 transition-all"></button>
+</div>
+<!-- ─── End Completion Banner ─────────────────────────────────── -->
 
 <div class="grain-overlay"></div>
 <div class="orb orb-1"></div>
@@ -571,6 +599,12 @@
         <button class="research-mode-btn" data-mode="context">📜 Context</button>
         <button class="research-mode-btn" data-mode="themes">⛪ Themes</button>
         <button class="research-mode-btn" data-mode="outline">📋 Outline</button>
+      </div>
+
+      <!-- Onboarding coachmark (roadmap 1.3 — points at the prefilled first question) -->
+      <div id="onboarding-coachmark" class="hidden bg-[#E9C349]/10 border border-[#E9C349]/30 rounded-2xl px-5 py-4 mb-4 flex items-start justify-between gap-3">
+        <p class="font-body text-sm text-[#f2e5f0]/85 leading-relaxed">Your first question is ready to go below — tap <strong class="text-[#E9C349]">Ask the Word</strong> to see how Formation grounds its answer in Scripture, with sources you can check.</p>
+        <button onclick="dismissOnboardingCoachmark()" class="text-[#f2e5f0]/35 hover:text-[#f2e5f0]/70 text-lg leading-none flex-shrink-0">×</button>
       </div>
 
       <!-- Question card -->
@@ -1385,14 +1419,24 @@ function showStudy(session) {
   setTimeout(checkCardGate, 1200);   // slight delay so page settles first
 }
 
-// ─── Onboarding Modal ───────────────────────────────────────
+// ─── Onboarding Modal (roadmap 1.3 — active guided first study, replaces the old passive tour) ───
+// Flow: goal select → starter passage (Romans 8:1–4) → guided observation (real saved note)
+// → handoff to the real, live Ask the Word tab (prefilled question, real evidence drawer, roadmap 1.2)
+// → completion banner with a goal-based next step. Every step after goal selection uses
+// already-live production features — nothing here is a fake preview.
 let _obStep = 1;
 let _obKey  = '';
-const OB_TOTAL = 4;
+let _obGoal = null;
+const OB_TOTAL = 3;
+const OB_PASSAGE_REF   = 'Romans 8:1';
+const OB_ASK_QUESTION  = 'What does "no condemnation" mean in verse 1 — is it saying I\'ll never feel guilty about anything again?';
+let _obAwaitingAnswer  = false;
+let _obAwaitingSince   = 0;
 
 function showOnboarding(key) {
   _obKey  = key;
   _obStep = 1;
+  _obGoal = null;
   updateObStep();
   $('onboarding-overlay').style.display = 'flex';
 }
@@ -1404,7 +1448,21 @@ function updateObStep() {
     if (el)  el.classList.toggle('hidden', i !== _obStep);
     if (dot) dot.style.background = i === _obStep ? '#E9C349' : 'rgba(242,229,240,0.2)';
   }
-  $('ob-next-btn').textContent = _obStep < OB_TOTAL ? 'Next →' : 'Get Started';
+  const btn = $('ob-next-btn');
+  if (_obStep === 1) {
+    // Goal cards advance the flow themselves — no generic "Next" needed on step 1
+    btn.style.display = 'none';
+  } else {
+    btn.style.display = 'block';
+    btn.textContent = _obStep < OB_TOTAL ? 'Continue →' : 'Continue to Ask the Word →';
+  }
+}
+
+function selectOnboardingGoal(goal) {
+  _obGoal = goal;
+  if (typeof gtag === 'function') gtag('event', 'onboarding_goal_selected', { goal });
+  _obStep = 2;
+  updateObStep();
 }
 
 function onboardingNext() {
@@ -1412,13 +1470,92 @@ function onboardingNext() {
     _obStep++;
     updateObStep();
   } else {
-    dismissOnboarding();
+    finishOnboardingModal();
   }
+}
+
+function finishOnboardingModal() {
+  // Save the guided observation as a real Study Note if the user wrote one.
+  // Fire-and-forget — fails open, matches this codebase's existing resilience pattern,
+  // and never blocks the user from moving on to Ask the Word.
+  const observation = ($('ob-observe-input') && $('ob-observe-input').value || '').trim();
+  if (observation) saveOnboardingNote(observation);
+  dismissOnboarding();
+  handoffToAskStep();
 }
 
 function dismissOnboarding() {
   $('onboarding-overlay').style.display = 'none';
   if (_obKey) localStorage.setItem(_obKey, '1');
+}
+
+async function saveOnboardingNote(content) {
+  if (!currentSession) return;
+  try {
+    const { data: { session } } = await sb.auth.getSession();
+    if (!session) return;
+    const res = await fetch(`${BACKEND_URL}/api/user/study-notes`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${session.access_token}` },
+      body: JSON.stringify({ title: OB_PASSAGE_REF + ' — First Observation', content })
+    });
+    if (res.ok && typeof gtag === 'function') {
+      gtag('event', 'first_observation_saved', { source: 'onboarding' });
+    }
+  } catch (e) { /* fails open — a network error here should never block onboarding */ }
+}
+
+// Hands off from the in-modal steps to the real, live Ask the Word tab — reuses the actual
+// production evidence drawer (roadmap 1.2) rather than a rebuilt/fake preview.
+function handoffToAskStep() {
+  switchTab('ask');
+  questionInput.value = OB_ASK_QUESTION;
+  _obAwaitingAnswer = true;
+  _obAwaitingSince  = Date.now();
+  const cm = $('onboarding-coachmark');
+  if (cm) cm.classList.remove('hidden');
+  askBtn.style.boxShadow = '0 0 0 3px rgba(233,195,73,0.55)';
+  setTimeout(() => questionInput.scrollIntoView({ behavior: 'smooth', block: 'center' }), 150);
+}
+
+function dismissOnboardingCoachmark() {
+  const cm = $('onboarding-coachmark');
+  if (cm) cm.classList.add('hidden');
+  askBtn.style.boxShadow = '';
+}
+
+// Called from renderResponse() once a real Ask the Word answer comes back — only acts if
+// the onboarding flow is what led here, and only within a reasonable window (15 min) so a
+// stale flag can't surface the completion banner on some unrelated question much later.
+function maybeShowOnboardingCompletion() {
+  if (!_obAwaitingAnswer) return;
+  _obAwaitingAnswer = false;
+  dismissOnboardingCoachmark();
+  if (Date.now() - _obAwaitingSince > 15 * 60 * 1000) return;
+  if (_obKey) localStorage.setItem(_obKey, '1');
+  if (typeof gtag === 'function') gtag('event', 'onboarding_completed', { goal: _obGoal || 'unspecified' });
+
+  const ctas = {
+    consistency: { sub: 'You picked "build a daily habit" — a reading plan is the fastest way to keep this going.', cta: 'Start a Reading Plan', action: () => switchTab('plans') },
+    passage:     { sub: 'Keep working through Scripture at your own pace in the Read tab.', cta: 'Keep Reading', action: () => switchTab('read') },
+    question:    { sub: 'Ask the Word is ready whenever you have another question — check the evidence tabs any time.', cta: 'Ask Another Question', action: () => questionInput.focus() },
+    group:       { sub: 'You picked "lead a group" — create one and invite the first person.', cta: 'Create or Join a Group', action: () => switchTab('groups') },
+  };
+  const c = ctas[_obGoal] || { sub: 'Everything you just did — reading, observing, asking, and checking sources — is the whole loop. Come back to it any time.', cta: 'Keep Exploring', action: () => {} };
+  $('ob-banner-sub').textContent = c.sub;
+  const ctaBtn = $('ob-banner-cta');
+  ctaBtn.textContent = c.cta;
+  ctaBtn.onclick = () => { c.action(); dismissOnboardingBanner(); };
+  $('onboarding-complete-banner').classList.remove('hidden');
+}
+
+function onboardingBannerCta() {
+  // Fallback no-op — actual handler is assigned per-goal in maybeShowOnboardingCompletion().
+  // Present so the inline onclick in the HTML never references an undefined function.
+}
+
+function dismissOnboardingBanner() {
+  $('onboarding-complete-banner').classList.add('hidden');
 }
 // ─── End Onboarding ─────────────────────────────────────────
 
@@ -1850,6 +1987,7 @@ function renderResponse(data) {
   responseArea.classList.add('fade-in');
   askAnother.classList.remove('hidden');
   setTimeout(() => responseArea.scrollIntoView({ behavior:'smooth', block:'start' }), 100);
+  maybeShowOnboardingCompletion();
 }
 
 // Evidence drawer — populates the 5 tabs from backend `evidence` data (roadmap 1.2).
