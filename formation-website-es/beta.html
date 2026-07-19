@@ -213,6 +213,12 @@
     }
     #card-gate-card-el.focused { border-color: #FFB4A4; }
     #card-gate-card-el.error   { border-color: rgba(255,100,100,0.6); }
+
+    /* Ask the Word — Evidence Drawer (roadmap 1.2) */
+    .evidence-tab { transition: all 0.2s ease; }
+    .evidence-tab.active { background: #5C2A5A; color: #ffb4a4; border-color: #ffb4a4; }
+    .evidence-panel { display: none; }
+    .evidence-panel.active { display: block; }
   </style>
 </head>
 <body class="font-body text-on-background selection:bg-primary/30 min-h-screen flex flex-col">
@@ -580,6 +586,27 @@
             <span class="text-[#E9C349] font-label text-xs uppercase tracking-widest font-bold">📖 Referencias Bíblicas</span>
           </div>
           <div id="verses-grid" class="px-6 py-5 space-y-3"></div>
+        </div>
+
+        <div id="evidence-drawer-section" class="hidden bg-[#4A1D4D]/70 backdrop-blur-xl border border-[#f2e5f0]/10 rounded-3xl overflow-hidden shadow-2xl">
+          <div class="px-6 py-4 border-b border-[#f2e5f0]/10 flex items-center gap-2 flex-wrap">
+            <span class="text-[#E9C349] font-label text-xs uppercase tracking-widest font-bold">🔎 ¿Por Qué Esta Respuesta?</span>
+            <span class="px-2 py-0.5 rounded-full bg-[#5C2A5A] text-[#ffb4a4] font-label text-[9px] uppercase tracking-widest font-bold">Panel de Evidencia</span>
+          </div>
+          <div class="flex flex-wrap border-b border-[#f2e5f0]/10 bg-black/10">
+            <button class="evidence-tab active px-4 py-3 text-xs font-label uppercase tracking-widest border-b-2 border-transparent text-on-surface-variant" data-tab="scripture">Escritura Directa</button>
+            <button class="evidence-tab px-4 py-3 text-xs font-label uppercase tracking-widest border-b-2 border-transparent text-on-surface-variant" data-tab="crossref">Referencias Cruzadas</button>
+            <button class="evidence-tab px-4 py-3 text-xs font-label uppercase tracking-widest border-b-2 border-transparent text-on-surface-variant" data-tab="context">Contexto Léxico</button>
+            <button class="evidence-tab px-4 py-3 text-xs font-label uppercase tracking-widest border-b-2 border-transparent text-on-surface-variant" data-tab="commentary">Comentario</button>
+            <button class="evidence-tab px-4 py-3 text-xs font-label uppercase tracking-widest border-b-2 border-transparent text-on-surface-variant" data-tab="disputed">Interpretaciones Divergentes</button>
+          </div>
+          <div class="px-6 py-5">
+            <div class="evidence-panel active" data-panel="scripture"><p id="evidence-scripture" class="text-sm text-on-surface-variant leading-relaxed"></p></div>
+            <div class="evidence-panel" data-panel="crossref"><ul id="evidence-crossref" class="text-sm text-on-surface-variant leading-relaxed space-y-2 list-disc list-inside"></ul></div>
+            <div class="evidence-panel" data-panel="context"><p id="evidence-context" class="text-sm text-on-surface-variant leading-relaxed"></p></div>
+            <div class="evidence-panel" data-panel="commentary"><p id="evidence-commentary" class="text-sm text-on-surface-variant leading-relaxed"></p></div>
+            <div class="evidence-panel" data-panel="disputed"><p id="evidence-disputed" class="text-sm text-on-surface-variant leading-relaxed"></p></div>
+          </div>
         </div>
 
         <div id="verification-section" class="bg-[#4A1D4D]/70 backdrop-blur-xl border border-[#f2e5f0]/10 rounded-3xl overflow-hidden shadow-xl">
@@ -1000,6 +1027,9 @@ const versesGrid = $('verses-grid'), versesSection = $('verses-section');
 const verificationText = $('verification-text'), verificationIcon = $('verification-icon');
 const verificationSection = $('verification-section'), cachedIndicator = $('cached-indicator');
 const flagBtn = $('flag-btn'), askAnother = $('ask-another'), toast = $('toast');
+const evidenceDrawerSection = $('evidence-drawer-section');
+const evidenceScripture = $('evidence-scripture'), evidenceCrossref = $('evidence-crossref');
+const evidenceContext = $('evidence-context'), evidenceCommentary = $('evidence-commentary'), evidenceDisputed = $('evidence-disputed');
 
 // ─── Pestañas ──────────────────────────────────────────────
 function switchTab(name) {
@@ -1615,6 +1645,22 @@ langSelect.addEventListener('change', renderStudyChips);
 askBtn.addEventListener('click', askQuestion);
 questionInput.addEventListener('keydown', e => { if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') askQuestion(); });
 
+// Panel de evidencia — pestañas (roadmap 1.2); se conecta una sola vez, solo cambia el contenido por respuesta
+document.querySelectorAll('.evidence-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    const target = tab.dataset.tab;
+    document.querySelectorAll('.evidence-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.evidence-panel').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    const panel = document.querySelector(`.evidence-panel[data-panel="${target}"]`);
+    if (panel) panel.classList.add('active');
+    if (typeof gtag === 'function') {
+      gtag('event', 'citation_opened', { source_type: target, lang: 'es' });
+      gtag('event', 'source_opened', { source_type: target, lang: 'es' });
+    }
+  });
+});
+
 async function askQuestion() {
   let raw = questionInput.value.trim();
   if (!raw) { showToast('Por favor escribe una pregunta primero', 'error'); questionInput.focus(); return; }
@@ -1697,6 +1743,11 @@ function renderResponse(data) {
     versesSection.classList.remove('hidden');
   } else versesSection.classList.add('hidden');
 
+  // Panel de evidencia (roadmap 1.2) — solo se muestra cuando el backend lo envía;
+  // respuestas antiguas en caché (previas a este despliegue) envían evidence: null,
+  // en cuyo caso el panel simplemente se oculta.
+  renderEvidenceDrawer(data.evidence || null);
+
   if (data.verification || data.verified !== undefined) {
     const rawV = data.verification;
     const vText = (rawV
@@ -1716,6 +1767,39 @@ function renderResponse(data) {
   responseArea.classList.add('fade-in');
   askAnother.classList.remove('hidden');
   setTimeout(() => responseArea.scrollIntoView({ behavior:'smooth', block:'start' }), 100);
+}
+
+// Panel de evidencia — llena las 5 pestañas con los datos `evidence` del backend (roadmap 1.2).
+// Vuelve a la pestaña "Escritura Directa" activa en cada respuesta nueva.
+function renderEvidenceDrawer(evidence) {
+  if (!evidence) { evidenceDrawerSection.classList.add('hidden'); return; }
+
+  const hasScripture  = !!evidence.scripture;
+  const hasCrossref   = Array.isArray(evidence.crossref) && evidence.crossref.length > 0;
+  const hasContext    = !!evidence.context;
+  const hasCommentary = !!evidence.commentary;
+  const hasDisputed   = !!evidence.disputed;
+
+  if (!hasScripture && !hasCrossref && !hasContext && !hasCommentary && !hasDisputed) {
+    evidenceDrawerSection.classList.add('hidden');
+    return;
+  }
+
+  evidenceScripture.textContent = hasScripture ? evidence.scripture : '';
+  evidenceContext.textContent = hasContext ? evidence.context : '';
+  evidenceCommentary.textContent = hasCommentary ? evidence.commentary : '';
+  evidenceDisputed.textContent = hasDisputed ? evidence.disputed : '';
+
+  evidenceCrossref.innerHTML = hasCrossref
+    ? evidence.crossref.map(c =>
+        `<li><strong class="text-on-surface">${escHtml(c.ref)}</strong>${c.note ? ' — ' + escHtml(c.note) : ''}</li>`
+      ).join('')
+    : '';
+
+  document.querySelectorAll('.evidence-tab').forEach((t, i) => t.classList.toggle('active', i === 0));
+  document.querySelectorAll('.evidence-panel').forEach((p) => p.classList.toggle('active', p.dataset.panel === 'scripture'));
+
+  evidenceDrawerSection.classList.remove('hidden');
 }
 
 // ─── Resaltados y Marcas Inductivas ────────────────────────
