@@ -42,6 +42,56 @@
     <priority>0.8</priority>
   </url>
 
+  <!-- Ask the Word / Pregunta la Palabra — added Jul 19, 2026 (was live and linked from homepage, but missing from this sitemap, mirroring the same gap found and fixed on the EN site) -->
+  <url>
+    <loc>https://formacion-biblica.com/ask_the_word</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formationbible.com/ask_the_word"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://formacion-biblica.com/ask_the_word"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Interactive Demo / Demo Interactiva — added Jul 19, 2026 (roadmap: ES parity pass) -->
+  <url>
+    <loc>https://formacion-biblica.com/demo</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formationbible.com/demo"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://formacion-biblica.com/demo"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Study Library / Biblioteca de Estudios — added Jul 19, 2026 (roadmap 2.2, ES parity pass) -->
+  <url>
+    <loc>https://formacion-biblica.com/study-library</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formationbible.com/study-library"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://formacion-biblica.com/study-library"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- SEO Content Guides / Guías (roadmap 2.1) — added Jul 19, 2026, ES translations of the 3 EN guides surfaced Jul 18 -->
+  <url>
+    <loc>https://formacion-biblica.com/inductive-study-romans</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formationbible.com/inductive-study-romans"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://formacion-biblica.com/inductive-study-romans"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://formacion-biblica.com/color-coding-bible</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formationbible.com/color-coding-bible"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://formacion-biblica.com/color-coding-bible"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://formacion-biblica.com/greek-interlinear-beginners</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formationbible.com/greek-interlinear-beginners"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://formacion-biblica.com/greek-interlinear-beginners"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
   <!-- About / Acerca de -->
   <url>
     <loc>https://formacion-biblica.com/about</loc>

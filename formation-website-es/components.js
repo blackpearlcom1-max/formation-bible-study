@@ -23,6 +23,7 @@
       <a href="/features.html"    data-nav="caracteristicas" class="nav-link font-label uppercase tracking-widest text-xs transition-colors duration-300">Características</a>
       <a href="/pricing.html"     data-nav="precios"         class="nav-link font-label uppercase tracking-widest text-xs transition-colors duration-300">Precios</a>
       <a href="/about.html"       data-nav="acerca"          class="nav-link font-label uppercase tracking-widest text-xs transition-colors duration-300">Acerca de</a>
+      <a href="/demo"             data-nav="demo"            class="nav-link font-label uppercase tracking-widest text-xs transition-colors duration-300">Ver la Demo</a>
     </div>
     <a href="/beta.html" class="bg-gradient-to-br from-[#FFB4A4] to-[#6E2414] text-[#5D1809] px-6 py-2.5 rounded-full font-bold text-sm hover:brightness-110 transition-all shadow-lg">Regístrate Gratis →</a>
     <button id="nav-toggle" class="md:hidden text-[#f2e5f0] ml-4" aria-label="Abrir menú">
@@ -34,6 +35,7 @@
     <a href="/features.html" class="block text-[#f2e5f0]/60 font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4]">Características</a>
     <a href="/pricing.html"  class="block text-[#f2e5f0]/60 font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4]">Precios</a>
     <a href="/about.html"    class="block text-[#f2e5f0]/60 font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4]">Acerca de</a>
+    <a href="/demo"          class="block text-[#f2e5f0]/60 font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4]">Ver la Demo</a>
     <a href="/beta.html"     class="block text-[#FFB4A4] font-label uppercase tracking-widest text-xs font-bold">✨ Pregunta la Palabra</a>
     <a href="/beta.html"     class="block text-[#E8816A] font-label uppercase tracking-widest text-xs font-bold">Regístrate Gratis →</a>
   </div>
@@ -59,6 +61,7 @@
           <li><a href="/features.html"     class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Características</a></li>
           <li><a href="/pricing.html"      class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Precios</a></li>
           <li><a href="/how_it_works.html" class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Cómo Funciona</a></li>
+          <li><a href="/study-library.html" class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Biblioteca de Estudios</a></li>
           <li><a href="/faq.html"          class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Preguntas Frecuentes</a></li>
           <li><a href="/beta.html"         class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Regístrate Gratis</a></li>
         </ul>
@@ -71,6 +74,9 @@
           <li><a href="/about.html"             class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Sobre Nosotros</a></li>
           <li><a href="/mission.html"           class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Nuestra Misión</a></li>
           <li><a href="/statement_of_faith.html" class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Declaración de Fe</a></li>
+          <li><a href="/inductive-study-romans.html" class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Guía: Estudiar Romanos</a></li>
+          <li><a href="/color-coding-bible.html" class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Guía: Colorear Tu Biblia</a></li>
+          <li><a href="/greek-interlinear-beginners.html" class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Guía: Interlineal Griego para Principiantes</a></li>
           <li><a href="/help.html"              class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Centro de Ayuda</a></li>
           <li><a href="/contact.html"           class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Contacto</a></li>
         </ul>
@@ -102,6 +108,7 @@
     caracteristicas: ['/features.html', '/features'],
     precios:         ['/pricing.html',  '/pricing'],
     acerca:          ['/about.html',    '/about'],
+    demo:            ['/demo.html',     '/demo'],
   };
 
   function setActiveNav() {
