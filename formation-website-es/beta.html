@@ -253,56 +253,86 @@
 </div>
 <!-- ─── End Card Gate Modal ──────────────────────────────────────────────── -->
 
-<!-- ─── Modal de Introducción ────────────────────────────── -->
+<!-- ─── Modal de Introducción (roadmap 1.3 — primer estudio guiado activo) ────────────────────────────── -->
 <div id="onboarding-overlay" class="hidden fixed inset-0 z-[200] flex items-center justify-center px-4" style="background:rgba(30,8,35,0.85);backdrop-filter:blur(8px);">
-  <div class="relative w-full max-w-md bg-gradient-to-b from-[#4A1D4D] to-[#3D1540] border border-[#f2e5f0]/15 rounded-3xl shadow-2xl p-8 flex flex-col gap-6">
+  <div class="relative w-full max-w-lg bg-gradient-to-b from-[#4A1D4D] to-[#3D1540] border border-[#f2e5f0]/15 rounded-3xl shadow-2xl p-8 flex flex-col gap-6">
 
     <button onclick="dismissOnboarding()" class="absolute top-5 right-5 text-[#f2e5f0]/35 hover:text-[#f2e5f0]/70 text-xs font-label uppercase tracking-widest transition-colors">Saltar</button>
 
-    <div id="ob-step-1" class="ob-step flex flex-col gap-4">
+    <!-- PASO 1 — Selección de objetivo -->
+    <div id="ob-step-1" class="ob-step flex flex-col gap-5">
       <div class="text-5xl text-center">✝️</div>
       <h2 class="font-headline text-2xl font-bold text-center text-on-surface">Bienvenido a Formación</h2>
-      <p class="font-body text-sm text-[#f2e5f0]/65 text-center leading-relaxed">Eres uno de los primeros pastores en acceder a Formación Bíblica. Este recorrido rápido te muestra las tres cosas más importantes.</p>
-    </div>
-
-    <div id="ob-step-2" class="ob-step hidden flex flex-col gap-4">
-      <div class="text-5xl text-center">📖</div>
-      <h2 class="font-headline text-2xl font-bold text-center text-on-surface">Lee la Palabra</h2>
-      <p class="font-body text-sm text-[#f2e5f0]/65 text-center leading-relaxed">La pestaña <strong class="text-[#f2e5f0]/90">Leer</strong> te da acceso a cualquier libro, capítulo y versículo en Reina-Valera 1909 u Open Nueva Biblia Viva. Tu última posición se guarda automáticamente.</p>
-      <div class="bg-[#3D1540]/60 border border-[#f2e5f0]/10 rounded-2xl px-5 py-4 text-center">
-        <p class="text-[#E9C349] font-label text-xs uppercase tracking-widest mb-1">Versículo del día</p>
-        <p class="font-body text-sm text-[#f2e5f0]/80 italic">Escritura entregada diariamente para guiar tu lectura.</p>
+      <p class="font-body text-sm text-[#f2e5f0]/65 text-center leading-relaxed">Vamos a llevarte a un estudio real y guardado — unos tres minutos. ¿Qué te trae por aquí hoy?</p>
+      <div class="grid grid-cols-2 gap-3">
+        <button onclick="selectOnboardingGoal('consistency')" class="ob-goal-card bg-[#3D1540]/60 border border-[#f2e5f0]/10 rounded-2xl p-4 text-center hover:border-[#E9C349]/40 hover:bg-[#5C2A5A]/60 transition-all">
+          <div class="text-2xl mb-2">📅</div>
+          <div class="font-label text-xs text-[#f2e5f0]/85 leading-snug">Crear un hábito diario</div>
+        </button>
+        <button onclick="selectOnboardingGoal('passage')" class="ob-goal-card bg-[#3D1540]/60 border border-[#f2e5f0]/10 rounded-2xl p-4 text-center hover:border-[#E9C349]/40 hover:bg-[#5C2A5A]/60 transition-all">
+          <div class="text-2xl mb-2">🔍</div>
+          <div class="font-label text-xs text-[#f2e5f0]/85 leading-snug">Entender un pasaje</div>
+        </button>
+        <button onclick="selectOnboardingGoal('question')" class="ob-goal-card bg-[#3D1540]/60 border border-[#f2e5f0]/10 rounded-2xl p-4 text-center hover:border-[#E9C349]/40 hover:bg-[#5C2A5A]/60 transition-all">
+          <div class="text-2xl mb-2">💬</div>
+          <div class="font-label text-xs text-[#f2e5f0]/85 leading-snug">Obtener respuesta a una pregunta</div>
+        </button>
+        <button onclick="selectOnboardingGoal('group')" class="ob-goal-card bg-[#3D1540]/60 border border-[#f2e5f0]/10 rounded-2xl p-4 text-center hover:border-[#E9C349]/40 hover:bg-[#5C2A5A]/60 transition-all">
+          <div class="text-2xl mb-2">👥</div>
+          <div class="font-label text-xs text-[#f2e5f0]/85 leading-snug">Liderar un grupo</div>
+        </button>
       </div>
     </div>
 
-    <div id="ob-step-3" class="ob-step hidden flex flex-col gap-4">
-      <div class="text-5xl text-center">✨</div>
-      <h2 class="font-headline text-2xl font-bold text-center text-on-surface">Pregunta a la Palabra</h2>
-      <p class="font-body text-sm text-[#f2e5f0]/65 text-center leading-relaxed">Este es el corazón de Formación. Escribe cualquier pregunta bíblica y recibe una <strong class="text-[#f2e5f0]/90">respuesta fundamentada en las Escrituras</strong> con referencias cruzadas — no opinión de IA, sino la Palabra interpretándose a sí misma.</p>
-      <div class="bg-[#3D1540]/60 border border-[#f2e5f0]/10 rounded-2xl px-5 py-3 font-body text-sm text-[#f2e5f0]/60 italic text-center">"¿Qué significa gracia?" · "Explica Romanos 8" · "¿Quién fue Melquisedec?"</div>
+    <!-- PASO 2 — Pasaje inicial (Romanos 8:1–4, mismo texto RVR1909 ya revisado en demo.html) -->
+    <div id="ob-step-2" class="ob-step hidden flex flex-col gap-4">
+      <div class="flex items-center justify-between">
+        <h2 class="font-headline text-xl font-bold text-on-surface">Romanos 8:1&ndash;4</h2>
+        <span class="text-[#f2e5f0]/40 text-xs font-label">Reina-Valera 1909</span>
+      </div>
+      <p class="font-body text-[.95rem] leading-relaxed text-[#f2e5f0]/85">
+        <sup class="text-[#E9C349] text-xs mr-1">1</sup>Ahora pues, ninguna condenación hay para los que están en Cristo Jesús, los que no andan conforme á la carne, mas conforme al espíritu.
+        <sup class="text-[#E9C349] text-xs mr-1 ml-1">2</sup>Porque la ley del Espíritu de vida en Cristo Jesús me ha librado de la ley del pecado y de la muerte.
+        <sup class="text-[#E9C349] text-xs mr-1 ml-1">3</sup>Porque lo que era imposible á la ley, por cuanto era débil por la carne, Dios enviando á su Hijo en semejanza de carne de pecado, y á causa del pecado, condenó al pecado en la carne;
+        <sup class="text-[#E9C349] text-xs mr-1 ml-1">4</sup>Para que la justicia de la ley fuese cumplida en nosotros, que no andamos conforme á la carne, mas conforme al espíritu.
+      </p>
+      <p class="font-body text-xs text-[#f2e5f0]/45 text-center">Un pasaje real para trabajar juntos — no es una demostración.</p>
     </div>
 
-    <div id="ob-step-4" class="ob-step hidden flex flex-col gap-4">
-      <div class="text-5xl text-center">📅</div>
-      <h2 class="font-headline text-2xl font-bold text-center text-on-surface">Planes y Notas</h2>
-      <p class="font-body text-sm text-[#f2e5f0]/65 text-center leading-relaxed">Mantente en la Palabra con un <strong class="text-[#f2e5f0]/90">plan de lectura</strong>, captura ideas en <strong class="text-[#f2e5f0]/90">Notas de Estudio</strong>, y sigue tu racha en <strong class="text-[#f2e5f0]/90">Progreso</strong>. Todo se guarda en tu cuenta.</p>
-      <p class="font-body text-sm text-[#E9C349]/80 text-center">Eso es todo. Estás listo. Que Dios bendiga tu estudio.</p>
+    <!-- PASO 3 — Observación guiada (se guarda como una Nota de Estudio real) -->
+    <div id="ob-step-3" class="ob-step hidden flex flex-col gap-4">
+      <h2 class="font-headline text-xl font-bold text-on-surface text-center">Observa</h2>
+      <p class="font-body text-sm text-[#f2e5f0]/65 text-center leading-relaxed">El método inductivo comienza antes de la interpretación — solo nota lo que realmente está en el texto.</p>
+      <p class="font-body text-sm font-bold text-[#f2e5f0]/90 text-center">¿Qué palabra usa Pablo en el versículo 2 para describir la liberación, y de qué dos cosas te libera?</p>
+      <textarea id="ob-observe-input" rows="3" placeholder="Escribe lo que notas — esto se guarda como tu primera nota de estudio real." class="w-full bg-[#3D1540]/60 border border-[#f2e5f0]/10 rounded-xl p-4 text-sm text-on-surface placeholder:text-[#f2e5f0]/35 focus:border-[#E9C349]/40 focus:outline-none"></textarea>
+      <p class="font-body text-[11px] text-[#f2e5f0]/35 text-center">Si te la saltas simplemente no se guardará — todo lo demás sigue funcionando.</p>
     </div>
 
     <div class="flex justify-center gap-2">
       <span id="ob-dot-1" class="w-2 h-2 rounded-full bg-[#E9C349] transition-all"></span>
       <span id="ob-dot-2" class="w-2 h-2 rounded-full bg-[#f2e5f0]/20 transition-all"></span>
       <span id="ob-dot-3" class="w-2 h-2 rounded-full bg-[#f2e5f0]/20 transition-all"></span>
-      <span id="ob-dot-4" class="w-2 h-2 rounded-full bg-[#f2e5f0]/20 transition-all"></span>
     </div>
 
+    <!-- Botón (oculto en el paso 1 — las tarjetas de objetivo avanzan por sí solas) -->
     <button id="ob-next-btn" onclick="onboardingNext()"
       class="w-full py-3 rounded-xl bg-gradient-to-br from-[#E9C349] to-[#c9a030] text-[#3D1540] font-bold font-label text-sm tracking-wide hover:brightness-110 transition-all">
-      Siguiente →
+      Continuar →
     </button>
   </div>
 </div>
 <!-- ─── Fin Modal de Introducción ────────────────────────── -->
+
+<!-- ─── Banner de Finalización (roadmap 1.3 — aparece tras la respuesta real de Pregunta la Palabra) ─── -->
+<div id="onboarding-complete-banner" class="hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-[190] w-[calc(100%-2rem)] max-w-md bg-gradient-to-b from-[#4A1D4D] to-[#3D1540] border border-[#E9C349]/30 rounded-2xl shadow-2xl p-6 flex flex-col gap-3">
+  <div class="flex items-start justify-between gap-3">
+    <p class="font-headline text-base font-bold text-on-surface">Eso es un estudio completo — leer, observar, preguntar y revisar la evidencia.</p>
+    <button onclick="dismissOnboardingBanner()" class="text-[#f2e5f0]/35 hover:text-[#f2e5f0]/70 text-lg leading-none flex-shrink-0">×</button>
+  </div>
+  <p id="ob-banner-sub" class="font-body text-xs text-[#f2e5f0]/55 leading-relaxed"></p>
+  <button id="ob-banner-cta" onclick="onboardingBannerCta()" class="w-full py-2.5 rounded-xl bg-gradient-to-br from-[#E9C349] to-[#c9a030] text-[#3D1540] font-bold font-label text-xs tracking-wide hover:brightness-110 transition-all"></button>
+</div>
+<!-- ─── Fin Banner de Finalización ─────────────────────────── -->
 
 <div class="grain-overlay"></div>
 <div class="orb orb-1"></div>
@@ -536,6 +566,12 @@
         <button class="research-mode-btn" data-mode="context">📜 Contexto</button>
         <button class="research-mode-btn" data-mode="themes">⛪ Temas</button>
         <button class="research-mode-btn" data-mode="outline">📋 Esquema</button>
+      </div>
+
+      <!-- Guía de introducción (roadmap 1.3 — señala la primera pregunta ya rellenada) -->
+      <div id="onboarding-coachmark" class="hidden bg-[#E9C349]/10 border border-[#E9C349]/30 rounded-2xl px-5 py-4 mb-4 flex items-start justify-between gap-3">
+        <p class="font-body text-sm text-[#f2e5f0]/85 leading-relaxed">Tu primera pregunta ya está lista más abajo — toca <strong class="text-[#E9C349]">Pregunta a la Palabra</strong> para ver cómo Formación fundamenta su respuesta en las Escrituras, con fuentes que puedes revisar.</p>
+        <button onclick="dismissOnboardingCoachmark()" class="text-[#f2e5f0]/35 hover:text-[#f2e5f0]/70 text-lg leading-none flex-shrink-0">×</button>
       </div>
 
       <!-- Tarjeta de pregunta -->
@@ -1349,14 +1385,24 @@ function showStudy(session) {
   setTimeout(checkCardGate, 1200);
 }
 
-// ─── Modal de Introducción ──────────────────────────────────
+// ─── Modal de Introducción (roadmap 1.3 — primer estudio guiado activo, reemplaza el recorrido pasivo) ───
+// Flujo: selección de objetivo → pasaje inicial (Romanos 8:1–4) → observación guiada (nota real guardada)
+// → transición a la pestaña real de Pregunta a la Palabra (pregunta rellenada, panel de evidencia real,
+// roadmap 1.2) → banner de finalización con un siguiente paso según el objetivo elegido. Cada paso después
+// de la selección de objetivo usa funciones ya en producción — nada aquí es una vista previa falsa.
 let _obStep = 1;
 let _obKey  = '';
-const OB_TOTAL = 4;
+let _obGoal = null;
+const OB_TOTAL = 3;
+const OB_PASSAGE_REF   = 'Romanos 8:1';
+const OB_ASK_QUESTION  = '¿Qué significa "ninguna condenación" en el versículo 1 — está diciendo que nunca más sentiré culpa por nada?';
+let _obAwaitingAnswer  = false;
+let _obAwaitingSince   = 0;
 
 function showOnboarding(key) {
   _obKey  = key;
   _obStep = 1;
+  _obGoal = null;
   updateObStep();
   $('onboarding-overlay').classList.remove('hidden');
 }
@@ -1368,17 +1414,114 @@ function updateObStep() {
     if (el)  el.classList.toggle('hidden', i !== _obStep);
     if (dot) dot.style.background = i === _obStep ? '#E9C349' : 'rgba(242,229,240,0.2)';
   }
-  $('ob-next-btn').textContent = _obStep < OB_TOTAL ? 'Siguiente →' : 'Comenzar';
+  const btn = $('ob-next-btn');
+  if (_obStep === 1) {
+    // Las tarjetas de objetivo avanzan el flujo por sí mismas — no se necesita botón genérico en el paso 1
+    btn.style.display = 'none';
+  } else {
+    btn.style.display = 'block';
+    btn.textContent = _obStep < OB_TOTAL ? 'Continuar →' : 'Continuar a Pregunta a la Palabra →';
+  }
+}
+
+function selectOnboardingGoal(goal) {
+  _obGoal = goal;
+  if (typeof gtag === 'function') gtag('event', 'onboarding_goal_selected', { goal, lang: 'es' });
+  _obStep = 2;
+  updateObStep();
 }
 
 function onboardingNext() {
-  if (_obStep < OB_TOTAL) { _obStep++; updateObStep(); }
-  else { dismissOnboarding(); }
+  if (_obStep < OB_TOTAL) {
+    _obStep++;
+    updateObStep();
+  } else {
+    finishOnboardingModal();
+  }
+}
+
+function finishOnboardingModal() {
+  // Guarda la observación guiada como una Nota de Estudio real si el usuario escribió algo.
+  // Disparar y olvidar — falla de forma abierta, coherente con el patrón de resiliencia existente
+  // en este código, y nunca bloquea al usuario para pasar a Pregunta a la Palabra.
+  const observation = ($('ob-observe-input') && $('ob-observe-input').value || '').trim();
+  if (observation) saveOnboardingNote(observation);
+  dismissOnboarding();
+  handoffToAskStep();
 }
 
 function dismissOnboarding() {
   $('onboarding-overlay').classList.add('hidden');
   if (_obKey) localStorage.setItem(_obKey, '1');
+}
+
+async function saveOnboardingNote(content) {
+  if (!currentSession) return;
+  try {
+    const { data: { session } } = await sb.auth.getSession();
+    if (!session) return;
+    const res = await fetch(`${BACKEND_URL}/api/user/study-notes`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${session.access_token}` },
+      body: JSON.stringify({ title: OB_PASSAGE_REF + ' — Primera Observación', content })
+    });
+    if (res.ok && typeof gtag === 'function') {
+      gtag('event', 'first_observation_saved', { source: 'onboarding', lang: 'es' });
+    }
+  } catch (e) { /* falla de forma abierta — un error de red aquí nunca debe bloquear la introducción */ }
+}
+
+// Pasa de los pasos dentro del modal a la pestaña real de Pregunta a la Palabra — reutiliza el
+// panel de evidencia real en producción (roadmap 1.2) en lugar de una vista previa falsa.
+function handoffToAskStep() {
+  switchTab('ask');
+  questionInput.value = OB_ASK_QUESTION;
+  _obAwaitingAnswer = true;
+  _obAwaitingSince  = Date.now();
+  const cm = $('onboarding-coachmark');
+  if (cm) cm.classList.remove('hidden');
+  askBtn.style.boxShadow = '0 0 0 3px rgba(233,195,73,0.55)';
+  setTimeout(() => questionInput.scrollIntoView({ behavior: 'smooth', block: 'center' }), 150);
+}
+
+function dismissOnboardingCoachmark() {
+  const cm = $('onboarding-coachmark');
+  if (cm) cm.classList.add('hidden');
+  askBtn.style.boxShadow = '';
+}
+
+// Se llama desde renderResponse() cuando llega una respuesta real de Pregunta a la Palabra — solo
+// actúa si la introducción fue lo que llevó hasta aquí, y solo dentro de una ventana razonable
+// (15 min) para que un indicador obsoleto no muestre el banner en una pregunta no relacionada mucho después.
+function maybeShowOnboardingCompletion() {
+  if (!_obAwaitingAnswer) return;
+  _obAwaitingAnswer = false;
+  dismissOnboardingCoachmark();
+  if (Date.now() - _obAwaitingSince > 15 * 60 * 1000) return;
+  if (_obKey) localStorage.setItem(_obKey, '1');
+  if (typeof gtag === 'function') gtag('event', 'onboarding_completed', { goal: _obGoal || 'unspecified', lang: 'es' });
+
+  const ctas = {
+    consistency: { sub: 'Elegiste "crear un hábito diario" — un plan de lectura es la forma más rápida de mantenerlo.', cta: 'Comenzar un Plan de Lectura', action: () => switchTab('plans') },
+    passage:     { sub: 'Sigue avanzando en las Escrituras a tu propio ritmo en la pestaña Leer.', cta: 'Seguir Leyendo', action: () => switchTab('read') },
+    question:    { sub: 'Pregunta a la Palabra está lista cuando tengas otra pregunta — revisa las pestañas de evidencia cuando quieras.', cta: 'Hacer Otra Pregunta', action: () => questionInput.focus() },
+    group:       { sub: 'Elegiste "liderar un grupo" — crea uno e invita a la primera persona.', cta: 'Crear o Unirse a un Grupo', action: () => switchTab('groups') },
+  };
+  const c = ctas[_obGoal] || { sub: 'Todo lo que acabas de hacer — leer, observar, preguntar y revisar fuentes — es el ciclo completo. Vuelve cuando quieras.', cta: 'Seguir Explorando', action: () => {} };
+  $('ob-banner-sub').textContent = c.sub;
+  const ctaBtn = $('ob-banner-cta');
+  ctaBtn.textContent = c.cta;
+  ctaBtn.onclick = () => { c.action(); dismissOnboardingBanner(); };
+  $('onboarding-complete-banner').classList.remove('hidden');
+}
+
+function onboardingBannerCta() {
+  // Función de reserva sin efecto — el controlador real se asigna por objetivo en
+  // maybeShowOnboardingCompletion(). Existe para que el onclick del HTML nunca apunte a algo indefinido.
+}
+
+function dismissOnboardingBanner() {
+  $('onboarding-complete-banner').classList.add('hidden');
 }
 // ─── Fin Modal de Introducción ──────────────────────────────
 
@@ -1767,6 +1910,7 @@ function renderResponse(data) {
   responseArea.classList.add('fade-in');
   askAnother.classList.remove('hidden');
   setTimeout(() => responseArea.scrollIntoView({ behavior:'smooth', block:'start' }), 100);
+  maybeShowOnboardingCompletion();
 }
 
 // Panel de evidencia — llena las 5 pestañas con los datos `evidence` del backend (roadmap 1.2).
