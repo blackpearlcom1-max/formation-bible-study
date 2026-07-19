@@ -874,6 +874,14 @@
     <!-- ══ TAB CONTENT: PROGRESS ══ -->
     <div id="tab-content-progress" class="hidden">
 
+      <!-- Plan-gated: Progress Dashboard is Formation Plus and Pro only -->
+      <div id="progress-locked" class="hidden text-center py-14 px-6">
+        <div class="text-5xl mb-4">📊</div>
+        <h2 class="font-headline text-xl text-[#f2e5f0]/90 mb-2">Progress Dashboard is a Plus feature</h2>
+        <p class="font-body text-sm text-[#f2e5f0]/50 max-w-sm mx-auto mb-6">Track your reading streak, chapters completed, and study stats with Formation Plus or Pro.</p>
+        <a href="/pricing.html" class="inline-block py-3 px-6 rounded-xl bg-gradient-to-br from-[#E8816A] to-[#6E2414] text-white font-label font-bold text-xs hover:brightness-110 transition-all">See Plans</a>
+      </div>
+
       <!-- Loading state -->
       <div id="progress-loading" class="flex items-center gap-2 text-[#f2e5f0]/40 text-sm font-label py-10 justify-center">
         <span class="spinner"></span> Loading your stats…
@@ -1083,6 +1091,51 @@ const sb = createClient(SUPABASE_URL, SUPABASE_ANON, {
 });
 let currentSession = null, lastAnswerId = null, selectedVerse = null;
 let currentChapterCtx = null, chapterAnnotations = {};
+// Plan-gating (roadmap 1.4) — resolved from GET /api/user/profile on sign-in.
+// null = not yet loaded; treat as 'free' for gating checks until it resolves.
+// The backend is always the source of truth (every gated endpoint enforces its
+// own check) — this is only used to proactively show/hide UI so users aren't
+// surprised by a 403 after clicking something.
+let currentUserPlan = null;
+const PLAN_RANK = { free: 0, formation: 1, plus: 2, pro: 3 };
+function planAtLeast(minPlan) {
+  const rank = PLAN_RANK[currentUserPlan || 'free'] ?? 0;
+  return rank >= (PLAN_RANK[minPlan] ?? 0);
+}
+async function loadUserPlan() {
+  try {
+    const { data: { session } } = await sb.auth.getSession();
+    if (!session) return;
+    const res = await fetch(`${BACKEND_URL}/api/user/profile`, {
+      headers: { Authorization: `Bearer ${session.access_token}` }
+    });
+    if (!res.ok) throw new Error('profile fetch failed');
+    const data = await res.json();
+    currentUserPlan = data.profile?.plan || 'free';
+    applyPlanGatingToUI();
+  } catch (e) {
+    currentUserPlan = currentUserPlan || 'free'; // fail safe, don't leave it null forever
+    console.warn('Could not load plan for UI gating:', e.message);
+  }
+}
+// Proactively reflects currentUserPlan in the UI (markup buttons, research
+// mode tabs). Progress tab is checked directly in initProgressTab() since
+// it's only relevant when that tab is opened. Safe to call multiple times.
+function applyPlanGatingToUI() {
+  const markupAllowed = planAtLeast('formation');
+  document.querySelectorAll('.markup-btn').forEach(btn => {
+    btn.classList.toggle('opacity-30', !markupAllowed);
+    btn.title = markupAllowed ? '' : 'Formation plan or higher';
+  });
+  const companionAllowed = planAtLeast('formation');
+  document.querySelectorAll('.research-mode-btn').forEach(btn => {
+    const mode = btn.dataset.mode;
+    if (mode && mode !== 'ask') {
+      btn.classList.toggle('opacity-30', !companionAllowed);
+      btn.title = companionAllowed ? '' : 'Formation plan or higher';
+    }
+  });
+}
 
 // ─── Bible Books ───────────────────────────────────────────
 const BOOKS = [
@@ -1406,6 +1459,8 @@ function showStudy(session) {
   if (!$('book-select').options.length) initBibleReader();
   // Load daily verse card on sign-in (Read tab is default active tab)
   loadDailyVerse();
+  // Resolve plan for UI gating (roadmap 1.4) — backend still enforces independently
+  loadUserPlan();
   // Render suggestion chips for current language
   renderStudyChips();
   // Show onboarding on first login
@@ -1889,7 +1944,7 @@ async function askQuestion() {
     const res = await fetch(`${BACKEND_URL}/api/study/ask`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${session.access_token}` },
-      body: JSON.stringify({ question, lang: langSelect.value })
+      body: JSON.stringify({ question, lang: langSelect.value, mode: currentResearchMode })
     });
     const data = await res.json();
     if (!res.ok) throw new Error(data.error || data.message || `Server error ${res.status}`);
@@ -2137,7 +2192,7 @@ async function applyHighlight(colorName) {
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${session.access_token}` },
         body: JSON.stringify({ color: colorName })
       });
-      if (!res.ok) throw new Error('Update failed');
+      if (!res.ok) { const d = await res.json().catch(() => ({})); throw new Error(d.error || 'Update failed'); }
       chapterAnnotations[verseNum].highlight.color = colorName;
     } else {
       // POST new highlight
@@ -2146,7 +2201,7 @@ async function applyHighlight(colorName) {
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${session.access_token}` },
         body: JSON.stringify({ bible_id: translation, book_id: bookId, chapter: Number(chapter), verse: verseNum, note: '__highlight__', color: colorName })
       });
-      if (!res.ok) throw new Error('Save failed');
+      if (!res.ok) { const d = await res.json().catch(() => ({})); throw new Error(d.error || 'Save failed'); }
       const data = await res.json();
       if (!chapterAnnotations[verseNum]) chapterAnnotations[verseNum] = {};
       chapterAnnotations[verseNum].highlight = { id: data.id || data.note?.id || data.data?.id, color: colorName };
@@ -2154,7 +2209,7 @@ async function applyHighlight(colorName) {
     applyAnnotationsToDOM();
     updateActionBarAnnotationState();
     showToast(existing ? 'Highlight updated' : 'Verse highlighted!', 'success');
-  } catch(e) { showToast('Could not save highlight', 'error'); console.error(e); }
+  } catch(e) { showToast(e.message && e.message !== 'Save failed' && e.message !== 'Update failed' ? e.message : 'Could not save highlight', 'error'); console.error(e); }
 }
 
 async function removeHighlight() {
@@ -2192,7 +2247,7 @@ async function applyMarkup(type) {
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${session.access_token}` },
         body: JSON.stringify({ note: `__markup__${type}__` })
       });
-      if (!res.ok) throw new Error('Update failed');
+      if (!res.ok) { const d = await res.json().catch(() => ({})); throw new Error(d.error || 'Update failed'); }
       chapterAnnotations[verseNum].markup = { id: existing.id, type };
     } else {
       // POST new markup
@@ -2201,7 +2256,7 @@ async function applyMarkup(type) {
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${session.access_token}` },
         body: JSON.stringify({ bible_id: translation, book_id: bookId, chapter: Number(chapter), verse: verseNum, note: `__markup__${type}__`, color: type })
       });
-      if (!res.ok) throw new Error('Save failed');
+      if (!res.ok) { const d = await res.json().catch(() => ({})); throw new Error(d.error || 'Save failed'); }
       const data = await res.json();
       if (!chapterAnnotations[verseNum]) chapterAnnotations[verseNum] = {};
       chapterAnnotations[verseNum].markup = { id: data.id || data.note?.id || data.data?.id, type };
@@ -2210,7 +2265,7 @@ async function applyMarkup(type) {
     updateActionBarAnnotationState();
     const labels = { underline: 'Underlined', box: 'Boxed', circle: 'Circled', arrow: 'Key verse marked' };
     showToast(labels[type] || 'Markup applied', 'success');
-  } catch(e) { showToast('Could not save markup', 'error'); console.error(e); }
+  } catch(e) { showToast(e.message && e.message !== 'Save failed' && e.message !== 'Update failed' ? e.message : 'Could not save markup', 'error'); console.error(e); }
 }
 
 async function removeMarkup() {
@@ -2902,6 +2957,17 @@ const PROGRESS_QUOTES = [
 ];
 
 async function initProgressTab() {
+  // Progress Dashboard is Formation Plus/Pro only (pricing.html). If plan
+  // hasn't resolved yet, wait briefly for loadUserPlan() rather than flash
+  // the locked state for paying Plus/Pro users on a slow connection.
+  if (currentUserPlan === null) { try { await loadUserPlan(); } catch {} }
+  if (!planAtLeast('plus')) {
+    $('progress-locked').classList.remove('hidden');
+    $('progress-loading').classList.add('hidden');
+    $('progress-content').classList.add('hidden');
+    return;
+  }
+  $('progress-locked').classList.add('hidden');
   $('progress-loading').classList.remove('hidden');
   $('progress-content').classList.add('hidden');
   try {
