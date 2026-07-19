@@ -112,6 +112,19 @@
       background-size:260% auto; -webkit-background-clip:text; -webkit-text-fill-color:transparent;
       background-clip:text; animation:shimmer 5.5s linear infinite;
     }
+
+    /* Product-truth status badges (roadmap 1.4) — same pattern as demo.html's
+       .status-badge.live/.new/.preview, extended with the remaining statuses
+       from the Manus audit taxonomy (live / beta / limited beta / coming soon). */
+    .status-badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-family: 'Manrope', sans-serif; font-size: 8px; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      padding: 2px 7px; border-radius: 999px; white-space: nowrap;
+    }
+    .status-badge.coming-soon { background: rgba(242,229,240,0.08); color: rgba(242,229,240,0.55); border: 1px solid rgba(242,229,240,0.18); }
+    .status-badge.beta         { background: rgba(233,195,73,0.15); color: #e9c349; border: 1px solid rgba(233,195,73,0.35); }
+    .status-badge.limited-beta { background: rgba(255,180,164,0.15); color: #ffb4a4; border: 1px solid rgba(255,180,164,0.35); }
   </style>
 </head>
 <body class="font-body text-on-background">
@@ -215,9 +228,9 @@
             <span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span>
             <span class="text-sm font-body text-on-surface">Scholars Library</span>
           </div>
-          <div class="flex items-start gap-3">
-            <span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span>
-            <span class="text-sm font-body text-on-surface">Original Language Interlinear</span>
+          <div class="flex items-start gap-3 opacity-60">
+            <span class="material-symbols-outlined text-lg text-[#f2e5f0]/40">schedule</span>
+            <span class="text-sm font-body text-[#f2e5f0]/50 flex items-center gap-2 flex-wrap">Original Language Interlinear <span class="status-badge coming-soon">Coming Soon</span></span>
           </div>
           <div class="flex items-start gap-3">
             <span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span>
@@ -244,9 +257,9 @@
           <span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span>
           <span class="text-sm font-body text-on-surface">Everything in Formation Bible Study</span>
         </div>
-        <div class="flex items-start gap-3">
-          <span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span>
-          <span class="text-sm font-body text-on-surface">Original Language Lexicons</span>
+        <div class="flex items-start gap-3 opacity-60">
+          <span class="material-symbols-outlined text-lg text-[#f2e5f0]/40">schedule</span>
+          <span class="text-sm font-body text-[#f2e5f0]/50 flex items-center gap-2 flex-wrap">Original Language Lexicons <span class="status-badge coming-soon">Coming Soon</span></span>
         </div>
         <div class="flex items-start gap-3">
           <span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span>
@@ -256,17 +269,17 @@
           <span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span>
           <span class="text-sm font-body text-on-surface">Advanced Scriptural Research Engine</span>
         </div>
-        <div class="flex items-start gap-3">
-          <span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span>
-          <span class="text-sm font-body text-on-surface">Manuscript Comparison Tools</span>
+        <div class="flex items-start gap-3 opacity-60">
+          <span class="material-symbols-outlined text-lg text-[#f2e5f0]/40">schedule</span>
+          <span class="text-sm font-body text-[#f2e5f0]/50 flex items-center gap-2 flex-wrap">Manuscript Comparison Tools <span class="status-badge coming-soon">Coming Soon</span></span>
         </div>
         <div class="flex items-start gap-3">
           <span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span>
           <span class="text-sm font-body text-on-surface">Ask the Word — 20 per day</span>
         </div>
-        <div class="flex items-start gap-3 opacity-35">
-          <span class="material-symbols-outlined text-lg">cancel</span>
-          <span class="text-sm font-body">Church Admin Tools</span>
+        <div class="flex items-start gap-3 opacity-60">
+          <span class="material-symbols-outlined text-lg text-[#f2e5f0]/40">schedule</span>
+          <span class="text-sm font-body text-[#f2e5f0]/50 flex items-center gap-2 flex-wrap">Church Admin Tools <span class="status-badge coming-soon">Coming Soon</span></span>
         </div>
       </div>
       <!-- ✏️ STRIPE: Replace href with Stripe Payment Link for Formation Plus $12/mo -->
@@ -287,25 +300,25 @@
           <span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span>
           <span class="text-sm font-body text-on-surface">Everything in Formation Plus</span>
         </div>
-        <div class="flex items-start gap-3">
-          <span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span>
-          <span class="text-sm font-body text-on-surface">Church Admin &amp; Multi-User Tools</span>
+        <div class="flex items-start gap-3 opacity-60">
+          <span class="material-symbols-outlined text-lg text-[#f2e5f0]/40">schedule</span>
+          <span class="text-sm font-body text-[#f2e5f0]/50 flex items-center gap-2 flex-wrap">Church Admin &amp; Multi-User Tools <span class="status-badge coming-soon">Coming Soon</span></span>
         </div>
-        <div class="flex items-start gap-3">
-          <span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span>
-          <span class="text-sm font-body text-on-surface">Congregation Management</span>
+        <div class="flex items-start gap-3 opacity-60">
+          <span class="material-symbols-outlined text-lg text-[#f2e5f0]/40">schedule</span>
+          <span class="text-sm font-body text-[#f2e5f0]/50 flex items-center gap-2 flex-wrap">Congregation Management <span class="status-badge coming-soon">Coming Soon</span></span>
         </div>
-        <div class="flex items-start gap-3">
-          <span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span>
-          <span class="text-sm font-body text-on-surface">Custom Reading Plan Builder</span>
+        <div class="flex items-start gap-3 opacity-60">
+          <span class="material-symbols-outlined text-lg text-[#f2e5f0]/40">schedule</span>
+          <span class="text-sm font-body text-[#f2e5f0]/50 flex items-center gap-2 flex-wrap">Custom Reading Plan Builder <span class="status-badge coming-soon">Coming Soon</span></span>
         </div>
         <div class="flex items-start gap-3">
           <span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span>
           <span class="text-sm font-body text-on-surface">Dedicated Priority Support</span>
         </div>
-        <div class="flex items-start gap-3">
-          <span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span>
-          <span class="text-sm font-body text-on-surface">Church Discount Codes</span>
+        <div class="flex items-start gap-3 opacity-60">
+          <span class="material-symbols-outlined text-lg text-[#f2e5f0]/40">schedule</span>
+          <span class="text-sm font-body text-[#f2e5f0]/50 flex items-center gap-2 flex-wrap">Church Discount Codes <span class="status-badge coming-soon">Coming Soon</span></span>
         </div>
         <div class="flex items-start gap-3">
           <span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span>
@@ -376,18 +389,18 @@
             <td class="py-5 px-4 text-secondary text-xs font-bold">Unlimited + Admin</td>
           </tr>
           <tr class="border-b border-[#f2e5f0]/5 hover:bg-surface-container transition-colors">
-            <td class="py-5 px-6 font-medium text-on-surface">Scholars Library (8 Trans.)</td>
+            <td class="py-5 px-6 font-medium text-on-surface">Scholars Library (4 Trans.)</td>
             <td class="py-5 px-4"><span class="material-symbols-outlined opacity-30 text-lg">remove</span></td>
             <td class="py-5 px-4"><span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span></td>
             <td class="py-5 px-4"><span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span></td>
             <td class="py-5 px-4"><span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span></td>
           </tr>
           <tr class="border-b border-[#f2e5f0]/5 hover:bg-surface-container transition-colors">
-            <td class="py-5 px-6 font-medium text-on-surface">Original Language Interlinear</td>
+            <td class="py-5 px-6 font-medium text-on-surface flex items-center gap-2 flex-wrap">Original Language Interlinear <span class="status-badge coming-soon">Coming Soon</span></td>
             <td class="py-5 px-4"><span class="material-symbols-outlined opacity-30 text-lg">remove</span></td>
-            <td class="py-5 px-4"><span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span></td>
-            <td class="py-5 px-4"><span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span></td>
-            <td class="py-5 px-4"><span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span></td>
+            <td class="py-5 px-4"><span class="material-symbols-outlined opacity-30 text-lg">schedule</span></td>
+            <td class="py-5 px-4"><span class="material-symbols-outlined opacity-30 text-lg">schedule</span></td>
+            <td class="py-5 px-4"><span class="material-symbols-outlined opacity-30 text-lg">schedule</span></td>
           </tr>
           <tr class="border-b border-[#f2e5f0]/5 hover:bg-surface-container transition-colors">
             <td class="py-5 px-6 font-medium text-on-surface">Progress Dashboard</td>
@@ -397,18 +410,18 @@
             <td class="py-5 px-4"><span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span></td>
           </tr>
           <tr class="border-b border-[#f2e5f0]/5 hover:bg-surface-container transition-colors">
-            <td class="py-5 px-6 font-medium text-on-surface">Original Language Lexicons</td>
+            <td class="py-5 px-6 font-medium text-on-surface flex items-center gap-2 flex-wrap">Original Language Lexicons <span class="status-badge coming-soon">Coming Soon</span></td>
             <td class="py-5 px-4"><span class="material-symbols-outlined opacity-30 text-lg">remove</span></td>
             <td class="py-5 px-4"><span class="material-symbols-outlined opacity-30 text-lg">remove</span></td>
-            <td class="py-5 px-4"><span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span></td>
-            <td class="py-5 px-4"><span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span></td>
+            <td class="py-5 px-4"><span class="material-symbols-outlined opacity-30 text-lg">schedule</span></td>
+            <td class="py-5 px-4"><span class="material-symbols-outlined opacity-30 text-lg">schedule</span></td>
           </tr>
           <tr class="hover:bg-surface-container transition-colors">
-            <td class="py-5 px-6 font-medium text-on-surface">Church Admin &amp; Multi-User</td>
+            <td class="py-5 px-6 font-medium text-on-surface flex items-center gap-2 flex-wrap">Church Admin &amp; Multi-User <span class="status-badge coming-soon">Coming Soon</span></td>
             <td class="py-5 px-4"><span class="material-symbols-outlined opacity-30 text-lg">remove</span></td>
             <td class="py-5 px-4"><span class="material-symbols-outlined opacity-30 text-lg">remove</span></td>
             <td class="py-5 px-4"><span class="material-symbols-outlined opacity-30 text-lg">remove</span></td>
-            <td class="py-5 px-4"><span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span></td>
+            <td class="py-5 px-4"><span class="material-symbols-outlined opacity-30 text-lg">schedule</span></td>
           </tr>
         </tbody>
       </table>
