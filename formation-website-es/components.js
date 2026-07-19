@@ -99,6 +99,9 @@
       <p class="text-[#f2e5f0]/30 font-body text-[10px] uppercase tracking-widest">© 2026 Berean Defense LLC. Todos los derechos reservados.</p>
       <p class="text-[#f2e5f0]/20 font-body text-[10px]">Wyoming · EIN registrado · formacion-biblica.com</p>
     </div>
+    <div class="pt-6 text-center">
+      <a href="https://sellwithboost.com" target="_blank" rel="noopener noreferrer"><img src="https://sellwithboost.com/badge/listing.svg" alt="Listed on Sell With boost" style="height:40px;width:auto;display:inline-block;opacity:0.7;"></a>
+    </div>
   </div>
 </footer>`;
 
