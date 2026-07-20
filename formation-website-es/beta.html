@@ -797,6 +797,7 @@
           <button class="tab-btn" id="gtab-plan"    onclick="switchGroupTab('plan')">📅 Plan</button>
           <button class="tab-btn" id="gtab-prayer"  onclick="switchGroupTab('prayer')">🙏 Oración</button>
           <button class="tab-btn" id="gtab-members" onclick="switchGroupTab('members')">👥 Miembros</button>
+          <button class="tab-btn" id="gtab-recap" onclick="switchGroupTab('recap')">📋 Resumen</button>
         </div>
 
         <div id="gtab-content-notes">
@@ -838,6 +839,21 @@
         <div id="gtab-content-members" class="hidden">
           <div id="group-members-list" class="space-y-2"></div>
           <button id="leave-group-btn" onclick="leaveGroupConfirm()" class="mt-6 w-full py-2.5 rounded-xl border border-[#ff7c7c]/30 text-[#ff7c7c]/60 font-label font-bold text-xs hover:border-[#ff7c7c]/60 hover:text-[#ff7c7c] transition-all">Salir del Grupo</button>
+        </div>
+
+        <!-- Resumen (Recap) inner tab -->
+        <div id="gtab-content-recap" class="hidden">
+          <div id="recap-admin-panel" class="hidden bg-[#4A1D4D]/70 border border-[#f2e5f0]/10 rounded-2xl p-5 mb-5">
+            <div class="flex items-center justify-between mb-3">
+              <div class="font-label text-xs uppercase tracking-widest text-[#E9C349] font-bold">Resumen de esta semana</div>
+              <button onclick="loadRecapPreview()" class="text-[#f2e5f0]/30 hover:text-[#E9C349] text-[10px] transition-colors">↻ Actualizar</button>
+            </div>
+            <div id="recap-preview-body" class="space-y-1.5 font-body text-sm text-[#f2e5f0]/70"></div>
+            <button onclick="publishRecap()" class="mt-4 w-full py-2.5 rounded-xl bg-gradient-to-br from-[#E8816A] to-[#6E2414] text-white font-label font-bold text-xs hover:brightness-110 transition-all">Publicar Resumen</button>
+          </div>
+          <div class="font-label text-[11px] uppercase tracking-widest text-[#f2e5f0]/40 font-bold mb-3">Resúmenes Anteriores</div>
+          <div id="recap-list" class="space-y-3"></div>
+          <div id="recap-empty" class="hidden text-center py-8 text-[#f2e5f0]/30 text-sm">Aún no se ha publicado ningún resumen.</div>
         </div>
       </div>
     </div><!-- /tab-content-groups -->
@@ -2742,7 +2758,7 @@ function copyInviteCode() {
 }
 
 function switchGroupTab(name) {
-  ['notes','plan','prayer','members'].forEach(t => {
+  ['notes','plan','prayer','members','recap'].forEach(t => {
     $('gtab-content-' + t).classList.toggle('hidden', t !== name);
     $('gtab-' + t).classList.toggle('active', t === name);
   });
@@ -2750,6 +2766,7 @@ function switchGroupTab(name) {
   if (name === 'plan')    loadGroupPlan();
   if (name === 'prayer')  loadPrayerRequests();
   if (name === 'members') loadGroupMembers();
+  if (name === 'recap')   loadRecaps();
 }
 
 async function loadGroupNotes() {
@@ -2786,6 +2803,7 @@ async function postGroupNote() {
   try {
     const displayName = currentSession?.user?.user_metadata?.display_name || currentSession?.user?.email?.split('@')[0] || 'Miembro';
     await groupFetch(`/${currentGroupId}/notes`, 'POST', { content, display_name: displayName });
+    if (typeof gtag === 'function') gtag('event', 'discussion_contributed', { group_id: currentGroupId });
     $('group-note-input').value = '';
     showToast('¡Nota publicada!', 'success');
     await loadGroupNotes();
@@ -2969,6 +2987,79 @@ async function setGroupPlan(planId) {
     });
     showToast('¡Plan del grupo establecido!', 'success');
     await loadGroupPlan();
+  } catch (err) {
+    showToast('Error: ' + err.message, 'error');
+  }
+}
+
+// ── Resúmenes del Grupo (roadmap 2.4 — Group loop v1) ────────
+
+async function loadRecaps() {
+  if (!currentGroupId) return;
+  $('recap-admin-panel').classList.toggle('hidden', currentGroupRole !== 'admin');
+  if (currentGroupRole === 'admin') loadRecapPreview();
+  try {
+    const { recaps } = await groupFetch(`/${currentGroupId}/recaps`);
+    const list = $('recap-list');
+    list.innerHTML = '';
+    if (!recaps || recaps.length === 0) {
+      $('recap-empty').classList.remove('hidden'); return;
+    }
+    $('recap-empty').classList.add('hidden');
+    recaps.forEach(r => {
+      const s = r.summary || {};
+      const startD = new Date(r.period_start).toLocaleDateString('es-ES', { month: 'short', day: 'numeric' });
+      const endD   = new Date(r.period_end).toLocaleDateString('es-ES', { month: 'short', day: 'numeric' });
+      const pubD   = new Date(r.published_at).toLocaleDateString('es-ES', { month: 'short', day: 'numeric' });
+      const el = document.createElement('div');
+      el.className = 'bg-[#4A1D4D]/60 border border-[#f2e5f0]/10 rounded-xl px-4 py-3';
+      el.innerHTML = `
+        <div class="flex items-center justify-between mb-2">
+          <span class="font-label text-[10px] font-bold text-[#E9C349] uppercase tracking-wider">${startD} – ${endD}</span>
+          <span class="text-[#f2e5f0]/25 text-[10px]">Publicado ${pubD}</span>
+        </div>
+        <div class="grid grid-cols-3 gap-2 text-center">
+          <div><div class="font-headline text-lg text-[#f2e5f0]/90">${s.note_count ?? 0}</div><div class="text-[#f2e5f0]/35 text-[10px] uppercase tracking-wide">Notas</div></div>
+          <div><div class="font-headline text-lg text-[#f2e5f0]/90">${s.prayer_count ?? 0}</div><div class="text-[#f2e5f0]/35 text-[10px] uppercase tracking-wide">Oraciones</div></div>
+          <div><div class="font-headline text-lg text-[#50c878]">${s.prayer_answered_count ?? 0}</div><div class="text-[#f2e5f0]/35 text-[10px] uppercase tracking-wide">Respondidas</div></div>
+        </div>
+        ${s.new_member_count ? `<p class="font-body text-xs text-[#f2e5f0]/50 mt-2">👋 ${s.new_member_count} miembro${s.new_member_count > 1 ? 's' : ''} nuevo${s.new_member_count > 1 ? 's' : ''} esta semana</p>` : ''}
+      `;
+      list.appendChild(el);
+    });
+  } catch (err) {
+    showToast('No se pudieron cargar los resúmenes', 'error');
+  }
+}
+
+async function loadRecapPreview() {
+  if (!currentGroupId || currentGroupRole !== 'admin') return;
+  try {
+    const { preview } = await groupFetch(`/${currentGroupId}/recap/preview`);
+    const startD = new Date(preview.period_start).toLocaleDateString('es-ES', { month: 'short', day: 'numeric' });
+    const endD   = new Date(preview.period_end).toLocaleDateString('es-ES', { month: 'short', day: 'numeric' });
+    $('recap-preview-body').innerHTML = `
+      <p class="text-[#f2e5f0]/40 text-xs mb-2">${startD} – ${endD}</p>
+      <p>📝 ${preview.note_count} nota${preview.note_count === 1 ? '' : 's'} compartida${preview.note_count === 1 ? '' : 's'}</p>
+      <p>🙏 ${preview.prayer_count} pedido${preview.prayer_count === 1 ? '' : 's'} de oración (${preview.prayer_answered_count} respondido${preview.prayer_answered_count === 1 ? '' : 's'})</p>
+      <p>👥 ${preview.member_count} miembro${preview.member_count === 1 ? '' : 's'}${preview.new_member_count ? `, ${preview.new_member_count} nuevo${preview.new_member_count > 1 ? 's' : ''} esta semana` : ''}</p>
+    `;
+  } catch (err) {
+    if (err.status === 403) {
+      $('recap-admin-panel').classList.add('hidden');
+    } else {
+      showToast('No se pudo cargar la vista previa del resumen', 'error');
+    }
+  }
+}
+
+async function publishRecap() {
+  if (!currentGroupId) return;
+  try {
+    await groupFetch(`/${currentGroupId}/recap/publish`, 'POST', {});
+    showToast('¡Resumen publicado al grupo!', 'success');
+    if (typeof gtag === 'function') gtag('event', 'leader_recap_published', { group_id: currentGroupId });
+    await loadRecaps();
   } catch (err) {
     showToast('Error: ' + err.message, 'error');
   }
