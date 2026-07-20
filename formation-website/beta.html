@@ -1505,6 +1505,27 @@ function showStudy(session) {
   // Card gate: increment visit count and check if gate should show
   cardGateIncrementVisit();
   setTimeout(checkCardGate, 1200);   // slight delay so page settles first
+  // Capture GA4 client_id for server-side event attribution (e.g. cancellation webhook)
+  captureGA4ClientId(session);
+}
+
+// ─── GA4 client_id capture (for server-side Measurement Protocol events) ───
+let _ga4ClientCaptured = false;
+function captureGA4ClientId(session) {
+  if (_ga4ClientCaptured || typeof gtag !== 'function') return;
+  _ga4ClientCaptured = true;
+  try {
+    gtag('get', 'G-PMJ8ESPZTF', 'client_id', async (clientId) => {
+      if (!clientId) return;
+      try {
+        await fetch(`${BACKEND_URL}/api/user/profile`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${session.access_token}` },
+          body: JSON.stringify({ ga_client_id: clientId }),
+        });
+      } catch (e) { /* best-effort — never block the UI on this */ }
+    });
+  } catch (e) { /* best-effort — never block the UI on this */ }
 }
 
 // ─── Onboarding Modal (roadmap 1.3 — active guided first study, replaces the old passive tour) ───
