@@ -1919,7 +1919,16 @@ async function askQuestion() {
       body: JSON.stringify({ question, lang: langSelect.value, mode: currentResearchMode })
     });
     const data = await res.json();
-    if (!res.ok) throw new Error(data.error || data.message || `Error del servidor ${res.status}`);
+    if (!res.ok) {
+      if (typeof gtag === 'function' && (res.status === 403 || res.status === 429) && (data.requiredPlan || data.limit !== undefined)) {
+        gtag('event', 'paywall_context', {
+          gate: data.requiredPlan ? 'research_companion' : 'ask_daily_quota',
+          current_plan: data.currentPlan || data.plan || currentUserPlan || null,
+          required_plan: data.requiredPlan || null,
+        });
+      }
+      throw new Error(data.error || data.message || `Error del servidor ${res.status}`);
+    }
     lastQuestionText = question;
     lastAnswerText = data.answer || '';
     renderResponse(data);
@@ -2144,7 +2153,13 @@ async function applyHighlight(colorName) {
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${session.access_token}` },
         body: JSON.stringify({ bible_id: translation, book_id: bookId, chapter: Number(chapter), verse: verseNum, note: '__highlight__', color: colorName })
       });
-      if (!res.ok) { const d = await res.json().catch(() => ({})); throw new Error(d.error || 'Save failed'); }
+      if (!res.ok) {
+        const d = await res.json().catch(() => ({}));
+        if (typeof gtag === 'function' && res.status === 429 && d.limit !== undefined) {
+          gtag('event', 'paywall_context', { gate: 'highlight_monthly_limit', current_plan: d.currentPlan || 'free', required_plan: null });
+        }
+        throw new Error(d.error || 'Save failed');
+      }
       const data = await res.json();
       if (!chapterAnnotations[verseNum]) chapterAnnotations[verseNum] = {};
       chapterAnnotations[verseNum].highlight = { id: data.id || data.note?.id || data.data?.id, color: colorName };
@@ -2188,7 +2203,13 @@ async function applyMarkup(type) {
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${session.access_token}` },
         body: JSON.stringify({ note: `__markup__${type}__` })
       });
-      if (!res.ok) { const d = await res.json().catch(() => ({})); throw new Error(d.error || 'Update failed'); }
+      if (!res.ok) {
+        const d = await res.json().catch(() => ({}));
+        if (typeof gtag === 'function' && res.status === 403 && d.requiredPlan) {
+          gtag('event', 'paywall_context', { gate: 'markup_suite', current_plan: d.currentPlan || 'free', required_plan: d.requiredPlan });
+        }
+        throw new Error(d.error || 'Update failed');
+      }
       chapterAnnotations[verseNum].markup = { id: existing.id, type };
     } else {
       const res = await fetch(`${BACKEND_URL}/api/user/verse-notes`, {
@@ -2196,7 +2217,13 @@ async function applyMarkup(type) {
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${session.access_token}` },
         body: JSON.stringify({ bible_id: translation, book_id: bookId, chapter: Number(chapter), verse: verseNum, note: `__markup__${type}__`, color: type })
       });
-      if (!res.ok) { const d = await res.json().catch(() => ({})); throw new Error(d.error || 'Save failed'); }
+      if (!res.ok) {
+        const d = await res.json().catch(() => ({}));
+        if (typeof gtag === 'function' && res.status === 403 && d.requiredPlan) {
+          gtag('event', 'paywall_context', { gate: 'markup_suite', current_plan: d.currentPlan || 'free', required_plan: d.requiredPlan });
+        }
+        throw new Error(d.error || 'Save failed');
+      }
       const data = await res.json();
       if (!chapterAnnotations[verseNum]) chapterAnnotations[verseNum] = {};
       chapterAnnotations[verseNum].markup = { id: data.id || data.note?.id || data.data?.id, type };
@@ -2541,7 +2568,12 @@ async function groupFetch(path, method = 'GET', body = null) {
   if (body) opts.body = JSON.stringify(body);
   const res = await fetch(`${BACKEND_URL}/api/groups${path}`, opts);
   const data = await res.json();
-  if (!res.ok) throw new Error(data.error || `Error del servidor ${res.status}`);
+  if (!res.ok) {
+    const err = new Error(data.error || `Error del servidor ${res.status}`);
+    err.status = res.status;
+    err.data = data;
+    throw err;
+  }
   return data;
 }
 
@@ -2588,6 +2620,9 @@ async function createGroup() {
     if (typeof gtag === 'function') gtag('event', 'group_created', { group_id: group.id });
     await openGroup(group.id);
   } catch (err) {
+    if (typeof gtag === 'function' && err.status === 403 && err.data?.limit !== undefined) {
+      gtag('event', 'paywall_context', { gate: 'group_limit', current_plan: err.data.currentPlan || 'free', required_plan: null });
+    }
     showToast('Error: ' + err.message, 'error');
   }
 }
@@ -2602,6 +2637,9 @@ async function joinGroup() {
     if (typeof gtag === 'function') gtag('event', 'invite_accepted', { group_id: group.id });
     await openGroup(group.id);
   } catch (err) {
+    if (typeof gtag === 'function' && err.status === 403 && err.data?.limit !== undefined) {
+      gtag('event', 'paywall_context', { gate: 'group_limit', current_plan: err.data.currentPlan || 'free', required_plan: null });
+    }
     showToast('Error: ' + err.message, 'error');
   }
 }

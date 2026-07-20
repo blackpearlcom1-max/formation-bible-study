@@ -1108,6 +1108,15 @@
         text.textContent = 'Success! Redirecting…';
         if (typeof gtag === 'function') {
           gtag('event', 'subscription_started', { plan: currentPlan, billing: billingAnnual ? 'annual' : 'monthly' });
+          // plan_upgraded (roadmap 3.6) is distinct from subscription_started: it's specifically
+          // the "already had a free Discovery account, now paying" moment (_existingSession),
+          // not brand-new-user acquisition — useful for retention/growth analysis separately
+          // from top-of-funnel signups. There's no in-app flow yet for a PAID user changing
+          // tiers (no billing portal wired up — see PRODUCTION_QUEUE.md session 13), so this
+          // is the only real "upgrade" moment the app can currently observe.
+          if (_existingSession) {
+            gtag('event', 'plan_upgraded', { plan: currentPlan, billing: billingAnnual ? 'annual' : 'monthly' });
+          }
         }
         setTimeout(() => { window.location.href = 'https://www.formationbible.com'; }, 1200);
 
