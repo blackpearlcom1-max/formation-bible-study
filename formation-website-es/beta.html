@@ -1008,6 +1008,9 @@
         class="text-left text-sm font-label text-[#f2e5f0]/55 hover:text-[#f2e5f0]/90 transition-colors flex items-center gap-2">
         🔑 Cambiar Contraseña
       </button>
+      <button id="manage-subscription-btn" onclick="openManageSubscription()" class="hidden text-left text-sm font-label text-[#f2e5f0]/55 hover:text-[#f2e5f0]/90 transition-colors flex items-center gap-2 disabled:opacity-50">
+        💳 Administrar Suscripción
+      </button>
       <button onclick="signOutFromPanel()"
         class="text-left text-sm font-label text-[#FFB4A4]/70 hover:text-[#FFB4A4] transition-colors flex items-center gap-2">
         ↩ Cerrar Sesión
@@ -1092,6 +1095,10 @@ function applyPlanGatingToUI() {
       btn.title = companionAllowed ? '' : 'Requiere el plan Formation o superior';
     }
   });
+
+  // Administrar Suscripción — solo se muestra a usuarios de pago.
+  const manageSubBtn = document.getElementById('manage-subscription-btn');
+  if (manageSubBtn) manageSubBtn.classList.toggle('hidden', !planAtLeast('formation'));
 }
 
 // ─── Libros de la Biblia ────────────────────────────────────
@@ -1676,6 +1683,42 @@ async function sendPasswordReset() {
   const { error } = await sb.auth.resetPasswordForEmail(email);
   if (error) showToast('No se pudo enviar el correo: ' + error.message, 'error');
   else showToast('Correo de restablecimiento enviado — revisa tu bandeja', 'success');
+}
+
+// Administrar Suscripción — redirige al Portal de Cliente de Stripe, donde el
+// usuario puede actualizar su tarjeta, cambiar de plan o cancelar. No se
+// construye una interfaz de cancelación propia: el portal de Stripe ya lo
+// maneja de forma segura. Ver PRODUCTION_QUEUE.md sesión 13 parte 7.
+async function openManageSubscription() {
+  const btn = document.getElementById('manage-subscription-btn');
+  const { data: { session } } = await sb.auth.getSession();
+  if (!session) { showToast('Por favor inicia sesión de nuevo para administrar tu suscripción.', 'error'); return; }
+
+  const originalText = btn.textContent;
+  btn.disabled = true;
+  btn.textContent = 'Abriendo…';
+  try {
+    const res = await fetch(`${BACKEND_URL}/api/billing/portal`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${session.access_token}`,
+      },
+      body: JSON.stringify({ returnUrl: window.location.href }),
+    });
+    const data = await res.json();
+    if (!res.ok || data.error) {
+      showToast(data.error || 'No se pudo abrir la administración de suscripción. Inténtalo de nuevo.', 'error');
+      btn.disabled = false;
+      btn.textContent = originalText;
+      return;
+    }
+    window.location.href = data.url;
+  } catch (e) {
+    showToast('Error de red. Por favor verifica tu conexión e intenta de nuevo.', 'error');
+    btn.disabled = false;
+    btn.textContent = originalText;
+  }
 }
 
 function signOutFromPanel() {

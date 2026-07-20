@@ -1061,6 +1061,9 @@
         class="text-left text-sm font-label text-[#f2e5f0]/55 hover:text-[#f2e5f0]/90 transition-colors flex items-center gap-2">
         🔑 Change Password
       </button>
+      <button id="manage-subscription-btn" onclick="openManageSubscription()" class="hidden text-left text-sm font-label text-[#f2e5f0]/55 hover:text-[#f2e5f0]/90 transition-colors flex items-center gap-2 disabled:opacity-50">
+        💳 Manage Subscription
+      </button>
       <button onclick="signOutFromPanel()"
         class="text-left text-sm font-label text-[#FFB4A4]/70 hover:text-[#FFB4A4] transition-colors flex items-center gap-2">
         ↩ Sign Out
@@ -1156,6 +1159,13 @@ function applyPlanGatingToUI() {
       btn.title = companionAllowed ? '' : 'Formation plan or higher';
     }
   });
+
+  // Manage Subscription (roadmap — see PRODUCTION_QUEUE.md session 13 part 7):
+  // only shown to paying users. There was no in-app way to manage or cancel a
+  // subscription anywhere in the app before this — this links out to Stripe's
+  // own hosted Customer Portal rather than a custom in-app flow.
+  const manageSubBtn = document.getElementById('manage-subscription-btn');
+  if (manageSubBtn) manageSubBtn.classList.toggle('hidden', !planAtLeast('formation'));
 }
 
 // ─── Bible Books ───────────────────────────────────────────
@@ -1716,6 +1726,42 @@ async function sendPasswordReset() {
   const { error } = await sb.auth.resetPasswordForEmail(email);
   if (error) showToast('Could not send reset email: ' + error.message, 'error');
   else showToast('Password reset email sent — check your inbox', 'success');
+}
+
+// Manage Subscription — redirects to Stripe's hosted Customer Portal, where
+// users can update their card, change plans, or cancel. We deliberately don't
+// build custom in-app cancellation UI; Stripe's own portal already handles
+// that securely. See PRODUCTION_QUEUE.md session 13 part 7.
+async function openManageSubscription() {
+  const btn = document.getElementById('manage-subscription-btn');
+  const { data: { session } } = await sb.auth.getSession();
+  if (!session) { showToast('Please sign in again to manage your subscription.', 'error'); return; }
+
+  const originalText = btn.textContent;
+  btn.disabled = true;
+  btn.textContent = 'Opening…';
+  try {
+    const res = await fetch(`${BACKEND_URL}/api/billing/portal`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${session.access_token}`,
+      },
+      body: JSON.stringify({ returnUrl: window.location.href }),
+    });
+    const data = await res.json();
+    if (!res.ok || data.error) {
+      showToast(data.error || 'Could not open subscription management. Please try again.', 'error');
+      btn.disabled = false;
+      btn.textContent = originalText;
+      return;
+    }
+    window.location.href = data.url;
+  } catch (e) {
+    showToast('Network error. Please check your connection and try again.', 'error');
+    btn.disabled = false;
+    btn.textContent = originalText;
+  }
 }
 
 function signOutFromPanel() {
