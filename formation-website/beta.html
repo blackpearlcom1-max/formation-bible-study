@@ -689,11 +689,19 @@
           </div>
         </div>
 
-        <div class="flex items-center justify-between px-2 pb-2">
+        <div class="flex items-center justify-between px-2 pb-2 flex-wrap gap-2">
           <span id="cached-indicator"></span>
-          <button id="flag-btn" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[#f2e5f0]/15 text-[#f2e5f0]/40 font-label text-xs hover:border-[#ff7c7c]/50 hover:text-[#ff7c7c] transition-colors">
-            ⚑ Flag this answer
-          </button>
+          <div class="flex items-center gap-2">
+            <button id="fb-helpful" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[#f2e5f0]/15 text-[#f2e5f0]/40 font-label text-xs hover:border-[#E9C349]/50 hover:text-[#E9C349] transition-colors">
+              👍 Helpful
+            </button>
+            <button id="fb-unhelpful" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[#f2e5f0]/15 text-[#f2e5f0]/40 font-label text-xs hover:border-[#ff7c7c]/50 hover:text-[#ff7c7c] transition-colors">
+              👎 Not helpful
+            </button>
+            <button id="flag-btn" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[#f2e5f0]/15 text-[#f2e5f0]/40 font-label text-xs hover:border-[#ff7c7c]/50 hover:text-[#ff7c7c] transition-colors">
+              ⚑ Flag this answer
+            </button>
+          </div>
         </div>
       </div>
 
@@ -1176,6 +1184,7 @@ const versesGrid = $('verses-grid'), versesSection = $('verses-section');
 const verificationText = $('verification-text'), verificationIcon = $('verification-icon');
 const verificationSection = $('verification-section'), cachedIndicator = $('cached-indicator');
 const flagBtn = $('flag-btn'), askAnother = $('ask-another'), toast = $('toast');
+const fbHelpfulBtn = $('fb-helpful'), fbUnhelpfulBtn = $('fb-unhelpful');
 const evidenceDrawerSection = $('evidence-drawer-section');
 const evidenceScripture = $('evidence-scripture'), evidenceCrossref = $('evidence-crossref');
 const evidenceContext = $('evidence-context'), evidenceCommentary = $('evidence-commentary'), evidenceDisputed = $('evidence-disputed');
@@ -3251,11 +3260,27 @@ async function deleteStudyNote(id) {
   } catch(e) { showToast('Could not delete note', 'error'); }
 }
 
+// Helpful / Not helpful — lightweight sentiment signal, mirrors the demo page's
+// fb-helpful/fb-unhelpful (roadmap 1.5). Client-side toggle only, same as the
+// demo: there's no backend rating store yet, so this fires the GA4 event and
+// gives the user visible feedback that their click registered, nothing more.
+if (fbHelpfulBtn) fbHelpfulBtn.addEventListener('click', () => {
+  fbHelpfulBtn.classList.add('border-[#E9C349]/70', 'text-[#E9C349]');
+  fbUnhelpfulBtn?.classList.remove('border-[#ff7c7c]/70', 'text-[#ff7c7c]');
+  if (typeof gtag === 'function') gtag('event', 'answer_helpful', { answer_id: lastAnswerId || null });
+});
+if (fbUnhelpfulBtn) fbUnhelpfulBtn.addEventListener('click', () => {
+  fbUnhelpfulBtn.classList.add('border-[#ff7c7c]/70', 'text-[#ff7c7c]');
+  fbHelpfulBtn?.classList.remove('border-[#E9C349]/70', 'text-[#E9C349]');
+  if (typeof gtag === 'function') gtag('event', 'answer_unhelpful', { answer_id: lastAnswerId || null });
+});
+
 flagBtn.addEventListener('click', async () => {
   if (flagBtn.dataset.flagged) return;
   flagBtn.dataset.flagged = '1';
   flagBtn.textContent = '⚑ Flagged';
   showToast('Answer flagged — thank you for the feedback', 'success');
+  if (typeof gtag === 'function') gtag('event', 'answer_reported', { answer_id: lastAnswerId || null });
   if (!lastAnswerId || !currentSession) return;
   try {
     await fetch(`${BACKEND_URL}/api/study/flag`, {
