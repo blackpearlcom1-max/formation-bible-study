@@ -669,6 +669,18 @@
             </button>
           </div>
         </div>
+
+        <div id="flag-reason-panel" class="hidden px-4 pb-4 flex flex-col gap-2 border-t border-[#f2e5f0]/10 pt-3 mx-2 mb-2">
+          <span class="font-label text-[11px] uppercase tracking-widest text-[#f2e5f0]/50">¿Qué anda mal con esta respuesta?</span>
+          <div class="flex flex-wrap gap-2">
+            <button class="flag-reason-btn px-3 py-1.5 rounded-lg border border-[#f2e5f0]/15 text-[#f2e5f0]/60 font-label text-xs hover:border-[#ff7c7c]/50 hover:text-[#ff7c7c] transition-colors" data-reason="incorrect_scripture">Referencia bíblica incorrecta</button>
+            <button class="flag-reason-btn px-3 py-1.5 rounded-lg border border-[#f2e5f0]/15 text-[#f2e5f0]/60 font-label text-xs hover:border-[#ff7c7c]/50 hover:text-[#ff7c7c] transition-colors" data-reason="wrong_interpretation">Interpretación incorrecta</button>
+            <button class="flag-reason-btn px-3 py-1.5 rounded-lg border border-[#f2e5f0]/15 text-[#f2e5f0]/60 font-label text-xs hover:border-[#ff7c7c]/50 hover:text-[#ff7c7c] transition-colors" data-reason="missing_context">Falta contexto importante</button>
+            <button class="flag-reason-btn px-3 py-1.5 rounded-lg border border-[#f2e5f0]/15 text-[#f2e5f0]/60 font-label text-xs hover:border-[#ff7c7c]/50 hover:text-[#ff7c7c] transition-colors" data-reason="offensive_content">Contenido ofensivo</button>
+            <button class="flag-reason-btn px-3 py-1.5 rounded-lg border border-[#f2e5f0]/15 text-[#f2e5f0]/60 font-label text-xs hover:border-[#ff7c7c]/50 hover:text-[#ff7c7c] transition-colors" data-reason="other">Otro</button>
+            <button id="flag-cancel-btn" class="px-3 py-1.5 font-label text-xs text-[#f2e5f0]/30 hover:text-[#f2e5f0]/60 transition-colors">Cancelar</button>
+          </div>
+        </div>
       </div>
 
       <div id="ask-another" class="hidden text-center mt-2">
@@ -1038,6 +1050,7 @@ const sb = createClient(SUPABASE_URL, SUPABASE_ANON, {
   auth: { flowType: 'implicit' }
 });
 let currentSession = null, lastAnswerId = null, selectedVerse = null;
+let lastQuestionText = '', lastAnswerText = '';
 let currentChapterCtx = null, chapterAnnotations = {};
 // Restricción por plan (hoja de ruta 1.4) — se resuelve desde GET /api/user/profile al iniciar sesión.
 // null = aún no cargado; se trata como 'free' para las comprobaciones hasta que se resuelva.
@@ -1121,6 +1134,7 @@ const verificationText = $('verification-text'), verificationIcon = $('verificat
 const verificationSection = $('verification-section'), cachedIndicator = $('cached-indicator');
 const flagBtn = $('flag-btn'), askAnother = $('ask-another'), toast = $('toast');
 const fbHelpfulBtn = $('fb-helpful'), fbUnhelpfulBtn = $('fb-unhelpful');
+const flagReasonPanel = $('flag-reason-panel'), flagCancelBtn = $('flag-cancel-btn');
 const evidenceDrawerSection = $('evidence-drawer-section');
 const evidenceScripture = $('evidence-scripture'), evidenceCrossref = $('evidence-crossref');
 const evidenceContext = $('evidence-context'), evidenceCommentary = $('evidence-commentary'), evidenceDisputed = $('evidence-disputed');
@@ -1891,6 +1905,13 @@ async function askQuestion() {
   responseArea.classList.add('hidden');
   askAnother.classList.add('hidden');
   lastAnswerId = null;
+  lastQuestionText = ''; lastAnswerText = '';
+  // Reset feedback UI for the new answer that's about to load
+  delete flagBtn.dataset.flagged;
+  flagBtn.textContent = '⚑ Reportar esta respuesta';
+  flagReasonPanel?.classList.add('hidden');
+  fbHelpfulBtn?.classList.remove('border-[#E9C349]/70', 'text-[#E9C349]');
+  fbUnhelpfulBtn?.classList.remove('border-[#ff7c7c]/70', 'text-[#ff7c7c]');
   try {
     const res = await fetch(`${BACKEND_URL}/api/study/ask`, {
       method: 'POST',
@@ -1899,6 +1920,8 @@ async function askQuestion() {
     });
     const data = await res.json();
     if (!res.ok) throw new Error(data.error || data.message || `Error del servidor ${res.status}`);
+    lastQuestionText = question;
+    lastAnswerText = data.answer || '';
     renderResponse(data);
     if (typeof gtag === 'function') {
       const atwSoFar = parseInt(localStorage.getItem(cgKey('atw')) || '0', 10);
@@ -3136,20 +3159,38 @@ if (fbUnhelpfulBtn) fbUnhelpfulBtn.addEventListener('click', () => {
   if (typeof gtag === 'function') gtag('event', 'answer_unhelpful', { answer_id: lastAnswerId || null });
 });
 
-flagBtn.addEventListener('click', async () => {
+// Flujo de reporte (corregido en roadmap 1.5, sesión 13): /api/study/flag en
+// realidad requiere { question, answer, reason, details? } con reason de un
+// conjunto fijo — nunca aceptó answer_id, y lastAnswerId nunca se llenaba de
+// todos modos (la respuesta de /ask no devuelve uno), así que el handler
+// anterior nunca llegaba realmente al backend.
+flagBtn.addEventListener('click', () => {
   if (flagBtn.dataset.flagged) return;
-  flagBtn.dataset.flagged = '1';
-  flagBtn.textContent = '⚑ Reportado';
-  showToast('Respuesta reportada — gracias por tu comentario', 'success');
-  if (typeof gtag === 'function') gtag('event', 'answer_reported', { answer_id: lastAnswerId || null });
-  if (!lastAnswerId || !currentSession) return;
-  try {
-    await fetch(`${BACKEND_URL}/api/study/flag`, {
-      method:'POST',
-      headers:{'Content-Type':'application/json','Authorization':`Bearer ${currentSession.access_token}`},
-      body: JSON.stringify({ answer_id: lastAnswerId })
-    });
-  } catch(_) {}
+  flagReasonPanel?.classList.toggle('hidden');
+});
+
+flagCancelBtn?.addEventListener('click', () => { flagReasonPanel?.classList.add('hidden'); });
+
+document.querySelectorAll('.flag-reason-btn').forEach(btn => {
+  btn.addEventListener('click', async () => {
+    if (flagBtn.dataset.flagged) return;
+    const reason = btn.dataset.reason;
+    flagBtn.dataset.flagged = '1';
+    flagBtn.textContent = '⚑ Reportado';
+    flagReasonPanel?.classList.add('hidden');
+    showToast('Respuesta reportada — gracias por tu comentario', 'success');
+    if (typeof gtag === 'function') gtag('event', 'answer_reported', { reason });
+    if (!lastQuestionText || !lastAnswerText) return;
+    try {
+      const headers = { 'Content-Type': 'application/json' };
+      if (currentSession) headers['Authorization'] = `Bearer ${currentSession.access_token}`;
+      await fetch(`${BACKEND_URL}/api/study/flag`, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({ question: lastQuestionText, answer: lastAnswerText, reason })
+      });
+    } catch(_) {}
+  });
 });
 
 // ─── Card Gate ──────────────────────────────────────────────────────────────

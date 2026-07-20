@@ -703,6 +703,18 @@
             </button>
           </div>
         </div>
+
+        <div id="flag-reason-panel" class="hidden px-4 pb-4 flex flex-col gap-2 border-t border-[#f2e5f0]/10 pt-3 mx-2 mb-2">
+          <span class="font-label text-[11px] uppercase tracking-widest text-[#f2e5f0]/50">What's wrong with this answer?</span>
+          <div class="flex flex-wrap gap-2">
+            <button class="flag-reason-btn px-3 py-1.5 rounded-lg border border-[#f2e5f0]/15 text-[#f2e5f0]/60 font-label text-xs hover:border-[#ff7c7c]/50 hover:text-[#ff7c7c] transition-colors" data-reason="incorrect_scripture">Incorrect Scripture reference</button>
+            <button class="flag-reason-btn px-3 py-1.5 rounded-lg border border-[#f2e5f0]/15 text-[#f2e5f0]/60 font-label text-xs hover:border-[#ff7c7c]/50 hover:text-[#ff7c7c] transition-colors" data-reason="wrong_interpretation">Wrong interpretation</button>
+            <button class="flag-reason-btn px-3 py-1.5 rounded-lg border border-[#f2e5f0]/15 text-[#f2e5f0]/60 font-label text-xs hover:border-[#ff7c7c]/50 hover:text-[#ff7c7c] transition-colors" data-reason="missing_context">Missing important context</button>
+            <button class="flag-reason-btn px-3 py-1.5 rounded-lg border border-[#f2e5f0]/15 text-[#f2e5f0]/60 font-label text-xs hover:border-[#ff7c7c]/50 hover:text-[#ff7c7c] transition-colors" data-reason="offensive_content">Offensive content</button>
+            <button class="flag-reason-btn px-3 py-1.5 rounded-lg border border-[#f2e5f0]/15 text-[#f2e5f0]/60 font-label text-xs hover:border-[#ff7c7c]/50 hover:text-[#ff7c7c] transition-colors" data-reason="other">Other</button>
+            <button id="flag-cancel-btn" class="px-3 py-1.5 font-label text-xs text-[#f2e5f0]/30 hover:text-[#f2e5f0]/60 transition-colors">Cancel</button>
+          </div>
+        </div>
       </div>
 
       <div id="ask-another" class="hidden text-center mt-2">
@@ -1098,6 +1110,7 @@ const sb = createClient(SUPABASE_URL, SUPABASE_ANON, {
   auth: { flowType: 'implicit' }
 });
 let currentSession = null, lastAnswerId = null, selectedVerse = null;
+let lastQuestionText = '', lastAnswerText = '';
 let currentChapterCtx = null, chapterAnnotations = {};
 // Plan-gating (roadmap 1.4) — resolved from GET /api/user/profile on sign-in.
 // null = not yet loaded; treat as 'free' for gating checks until it resolves.
@@ -1185,6 +1198,7 @@ const verificationText = $('verification-text'), verificationIcon = $('verificat
 const verificationSection = $('verification-section'), cachedIndicator = $('cached-indicator');
 const flagBtn = $('flag-btn'), askAnother = $('ask-another'), toast = $('toast');
 const fbHelpfulBtn = $('fb-helpful'), fbUnhelpfulBtn = $('fb-unhelpful');
+const flagReasonPanel = $('flag-reason-panel'), flagCancelBtn = $('flag-cancel-btn');
 const evidenceDrawerSection = $('evidence-drawer-section');
 const evidenceScripture = $('evidence-scripture'), evidenceCrossref = $('evidence-crossref');
 const evidenceContext = $('evidence-context'), evidenceCommentary = $('evidence-commentary'), evidenceDisputed = $('evidence-disputed');
@@ -1949,6 +1963,13 @@ async function askQuestion() {
   responseArea.classList.add('hidden');
   askAnother.classList.add('hidden');
   lastAnswerId = null;
+  lastQuestionText = ''; lastAnswerText = '';
+  // Reset feedback UI for the new answer that's about to load
+  delete flagBtn.dataset.flagged;
+  flagBtn.textContent = '⚑ Flag this answer';
+  flagReasonPanel?.classList.add('hidden');
+  fbHelpfulBtn?.classList.remove('border-[#E9C349]/70', 'text-[#E9C349]');
+  fbUnhelpfulBtn?.classList.remove('border-[#ff7c7c]/70', 'text-[#ff7c7c]');
   try {
     const res = await fetch(`${BACKEND_URL}/api/study/ask`, {
       method: 'POST',
@@ -1957,6 +1978,8 @@ async function askQuestion() {
     });
     const data = await res.json();
     if (!res.ok) throw new Error(data.error || data.message || `Server error ${res.status}`);
+    lastQuestionText = question;
+    lastAnswerText = data.answer || '';
     renderResponse(data);
     if (typeof gtag === 'function') {
       const atwSoFar = parseInt(localStorage.getItem(cgKey('atw')) || '0', 10);
@@ -3275,20 +3298,37 @@ if (fbUnhelpfulBtn) fbUnhelpfulBtn.addEventListener('click', () => {
   if (typeof gtag === 'function') gtag('event', 'answer_unhelpful', { answer_id: lastAnswerId || null });
 });
 
-flagBtn.addEventListener('click', async () => {
+// Flag flow (fixed roadmap 1.5, session 13): /api/study/flag actually requires
+// { question, answer, reason, details? } with reason one of a fixed set — it never
+// accepted answer_id, and lastAnswerId was never populated anyway (the /ask response
+// doesn't return one), so the old handler silently never reached the backend at all.
+flagBtn.addEventListener('click', () => {
   if (flagBtn.dataset.flagged) return;
-  flagBtn.dataset.flagged = '1';
-  flagBtn.textContent = '⚑ Flagged';
-  showToast('Answer flagged — thank you for the feedback', 'success');
-  if (typeof gtag === 'function') gtag('event', 'answer_reported', { answer_id: lastAnswerId || null });
-  if (!lastAnswerId || !currentSession) return;
-  try {
-    await fetch(`${BACKEND_URL}/api/study/flag`, {
-      method:'POST',
-      headers:{'Content-Type':'application/json','Authorization':`Bearer ${currentSession.access_token}`},
-      body: JSON.stringify({ answer_id: lastAnswerId })
-    });
-  } catch(_) {}
+  flagReasonPanel?.classList.toggle('hidden');
+});
+
+flagCancelBtn?.addEventListener('click', () => { flagReasonPanel?.classList.add('hidden'); });
+
+document.querySelectorAll('.flag-reason-btn').forEach(btn => {
+  btn.addEventListener('click', async () => {
+    if (flagBtn.dataset.flagged) return;
+    const reason = btn.dataset.reason;
+    flagBtn.dataset.flagged = '1';
+    flagBtn.textContent = '⚑ Flagged';
+    flagReasonPanel?.classList.add('hidden');
+    showToast('Answer flagged — thank you for the feedback', 'success');
+    if (typeof gtag === 'function') gtag('event', 'answer_reported', { reason });
+    if (!lastQuestionText || !lastAnswerText) return;
+    try {
+      const headers = { 'Content-Type': 'application/json' };
+      if (currentSession) headers['Authorization'] = `Bearer ${currentSession.access_token}`;
+      await fetch(`${BACKEND_URL}/api/study/flag`, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({ question: lastQuestionText, answer: lastAnswerText, reason })
+      });
+    } catch(_) {}
+  });
 });
 
 // ─── Card Gate ──────────────────────────────────────────────────────────────
