@@ -26,6 +26,7 @@
   }
   </script>
   <script src="https://js.stripe.com/v3/"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
   <!-- Cloudflare Turnstile — invisible bot protection -->
   <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=renderTurnstile&render=explicit" defer></script>
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -476,8 +477,8 @@
             </div>
 
             <!-- Account creation -->
-            <div class="bg-[#3D1540]/50 border border-[#f2e5f0]/10 rounded-3xl p-8 mb-6">
-              <p class="font-headline font-black text-lg text-[#f2e5f0] mb-6">Crear tu cuenta</p>
+            <div id="account-section" class="bg-[#3D1540]/50 border border-[#f2e5f0]/10 rounded-3xl p-8 mb-6">
+              <p class="font-headline font-black text-lg text-[#f2e5f0] mb-6" id="account-section-title">Crear tu cuenta</p>
               <div class="flex flex-col gap-5">
                 <div class="grid sm:grid-cols-2 gap-4">
                   <div>
@@ -683,6 +684,12 @@
     const TURNSTILE_SITE_KEY = '0x4AAAAAADndd0n_FPDJi3Oj'; // CF test key — replace with production key
     let turnstileToken = null;
     let turnstileWidgetId = null;
+
+    // =========== Supabase — detect already-authenticated users (magic link / OAuth) ===========
+    const SUPABASE_URL  = 'https://tdlaxuquplqejvijqiow.supabase.co';
+    const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRkbGF4dXF1cGxxZWp2aWpxaW93Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgxMTQ5NDksImV4cCI6MjA5MzY5MDk0OX0._-I3akq5PV0JqCdSV3mSMP03g1VRmWxxROsDo5UpaaY';
+    const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON, { auth: { flowType: 'implicit' } });
+    let _existingSession = null; // set if user arrives already authenticated
 
     function renderTurnstile() {
       if (typeof turnstile === 'undefined') return;
@@ -938,16 +945,16 @@
       const icon = document.getElementById('cta-icon');
       const text = document.getElementById('cta-text');
 
-      const firstName = document.getElementById('first-name').value.trim();
-      const lastName  = document.getElementById('last-name').value.trim();
-      const email     = document.getElementById('email-field').value.trim();
-      const password  = document.getElementById('password-field').value;
+      const firstName  = _existingSession ? '' : (document.getElementById('first-name')?.value.trim() || '');
+      const lastName   = _existingSession ? '' : (document.getElementById('last-name')?.value.trim() || '');
+      const email      = _existingSession ? _existingSession.user.email : document.getElementById('email-field').value.trim();
+      const password   = _existingSession ? null : document.getElementById('password-field').value;
       const nameOnCard = document.getElementById('name-on-card').value.trim();
 
-      if (!firstName || !lastName || !email || !password) {
+      if (!_existingSession && (!firstName || !lastName || !email || !password)) {
         alert('Por favor completa todos los campos de la cuenta.'); return;
       }
-      if (password.length < 8) {
+      if (!_existingSession && password.length < 8) {
         alert('La contraseña debe tener al menos 8 caracteres.'); return;
       }
 
@@ -977,20 +984,40 @@
           return;
         }
 
-        const res = await fetch(`${BACKEND_URL}/api/billing/create-subscription`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            paymentMethodId: paymentMethod.id,
-            email,
-            password,
-            firstName,
-            lastName,
-            plan: currentPlan,
-            billing: billingAnnual ? 'annual' : 'monthly',
-            turnstileToken,  // backend verifies against TURNSTILE_SECRET_KEY (Railway env)
-          })
-        });
+        // Choose endpoint: already-authed users (magic link / OAuth) vs. new signup
+        let res;
+        if (_existingSession) {
+          // User authenticated before checkout — use session JWT, no email/password needed
+          res = await fetch(`${BACKEND_URL}/api/billing/subscribe-existing-user`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${_existingSession.access_token}`,
+            },
+            body: JSON.stringify({
+              paymentMethodId: paymentMethod.id,
+              plan: currentPlan,
+              billing: billingAnnual ? 'annual' : 'monthly',
+              turnstileToken,
+            })
+          });
+        } else {
+          // New user — create account + subscription in one call
+          res = await fetch(`${BACKEND_URL}/api/billing/create-subscription`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              paymentMethodId: paymentMethod.id,
+              email,
+              password,
+              firstName,
+              lastName,
+              plan: currentPlan,
+              billing: billingAnnual ? 'annual' : 'monthly',
+              turnstileToken,  // backend verifies against TURNSTILE_SECRET_KEY (Railway env)
+            })
+          });
+        }
 
         const data = await res.json();
 
@@ -1019,8 +1046,20 @@
         text.textContent = '¡Éxito! Redirigiendo…';
         if (typeof gtag === 'function') {
           gtag('event', 'subscription_started', { plan: currentPlan, billing: billingAnnual ? 'annual' : 'monthly' });
+          // plan_upgraded (roadmap 3.6) is distinct from subscription_started: it's specifically
+          // the "already had a free Discovery account, now paying" moment (_existingSession),
+          // not brand-new-user acquisition — useful for retention/growth analysis separately
+          // from top-of-funnel signups.
+          if (_existingSession) {
+            gtag('event', 'plan_upgraded', { plan: currentPlan, billing: billingAnnual ? 'annual' : 'monthly' });
+          }
         }
-        setTimeout(() => { window.location.href = 'signup.html?welcome=1&plan=' + currentPlan; }, 1200);
+        if (_existingSession) {
+          // Existing user upgrading — send straight to the app, no signup welcome page needed
+          setTimeout(() => { window.location.href = 'https://formacion-biblica.com'; }, 1200);
+        } else {
+          setTimeout(() => { window.location.href = 'signup.html?welcome=1&plan=' + currentPlan; }, 1200);
+        }
 
       } catch (err) {
         console.error('Checkout error:', err);
@@ -1032,10 +1071,54 @@
     }
 
     // Initialize
-    selectPlan('formation');
-    if (typeof gtag === 'function') {
-      gtag('event', 'plan_selected', { plan: currentPlan, funnel_step: 'checkout_page' });
-    }
+    // =========== Init: detect existing session from magic link / OAuth ===========
+    (async function initCheckout() {
+      // Get plan from URL param or localStorage
+      const urlPlan = new URLSearchParams(window.location.search).get('plan');
+      const storedPlan = localStorage.getItem('pendingPlan');
+      const effectivePlan = urlPlan || storedPlan || 'formation';
+
+      // Always select the plan first
+      selectPlan(effectivePlan);
+      if (typeof gtag === 'function') {
+        gtag('event', 'plan_selected', { plan: effectivePlan, funnel_step: 'checkout_page' });
+      }
+
+      // Check if user is already authenticated (arrived via magic link or Google OAuth)
+      const { data: { session } } = await sb.auth.getSession();
+
+      if (session && effectivePlan && effectivePlan !== 'free') {
+        // User is authenticated — clear pending plan, skip account creation
+        localStorage.removeItem('pendingPlan');
+        _existingSession = session;
+
+        // Pre-fill email and hide account creation section
+        const emailField = document.getElementById('email-field');
+        if (emailField) {
+          emailField.value = session.user.email;
+          emailField.readOnly = true;
+          emailField.style.opacity = '0.6';
+        }
+
+        // Collapse account section — replace with "Signed in as" pill
+        const accountSection = document.getElementById('account-section');
+        if (accountSection) {
+          accountSection.innerHTML = `
+            <div class="flex items-center gap-3">
+              <span class="material-symbols-outlined text-[#A8D8B9]" style="font-size:20px">check_circle</span>
+              <div>
+                <p class="font-body font-bold text-[#f2e5f0] text-sm">Sesión iniciada como ${session.user.email}</p>
+                <p class="font-body text-[#f2e5f0]/40 text-xs">Cuenta creada por enlace mágico · No se necesita contraseña</p>
+              </div>
+            </div>`;
+        }
+
+        // Auto-advance to step 2 (payment)
+        selectAndAdvance(effectivePlan);
+      } else {
+        // Normal flow — default plan selection already done above
+      }
+    })();
   </script>
 </body>
 </html>
