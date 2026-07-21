@@ -157,6 +157,27 @@
       border-color: rgba(233,195,73,0.5);
       color: #E9C349;
     }
+
+    /* Selector de practice_type de nota de estudio (roadmap 2.6) — igual que .research-mode-btn */
+    .note-type-btn {
+      padding: 6px 14px;
+      border-radius: 20px;
+      border: 1px solid rgba(242,229,240,0.15);
+      background: rgba(255,255,255,0.05);
+      color: rgba(242,229,240,0.5);
+      font-family: 'Manrope', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+    .note-type-btn:hover { border-color: rgba(233,195,73,0.35); color: rgba(242,229,240,0.85); }
+    .note-type-btn.active {
+      background: rgba(233,195,73,0.15);
+      border-color: rgba(233,195,73,0.5);
+      color: #E9C349;
+    }
     .chapter-fade { animation: chapterFade 0.35s ease forwards; }
 
     #toast {
@@ -697,6 +718,11 @@
       <!-- Formulario nueva nota -->
       <div class="bg-[#4A1D4D]/70 backdrop-blur-xl border border-[#f2e5f0]/10 rounded-3xl p-6 mb-6 shadow-2xl">
         <label class="block font-label text-[11px] uppercase tracking-widest text-[#f2e5f0]/40 mb-3">Nueva Nota de Estudio</label>
+        <div class="flex gap-2 mb-3" id="study-note-type-group">
+          <button type="button" class="note-type-btn active" data-type="" onclick="selectNoteType('')">Sin Tipo</button>
+          <button type="button" class="note-type-btn" data-type="observation" onclick="selectNoteType('observation')">👁️ Observación</button>
+          <button type="button" class="note-type-btn" data-type="application" onclick="selectNoteType('application')">🌱 Aplicación</button>
+        </div>
         <input id="study-note-title" type="text" placeholder="Título (ej. Romanos 8 — Espíritu vs. Carne)"
           class="w-full px-4 py-2.5 mb-3 rounded-xl border border-[#f2e5f0]/15 bg-[#3D1540]/50 text-on-surface placeholder-[#f2e5f0]/25 font-body text-sm outline-none focus:border-[#E9C349]/50 transition-colors" />
         <textarea id="study-note-body" rows="4" placeholder="Escribe tu nota de estudio, observación o comentario…"
@@ -792,11 +818,12 @@
           <button onclick="showGroupsLanding()" class="text-[#f2e5f0]/25 hover:text-[#f2e5f0] text-xs transition-colors">← Grupos</button>
         </div>
 
-        <div class="flex gap-1 border-b border-[#f2e5f0]/10 mb-5">
-          <button class="tab-btn active" id="gtab-notes"   onclick="switchGroupTab('notes')">📝 Notas</button>
-          <button class="tab-btn" id="gtab-plan"    onclick="switchGroupTab('plan')">📅 Plan</button>
-          <button class="tab-btn" id="gtab-prayer"  onclick="switchGroupTab('prayer')">🙏 Oración</button>
-          <button class="tab-btn" id="gtab-members" onclick="switchGroupTab('members')">👥 Miembros</button>
+        <div class="flex gap-1 border-b border-[#f2e5f0]/10 mb-5 overflow-x-auto flex-nowrap" style="scrollbar-width:none;-ms-overflow-style:none;">
+          <button class="tab-btn active whitespace-nowrap" id="gtab-notes"   onclick="switchGroupTab('notes')">📝 Notas</button>
+          <button class="tab-btn whitespace-nowrap" id="gtab-plan"    onclick="switchGroupTab('plan')">📅 Plan</button>
+          <button class="tab-btn whitespace-nowrap" id="gtab-prayer"  onclick="switchGroupTab('prayer')">🙏 Oración</button>
+          <button class="tab-btn whitespace-nowrap" id="gtab-members" onclick="switchGroupTab('members')">👥 Miembros</button>
+          <button class="tab-btn whitespace-nowrap" id="gtab-recap" onclick="switchGroupTab('recap')">📋 Resumen</button>
         </div>
 
         <div id="gtab-content-notes">
@@ -838,6 +865,21 @@
         <div id="gtab-content-members" class="hidden">
           <div id="group-members-list" class="space-y-2"></div>
           <button id="leave-group-btn" onclick="leaveGroupConfirm()" class="mt-6 w-full py-2.5 rounded-xl border border-[#ff7c7c]/30 text-[#ff7c7c]/60 font-label font-bold text-xs hover:border-[#ff7c7c]/60 hover:text-[#ff7c7c] transition-all">Salir del Grupo</button>
+        </div>
+
+        <!-- Resumen (Recap) inner tab -->
+        <div id="gtab-content-recap" class="hidden">
+          <div id="recap-admin-panel" class="hidden bg-[#4A1D4D]/70 border border-[#f2e5f0]/10 rounded-2xl p-5 mb-5">
+            <div class="flex items-center justify-between mb-3">
+              <div class="font-label text-xs uppercase tracking-widest text-[#E9C349] font-bold">Resumen de esta semana</div>
+              <button onclick="loadRecapPreview()" class="text-[#f2e5f0]/30 hover:text-[#E9C349] text-[10px] transition-colors">↻ Actualizar</button>
+            </div>
+            <div id="recap-preview-body" class="space-y-1.5 font-body text-sm text-[#f2e5f0]/70"></div>
+            <button id="publish-recap-btn" onclick="publishRecap()" class="mt-4 w-full py-2.5 rounded-xl bg-gradient-to-br from-[#E8816A] to-[#6E2414] text-white font-label font-bold text-xs hover:brightness-110 transition-all disabled:opacity-40 disabled:cursor-not-allowed">Publicar Resumen</button>
+          </div>
+          <div class="font-label text-[11px] uppercase tracking-widest text-[#f2e5f0]/40 font-bold mb-3">Resúmenes Anteriores</div>
+          <div id="recap-list" class="space-y-3"></div>
+          <div id="recap-empty" class="hidden text-center py-8 text-[#f2e5f0]/30 text-sm">Aún no se ha publicado ningún resumen.</div>
         </div>
       </div>
     </div><!-- /tab-content-groups -->
@@ -915,6 +957,13 @@
               class="bg-gradient-to-r from-[#E9C349] to-[#FFB4A4] h-2 rounded-full transition-all duration-700"
               style="width:0%"></div>
           </div>
+        </div>
+
+        <!-- Crecimiento (roadmap 2.6 — indicadores de formación reales, sin puntaje/ranking) -->
+        <div id="progress-growth-wrap" class="hidden bg-[#4A1D4D]/60 border border-[#f2e5f0]/10 rounded-2xl p-5 mb-4">
+          <div class="font-label text-[11px] uppercase tracking-widest text-[#f2e5f0]/40 font-bold mb-1">Tu Crecimiento, No un Puntaje</div>
+          <p class="font-body text-xs text-[#f2e5f0]/35 mb-4 leading-relaxed">Una imagen privada de qué partes de tu estudio se están volviendo un hábito — sin ranking, sin tabla de posiciones. Solo tú ves esto.</p>
+          <div id="progress-growth-rows" class="space-y-4"></div>
         </div>
 
         <!-- Versículo de aliento -->
@@ -1939,6 +1988,18 @@ document.querySelectorAll('.evidence-tab').forEach(tab => {
       gtag('event', 'citation_opened', { source_type: target, lang: 'es' });
       gtag('event', 'source_opened', { source_type: target, lang: 'es' });
     }
+    // Roadmap 2.6 — historial real por usuario de Contexto y Referencias Cruzadas
+    // (fire-and-forget; solo crossref y context alimentan el panel de Crecimiento)
+    if ((target === 'crossref' || target === 'context') && currentSession) {
+      sb.auth.getSession().then(({ data: { session } }) => {
+        if (!session) return;
+        return fetch(`${BACKEND_URL}/api/study/evidence-interaction`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${session.access_token}` },
+          body: JSON.stringify({ tab_type: target })
+        });
+      }).catch(() => {});
+    }
   });
 });
 
@@ -2742,7 +2803,7 @@ function copyInviteCode() {
 }
 
 function switchGroupTab(name) {
-  ['notes','plan','prayer','members'].forEach(t => {
+  ['notes','plan','prayer','members','recap'].forEach(t => {
     $('gtab-content-' + t).classList.toggle('hidden', t !== name);
     $('gtab-' + t).classList.toggle('active', t === name);
   });
@@ -2750,6 +2811,7 @@ function switchGroupTab(name) {
   if (name === 'plan')    loadGroupPlan();
   if (name === 'prayer')  loadPrayerRequests();
   if (name === 'members') loadGroupMembers();
+  if (name === 'recap')   loadRecaps();
 }
 
 async function loadGroupNotes() {
@@ -2786,6 +2848,7 @@ async function postGroupNote() {
   try {
     const displayName = currentSession?.user?.user_metadata?.display_name || currentSession?.user?.email?.split('@')[0] || 'Miembro';
     await groupFetch(`/${currentGroupId}/notes`, 'POST', { content, display_name: displayName });
+    if (typeof gtag === 'function') gtag('event', 'discussion_contributed', { group_id: currentGroupId });
     $('group-note-input').value = '';
     showToast('¡Nota publicada!', 'success');
     await loadGroupNotes();
@@ -2974,6 +3037,88 @@ async function setGroupPlan(planId) {
   }
 }
 
+// ── Resúmenes del Grupo (roadmap 2.4 — Group loop v1) ────────
+
+async function loadRecaps() {
+  if (!currentGroupId) return;
+  $('recap-admin-panel').classList.toggle('hidden', currentGroupRole !== 'admin');
+  if (currentGroupRole === 'admin') loadRecapPreview();
+  try {
+    const { recaps } = await groupFetch(`/${currentGroupId}/recaps`);
+    const list = $('recap-list');
+    list.innerHTML = '';
+    if (!recaps || recaps.length === 0) {
+      $('recap-empty').classList.remove('hidden'); return;
+    }
+    $('recap-empty').classList.add('hidden');
+    recaps.forEach(r => {
+      const s = r.summary || {};
+      const startD = new Date(r.period_start).toLocaleDateString('es-ES', { month: 'short', day: 'numeric' });
+      const endD   = new Date(r.period_end).toLocaleDateString('es-ES', { month: 'short', day: 'numeric' });
+      const pubD   = new Date(r.published_at).toLocaleDateString('es-ES', { month: 'short', day: 'numeric' });
+      const el = document.createElement('div');
+      el.className = 'bg-[#4A1D4D]/60 border border-[#f2e5f0]/10 rounded-xl px-4 py-3';
+      el.innerHTML = `
+        <div class="flex items-center justify-between mb-2">
+          <span class="font-label text-[10px] font-bold text-[#E9C349] uppercase tracking-wider">${startD} – ${endD}</span>
+          <span class="text-[#f2e5f0]/25 text-[10px]">Publicado ${pubD}</span>
+        </div>
+        <div class="grid grid-cols-3 gap-2 text-center">
+          <div><div class="font-headline text-lg text-[#f2e5f0]/90">${s.note_count ?? 0}</div><div class="text-[#f2e5f0]/35 text-[10px] uppercase tracking-wide">Notas</div></div>
+          <div><div class="font-headline text-lg text-[#f2e5f0]/90">${s.prayer_count ?? 0}</div><div class="text-[#f2e5f0]/35 text-[10px] uppercase tracking-wide">Oraciones</div></div>
+          <div><div class="font-headline text-lg text-[#50c878]">${s.prayer_answered_count ?? 0}</div><div class="text-[#f2e5f0]/35 text-[10px] uppercase tracking-wide">Respondidas</div></div>
+        </div>
+        ${s.new_member_count ? `<p class="font-body text-xs text-[#f2e5f0]/50 mt-2">👋 ${s.new_member_count} miembro${s.new_member_count > 1 ? 's' : ''} nuevo${s.new_member_count > 1 ? 's' : ''} esta semana</p>` : ''}
+      `;
+      list.appendChild(el);
+    });
+  } catch (err) {
+    showToast('No se pudieron cargar los resúmenes', 'error');
+  }
+}
+
+async function loadRecapPreview() {
+  if (!currentGroupId || currentGroupRole !== 'admin') return;
+  try {
+    const { preview } = await groupFetch(`/${currentGroupId}/recap/preview`);
+    const startD = new Date(preview.period_start).toLocaleDateString('es-ES', { month: 'short', day: 'numeric' });
+    const endD   = new Date(preview.period_end).toLocaleDateString('es-ES', { month: 'short', day: 'numeric' });
+    $('recap-preview-body').innerHTML = `
+      <p class="text-[#f2e5f0]/40 text-xs mb-2">${startD} – ${endD}</p>
+      <p>📝 ${preview.note_count} nota${preview.note_count === 1 ? '' : 's'} compartida${preview.note_count === 1 ? '' : 's'}</p>
+      <p>🙏 ${preview.prayer_count} pedido${preview.prayer_count === 1 ? '' : 's'} de oración (${preview.prayer_answered_count} respondido${preview.prayer_answered_count === 1 ? '' : 's'})</p>
+      <p>👥 ${preview.member_count} miembro${preview.member_count === 1 ? '' : 's'}${preview.new_member_count ? `, ${preview.new_member_count} nuevo${preview.new_member_count > 1 ? 's' : ''} esta semana` : ''}</p>
+    `;
+  } catch (err) {
+    if (err.status === 403) {
+      $('recap-admin-panel').classList.add('hidden');
+    } else {
+      showToast('No se pudo cargar la vista previa del resumen', 'error');
+    }
+  }
+}
+
+async function publishRecap() {
+  if (!currentGroupId) return;
+  if (!confirm('¿Publicar el resumen de esta semana? Todos los miembros del grupo podrán verlo.')) return;
+  const btn = $('publish-recap-btn');
+  if (btn.disabled) return; // evita doble clic mientras una publicación ya está en curso
+  btn.disabled = true;
+  const originalLabel = btn.textContent;
+  btn.textContent = 'Publicando…';
+  try {
+    await groupFetch(`/${currentGroupId}/recap/publish`, 'POST', {});
+    showToast('¡Resumen publicado al grupo!', 'success');
+    if (typeof gtag === 'function') gtag('event', 'leader_recap_published', { group_id: currentGroupId });
+    await loadRecaps();
+  } catch (err) {
+    showToast('Error: ' + err.message, 'error');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = originalLabel;
+  }
+}
+
 // ─── Panel de Progreso ──────────────────────────────────────
 const PROGRESS_QUOTES = [
   '"Tu palabra es una lámpara a mis pies y una luz en mi camino." — Salmo 119:105',
@@ -3022,15 +3167,17 @@ async function initProgressTab() {
     if (!session) return;
     const hdrs = { Authorization: `Bearer ${session.access_token}` };
 
-    const [studyRes, verseRes, groupRes] = await Promise.all([
+    const [studyRes, verseRes, groupRes, indicatorsRes] = await Promise.all([
       fetch(`${BACKEND_URL}/api/user/study-notes?limit=500`, { headers: hdrs }).then(r => r.json()).catch(() => ({ notes: [] })),
       fetch(`${BACKEND_URL}/api/user/verse-notes`, { headers: hdrs }).then(r => r.json()).catch(() => ({ notes: [] })),
       fetch(`${BACKEND_URL}/api/groups`, { headers: hdrs }).then(r => r.json()).catch(() => ({ groups: [] })),
+      fetch(`${BACKEND_URL}/api/user/formation-indicators`, { headers: hdrs }).then(r => r.json()).catch(() => ({ indicators: null })),
     ]);
 
     $('stat-notes').textContent = studyRes.notes?.length ?? 0;
     $('stat-highlights').textContent = verseRes.notes?.length ?? 0;
     $('stat-groups').textContent = groupRes.groups?.length ?? 0;
+    renderGrowthPanel(indicatorsRes.indicators);
 
     const active = getActivePlan();
     if (active) {
@@ -3058,6 +3205,45 @@ async function initProgressTab() {
     $('progress-loading').classList.add('hidden');
     $('progress-content').classList.remove('hidden');
   }
+}
+
+// Panel de Crecimiento (roadmap 2.6 — "Tu Crecimiento, No un Puntaje") — datos
+// reales por usuario desde GET /api/user/formation-indicators. Nunca se muestra
+// un puntaje numérico ni ranking, solo una etiqueta de etapa + barra relativa.
+const GROWTH_PRACTICES = [
+  { key: 'observation', label: 'Observación', icon: '👁️' },
+  { key: 'application', label: 'Aplicación', icon: '🌱' },
+  { key: 'context',     label: 'Contexto y Referencias Cruzadas', icon: '🔗' },
+  { key: 'prayer',      label: 'Oración', icon: '🙏' },
+  { key: 'discussion',  label: 'Discusión de Grupo', icon: '💬' },
+];
+const GROWTH_STAGE_LABELS = ['Aún no empieza', 'Recién comenzando', 'Formando ritmo', 'Práctica constante'];
+const GROWTH_STAGE_PCT    = [0, 20, 50, 75];
+
+function renderGrowthPanel(indicators) {
+  const wrap = $('progress-growth-rows');
+  if (!wrap) return;
+  wrap.innerHTML = '';
+  if (!indicators) { $('progress-growth-wrap')?.classList.add('hidden'); return; }
+  $('progress-growth-wrap')?.classList.remove('hidden');
+  GROWTH_PRACTICES.forEach(p => {
+    const stage = indicators.stages?.[p.key] ?? 0;
+    const pct = GROWTH_STAGE_PCT[stage] ?? 0;
+    const el = document.createElement('div');
+    el.innerHTML = `
+      <div class="flex items-center justify-between mb-1.5">
+        <span class="font-body text-sm font-bold text-[#f2e5f0]/85">${p.icon} ${p.label}</span>
+        <span class="font-label text-[10px] uppercase tracking-widest text-[#f2e5f0]/40">${GROWTH_STAGE_LABELS[stage] ?? GROWTH_STAGE_LABELS[0]}</span>
+      </div>
+      <div class="w-full bg-[#f2e5f0]/10 rounded-full h-2 overflow-hidden">
+        <div class="bg-gradient-to-r from-[#E9C349] to-[#FFB4A4] h-2 rounded-full transition-all duration-700" style="width:0%" data-target-width="${pct}%"></div>
+      </div>
+    `;
+    wrap.appendChild(el);
+  });
+  setTimeout(() => {
+    wrap.querySelectorAll('[data-target-width]').forEach(bar => { bar.style.width = bar.dataset.targetWidth; });
+  }, 120);
 }
 
 // ─── Léxico de Palabras ─────────────────────────────────────
@@ -3163,10 +3349,17 @@ function renderStudyNoteCard(note) {
   const list = $('study-notes-list');
   const el = document.createElement('div');
   el.id = `study-note-${note.id}`;
+  el.dataset.practiceType = note.practice_type || '';
   el.className = 'bg-[#4A1D4D]/70 backdrop-blur-xl border border-[#f2e5f0]/10 rounded-2xl p-5 shadow-xl';
+  const typeBadge = note.practice_type
+    ? `<span class="inline-block px-2 py-0.5 rounded-full text-[9px] uppercase tracking-wider font-bold ${note.practice_type === 'observation' ? 'bg-[#E9C349]/15 text-[#E9C349]' : 'bg-[#50c878]/15 text-[#50c878]'} mb-1.5">${note.practice_type === 'observation' ? '👁️ Observación' : '🌱 Aplicación'}</span>`
+    : '';
   el.innerHTML = `
     <div class="flex items-start justify-between gap-3 mb-2">
-      <div class="font-label text-[11px] uppercase tracking-widest text-[#E9C349] font-bold">${escHtml(note.title || 'Sin título')}</div>
+      <div>
+        ${typeBadge ? `<div>${typeBadge}</div>` : ''}
+        <div class="font-label text-[11px] uppercase tracking-widest text-[#E9C349] font-bold">${escHtml(note.title || 'Sin título')}</div>
+      </div>
       <div class="flex gap-1.5 flex-shrink-0">
         <button onclick="editStudyNote('${note.id}')" class="reader-btn text-[11px] px-2 py-0.5">Editar</button>
         <button onclick="deleteStudyNote('${note.id}')" class="reader-btn text-[11px] px-2 py-0.5 text-[#ff7c7c]">Eliminar</button>
@@ -3178,6 +3371,12 @@ function renderStudyNoteCard(note) {
   list.appendChild(el);
 }
 
+let selectedNoteType = '';
+function selectNoteType(type) {
+  selectedNoteType = type;
+  document.querySelectorAll('.note-type-btn').forEach(b => b.classList.toggle('active', b.dataset.type === type));
+}
+
 async function saveStudyNote() {
   const title = $('study-note-title').value.trim();
   const content = $('study-note-body').value.trim();
@@ -3185,15 +3384,18 @@ async function saveStudyNote() {
   if (!currentSession) return;
   try {
     const { data: { session } } = await sb.auth.getSession();
+    const body = { title: title || 'Sin título', content };
+    if (selectedNoteType) body.practice_type = selectedNoteType;
     const res = await fetch(`${BACKEND_URL}/api/user/study-notes`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${session.access_token}` },
-      body: JSON.stringify({ title: title || 'Sin título', content })
+      body: JSON.stringify(body)
     });
     if (!res.ok) throw new Error('Save failed');
     const data = await res.json();
     $('study-note-title').value = '';
     $('study-note-body').value = '';
+    selectNoteType('');
     $('study-notes-empty').classList.add('hidden');
     renderStudyNoteCard(data.note || data);
     const list = $('study-notes-list');
@@ -3211,6 +3413,7 @@ function editStudyNote(id) {
   $('study-note-body').value = content;
   $('study-note-body').dataset.editId = id;
   $('study-note-body').focus();
+  selectNoteType(card.dataset.practiceType || '');
 }
 
 async function updateStudyNote(id) {
@@ -3219,15 +3422,18 @@ async function updateStudyNote(id) {
   if (!content) return;
   try {
     const { data: { session } } = await sb.auth.getSession();
+    const body = { title: title || 'Sin título', content };
+    if (selectedNoteType) body.practice_type = selectedNoteType;
     const res = await fetch(`${BACKEND_URL}/api/user/study-notes/${id}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${session.access_token}` },
-      body: JSON.stringify({ title: title || 'Sin título', content })
+      body: JSON.stringify(body)
     });
     if (!res.ok) throw new Error('Update failed');
     await loadStudyNotes();
     $('study-note-title').value = '';
     $('study-note-body').value = '';
+    selectNoteType('');
     showToast('Nota actualizada', 'success');
   } catch(e) { showToast('No se pudo actualizar la nota', 'error'); }
 }
