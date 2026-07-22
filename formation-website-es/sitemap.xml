@@ -142,6 +142,65 @@
     <priority>0.7</priority>
   </url>
 
+  <!-- Study Guides hub (roadmap 2.1) — added Jul 22, 2026. Hub-of-hubs index plus 6 category hub pages
+       (method, book, passage, question, plan, group) and the first flagship article. EN versions added same day. -->
+  <url>
+    <loc>https://formacion-biblica.com/study-guides</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formationbible.com/study-guides"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://formacion-biblica.com/study-guides"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://formacion-biblica.com/bible-study-methods</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formationbible.com/bible-study-methods"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://formacion-biblica.com/bible-study-methods"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://formacion-biblica.com/bible-book-guides</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formationbible.com/bible-book-guides"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://formacion-biblica.com/bible-book-guides"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://formacion-biblica.com/passage-studies</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formationbible.com/passage-studies"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://formacion-biblica.com/passage-studies"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://formacion-biblica.com/bible-questions</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formationbible.com/bible-questions"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://formacion-biblica.com/bible-questions"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://formacion-biblica.com/reading-plans</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formationbible.com/reading-plans"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://formacion-biblica.com/reading-plans"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://formacion-biblica.com/group-study-guides</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formationbible.com/group-study-guides"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://formacion-biblica.com/group-study-guides"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://formacion-biblica.com/inductive-bible-study-observe-interpret-apply</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formationbible.com/inductive-bible-study-observe-interpret-apply"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://formacion-biblica.com/inductive-bible-study-observe-interpret-apply"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
   <!-- Statement of Faith / Declaración de Fe -->
   <url>
     <loc>https://formacion-biblica.com/statement_of_faith</loc>
