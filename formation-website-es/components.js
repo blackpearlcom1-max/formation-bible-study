@@ -74,6 +74,7 @@
           <li><a href="/about.html"             class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Sobre Nosotros</a></li>
           <li><a href="/mission.html"           class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Nuestra Misión</a></li>
           <li><a href="/statement_of_faith.html" class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Declaración de Fe</a></li>
+          <li><a href="/study-guides.html"      class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Guías de Estudio</a></li>
           <li><a href="/inductive-study-romans.html" class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Guía: Estudiar Romanos</a></li>
           <li><a href="/color-coding-bible.html" class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Guía: Colorear Tu Biblia</a></li>
           <li><a href="/greek-interlinear-beginners.html" class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Guía: Interlineal Griego para Principiantes</a></li>
