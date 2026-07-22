@@ -10,6 +10,11 @@
  *
  * Choice is persisted in localStorage and can be changed anytime via the
  * small "Configuración de Cookies" tab this script injects after a choice is made.
+ *
+ * Styling matches the site's existing visual language: Noto Serif /
+ * Manrope (already loaded site-wide), Material Symbols Outlined icons,
+ * the deep-plum / coral / gold palette, and the same blurred, bordered
+ * "floating card" treatment used elsewhere (e.g. the main nav).
  */
 (function () {
   var STORAGE_KEY = 'fbs_cookie_consent'; // 'granted' | 'denied'
@@ -27,16 +32,24 @@
   function injectStyles() {
     if (document.getElementById('fbs-cookie-style')) return;
     var css = ''
-      + '#fbs-cookie-banner{position:fixed;left:0;right:0;bottom:0;z-index:9999;background:#3D1540;border-top:1px solid rgba(242,229,240,0.15);padding:18px 24px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;font-family:inherit;box-shadow:0 -10px 30px rgba(0,0,0,0.3);}'
-      + '#fbs-cookie-banner p{margin:0;color:#f2e5f0;opacity:.85;font-size:13px;line-height:1.5;max-width:640px;}'
-      + '#fbs-cookie-banner a{color:#FFB4A4;text-decoration:underline;}'
-      + '#fbs-cookie-actions{display:flex;gap:10px;flex-shrink:0;}'
-      + '#fbs-cookie-banner button{font-family:inherit;font-size:13px;font-weight:700;border-radius:999px;padding:10px 20px;cursor:pointer;border:1px solid transparent;}'
-      + '#fbs-cookie-accept{background:linear-gradient(135deg,#FFB4A4,#6E2414);color:#5D1809;}'
-      + '#fbs-cookie-reject{background:transparent;color:#f2e5f0;border-color:rgba(242,229,240,0.3);}'
-      + '#fbs-cookie-tab{position:fixed;left:16px;bottom:16px;z-index:9998;background:#3D1540;color:#f2e5f0;opacity:.8;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:8px 14px;border-radius:999px;border:1px solid rgba(242,229,240,0.2);cursor:pointer;}'
+      + '#fbs-cookie-banner{position:fixed;right:20px;bottom:20px;left:auto;z-index:9999;width:min(400px,calc(100vw - 40px));background:rgba(61,21,64,0.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,180,164,0.18);border-radius:20px;box-shadow:0 20px 45px -10px rgba(20,6,22,0.55);padding:22px 22px 20px;font-family:"Manrope",sans-serif;opacity:0;transform:translateY(16px) scale(.98);transition:opacity .35s ease,transform .35s ease;}'
+      + '#fbs-cookie-banner.fbs-in{opacity:1;transform:translateY(0) scale(1);}'
+      + '#fbs-cookie-head{display:flex;align-items:center;gap:10px;margin-bottom:10px;}'
+      + '#fbs-cookie-icon{width:34px;height:34px;flex-shrink:0;border-radius:10px;background:linear-gradient(135deg,rgba(233,195,73,0.22),rgba(255,180,164,0.14));display:flex;align-items:center;justify-content:center;}'
+      + '#fbs-cookie-icon .material-symbols-outlined{font-size:19px;color:#E9C349;font-variation-settings:"FILL" 1,"wght" 500;}'
+      + '#fbs-cookie-title{margin:0;font-family:"Noto Serif",serif;font-weight:700;font-size:15px;color:#f2e5f0;letter-spacing:.01em;}'
+      + '#fbs-cookie-banner p.fbs-cookie-body{margin:0 0 18px;color:#f2e5f0;opacity:.72;font-size:13px;line-height:1.55;}'
+      + '#fbs-cookie-banner a{color:#FFB4A4;text-decoration:underline;text-underline-offset:2px;}'
+      + '#fbs-cookie-actions{display:flex;gap:10px;}'
+      + '#fbs-cookie-banner button{font-family:"Manrope",sans-serif;font-size:12.5px;font-weight:700;letter-spacing:.02em;border-radius:999px;padding:11px 16px;cursor:pointer;transition:filter .15s ease,background .15s ease;flex:1;}'
+      + '#fbs-cookie-accept{background:linear-gradient(135deg,#FFB4A4,#6E2414);color:#5D1809;border:1px solid transparent;}'
+      + '#fbs-cookie-accept:hover{filter:brightness(1.08);}'
+      + '#fbs-cookie-reject{background:transparent;color:#f2e5f0;opacity:.75;border:1px solid rgba(242,229,240,0.25);}'
+      + '#fbs-cookie-reject:hover{opacity:1;border-color:rgba(242,229,240,0.45);}'
+      + '#fbs-cookie-tab{position:fixed;right:20px;bottom:20px;z-index:9998;display:flex;align-items:center;gap:6px;background:rgba(61,21,64,0.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:#f2e5f0;opacity:.55;font-family:"Manrope",sans-serif;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:9px 14px 9px 10px;border-radius:999px;border:1px solid rgba(242,229,240,0.16);cursor:pointer;transition:opacity .2s ease;}'
+      + '#fbs-cookie-tab .material-symbols-outlined{font-size:15px;color:#E9C349;}'
       + '#fbs-cookie-tab:hover{opacity:1;}'
-      + '@media (max-width:640px){#fbs-cookie-banner{flex-direction:column;align-items:stretch;}#fbs-cookie-actions{justify-content:stretch;}#fbs-cookie-actions button{flex:1;}}';
+      + '@media (max-width:640px){#fbs-cookie-banner{left:12px;right:12px;bottom:12px;width:auto;border-radius:18px;padding:20px 18px 18px;}#fbs-cookie-actions{flex-direction:column;}#fbs-cookie-tab{right:12px;bottom:12px;}}';
     var style = document.createElement('style');
     style.id = 'fbs-cookie-style';
     style.textContent = css;
@@ -45,7 +58,9 @@
 
   function hideBanner() {
     var el = document.getElementById('fbs-cookie-banner');
-    if (el) el.remove();
+    if (!el) return;
+    el.classList.remove('fbs-in');
+    setTimeout(function () { el.remove(); }, 350);
   }
 
   function showTab() {
@@ -54,7 +69,7 @@
     var tab = document.createElement('button');
     tab.id = 'fbs-cookie-tab';
     tab.type = 'button';
-    tab.textContent = 'Configuración de Cookies';
+    tab.innerHTML = '<span class="material-symbols-outlined">cookie</span>Configuración de Cookies';
     tab.addEventListener('click', function () {
       tab.remove();
       showBanner();
@@ -65,15 +80,28 @@
   function showBanner() {
     injectStyles();
     if (document.getElementById('fbs-cookie-banner')) return;
+    var existingTab = document.getElementById('fbs-cookie-tab');
+    if (existingTab) existingTab.remove();
+
     var el = document.createElement('div');
     el.id = 'fbs-cookie-banner';
+    el.setAttribute('role', 'dialog');
+    el.setAttribute('aria-label', 'Preferencias de cookies');
     el.innerHTML =
-      '<p>Usamos cookies para operar Formation Bible Study y, con su consentimiento, para entender cómo se usa la app. Las cookies esenciales (inicio de sesión, seguridad) siempre están activas. Consulte nuestra <a href="/cookie_policy.html">Política de Cookies</a>.</p>' +
+      '<div id="fbs-cookie-head">' +
+        '<div id="fbs-cookie-icon"><span class="material-symbols-outlined">cookie</span></div>' +
+        '<p id="fbs-cookie-title">Sobre las cookies</p>' +
+      '</div>' +
+      '<p class="fbs-cookie-body">Usamos cookies esenciales para operar Formation Bible Study y, con su consentimiento, cookies analíticas para entender cómo se usa la app. Consulte nuestra <a href="/cookie_policy.html">Política de Cookies</a>.</p>' +
       '<div id="fbs-cookie-actions">' +
-        '<button id="fbs-cookie-reject" type="button">Rechazar no esenciales</button>' +
+        '<button id="fbs-cookie-reject" type="button">Rechazar</button>' +
         '<button id="fbs-cookie-accept" type="button">Aceptar</button>' +
       '</div>';
     document.body.appendChild(el);
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () { el.classList.add('fbs-in'); });
+    });
+
     document.getElementById('fbs-cookie-accept').addEventListener('click', function () {
       try { localStorage.setItem(STORAGE_KEY, 'granted'); } catch (e) {}
       updateConsent(true);
