@@ -201,6 +201,22 @@
     <priority>0.7</priority>
   </url>
 
+  <!-- Roadmap 2.1 book guides — added Jul 22, 2026 -->
+  <url>
+    <loc>https://formacion-biblica.com/gospel-of-john-study-guide</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formationbible.com/gospel-of-john-study-guide"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://formacion-biblica.com/gospel-of-john-study-guide"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://formacion-biblica.com/book-of-james-study-guide</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formationbible.com/book-of-james-study-guide"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://formacion-biblica.com/book-of-james-study-guide"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
   <!-- Statement of Faith / Declaración de Fe -->
   <url>
     <loc>https://formacion-biblica.com/statement_of_faith</loc>
