@@ -141,6 +141,13 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+  <url>
+    <loc>https://www.formationbible.com/topical-bible-study</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formationbible.com/topical-bible-study"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://formacion-biblica.com/topical-bible-study"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
 
   <!-- Study Library (roadmap 2.2, public proof library) — added Jul 19, 2026. New page, first example (Romans 8:1-4)
        reuses already-Tony-reviewed content from the /demo page. ES version added Jul 19, 2026. -->
