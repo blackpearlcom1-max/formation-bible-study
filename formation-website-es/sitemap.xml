@@ -341,6 +341,13 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://formacion-biblica.com/el-sermon-del-monte-en-dos-semanas-plan-de-lectura</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formationbible.com/sermon-on-the-mount-in-two-weeks-reading-plan"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://formacion-biblica.com/el-sermon-del-monte-en-dos-semanas-plan-de-lectura"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://formacion-biblica.com/group-study-guides</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.formationbible.com/group-study-guides"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://formacion-biblica.com/group-study-guides"/>
