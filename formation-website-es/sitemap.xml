@@ -327,6 +327,13 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://formacion-biblica.com/un-mes-en-los-salmos-plan-de-lectura</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formationbible.com/a-month-in-the-psalms-reading-plan"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://formacion-biblica.com/un-mes-en-los-salmos-plan-de-lectura"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://formacion-biblica.com/group-study-guides</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.formationbible.com/group-study-guides"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://formacion-biblica.com/group-study-guides"/>
