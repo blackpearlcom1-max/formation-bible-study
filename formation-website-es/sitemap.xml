@@ -223,6 +223,13 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+  <url>
+    <loc>https://formacion-biblica.com/gospel-of-mark-study-guide</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formationbible.com/gospel-of-mark-study-guide"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://formacion-biblica.com/gospel-of-mark-study-guide"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
 
   <!-- Statement of Faith / Declaración de Fe -->
   <url>
