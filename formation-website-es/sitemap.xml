@@ -313,6 +313,13 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://formacion-biblica.com/seven-day-gospel-of-john-reading-plan</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formationbible.com/seven-day-gospel-of-john-reading-plan"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://formacion-biblica.com/seven-day-gospel-of-john-reading-plan"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://formacion-biblica.com/group-study-guides</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.formationbible.com/group-study-guides"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://formacion-biblica.com/group-study-guides"/>
