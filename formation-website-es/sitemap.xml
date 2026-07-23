@@ -369,6 +369,13 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://formacion-biblica.com/liderar-discusion-sin-dominarla</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formationbible.com/leading-discussion-without-dominating-it"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://formacion-biblica.com/liderar-discusion-sin-dominarla"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://formacion-biblica.com/inductive-bible-study-observe-interpret-apply</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.formationbible.com/inductive-bible-study-observe-interpret-apply"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://formacion-biblica.com/inductive-bible-study-observe-interpret-apply"/>
