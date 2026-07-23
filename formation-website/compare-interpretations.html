@@ -19,13 +19,13 @@
 <script src="/cookie-consent.js" defer></script>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>Bible Study Guides & Resources | Formation Bible Study</title>
-  <meta name="description" content="Reviewed guides for studying the Bible: method, book overviews, passage studies, difficult questions, reading plans, and group study — all grounded in the BSB text."/>
-  <link rel="canonical" href="https://www.formationbible.com/study-guides"/>
+  <title>Compare Interpretations — Disputed Passages, Fairly Presented | Formation</title>
+  <meta name="description" content="For genuinely disputed passages, structured comparisons of 2-3 responsible Christian readings — evidence, history, and theological implications for each, clearly separated from core doctrine."/>
+  <link rel="canonical" href="https://www.formationbible.com/compare-interpretations"/>
   <meta property="og:type" content="website"/>
-  <meta property="og:url" content="https://www.formationbible.com/study-guides"/>
-  <meta property="og:title" content="Bible Study Guides & Resources | Formation Bible Study"/>
-  <meta property="og:description" content="Reviewed guides for studying the Bible: method, book overviews, passage studies, difficult questions, reading plans, and group study."/>
+  <meta property="og:url" content="https://www.formationbible.com/compare-interpretations"/>
+  <meta property="og:title" content="Compare Interpretations — Disputed Passages, Fairly Presented"/>
+  <meta property="og:description" content="For genuinely disputed passages, structured comparisons of 2-3 responsible Christian readings — evidence, history, and theological implications for each, clearly separated from core doctrine."/>
   <meta property="og:site_name" content="Formation Bible Study"/>
   <meta name="twitter:card" content="summary"/>
   <meta name="robots" content="index, follow, max-snippet:-1"/>
@@ -33,15 +33,16 @@
   {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    "name": "Formation Bible Study — Study Guides",
-    "url": "https://www.formationbible.com/study-guides",
-    "description": "A reviewed library of Bible study guides organized by method, book, passage, question, reading plan, and group study.",
+    "name": "Formation Bible Study — Compare Interpretations",
+    "url": "https://www.formationbible.com/compare-interpretations",
+    "description": "For genuinely disputed passages, structured comparisons of 2-3 responsible Christian readings — evidence, history, and theological implications for each, clearly separated from core doctrine.",
     "isPartOf": { "@type": "WebSite", "name": "Formation Bible Study", "url": "https://www.formationbible.com" },
     "breadcrumb": {
       "@type": "BreadcrumbList",
       "itemListElement": [
         { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.formationbible.com" },
-        { "@type": "ListItem", "position": 2, "name": "Study Guides", "item": "https://www.formationbible.com/study-guides" }
+        { "@type": "ListItem", "position": 2, "name": "Study Guides", "item": "https://www.formationbible.com/study-guides" },
+        { "@type": "ListItem", "position": 3, "name": "Compare Interpretations", "item": "https://www.formationbible.com/compare-interpretations" }
       ]
     }
   }
@@ -98,9 +99,16 @@
       background-size:260% auto; -webkit-background-clip:text; -webkit-text-fill-color:transparent;
       background-clip:text; animation:shimmer 5.5s linear infinite;
     }
-    .hub-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(242,229,240,0.1); border-radius: 20px; padding: 32px; transition: border-color 0.3s, transform 0.3s; display: block; }
-    .hub-card:hover { border-color: rgba(233,195,73,0.4); transform: translateY(-4px); }
-    .hub-count { font-family: 'Manrope', sans-serif; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: #e9c349; }
+    .status-badge { display: inline-flex; align-items: center; gap: 4px; font-family: 'Manrope', sans-serif; font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; padding: 3px 9px; border-radius: 9999px; line-height: 1; }
+    .status-badge.live { background: rgba(233,195,73,0.15); color: #e9c349; border: 1px solid rgba(233,195,73,0.35); }
+    .status-badge.soon { background: rgba(242,229,240,0.10); color: #d2c2cc; border: 1px solid rgba(242,229,240,0.20); }
+    .guide-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(242,229,240,0.1); border-radius: 16px; padding: 24px; display: block; transition: border-color 0.3s; }
+    .guide-card:hover { border-color: rgba(233,195,73,0.4); }
+    .soon-card { background: rgba(255,255,255,0.03); border: 1px dashed rgba(242,229,240,0.18); border-radius: 16px; padding: 20px; text-align: center; }
+    .doctrine-notice { display: flex; gap: 14px; align-items: flex-start; background: rgba(233,195,73,0.08); border: 1px solid rgba(233,195,73,0.3); border-radius: 14px; padding: 18px 22px; margin: 0 auto 3rem; max-width: 48rem; }
+    .doctrine-notice .material-symbols-outlined { color: #e9c349; font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+    .doctrine-notice p { color: #f2e5f0; font-size: 0.9rem; line-height: 1.7; margin: 0; }
+    .doctrine-notice strong { color: #e9c349; }
   </style>
 </head>
 <body class="font-body text-on-background antialiased">
@@ -114,77 +122,56 @@
 <main class="pt-32 pb-24 overflow-x-hidden">
 
   <!-- Breadcrumb -->
-  <div class="max-w-5xl mx-auto px-8 mb-8">
-    <nav class="flex items-center gap-2 text-xs text-on-surface-variant font-label uppercase tracking-widest">
+  <div class="max-w-3xl mx-auto px-8 mb-8">
+    <nav class="flex items-center gap-2 text-xs text-on-surface-variant font-label uppercase tracking-widest flex-wrap">
       <a href="/" class="hover:text-primary transition-colors">Formation</a>
       <span>›</span>
-      <span class="text-secondary">Study Guides</span>
+      <a href="/study-guides.html" class="hover:text-primary transition-colors">Study Guides</a>
+      <span>›</span>
+      <span class="text-secondary">Compare Interpretations</span>
     </nav>
   </div>
 
   <!-- Hero -->
-  <header class="max-w-5xl mx-auto px-8 mb-16">
-    <span class="font-label uppercase tracking-[0.2em] text-secondary text-xs mb-6 block" data-animate="fade-up">Reviewed, Not Generated on the Fly</span>
+  <header class="max-w-3xl mx-auto px-8 mb-10">
+    <span class="font-label uppercase tracking-[0.2em] text-secondary text-xs mb-6 block" data-animate="fade-up">Disputed Passages, Fairly Presented</span>
     <h1 class="font-headline text-4xl md:text-6xl font-black text-on-surface leading-tight mb-8 tracking-tighter" data-animate="fade-up" data-delay="150">
-      Study guides for every <span class="shimmer-text italic font-light">starting point.</span>
+      Some questions have <span class="shimmer-text italic font-light">more than one honest answer.</span>
     </h1>
-    <p class="text-xl text-on-surface-variant leading-relaxed font-light max-w-3xl" data-animate="fade-up" data-delay="300">
-      Whether you're new to Bible study or want to go deeper into a specific book, passage, or question, these guides use the same inductive method — observe, interpret, apply — that Formation is built around.
+    <p class="text-xl text-on-surface-variant leading-relaxed font-light" data-animate="fade-up" data-delay="300">
+      For a small set of genuinely disputed passages, careful, Bible-believing Christians land in different places. Each guide here compares 2-3 responsible readings side by side — the evidence, the history, and the theological implications of each — without picking a winner for you.
     </p>
   </header>
 
-  <!-- Hub grid -->
-  <div class="max-w-5xl mx-auto px-8 grid md:grid-cols-2 gap-6 mb-20" data-animate="fade-up" data-delay="200">
+  <div class="doctrine-notice" data-animate="fade-up" data-delay="220">
+    <span class="material-symbols-outlined">info</span>
+    <p><strong>None of this is core doctrine.</strong> Every question compared here is one where faithful Christians across denominations disagree while still affirming the gospel, biblical inerrancy, and the deity of Christ. Formation presents each reading fairly and leaves the conclusion to you.</p>
+  </div>
 
-    <a href="/bible-study-methods.html" class="hub-card">
-      <span class="hub-count">Method</span>
-      <h2 class="font-headline text-2xl font-bold text-on-surface mt-3 mb-2">Bible Study Methods</h2>
-      <p class="text-on-surface-variant text-sm leading-relaxed">How to observe, interpret, and apply Scripture — the inductive method explained, plus practical techniques like color-coding and word studies.</p>
+  <!-- Live guides -->
+  <div class="max-w-3xl mx-auto px-8 grid sm:grid-cols-2 gap-4 mb-16" data-animate="fade-up" data-delay="200">
+    <a href="/spiritual-gifts-cessationism-continuationism.html" class="guide-card">
+      <h3 class="font-headline text-lg font-bold text-on-surface mb-1">Spiritual Gifts: Do They Still Operate Today?</h3>
+      <p class="text-on-surface-variant text-sm m-0">Continuationist and cessationist readings of 1 Corinthians 13:8-10 compared — evidence, history, and implications for each.</p>
     </a>
+  </div>
 
-    <a href="/bible-book-guides.html" class="hub-card">
-      <span class="hub-count">Book Guides</span>
-      <h2 class="font-headline text-2xl font-bold text-on-surface mt-3 mb-2">Bible Book Guides</h2>
-      <p class="text-on-surface-variant text-sm leading-relaxed">Overviews and study frameworks for individual books of the Bible — structure, themes, and how to work through them chapter by chapter.</p>
-    </a>
-
-    <a href="/passage-studies.html" class="hub-card">
-      <span class="hub-count">Passage Studies</span>
-      <h2 class="font-headline text-2xl font-bold text-on-surface mt-3 mb-2">Passage Studies</h2>
-      <p class="text-on-surface-variant text-sm leading-relaxed">Complete, real studies of individual passages — the text, the observation, the sourced evidence, and the questions it raises.</p>
-    </a>
-
-    <a href="/bible-questions.html" class="hub-card">
-      <span class="hub-count">Questions</span>
-      <h2 class="font-headline text-2xl font-bold text-on-surface mt-3 mb-2">Difficult Bible Questions</h2>
-      <p class="text-on-surface-variant text-sm leading-relaxed">Honest treatment of the questions that come up in real study — faith and works, hard passages, and where Christians genuinely disagree.</p>
-    </a>
-
-    <a href="/reading-plans.html" class="hub-card">
-      <span class="hub-count">Reading Plans</span>
-      <h2 class="font-headline text-2xl font-bold text-on-surface mt-3 mb-2">Bible Reading Plans</h2>
-      <p class="text-on-surface-variant text-sm leading-relaxed">Structured plans for reading through books, themes, or seasons of Scripture — built to save and start directly in Formation.</p>
-    </a>
-
-    <a href="/group-study-guides.html" class="hub-card">
-      <span class="hub-count">Group Study</span>
-      <h2 class="font-headline text-2xl font-bold text-on-surface mt-3 mb-2">Group Bible Study Guides</h2>
-      <p class="text-on-surface-variant text-sm leading-relaxed">Leader guides, discussion prompts, and weekly agendas for studying Scripture together — built for the way small groups actually meet.</p>
-    </a>
-
-    <a href="/compare-interpretations.html" class="hub-card">
-      <span class="hub-count">Compare Interpretations</span>
-      <h2 class="font-headline text-2xl font-bold text-on-surface mt-3 mb-2">Compare Interpretations</h2>
-      <p class="text-on-surface-variant text-sm leading-relaxed">For genuinely disputed passages, 2-3 responsible readings compared side by side — evidence, history, and implications, clearly separated from core doctrine.</p>
-    </a>
-
+  <!-- More coming -->
+  <div class="max-w-3xl mx-auto px-8 mb-4">
+    <h2 class="font-headline text-2xl font-bold text-on-surface mb-2">More comparisons are on the way</h2>
+    <p class="text-on-surface-variant text-sm mb-6">Each guide here is reviewed before publishing, comparing readings rather than settling them.</p>
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+      <div class="soon-card"><p class="text-on-surface-variant text-sm m-0">Baptism: Mode and Timing</p><span class="status-badge soon mt-2">Coming Soon</span></div>
+      <div class="soon-card"><p class="text-on-surface-variant text-sm m-0">The Millennium in Revelation 20</p><span class="status-badge soon mt-2">Coming Soon</span></div>
+      <div class="soon-card"><p class="text-on-surface-variant text-sm m-0">The Lord's Supper: Memorial or Real Presence</p><span class="status-badge soon mt-2">Coming Soon</span></div>
+    </div>
   </div>
 
   <!-- CTA Box -->
-  <div class="max-w-3xl mx-auto px-8 mt-4 mb-24">
+  <div class="max-w-3xl mx-auto px-8 mt-16 mb-24">
     <div class="bg-gradient-to-br from-primary to-[#6e2414] p-10 rounded-2xl text-center shadow-[0_20px_40px_-5px_rgba(61,21,64,0.5)]" data-animate="scale-up">
-      <h2 class="font-headline text-3xl font-black text-[#5D1809] mb-4">Put any guide into practice</h2>
-      <p class="text-[#5D1809]/80 mb-8 max-w-xl mx-auto">Every guide here connects to something real in the app — observation tools, Ask the Word, reading plans, and study groups. Free to start.</p>
+      <h2 class="font-headline text-3xl font-black text-[#5D1809] mb-4">Read disputed passages for yourself</h2>
+      <p class="text-[#5D1809]/80 mb-8 max-w-xl mx-auto">Formation gives you the tools to study honestly — observation, cross-references, and fair treatment of hard questions. Free to start.</p>
       <a href="/signup.html?plan=free" class="inline-block bg-[#3D1540] text-[#FFB4A4] px-10 py-4 rounded-full font-bold text-lg hover:scale-105 transition-transform shadow-xl">
         Start Free — No Card Required
       </a>

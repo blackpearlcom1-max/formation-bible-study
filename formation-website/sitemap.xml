@@ -358,6 +358,20 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.formationbible.com/compare-interpretations</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formationbible.com/compare-interpretations"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://formacion-biblica.com/comparar-interpretaciones"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.formationbible.com/spiritual-gifts-cessationism-continuationism</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formationbible.com/spiritual-gifts-cessationism-continuationism"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://formacion-biblica.com/dones-espirituales-cesacionismo-continuismo"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://www.formationbible.com/romans-group-study-guide</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.formationbible.com/romans-group-study-guide"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://formacion-biblica.com/romanos-guia-de-estudio-en-grupo"/>
