@@ -376,6 +376,34 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://formacion-biblica.com/escribir-mejores-preguntas-de-discusion</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formationbible.com/writing-better-discussion-questions"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://formacion-biblica.com/escribir-mejores-preguntas-de-discusion"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://formacion-biblica.com/plantilla-de-pacto-de-grupo</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formationbible.com/group-covenant-template"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://formacion-biblica.com/plantilla-de-pacto-de-grupo"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://formacion-biblica.com/incorporar-miembros-a-mitad-de-serie</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formationbible.com/onboarding-members-mid-series"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://formacion-biblica.com/incorporar-miembros-a-mitad-de-serie"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://formacion-biblica.com/manejar-el-desacuerdo-en-grupo</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formationbible.com/handling-disagreement-in-group"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://formacion-biblica.com/manejar-el-desacuerdo-en-grupo"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://formacion-biblica.com/inductive-bible-study-observe-interpret-apply</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.formationbible.com/inductive-bible-study-observe-interpret-apply"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://formacion-biblica.com/inductive-bible-study-observe-interpret-apply"/>
