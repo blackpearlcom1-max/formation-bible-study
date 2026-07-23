@@ -386,6 +386,13 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://www.formationbible.com/lords-supper-memorial-or-real-presence</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formationbible.com/lords-supper-memorial-or-real-presence"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://formacion-biblica.com/la-cena-del-senor-memorial-o-presencia-real"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://www.formationbible.com/romans-group-study-guide</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.formationbible.com/romans-group-study-guide"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://formacion-biblica.com/romanos-guia-de-estudio-en-grupo"/>
