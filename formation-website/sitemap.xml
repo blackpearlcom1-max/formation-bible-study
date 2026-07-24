@@ -493,6 +493,13 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.formationbible.com/proverbs-study-guide</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formationbible.com/proverbs-study-guide"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://formacion-biblica.com/proverbs-study-guide"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.formationbible.com/gospel-of-mark-study-guide</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.formationbible.com/gospel-of-mark-study-guide"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://formacion-biblica.com/gospel-of-mark-study-guide"/>
