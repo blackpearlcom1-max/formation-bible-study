@@ -927,6 +927,21 @@
         <div id="gtab-content-members" class="hidden">
           <div id="group-members-list" class="space-y-2"></div>
           <button id="leave-group-btn" onclick="leaveGroupConfirm()" class="mt-6 w-full py-2.5 rounded-xl border border-[#ff7c7c]/30 text-[#ff7c7c]/60 font-label font-bold text-xs hover:border-[#ff7c7c]/60 hover:text-[#ff7c7c] transition-all">Leave Group</button>
+
+          <!-- Report this group (roadmap 3.5 — see SAFETY_PASTORAL_POLICY.md item 4).
+               Logged only — Formation does not investigate, contact, or remove leaders. -->
+          <button id="report-group-btn" class="mt-2 w-full py-2 font-label text-[11px] text-[#f2e5f0]/25 hover:text-[#f2e5f0]/50 transition-colors">⚑ Report this group</button>
+          <div id="report-group-panel" class="hidden mt-2 px-4 py-4 flex flex-col gap-2 border border-[#f2e5f0]/10 rounded-xl">
+            <span class="font-label text-[11px] uppercase tracking-widest text-[#f2e5f0]/50">What's the concern?</span>
+            <div class="flex flex-wrap gap-2">
+              <button class="report-reason-btn px-3 py-1.5 rounded-lg border border-[#f2e5f0]/15 text-[#f2e5f0]/60 font-label text-xs hover:border-[#ff7c7c]/50 hover:text-[#ff7c7c] transition-colors" data-reason="coercive_control">Coercive control</button>
+              <button class="report-reason-btn px-3 py-1.5 rounded-lg border border-[#f2e5f0]/15 text-[#f2e5f0]/60 font-label text-xs hover:border-[#ff7c7c]/50 hover:text-[#ff7c7c] transition-colors" data-reason="manipulation">Manipulation</button>
+              <button class="report-reason-btn px-3 py-1.5 rounded-lg border border-[#f2e5f0]/15 text-[#f2e5f0]/60 font-label text-xs hover:border-[#ff7c7c]/50 hover:text-[#ff7c7c] transition-colors" data-reason="pressure_to_give">Pressure to give money</button>
+              <button class="report-reason-btn px-3 py-1.5 rounded-lg border border-[#f2e5f0]/15 text-[#f2e5f0]/60 font-label text-xs hover:border-[#ff7c7c]/50 hover:text-[#ff7c7c] transition-colors" data-reason="public_shaming">Public shaming</button>
+              <button class="report-reason-btn px-3 py-1.5 rounded-lg border border-[#f2e5f0]/15 text-[#f2e5f0]/60 font-label text-xs hover:border-[#ff7c7c]/50 hover:text-[#ff7c7c] transition-colors" data-reason="other">Other</button>
+              <button id="report-group-cancel-btn" class="px-3 py-1.5 font-label text-xs text-[#f2e5f0]/30 hover:text-[#f2e5f0]/60 transition-colors">Cancel</button>
+            </div>
+          </div>
         </div>
 
         <!-- Recap inner tab -->
@@ -1541,6 +1556,37 @@ function studySelectedVerse() {
 function showToast(msg, type='') {
   toast.textContent = msg; toast.className = 'show ' + type;
   clearTimeout(toast._t); toast._t = setTimeout(() => { toast.className=''; }, 3200);
+}
+
+// ── Safety resource banner (roadmap 3.5 — see SAFETY_PASTORAL_POLICY.md) ──
+// Renders whenever a backend response includes a `safety` (self-harm/abuse
+// resource surfacing) or `resource` (group-report spiritual-abuse resource)
+// field — both share the same { title, body, links[], note } shape. This is
+// purely additive: it never blocks the underlying save/answer/report from
+// completing, and dismissing it does nothing but close the overlay.
+function showSafetyBanner(safety) {
+  if (!safety) return;
+  const existing = document.getElementById('safety-banner-overlay');
+  if (existing) existing.remove();
+  const linksHtml = (safety.links || []).map(l =>
+    `<div style="margin-top:6px;"><span style="font-weight:700;">${escHtml(l.label)}:</span> ${escHtml(l.value)}</div>`
+  ).join('');
+  const overlay = document.createElement('div');
+  overlay.id = 'safety-banner-overlay';
+  overlay.setAttribute('role', 'dialog');
+  overlay.setAttribute('aria-modal', 'true');
+  overlay.style.cssText = 'position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.65);padding:16px;';
+  overlay.innerHTML = `
+    <div style="background:#3D1540;border:1px solid #E9C349;border-radius:16px;max-width:440px;width:100%;padding:24px;color:#f2e5f0;box-shadow:0 20px 50px rgba(0,0,0,0.5);">
+      <div style="font-weight:700;font-size:18px;margin-bottom:10px;">${escHtml(safety.title || '')}</div>
+      <div style="font-size:14px;line-height:1.5;margin-bottom:14px;color:#f2e5f0cc;">${escHtml(safety.body || '')}</div>
+      <div style="font-size:14px;line-height:1.6;margin-bottom:14px;">${linksHtml}</div>
+      <div style="font-size:12px;opacity:0.65;margin-bottom:18px;">${escHtml(safety.note || '')}</div>
+      <button id="safety-banner-dismiss" style="width:100%;padding:11px;border-radius:10px;background:#E9C349;color:#3D1540;font-weight:700;border:none;cursor:pointer;font-size:14px;">Continue</button>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+  document.getElementById('safety-banner-dismiss').addEventListener('click', () => overlay.remove());
 }
 
 function showAuth() {
@@ -2251,6 +2297,7 @@ async function askQuestion() {
     lastQuestionText = question;
     lastAnswerText = data.answer || '';
     renderResponse(data);
+    showSafetyBanner(data.safety); // roadmap 3.5 — additive, never blocks the answer above
     if (typeof gtag === 'function') {
       const atwSoFar = parseInt(localStorage.getItem(cgKey('atw')) || '0', 10);
       gtag('event', 'ask_the_word_query', { mode: currentResearchMode });
@@ -2646,6 +2693,7 @@ async function saveVerseNote() {
       });
       if (!res.ok) throw new Error('Save failed');
       const data = await res.json();
+      showSafetyBanner(data.safety); // roadmap 3.5 — additive, note is saved either way
       if (!chapterAnnotations[verseNum]) chapterAnnotations[verseNum] = {};
       chapterAnnotations[verseNum].textNote = { id: data.note?.id || data.id, text };
     }
@@ -3086,7 +3134,8 @@ async function postGroupNote() {
   if (!content) return;
   try {
     const displayName = currentSession?.user?.user_metadata?.display_name || currentSession?.user?.email?.split('@')[0] || 'Member';
-    await groupFetch(`/${currentGroupId}/notes`, 'POST', { content, display_name: displayName });
+    const result = await groupFetch(`/${currentGroupId}/notes`, 'POST', { content, display_name: displayName });
+    showSafetyBanner(result.safety); // roadmap 3.5 — additive, note is posted either way
     $('group-note-input').value = '';
     showToast('Note posted!', 'success');
     if (typeof gtag === 'function') gtag('event', 'discussion_contributed', { group_id: currentGroupId });
@@ -3137,7 +3186,8 @@ async function postPrayerRequest() {
   if (!content) return;
   try {
     const displayName = currentSession?.user?.user_metadata?.display_name || currentSession?.user?.email?.split('@')[0] || 'Member';
-    await groupFetch(`/${currentGroupId}/prayer`, 'POST', { content, display_name: displayName });
+    const result = await groupFetch(`/${currentGroupId}/prayer`, 'POST', { content, display_name: displayName });
+    showSafetyBanner(result.safety); // roadmap 3.5 — prayer requests are an explicit self-harm trigger surface in policy
     $('prayer-req-input').value = '';
     showToast('Prayer request posted 🙏', 'success');
     await loadPrayerRequests();
@@ -3662,6 +3712,7 @@ async function saveStudyNote() {
     });
     if (!res.ok) throw new Error('Save failed');
     const data = await res.json();
+    showSafetyBanner(data.safety); // roadmap 3.5 — additive, note is saved either way
     $('study-note-title').value = '';
     $('study-note-body').value = '';
     selectNoteType('');
@@ -3773,6 +3824,32 @@ document.querySelectorAll('.flag-reason-btn').forEach(btn => {
         body: JSON.stringify({ question: lastQuestionText, answer: lastAnswerText, reason })
       });
     } catch(_) {}
+  });
+});
+
+// ── Report this group (roadmap 3.5 — see SAFETY_PASTORAL_POLICY.md item 4) ──
+// Same panel-toggle pattern as the flag flow above. Formation logs the report
+// but does not investigate, contact, or remove leaders — see groupService.js.
+const reportGroupBtn = $('report-group-btn'), reportGroupPanel = $('report-group-panel'), reportGroupCancelBtn = $('report-group-cancel-btn');
+
+reportGroupBtn?.addEventListener('click', () => {
+  reportGroupPanel?.classList.toggle('hidden');
+});
+
+reportGroupCancelBtn?.addEventListener('click', () => { reportGroupPanel?.classList.add('hidden'); });
+
+document.querySelectorAll('.report-reason-btn').forEach(btn => {
+  btn.addEventListener('click', async () => {
+    const reason = btn.dataset.reason;
+    reportGroupPanel?.classList.add('hidden');
+    if (!currentGroupId) return;
+    try {
+      const result = await groupFetch(`/${currentGroupId}/report`, 'POST', { reason });
+      showToast('Report recorded — thank you', 'success');
+      showSafetyBanner(result.resource);
+    } catch (err) {
+      showToast('Could not submit report: ' + err.message, 'error');
+    }
   });
 });
 

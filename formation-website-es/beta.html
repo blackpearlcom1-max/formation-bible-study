@@ -879,6 +879,21 @@
         <div id="gtab-content-members" class="hidden">
           <div id="group-members-list" class="space-y-2"></div>
           <button id="leave-group-btn" onclick="leaveGroupConfirm()" class="mt-6 w-full py-2.5 rounded-xl border border-[#ff7c7c]/30 text-[#ff7c7c]/60 font-label font-bold text-xs hover:border-[#ff7c7c]/60 hover:text-[#ff7c7c] transition-all">Salir del Grupo</button>
+
+          <!-- Reportar este grupo (roadmap 3.5 — ver SAFETY_PASTORAL_POLICY.md punto 4).
+               Solo se registra — Formation no investiga, contacta ni elimina líderes. -->
+          <button id="report-group-btn" class="mt-2 w-full py-2 font-label text-[11px] text-[#f2e5f0]/25 hover:text-[#f2e5f0]/50 transition-colors">⚑ Reportar este grupo</button>
+          <div id="report-group-panel" class="hidden mt-2 px-4 py-4 flex flex-col gap-2 border border-[#f2e5f0]/10 rounded-xl">
+            <span class="font-label text-[11px] uppercase tracking-widest text-[#f2e5f0]/50">¿Cuál es el problema?</span>
+            <div class="flex flex-wrap gap-2">
+              <button class="report-reason-btn px-3 py-1.5 rounded-lg border border-[#f2e5f0]/15 text-[#f2e5f0]/60 font-label text-xs hover:border-[#ff7c7c]/50 hover:text-[#ff7c7c] transition-colors" data-reason="coercive_control">Control coercitivo</button>
+              <button class="report-reason-btn px-3 py-1.5 rounded-lg border border-[#f2e5f0]/15 text-[#f2e5f0]/60 font-label text-xs hover:border-[#ff7c7c]/50 hover:text-[#ff7c7c] transition-colors" data-reason="manipulation">Manipulación</button>
+              <button class="report-reason-btn px-3 py-1.5 rounded-lg border border-[#f2e5f0]/15 text-[#f2e5f0]/60 font-label text-xs hover:border-[#ff7c7c]/50 hover:text-[#ff7c7c] transition-colors" data-reason="pressure_to_give">Presión para dar dinero</button>
+              <button class="report-reason-btn px-3 py-1.5 rounded-lg border border-[#f2e5f0]/15 text-[#f2e5f0]/60 font-label text-xs hover:border-[#ff7c7c]/50 hover:text-[#ff7c7c] transition-colors" data-reason="public_shaming">Humillación pública</button>
+              <button class="report-reason-btn px-3 py-1.5 rounded-lg border border-[#f2e5f0]/15 text-[#f2e5f0]/60 font-label text-xs hover:border-[#ff7c7c]/50 hover:text-[#ff7c7c] transition-colors" data-reason="other">Otro</button>
+              <button id="report-group-cancel-btn" class="px-3 py-1.5 font-label text-xs text-[#f2e5f0]/30 hover:text-[#f2e5f0]/60 transition-colors">Cancelar</button>
+            </div>
+          </div>
         </div>
 
         <!-- Resumen (Recap) inner tab -->
@@ -1469,6 +1484,38 @@ function studySelectedVerse() {
 function showToast(msg, type='') {
   toast.textContent = msg; toast.className = 'show ' + type;
   clearTimeout(toast._t); toast._t = setTimeout(() => { toast.className=''; }, 3200);
+}
+
+// ── Banner de recursos de seguridad (roadmap 3.5 — ver SAFETY_PASTORAL_POLICY.md) ──
+// Se muestra cuando la respuesta del backend incluye un campo `safety`
+// (recursos de autolesión/abuso) o `resource` (recursos de abuso espiritual
+// al reportar un grupo) — ambos comparten la misma forma { title, body,
+// links[], note }. Es puramente aditivo: nunca bloquea el guardado, la
+// respuesta o el reporte subyacente, y cerrarlo no hace nada más que
+// ocultar el overlay.
+function showSafetyBanner(safety) {
+  if (!safety) return;
+  const existing = document.getElementById('safety-banner-overlay');
+  if (existing) existing.remove();
+  const linksHtml = (safety.links || []).map(l =>
+    `<div style="margin-top:6px;"><span style="font-weight:700;">${escHtml(l.label)}:</span> ${escHtml(l.value)}</div>`
+  ).join('');
+  const overlay = document.createElement('div');
+  overlay.id = 'safety-banner-overlay';
+  overlay.setAttribute('role', 'dialog');
+  overlay.setAttribute('aria-modal', 'true');
+  overlay.style.cssText = 'position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.65);padding:16px;';
+  overlay.innerHTML = `
+    <div style="background:#3D1540;border:1px solid #E9C349;border-radius:16px;max-width:440px;width:100%;padding:24px;color:#f2e5f0;box-shadow:0 20px 50px rgba(0,0,0,0.5);">
+      <div style="font-weight:700;font-size:18px;margin-bottom:10px;">${escHtml(safety.title || '')}</div>
+      <div style="font-size:14px;line-height:1.5;margin-bottom:14px;color:#f2e5f0cc;">${escHtml(safety.body || '')}</div>
+      <div style="font-size:14px;line-height:1.6;margin-bottom:14px;">${linksHtml}</div>
+      <div style="font-size:12px;opacity:0.65;margin-bottom:18px;">${escHtml(safety.note || '')}</div>
+      <button id="safety-banner-dismiss" style="width:100%;padding:11px;border-radius:10px;background:#E9C349;color:#3D1540;font-weight:700;border:none;cursor:pointer;font-size:14px;">Continuar</button>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+  document.getElementById('safety-banner-dismiss').addEventListener('click', () => overlay.remove());
 }
 
 // ─── Auth ──────────────────────────────────────────────────
@@ -2191,6 +2238,7 @@ async function askQuestion() {
     lastQuestionText = question;
     lastAnswerText = data.answer || '';
     renderResponse(data);
+    showSafetyBanner(data.safety); // roadmap 3.5 — aditivo, nunca bloquea la respuesta anterior
     if (typeof gtag === 'function') {
       const atwSoFar = parseInt(localStorage.getItem(cgKey('atw')) || '0', 10);
       gtag('event', 'ask_the_word_query', { mode: currentResearchMode });
@@ -2551,6 +2599,7 @@ async function saveVerseNote() {
       });
       if (!res.ok) throw new Error('Save failed');
       const data = await res.json();
+      showSafetyBanner(data.safety); // roadmap 3.5 — aditivo, la nota se guarda de todas formas
       if (!chapterAnnotations[verseNum]) chapterAnnotations[verseNum] = {};
       chapterAnnotations[verseNum].textNote = { id: data.note?.id || data.id, text };
     }
@@ -2981,7 +3030,8 @@ async function postGroupNote() {
   if (!content) return;
   try {
     const displayName = currentSession?.user?.user_metadata?.display_name || currentSession?.user?.email?.split('@')[0] || 'Miembro';
-    await groupFetch(`/${currentGroupId}/notes`, 'POST', { content, display_name: displayName });
+    const result = await groupFetch(`/${currentGroupId}/notes`, 'POST', { content, display_name: displayName });
+    showSafetyBanner(result.safety); // roadmap 3.5 — aditivo, la nota se publica de todas formas
     if (typeof gtag === 'function') gtag('event', 'discussion_contributed', { group_id: currentGroupId });
     $('group-note-input').value = '';
     showToast('¡Nota publicada!', 'success');
@@ -3030,7 +3080,8 @@ async function postPrayerRequest() {
   if (!content) return;
   try {
     const displayName = currentSession?.user?.user_metadata?.display_name || currentSession?.user?.email?.split('@')[0] || 'Miembro';
-    await groupFetch(`/${currentGroupId}/prayer`, 'POST', { content, display_name: displayName });
+    const result = await groupFetch(`/${currentGroupId}/prayer`, 'POST', { content, display_name: displayName });
+    showSafetyBanner(result.safety); // roadmap 3.5 — las peticiones de oración son una superficie explícita de autolesión en la política
     $('prayer-req-input').value = '';
     showToast('Pedido de oración publicado 🙏', 'success');
     await loadPrayerRequests();
@@ -3527,6 +3578,7 @@ async function saveStudyNote() {
     });
     if (!res.ok) throw new Error('Save failed');
     const data = await res.json();
+    showSafetyBanner(data.safety); // roadmap 3.5 — aditivo, la nota se guarda de todas formas
     $('study-note-title').value = '';
     $('study-note-body').value = '';
     selectNoteType('');
@@ -3632,6 +3684,32 @@ document.querySelectorAll('.flag-reason-btn').forEach(btn => {
         body: JSON.stringify({ question: lastQuestionText, answer: lastAnswerText, reason })
       });
     } catch(_) {}
+  });
+});
+
+// ── Reportar este grupo (roadmap 3.5 — ver SAFETY_PASTORAL_POLICY.md punto 4) ──
+// Mismo patrón de panel que el flujo de reporte de respuestas arriba. Formation
+// registra el reporte pero no investiga, contacta ni elimina líderes — ver groupService.js.
+const reportGroupBtn = $('report-group-btn'), reportGroupPanel = $('report-group-panel'), reportGroupCancelBtn = $('report-group-cancel-btn');
+
+reportGroupBtn?.addEventListener('click', () => {
+  reportGroupPanel?.classList.toggle('hidden');
+});
+
+reportGroupCancelBtn?.addEventListener('click', () => { reportGroupPanel?.classList.add('hidden'); });
+
+document.querySelectorAll('.report-reason-btn').forEach(btn => {
+  btn.addEventListener('click', async () => {
+    const reason = btn.dataset.reason;
+    reportGroupPanel?.classList.add('hidden');
+    if (!currentGroupId) return;
+    try {
+      const result = await groupFetch(`/${currentGroupId}/report`, 'POST', { reason });
+      showToast('Reporte registrado — gracias', 'success');
+      showSafetyBanner(result.resource);
+    } catch (err) {
+      showToast('No se pudo enviar el reporte: ' + err.message, 'error');
+    }
   });
 });
 
