@@ -1865,6 +1865,7 @@ async function downloadStudyPassport(format) {
   btn.disabled = true;
   if (otherBtn) otherBtn.disabled = true;
   btn.textContent = 'Preparing…';
+  if (typeof gtag === 'function') gtag('event', 'export_started', { export_type: 'study_passport', format });
   try {
     const res = await fetch(`${BACKEND_URL}/api/user/passport?format=${format}`, {
       headers: { 'Authorization': `Bearer ${session.access_token}` },
@@ -1885,6 +1886,7 @@ async function downloadStudyPassport(format) {
     a.remove();
     URL.revokeObjectURL(url);
     showToast('Your Study Passport downloaded successfully.', 'success');
+    if (typeof gtag === 'function') gtag('event', 'export_completed', { export_type: 'study_passport', format });
   } catch (e) {
     showToast('Network error. Please check your connection and try again.', 'error');
   } finally {
