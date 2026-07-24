@@ -1068,9 +1068,14 @@
       <button id="manage-subscription-btn" onclick="openManageSubscription()" class="hidden text-left text-sm font-label text-[#f2e5f0]/55 hover:text-[#f2e5f0]/90 transition-colors flex items-center gap-2 disabled:opacity-50">
         💳 Administrar Suscripción
       </button>
-      <button id="download-passport-btn" onclick="downloadStudyPassport('markdown')" class="text-left text-sm font-label text-[#f2e5f0]/55 hover:text-[#f2e5f0]/90 transition-colors flex items-center gap-2 disabled:opacity-50">
-        📤 Descargar Mi Pasaporte de Estudio
-      </button>
+      <div class="flex flex-col gap-1">
+        <button id="download-passport-btn" onclick="downloadStudyPassport('markdown')" class="text-left text-sm font-label text-[#f2e5f0]/55 hover:text-[#f2e5f0]/90 transition-colors flex items-center gap-2 disabled:opacity-50">
+          📤 Descargar Mi Pasaporte de Estudio
+        </button>
+        <button id="download-passport-pdf-btn" onclick="downloadStudyPassport('pdf')" class="text-left text-xs font-label text-[#f2e5f0]/35 hover:text-[#f2e5f0]/70 transition-colors ml-6 disabled:opacity-50">
+          o descargar como PDF
+        </button>
+      </div>
       <button onclick="signOutFromPanel()"
         class="text-left text-sm font-label text-[#FFB4A4]/70 hover:text-[#FFB4A4] transition-colors flex items-center gap-2">
         ↩ Cerrar Sesión
@@ -1808,12 +1813,15 @@ async function openManageSubscription() {
 // (no requiere almacenamiento de archivos en el servidor — la exportación
 // se genera de nuevo en cada solicitud).
 async function downloadStudyPassport(format) {
-  const btn = document.getElementById('download-passport-btn');
+  const btnId = format === 'pdf' ? 'download-passport-pdf-btn' : 'download-passport-btn';
+  const btn = document.getElementById(btnId);
+  const otherBtn = document.getElementById(format === 'pdf' ? 'download-passport-btn' : 'download-passport-pdf-btn');
   const { data: { session } } = await sb.auth.getSession();
   if (!session) { showToast('Por favor inicia sesión de nuevo para descargar tu Pasaporte de Estudio.', 'error'); return; }
 
   const originalText = btn.textContent;
   btn.disabled = true;
+  if (otherBtn) otherBtn.disabled = true;
   btn.textContent = 'Preparando…';
   try {
     const res = await fetch(`${BACKEND_URL}/api/user/passport?format=${format}`, {
@@ -1828,7 +1836,8 @@ async function downloadStudyPassport(format) {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = format === 'markdown' ? 'formation-pasaporte-de-estudio.md' : 'formation-pasaporte-de-estudio.json';
+    const extensions = { markdown: 'md', pdf: 'pdf', json: 'json' };
+    a.download = `formation-pasaporte-de-estudio.${extensions[format] || 'json'}`;
     document.body.appendChild(a);
     a.click();
     a.remove();
@@ -1838,6 +1847,7 @@ async function downloadStudyPassport(format) {
     showToast('Error de red. Por favor verifica tu conexión e intenta de nuevo.', 'error');
   } finally {
     btn.disabled = false;
+    if (otherBtn) otherBtn.disabled = false;
     btn.textContent = originalText;
   }
 }
