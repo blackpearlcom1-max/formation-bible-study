@@ -1075,6 +1075,10 @@
         <button id="download-passport-pdf-btn" onclick="downloadStudyPassport('pdf')" class="text-left text-xs font-label text-[#f2e5f0]/35 hover:text-[#f2e5f0]/70 transition-colors ml-6 disabled:opacity-50">
           o descargar como PDF
         </button>
+        <button id="import-passport-btn" onclick="document.getElementById('import-passport-file').click()" class="text-left text-sm font-label text-[#f2e5f0]/55 hover:text-[#f2e5f0]/90 transition-colors flex items-center gap-2 disabled:opacity-50">
+          📥 Restaurar desde Pasaporte de Estudio
+        </button>
+        <input type="file" id="import-passport-file" accept="application/json" class="hidden" onchange="importStudyPassport(this.files[0])">
       </div>
       <button onclick="signOutFromPanel()"
         class="text-left text-sm font-label text-[#FFB4A4]/70 hover:text-[#FFB4A4] transition-colors flex items-center gap-2">
@@ -1851,6 +1855,67 @@ async function downloadStudyPassport(format) {
     btn.disabled = false;
     if (otherBtn) otherBtn.disabled = false;
     btn.textContent = originalText;
+  }
+}
+
+// Restaurar Pasaporte de Estudio (roadmap 4.2) — restauración aditiva desde
+// un archivo JSON previamente exportado. Best-effort: informa cuántos
+// elementos se restauraron y cuántos se omitieron, nunca falla en silencio
+// ni sobrescribe nada existente.
+async function importStudyPassport(file) {
+  const input = document.getElementById('import-passport-file');
+  if (!file) return;
+  const btn = document.getElementById('import-passport-btn');
+  const { data: { session } } = await sb.auth.getSession();
+  if (!session) { showToast('Por favor inicia sesión de nuevo para restaurar tu Pasaporte de Estudio.', 'error'); if (input) input.value = ''; return; }
+
+  if (typeof gtag === 'function') gtag('event', 'import_started', { export_type: 'study_passport' });
+
+  let payload;
+  try {
+    const text = await file.text();
+    payload = JSON.parse(text);
+  } catch (e) {
+    showToast('Ese archivo no parece ser una exportación válida de Pasaporte de Estudio (JSON).', 'error');
+    if (input) input.value = '';
+    return;
+  }
+
+  const originalText = btn.textContent;
+  btn.disabled = true;
+  btn.textContent = 'Restaurando…';
+  try {
+    const res = await fetch(`${BACKEND_URL}/api/user/passport/import`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${session.access_token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        study_notes: payload.study_notes,
+        verse_notes: payload.verse_notes,
+        reading_history: payload.reading_history,
+      }),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) {
+      showToast(data.error || 'No se pudo restaurar tu Pasaporte de Estudio. Por favor intenta de nuevo.', 'error');
+      return;
+    }
+    const i = data.imported || {};
+    const total = (i.study_notes || 0) + (i.verse_notes || 0) + (i.reading_history || 0);
+    if (total === 0) {
+      showToast('No hay nada nuevo que restaurar en ese archivo.', 'info');
+    } else {
+      showToast(`Se restauraron ${total} elemento${total === 1 ? '' : 's'} de tu Pasaporte de Estudio.`, 'success');
+    }
+    if (typeof gtag === 'function') gtag('event', 'import_completed', { export_type: 'study_passport', imported_count: total });
+  } catch (e) {
+    showToast('Error de red. Por favor verifica tu conexión e intenta de nuevo.', 'error');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = originalText;
+    if (input) input.value = '';
   }
 }
 
