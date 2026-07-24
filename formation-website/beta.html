@@ -23,6 +23,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Formation Bible Study</title>
   <meta name="robots" content="noindex, nofollow" />
+
+  <!-- PWA installability (roadmap 4.4, installability slice only — no offline/service-worker yet) -->
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#3D1540" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png" />
+  <link rel="apple-touch-icon" href="/icons/icon-192.png" />
   <script>
     // Snap URL back to / — preserve hash/search so Supabase can process auth tokens
     if (window.location.pathname === '/beta.html' || window.location.pathname === '/beta') {
