@@ -1121,6 +1121,9 @@
       <button id="manage-subscription-btn" onclick="openManageSubscription()" class="hidden text-left text-sm font-label text-[#f2e5f0]/55 hover:text-[#f2e5f0]/90 transition-colors flex items-center gap-2 disabled:opacity-50">
         💳 Manage Subscription
       </button>
+      <button id="download-passport-btn" onclick="downloadStudyPassport('markdown')" class="text-left text-sm font-label text-[#f2e5f0]/55 hover:text-[#f2e5f0]/90 transition-colors flex items-center gap-2 disabled:opacity-50">
+        📤 Download My Study Passport
+      </button>
       <button onclick="signOutFromPanel()"
         class="text-left text-sm font-label text-[#FFB4A4]/70 hover:text-[#FFB4A4] transition-colors flex items-center gap-2">
         ↩ Sign Out
@@ -1837,6 +1840,45 @@ async function openManageSubscription() {
     window.location.href = data.url;
   } catch (e) {
     showToast('Network error. Please check your connection and try again.', 'error');
+    btn.disabled = false;
+    btn.textContent = originalText;
+  }
+}
+
+// Study Passport (roadmap 4.1) — portable Markdown/JSON export of a user's
+// own notes, verse notes, reading history, and group contributions.
+// Triggers a real file download via a Blob + object URL (no server-side
+// file storage needed — the export is generated fresh on each request).
+async function downloadStudyPassport(format) {
+  const btn = document.getElementById('download-passport-btn');
+  const { data: { session } } = await sb.auth.getSession();
+  if (!session) { showToast('Please sign in again to download your Study Passport.', 'error'); return; }
+
+  const originalText = btn.textContent;
+  btn.disabled = true;
+  btn.textContent = 'Preparing…';
+  try {
+    const res = await fetch(`${BACKEND_URL}/api/user/passport?format=${format}`, {
+      headers: { 'Authorization': `Bearer ${session.access_token}` },
+    });
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}));
+      showToast(data.error || 'Could not generate your Study Passport. Please try again.', 'error');
+      return;
+    }
+    const blob = await res.blob();
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = format === 'markdown' ? 'formation-study-passport.md' : 'formation-study-passport.json';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+    showToast('Your Study Passport downloaded successfully.', 'success');
+  } catch (e) {
+    showToast('Network error. Please check your connection and try again.', 'error');
+  } finally {
     btn.disabled = false;
     btn.textContent = originalText;
   }
