@@ -11,3 +11,5 @@ https://www.formacion-biblica.com/* https://formacion-biblica.com/:splat 301!
 /unirse          /signup          301
 /planes          /pricing         301
 /suscribir       /pricing         301
+/planes-de-lectura   /reading-plans   301
+/guias-de-estudio    /study-guides    301
