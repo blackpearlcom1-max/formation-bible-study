@@ -642,8 +642,22 @@
         <button onclick="dismissOnboardingCoachmark()" class="text-[#f2e5f0]/35 hover:text-[#f2e5f0]/70 text-lg leading-none flex-shrink-0">×</button>
       </div>
 
+      <!-- Locked-mode preview (Aug 14, 2026) — shown instead of the question card
+           when a free/Discovery user selects a Formation+ research mode, so the
+           value is visible before hitting a 403 from the backend. -->
+      <div id="research-mode-locked-preview" class="hidden bg-[#4A1D4D]/50 border border-[#E9C349]/25 rounded-3xl p-6 md:p-8 mb-6">
+        <span class="inline-block px-2 py-0.5 rounded-full bg-[#E9C349]/15 text-[#E9C349] font-label text-[9px] uppercase tracking-widest font-bold mb-3">Formation+ Feature</span>
+        <h3 class="font-headline text-lg text-[#f2e5f0]/90 mb-1.5" id="research-preview-title"></h3>
+        <p class="font-body text-sm text-[#f2e5f0]/55 leading-relaxed mb-4" id="research-preview-desc"></p>
+        <div class="bg-[#3D1540]/60 border border-[#f2e5f0]/10 rounded-2xl p-4">
+          <p class="font-label text-[9px] uppercase tracking-widest text-[#f2e5f0]/30 mb-2">Example — not your data</p>
+          <div class="font-body text-sm text-[#f2e5f0]/70 leading-relaxed" id="research-preview-sample"></div>
+        </div>
+        <a href="/pricing.html" class="inline-block mt-5 py-2.5 px-5 rounded-xl bg-gradient-to-br from-[#E8816A] to-[#6E2414] text-white font-label font-bold text-xs hover:brightness-110 transition-all">See Plans</a>
+      </div>
+
       <!-- Question card -->
-      <div class="bg-[#4A1D4D]/70 backdrop-blur-xl border border-[#f2e5f0]/10 rounded-3xl p-6 md:p-8 shadow-2xl mb-6">
+      <div id="ask-question-card" class="bg-[#4A1D4D]/70 backdrop-blur-xl border border-[#f2e5f0]/10 rounded-3xl p-6 md:p-8 shadow-2xl mb-6">
         <label class="block font-label text-[11px] uppercase tracking-widest text-[#f2e5f0]/40 mb-3" for="question-input" id="question-label">Your question</label>
         <div class="relative">
           <textarea id="question-input" rows="4"
@@ -965,12 +979,71 @@
     <!-- ══ TAB CONTENT: PROGRESS ══ -->
     <div id="tab-content-progress" class="hidden">
 
-      <!-- Plan-gated: Progress Dashboard is Formation Plus and Pro only -->
-      <div id="progress-locked" class="hidden text-center py-14 px-6">
-        <div class="text-5xl mb-4">📊</div>
-        <h2 class="font-headline text-xl text-[#f2e5f0]/90 mb-2">Progress Dashboard is a Plus feature</h2>
-        <p class="font-body text-sm text-[#f2e5f0]/50 max-w-sm mx-auto mb-6">Track your reading streak, chapters completed, and study stats with Formation Plus or Pro.</p>
-        <a href="/pricing.html" class="inline-block py-3 px-6 rounded-xl bg-gradient-to-br from-[#E8816A] to-[#6E2414] text-white font-label font-bold text-xs hover:brightness-110 transition-all">See Plans</a>
+      <!-- Plan-gated: Progress Dashboard is Formation Plus and Pro only.
+           Shows a static, clearly-labeled example mockup (this is a real
+           account with no demo data available) instead of a bare locked
+           screen — Aug 14, 2026 pass. -->
+      <div id="progress-locked" class="hidden pb-6">
+        <div class="text-center py-8 px-6">
+          <div class="text-5xl mb-4">📊</div>
+          <h2 class="font-headline text-xl text-[#f2e5f0]/90 mb-2">Progress Dashboard is a Plus feature</h2>
+          <p class="font-body text-sm text-[#f2e5f0]/50 max-w-sm mx-auto">Track your reading streak, chapters completed, and study stats with Formation Plus or Pro.</p>
+        </div>
+
+        <div class="relative rounded-3xl overflow-hidden border border-[#f2e5f0]/10 mx-1">
+          <div class="absolute top-3 right-3 z-10 px-2.5 py-1 rounded-full bg-[#2A0E2D]/90 border border-[#E9C349]/30 text-[#E9C349] font-label text-[9px] uppercase tracking-widest font-bold">Example, not your data</div>
+          <div class="p-5 opacity-90 pointer-events-none select-none">
+
+            <div class="bg-gradient-to-br from-[#6E2414]/50 to-[#FFB4A4]/10 border border-[#FFB4A4]/20 rounded-2xl p-5 mb-4 flex items-center gap-5">
+              <div class="text-5xl leading-none">🔥</div>
+              <div>
+                <div class="font-headline text-4xl text-[#FFB4A4] leading-none">12</div>
+                <div class="font-label text-[10px] uppercase tracking-widest text-[#f2e5f0]/50 mt-1">Day Streak</div>
+                <div class="font-body text-xs text-[#f2e5f0]/35 mt-1">12 days strong — keep it up!</div>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3 mb-4">
+              <div class="bg-[#4A1D4D]/60 border border-[#f2e5f0]/10 rounded-2xl p-4">
+                <div class="text-2xl mb-2">📖</div>
+                <div class="font-headline text-2xl text-[#f2e5f0]">34</div>
+                <div class="font-label text-[10px] uppercase tracking-widest text-[#f2e5f0]/40 mt-1">Chapters Read</div>
+              </div>
+              <div class="bg-[#4A1D4D]/60 border border-[#f2e5f0]/10 rounded-2xl p-4">
+                <div class="text-2xl mb-2">📝</div>
+                <div class="font-headline text-2xl text-[#f2e5f0]">19</div>
+                <div class="font-label text-[10px] uppercase tracking-widest text-[#f2e5f0]/40 mt-1">Study Notes</div>
+              </div>
+              <div class="bg-[#4A1D4D]/60 border border-[#f2e5f0]/10 rounded-2xl p-4">
+                <div class="text-2xl mb-2">✨</div>
+                <div class="font-headline text-2xl text-[#f2e5f0]">27</div>
+                <div class="font-label text-[10px] uppercase tracking-widest text-[#f2e5f0]/40 mt-1">Highlights</div>
+              </div>
+              <div class="bg-[#4A1D4D]/60 border border-[#f2e5f0]/10 rounded-2xl p-4">
+                <div class="text-2xl mb-2">👥</div>
+                <div class="font-headline text-2xl text-[#f2e5f0]">2</div>
+                <div class="font-label text-[10px] uppercase tracking-widest text-[#f2e5f0]/40 mt-1">Groups Joined</div>
+              </div>
+            </div>
+
+            <div class="bg-[#4A1D4D]/60 border border-[#f2e5f0]/10 rounded-2xl p-5">
+              <div class="font-label text-[11px] uppercase tracking-widest text-[#f2e5f0]/40 font-bold mb-1">Your Growth, Not a Score</div>
+              <p class="font-body text-xs text-[#f2e5f0]/35 mb-3 leading-relaxed">A private picture of which parts of study are becoming a habit for you — no ranking, no leaderboard.</p>
+              <div class="flex items-center justify-between mb-1.5">
+                <span class="font-body text-sm font-bold text-[#f2e5f0]/85">👁️ Observation</span>
+                <span class="font-label text-[10px] uppercase tracking-widest text-[#f2e5f0]/40">Steady practice</span>
+              </div>
+              <div class="w-full bg-[#f2e5f0]/10 rounded-full h-2 overflow-hidden">
+                <div class="bg-gradient-to-r from-[#E9C349] to-[#FFB4A4] h-2 rounded-full" style="width:75%"></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="text-center mt-6">
+          <a href="/pricing.html" class="inline-block py-3 px-6 rounded-xl bg-gradient-to-br from-[#E8816A] to-[#6E2414] text-white font-label font-bold text-xs hover:brightness-110 transition-all">See Plans</a>
+        </div>
       </div>
 
       <!-- Loading state -->
@@ -1123,6 +1196,50 @@
     </button>
     <p id="profile-save-msg" class="hidden text-center text-xs font-label text-[#E9C349]">✓ Saved successfully</p>
 
+    <!-- Plan & Billing (Account Center — Aug 14, 2026). Read-only status pulled
+         from GET /api/billing/status + GET /api/study/quota, plus a link to
+         Stripe's own hosted Customer Portal for anything that changes money
+         (upgrade/downgrade/cancel/payment method/invoices). No custom billing
+         logic lives here — see openManageSubscription(). -->
+    <div class="border-t border-[#f2e5f0]/10 pt-4">
+      <p class="font-label text-[10px] uppercase tracking-widest text-[#f2e5f0]/30 mb-3">Plan & Billing</p>
+
+      <div id="billing-loading" class="flex items-center gap-2 text-[#f2e5f0]/40 text-xs font-label py-2">
+        <span class="spinner"></span> Loading your plan…
+      </div>
+
+      <div id="billing-content" class="hidden bg-[#3D1540]/60 border border-[#f2e5f0]/10 rounded-xl p-4 flex flex-col gap-3">
+        <div class="flex items-start justify-between gap-2">
+          <div>
+            <p class="font-label text-sm font-bold text-[#f2e5f0]" id="billing-plan-name">Discovery</p>
+            <p class="font-label text-[10px] uppercase tracking-widest text-[#f2e5f0]/40 mt-0.5" id="billing-plan-status"></p>
+          </div>
+          <span id="billing-renewal-badge" class="hidden text-right font-label text-[10px] text-[#f2e5f0]/40 leading-snug"></span>
+        </div>
+
+        <div class="border-t border-[#f2e5f0]/10 pt-3">
+          <div class="flex items-center justify-between mb-1.5">
+            <span class="font-label text-[10px] uppercase tracking-widest text-[#f2e5f0]/40">Ask the Word today</span>
+            <span class="font-label text-xs font-semibold text-[#f2e5f0]/80" id="billing-quota-label">—</span>
+          </div>
+          <div class="w-full bg-[#f2e5f0]/10 rounded-full h-1.5 overflow-hidden">
+            <div id="billing-quota-bar" class="bg-gradient-to-r from-[#E9C349] to-[#FFB4A4] h-1.5 rounded-full transition-all duration-500" style="width:0%"></div>
+          </div>
+        </div>
+
+        <button id="billing-manage-btn" onclick="openManageSubscription('billing-manage-btn')"
+          class="hidden w-full text-center text-xs font-label font-bold py-2.5 rounded-lg border border-[#f2e5f0]/15 text-[#f2e5f0]/80 hover:border-[#E9C349]/50 hover:text-[#E9C349] transition-colors disabled:opacity-50">
+          💳 Manage Billing
+        </button>
+        <a id="billing-upgrade-link" href="/pricing.html"
+          class="hidden text-center text-xs font-label font-bold py-2.5 rounded-lg bg-gradient-to-br from-[#E8816A] to-[#6E2414] text-white hover:brightness-110 transition-all">
+          ⭐ Upgrade Plan
+        </a>
+      </div>
+
+      <p id="billing-error" class="hidden text-xs font-label text-[#ff7c7c] leading-relaxed"></p>
+    </div>
+
     <!-- Language -->
     <div class="border-t border-[#f2e5f0]/10 pt-4">
       <p class="font-label text-[10px] uppercase tracking-widest text-[#f2e5f0]/30 mb-3">Language</p>
@@ -1139,9 +1256,9 @@
         class="text-left text-sm font-label text-[#f2e5f0]/55 hover:text-[#f2e5f0]/90 transition-colors flex items-center gap-2">
         🔑 Change Password
       </button>
-      <button id="manage-subscription-btn" onclick="openManageSubscription()" class="hidden text-left text-sm font-label text-[#f2e5f0]/55 hover:text-[#f2e5f0]/90 transition-colors flex items-center gap-2 disabled:opacity-50">
-        💳 Manage Subscription
-      </button>
+      <!-- Manage Subscription was a bare link here before Aug 14, 2026 — superseded
+           by the "Plan & Billing" panel above, which shows the same Stripe portal
+           button alongside actual plan/usage context instead of in isolation. -->
       <div class="flex flex-col gap-1">
         <button id="download-passport-btn" onclick="downloadStudyPassport('markdown')" class="text-left text-sm font-label text-[#f2e5f0]/55 hover:text-[#f2e5f0]/90 transition-colors flex items-center gap-2 disabled:opacity-50">
           📤 Download My Study Passport
@@ -1250,12 +1367,10 @@ function applyPlanGatingToUI() {
     }
   });
 
-  // Manage Subscription (roadmap — see PRODUCTION_QUEUE.md session 13 part 7):
-  // only shown to paying users. There was no in-app way to manage or cancel a
-  // subscription anywhere in the app before this — this links out to Stripe's
-  // own hosted Customer Portal rather than a custom in-app flow.
-  const manageSubBtn = document.getElementById('manage-subscription-btn');
-  if (manageSubBtn) manageSubBtn.classList.toggle('hidden', !planAtLeast('formation'));
+  // Research mode locked-preview (Account Center pass, Aug 14, 2026) — re-check
+  // whenever gating state changes, in case the Ask tab is already open and the
+  // plan resolved after the initial render.
+  updateResearchModePreview();
 }
 
 // ─── Bible Books ───────────────────────────────────────────
@@ -1826,6 +1941,88 @@ function openProfilePanel() {
 
   $('profile-overlay').classList.remove('hidden');
   setTimeout(() => { $('profile-panel').style.transform = 'translateX(0)'; }, 10);
+
+  loadBillingPanel();
+}
+
+// Plan & Billing panel (Account Center — Aug 14, 2026). Pulls read-only status
+// from GET /api/billing/status and GET /api/study/quota — no payment logic
+// lives here. "Manage Billing" hands off to Stripe's own hosted Customer
+// Portal via openManageSubscription(); free users get an "Upgrade" link
+// instead, since there's nothing to manage yet.
+const PLAN_DISPLAY_NAME = { free: 'Discovery', formation: 'Formation', plus: 'Formation Plus', pro: 'Formation Pro' };
+const BILLING_STATUS_LABEL = { active: 'Active', trialing: 'Trial', past_due: 'Payment issue — please update your card', canceled: 'Canceled', incomplete: 'Incomplete', incomplete_expired: 'Incomplete', unpaid: 'Payment issue — please update your card' };
+
+async function loadBillingPanel() {
+  const loadingEl = $('billing-loading'), contentEl = $('billing-content'), errorEl = $('billing-error');
+  if (!loadingEl || !contentEl) return; // panel not present (shouldn't happen, but don't hard-fail the whole drawer)
+  loadingEl.classList.remove('hidden');
+  contentEl.classList.add('hidden');
+  errorEl.classList.add('hidden');
+
+  try {
+    const { data: { session } } = await sb.auth.getSession();
+    if (!session) throw new Error('No active session');
+    const hdrs = { Authorization: `Bearer ${session.access_token}` };
+
+    const [statusRes, quotaRes] = await Promise.all([
+      fetch(`${BACKEND_URL}/api/billing/status`, { headers: hdrs }),
+      fetch(`${BACKEND_URL}/api/study/quota`, { headers: hdrs }),
+    ]);
+    const status = statusRes.ok ? await statusRes.json() : null;
+    const quota  = quotaRes.ok  ? await quotaRes.json()  : null;
+
+    const plan = status?.plan || currentUserPlan || 'free';
+    $('billing-plan-name').textContent = PLAN_DISPLAY_NAME[plan] || 'Discovery';
+    $('billing-plan-status').textContent = plan === 'free'
+      ? '$0/mo · always free to start'
+      : (BILLING_STATUS_LABEL[status?.status] || (status?.status ? status.status : 'Active'));
+
+    const renewalBadge = $('billing-renewal-badge');
+    if (plan !== 'free' && status?.currentPeriodEnd) {
+      const d = new Date(status.currentPeriodEnd);
+      const dateStr = isNaN(d.getTime()) ? '' : d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      if (dateStr) {
+        renewalBadge.textContent = status.cancelAtPeriodEnd ? `Cancels ${dateStr}` : `Renews ${dateStr}`;
+        renewalBadge.classList.remove('hidden');
+      } else {
+        renewalBadge.classList.add('hidden');
+      }
+    } else {
+      renewalBadge.classList.add('hidden');
+    }
+
+    if (quota) {
+      if (quota.unlimited) {
+        $('billing-quota-label').textContent = 'Unlimited';
+        $('billing-quota-bar').style.width = '100%';
+      } else {
+        $('billing-quota-label').textContent = `${quota.used} of ${quota.limit} used`;
+        const pct = quota.limit > 0 ? Math.min(100, Math.round((quota.used / quota.limit) * 100)) : 0;
+        $('billing-quota-bar').style.width = pct + '%';
+      }
+    } else {
+      $('billing-quota-label').textContent = 'Unavailable right now';
+      $('billing-quota-bar').style.width = '0%';
+    }
+
+    const manageBtn = $('billing-manage-btn'), upgradeLink = $('billing-upgrade-link');
+    if (plan !== 'free') {
+      manageBtn.classList.remove('hidden');
+      upgradeLink.classList.add('hidden');
+    } else {
+      manageBtn.classList.add('hidden');
+      upgradeLink.classList.remove('hidden');
+    }
+
+    contentEl.classList.remove('hidden');
+  } catch (e) {
+    console.warn('Could not load billing panel:', e.message);
+    errorEl.textContent = 'Could not load your plan details right now — try reopening this panel in a moment.';
+    errorEl.classList.remove('hidden');
+  } finally {
+    loadingEl.classList.add('hidden');
+  }
 }
 
 function closeProfilePanel() {
@@ -1874,8 +2071,8 @@ async function sendPasswordReset() {
 // users can update their card, change plans, or cancel. We deliberately don't
 // build custom in-app cancellation UI; Stripe's own portal already handles
 // that securely. See PRODUCTION_QUEUE.md session 13 part 7.
-async function openManageSubscription() {
-  const btn = document.getElementById('manage-subscription-btn');
+async function openManageSubscription(btnId) {
+  const btn = document.getElementById(btnId || 'billing-manage-btn');
   const { data: { session } } = await sb.auth.getSession();
   if (!session) { showToast('Please sign in again to manage your subscription.', 'error'); return; }
 
@@ -2126,6 +2323,62 @@ const RESEARCH_MODES = {
 
 let currentResearchMode = 'ask';
 
+// Formation+ Scholar's Research Companion modes — must match the backend's
+// RESEARCH_COMPANION_MODES in study.js. Plain "Ask" stays free for everyone.
+const FRONTEND_COMPANION_MODES = ['xref', 'context', 'themes', 'outline'];
+
+// Locked-mode preview content (Account Center pass, Aug 14, 2026). Short
+// benefit copy + a small static, clearly-labeled example — real Scripture
+// text, not a fabricated stat or claim, so a free user can see the shape of
+// the feature before upgrading.
+const RESEARCH_MODE_PREVIEWS = {
+  xref: {
+    title: 'Cross-References',
+    desc: 'See every other place in Scripture that speaks to the passage you\'re studying, grouped by theme — instead of reading one verse in isolation.',
+    sample: '<strong class="text-[#f2e5f0]/85">John 3:16</strong> — "For God so loved the world…"<br><span class="text-[#f2e5f0]/50">→ Romans 5:8 (God\'s love shown in Christ\'s death)<br>→ 1 John 4:9-10 (love defined by the sending of the Son)<br>→ Romans 8:32 (God did not spare His own Son)</span>'
+  },
+  context: {
+    title: 'Historical & Cultural Context',
+    desc: 'Get the historical, cultural, and geographical background behind a passage — who wrote it, who they were writing to, and how the original audience would have understood it.',
+    sample: '<strong class="text-[#f2e5f0]/85">Daniel in the Lion\'s Den (Daniel 6)</strong><br><span class="text-[#f2e5f0]/50">Set during the Persian administration of Babylon under Darius the Mede. The "law of the Medes and Persians" that trapped Daniel reflects a real feature of Persian royal decrees, which — once sealed — could not be revoked, even by the king himself.</span>'
+  },
+  themes: {
+    title: 'Theological Themes',
+    desc: 'Trace a theme — grace, covenant, kingdom, and more — across an entire book or passage, with supporting verses for each thread.',
+    sample: '<strong class="text-[#f2e5f0]/85">Romans 1–8</strong><br><span class="text-[#f2e5f0]/50">→ Universal sinfulness (1:18-3:20)<br>→ Justification by faith (3:21-5:21)<br>→ Union with Christ / freedom from sin (ch. 6)<br>→ Life in the Spirit (ch. 8)</span>'
+  },
+  outline: {
+    title: 'Study & Sermon Outline',
+    desc: 'Generate a ready-to-teach outline for any passage — title, main points, supporting cross-references, and application questions.',
+    sample: '<strong class="text-[#f2e5f0]/85">The Beatitudes (Matthew 5:1-12)</strong><br><span class="text-[#f2e5f0]/50">I. The Character of Kingdom People (vv. 3-6)<br>II. The Conduct of Kingdom People (vv. 7-9)<br>III. The Cost of Kingdom People (vv. 10-12)<br>+ application questions for each point</span>'
+  }
+};
+
+// Toggles the locked-preview panel vs. the real question card, based on the
+// currently selected research mode and the user's resolved plan. Safe to call
+// before the plan has resolved — planAtLeast() treats an unresolved plan as
+// 'free', so it may briefly show the preview for a paying user on a slow
+// connection; applyPlanGatingToUI() re-calls this once the real plan loads.
+function updateResearchModePreview() {
+  const preview = $('research-mode-locked-preview');
+  const card = $('ask-question-card');
+  if (!preview || !card) return;
+  const locked = FRONTEND_COMPANION_MODES.includes(currentResearchMode) && !planAtLeast('formation');
+  if (locked) {
+    const info = RESEARCH_MODE_PREVIEWS[currentResearchMode];
+    if (info) {
+      $('research-preview-title').textContent = info.title;
+      $('research-preview-desc').textContent = info.desc;
+      $('research-preview-sample').innerHTML = info.sample;
+    }
+    preview.classList.remove('hidden');
+    card.classList.add('hidden');
+  } else {
+    preview.classList.add('hidden');
+    card.classList.remove('hidden');
+  }
+}
+
 // Wire research mode buttons
 document.querySelectorAll('.research-mode-btn').forEach(btn => {
   btn.addEventListener('click', () => {
@@ -2138,6 +2391,7 @@ document.querySelectorAll('.research-mode-btn').forEach(btn => {
     // Clear previous response when switching modes
     responseArea.classList.add('hidden');
     askAnother.classList.add('hidden');
+    updateResearchModePreview();
   });
 });
 
