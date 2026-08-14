@@ -609,8 +609,23 @@
         <button onclick="dismissOnboardingCoachmark()" class="text-[#f2e5f0]/35 hover:text-[#f2e5f0]/70 text-lg leading-none flex-shrink-0">×</button>
       </div>
 
+      <!-- Vista previa de modo bloqueado (14 de agosto de 2026) — se muestra en
+           lugar de la tarjeta de pregunta cuando un usuario gratuito/Discovery
+           elige un modo de investigación Formación+, para que el valor sea
+           visible antes de recibir un 403 del backend. -->
+      <div id="research-mode-locked-preview" class="hidden bg-[#4A1D4D]/50 border border-[#E9C349]/25 rounded-3xl p-6 md:p-8 mb-6">
+        <span class="inline-block px-2 py-0.5 rounded-full bg-[#E9C349]/15 text-[#E9C349] font-label text-[9px] uppercase tracking-widest font-bold mb-3">Función Formación+</span>
+        <h3 class="font-headline text-lg text-[#f2e5f0]/90 mb-1.5" id="research-preview-title"></h3>
+        <p class="font-body text-sm text-[#f2e5f0]/55 leading-relaxed mb-4" id="research-preview-desc"></p>
+        <div class="bg-[#3D1540]/60 border border-[#f2e5f0]/10 rounded-2xl p-4">
+          <p class="font-label text-[9px] uppercase tracking-widest text-[#f2e5f0]/30 mb-2">Ejemplo — no son tus datos</p>
+          <div class="font-body text-sm text-[#f2e5f0]/70 leading-relaxed" id="research-preview-sample"></div>
+        </div>
+        <a href="/pricing.html" class="inline-block mt-5 py-2.5 px-5 rounded-xl bg-gradient-to-br from-[#E8816A] to-[#6E2414] text-white font-label font-bold text-xs hover:brightness-110 transition-all">Ver Planes</a>
+      </div>
+
       <!-- Tarjeta de pregunta -->
-      <div class="bg-[#4A1D4D]/70 backdrop-blur-xl border border-[#f2e5f0]/10 rounded-3xl p-6 md:p-8 shadow-2xl mb-6">
+      <div id="ask-question-card" class="bg-[#4A1D4D]/70 backdrop-blur-xl border border-[#f2e5f0]/10 rounded-3xl p-6 md:p-8 shadow-2xl mb-6">
         <label class="block font-label text-[11px] uppercase tracking-widest text-[#f2e5f0]/40 mb-3" for="question-input" id="question-label">Tu pregunta</label>
         <div class="relative">
           <textarea id="question-input" rows="4"
@@ -917,11 +932,72 @@
     <div id="tab-content-progress" class="hidden">
 
       <!-- Función restringida por plan: el Panel de Progreso es solo para Plus y Pro -->
-      <div id="progress-locked" class="hidden text-center py-14 px-6">
-        <div class="text-5xl mb-4">📊</div>
-        <h2 class="font-headline text-xl text-[#f2e5f0]/90 mb-2">El Panel de Progreso es una función Plus</h2>
-        <p class="font-body text-sm text-[#f2e5f0]/50 max-w-sm mx-auto mb-6">Sigue tu racha de lectura, capítulos completados y estadísticas de estudio con Formación Bíblica Plus o Pro.</p>
-        <a href="/pricing.html" class="inline-block py-3 px-6 rounded-xl bg-gradient-to-br from-[#E8816A] to-[#6E2414] text-white font-label font-bold text-xs hover:brightness-110 transition-all">Ver Planes</a>
+      <!-- Bloqueado según el plan: el Panel de Progreso es solo para Formación
+           Plus y Pro. Muestra una maqueta de ejemplo estática y claramente
+           etiquetada (esta es una cuenta real sin datos de demostración
+           disponibles) en lugar de una pantalla bloqueada vacía — pase del 14
+           de agosto de 2026. -->
+      <div id="progress-locked" class="hidden pb-6">
+        <div class="text-center py-8 px-6">
+          <div class="text-5xl mb-4">📊</div>
+          <h2 class="font-headline text-xl text-[#f2e5f0]/90 mb-2">El Panel de Progreso es una función Plus</h2>
+          <p class="font-body text-sm text-[#f2e5f0]/50 max-w-sm mx-auto">Sigue tu racha de lectura, capítulos completados y estadísticas de estudio con Formación Bíblica Plus o Pro.</p>
+        </div>
+
+        <div class="relative rounded-3xl overflow-hidden border border-[#f2e5f0]/10 mx-1">
+          <div class="absolute top-3 right-3 z-10 px-2.5 py-1 rounded-full bg-[#2A0E2D]/90 border border-[#E9C349]/30 text-[#E9C349] font-label text-[9px] uppercase tracking-widest font-bold">Ejemplo, no son tus datos</div>
+          <div class="p-5 opacity-90 pointer-events-none select-none">
+
+            <div class="bg-gradient-to-br from-[#6E2414]/50 to-[#FFB4A4]/10 border border-[#FFB4A4]/20 rounded-2xl p-5 mb-4 flex items-center gap-5">
+              <div class="text-5xl leading-none">🔥</div>
+              <div>
+                <div class="font-headline text-4xl text-[#FFB4A4] leading-none">12</div>
+                <div class="font-label text-[10px] uppercase tracking-widest text-[#f2e5f0]/50 mt-1">Días Seguidos</div>
+                <div class="font-body text-xs text-[#f2e5f0]/35 mt-1">¡12 días seguidos — sigue así!</div>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3 mb-4">
+              <div class="bg-[#4A1D4D]/60 border border-[#f2e5f0]/10 rounded-2xl p-4">
+                <div class="text-2xl mb-2">📖</div>
+                <div class="font-headline text-2xl text-[#f2e5f0]">34</div>
+                <div class="font-label text-[10px] uppercase tracking-widest text-[#f2e5f0]/40 mt-1">Capítulos Leídos</div>
+              </div>
+              <div class="bg-[#4A1D4D]/60 border border-[#f2e5f0]/10 rounded-2xl p-4">
+                <div class="text-2xl mb-2">📝</div>
+                <div class="font-headline text-2xl text-[#f2e5f0]">19</div>
+                <div class="font-label text-[10px] uppercase tracking-widest text-[#f2e5f0]/40 mt-1">Notas de Estudio</div>
+              </div>
+              <div class="bg-[#4A1D4D]/60 border border-[#f2e5f0]/10 rounded-2xl p-4">
+                <div class="text-2xl mb-2">✨</div>
+                <div class="font-headline text-2xl text-[#f2e5f0]">27</div>
+                <div class="font-label text-[10px] uppercase tracking-widest text-[#f2e5f0]/40 mt-1">Destacados</div>
+              </div>
+              <div class="bg-[#4A1D4D]/60 border border-[#f2e5f0]/10 rounded-2xl p-4">
+                <div class="text-2xl mb-2">👥</div>
+                <div class="font-headline text-2xl text-[#f2e5f0]">2</div>
+                <div class="font-label text-[10px] uppercase tracking-widest text-[#f2e5f0]/40 mt-1">Grupos Unidos</div>
+              </div>
+            </div>
+
+            <div class="bg-[#4A1D4D]/60 border border-[#f2e5f0]/10 rounded-2xl p-5">
+              <div class="font-label text-[11px] uppercase tracking-widest text-[#f2e5f0]/40 font-bold mb-1">Tu Crecimiento, No un Puntaje</div>
+              <p class="font-body text-xs text-[#f2e5f0]/35 mb-3 leading-relaxed">Una imagen privada de qué partes de tu estudio se están volviendo un hábito — sin ranking, sin tabla de posiciones.</p>
+              <div class="flex items-center justify-between mb-1.5">
+                <span class="font-body text-sm font-bold text-[#f2e5f0]/85">👁️ Observación</span>
+                <span class="font-label text-[10px] uppercase tracking-widest text-[#f2e5f0]/40">Práctica constante</span>
+              </div>
+              <div class="w-full bg-[#f2e5f0]/10 rounded-full h-2 overflow-hidden">
+                <div class="bg-gradient-to-r from-[#E9C349] to-[#FFB4A4] h-2 rounded-full" style="width:75%"></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="text-center mt-6">
+          <a href="/pricing.html" class="inline-block py-3 px-6 rounded-xl bg-gradient-to-br from-[#E8816A] to-[#6E2414] text-white font-label font-bold text-xs hover:brightness-110 transition-all">Ver Planes</a>
+        </div>
       </div>
 
       <div id="progress-loading" class="flex items-center gap-2 text-[#f2e5f0]/40 text-sm font-label py-10 justify-center">
@@ -1070,6 +1146,50 @@
     </button>
     <p id="profile-save-msg" class="hidden text-center text-xs font-label text-[#E9C349]">✓ Guardado correctamente</p>
 
+    <!-- Plan y Facturación (Centro de Cuenta — 14 de agosto de 2026). Estado
+         de solo lectura desde GET /api/billing/status + GET /api/study/quota,
+         más un enlace al Portal de Clientes de Stripe para cualquier cambio de
+         pago (mejorar/degradar/cancelar/método de pago/facturas). Ninguna
+         lógica de facturación nueva vive aquí — ver openManageSubscription(). -->
+    <div class="border-t border-[#f2e5f0]/10 pt-4">
+      <p class="font-label text-[10px] uppercase tracking-widest text-[#f2e5f0]/30 mb-3">Plan y Facturación</p>
+
+      <div id="billing-loading" class="flex items-center gap-2 text-[#f2e5f0]/40 text-xs font-label py-2">
+        <span class="spinner"></span> Cargando tu plan…
+      </div>
+
+      <div id="billing-content" class="hidden bg-[#3D1540]/60 border border-[#f2e5f0]/10 rounded-xl p-4 flex flex-col gap-3">
+        <div class="flex items-start justify-between gap-2">
+          <div>
+            <p class="font-label text-sm font-bold text-[#f2e5f0]" id="billing-plan-name">Discovery</p>
+            <p class="font-label text-[10px] uppercase tracking-widest text-[#f2e5f0]/40 mt-0.5" id="billing-plan-status"></p>
+          </div>
+          <span id="billing-renewal-badge" class="hidden text-right font-label text-[10px] text-[#f2e5f0]/40 leading-snug"></span>
+        </div>
+
+        <div class="border-t border-[#f2e5f0]/10 pt-3">
+          <div class="flex items-center justify-between mb-1.5">
+            <span class="font-label text-[10px] uppercase tracking-widest text-[#f2e5f0]/40">Pregúntale a la Palabra hoy</span>
+            <span class="font-label text-xs font-semibold text-[#f2e5f0]/80" id="billing-quota-label">—</span>
+          </div>
+          <div class="w-full bg-[#f2e5f0]/10 rounded-full h-1.5 overflow-hidden">
+            <div id="billing-quota-bar" class="bg-gradient-to-r from-[#E9C349] to-[#FFB4A4] h-1.5 rounded-full transition-all duration-500" style="width:0%"></div>
+          </div>
+        </div>
+
+        <button id="billing-manage-btn" onclick="openManageSubscription('billing-manage-btn')"
+          class="hidden w-full text-center text-xs font-label font-bold py-2.5 rounded-lg border border-[#f2e5f0]/15 text-[#f2e5f0]/80 hover:border-[#E9C349]/50 hover:text-[#E9C349] transition-colors disabled:opacity-50">
+          💳 Administrar Facturación
+        </button>
+        <a id="billing-upgrade-link" href="/pricing.html"
+          class="hidden text-center text-xs font-label font-bold py-2.5 rounded-lg bg-gradient-to-br from-[#E8816A] to-[#6E2414] text-white hover:brightness-110 transition-all">
+          ⭐ Mejorar Plan
+        </a>
+      </div>
+
+      <p id="billing-error" class="hidden text-xs font-label text-[#ff7c7c] leading-relaxed"></p>
+    </div>
+
     <!-- Idioma -->
     <div class="border-t border-[#f2e5f0]/10 pt-4">
       <p class="font-label text-[10px] uppercase tracking-widest text-[#f2e5f0]/30 mb-3">Idioma</p>
@@ -1086,9 +1206,10 @@
         class="text-left text-sm font-label text-[#f2e5f0]/55 hover:text-[#f2e5f0]/90 transition-colors flex items-center gap-2">
         🔑 Cambiar Contraseña
       </button>
-      <button id="manage-subscription-btn" onclick="openManageSubscription()" class="hidden text-left text-sm font-label text-[#f2e5f0]/55 hover:text-[#f2e5f0]/90 transition-colors flex items-center gap-2 disabled:opacity-50">
-        💳 Administrar Suscripción
-      </button>
+      <!-- El botón "Administrar Suscripción" independiente vivía aquí antes del
+           14 de agosto de 2026 — reemplazado por el panel "Plan y Facturación"
+           de arriba, que muestra el mismo botón del portal de Stripe junto con
+           el contexto real de plan/uso en lugar de aislado. -->
       <div class="flex flex-col gap-1">
         <button id="download-passport-btn" onclick="downloadStudyPassport('markdown')" class="text-left text-sm font-label text-[#f2e5f0]/55 hover:text-[#f2e5f0]/90 transition-colors flex items-center gap-2 disabled:opacity-50">
           📤 Descargar Mi Pasaporte de Estudio
@@ -1186,9 +1307,10 @@ function applyPlanGatingToUI() {
     }
   });
 
-  // Administrar Suscripción — solo se muestra a usuarios de pago.
-  const manageSubBtn = document.getElementById('manage-subscription-btn');
-  if (manageSubBtn) manageSubBtn.classList.toggle('hidden', !planAtLeast('formation'));
+  // Vista previa de modo de investigación bloqueado (Centro de Cuenta, 14 de
+  // agosto de 2026) — se vuelve a comprobar cada vez que cambia el estado del
+  // plan, por si la pestaña Preguntar ya está abierta.
+  updateResearchModePreview();
 }
 
 // ─── Libros de la Biblia ────────────────────────────────────
@@ -1786,6 +1908,89 @@ function openProfilePanel() {
 
   $('profile-overlay').classList.remove('hidden');
   setTimeout(() => { $('profile-panel').style.transform = 'translateX(0)'; }, 10);
+
+  loadBillingPanel();
+}
+
+// Panel de Plan y Facturación (Centro de Cuenta — 14 de agosto de 2026).
+// Extrae estado de solo lectura desde GET /api/billing/status y
+// GET /api/study/quota — ninguna lógica de pago vive aquí. "Administrar
+// Facturación" reenvía al Portal de Clientes de Stripe vía
+// openManageSubscription(); los usuarios gratuitos ven un enlace "Mejorar"
+// en su lugar, ya que aún no hay nada que administrar.
+const PLAN_DISPLAY_NAME = { free: 'Discovery', formation: 'Formación', plus: 'Formación Plus', pro: 'Formación Pro' };
+const BILLING_STATUS_LABEL = { active: 'Activo', trialing: 'Prueba', past_due: 'Problema de pago — actualiza tu tarjeta', canceled: 'Cancelado', incomplete: 'Incompleto', incomplete_expired: 'Incompleto', unpaid: 'Problema de pago — actualiza tu tarjeta' };
+
+async function loadBillingPanel() {
+  const loadingEl = $('billing-loading'), contentEl = $('billing-content'), errorEl = $('billing-error');
+  if (!loadingEl || !contentEl) return;
+  loadingEl.classList.remove('hidden');
+  contentEl.classList.add('hidden');
+  errorEl.classList.add('hidden');
+
+  try {
+    const { data: { session } } = await sb.auth.getSession();
+    if (!session) throw new Error('No hay sesión activa');
+    const hdrs = { Authorization: `Bearer ${session.access_token}` };
+
+    const [statusRes, quotaRes] = await Promise.all([
+      fetch(`${BACKEND_URL}/api/billing/status`, { headers: hdrs }),
+      fetch(`${BACKEND_URL}/api/study/quota`, { headers: hdrs }),
+    ]);
+    const status = statusRes.ok ? await statusRes.json() : null;
+    const quota  = quotaRes.ok  ? await quotaRes.json()  : null;
+
+    const plan = status?.plan || currentUserPlan || 'free';
+    $('billing-plan-name').textContent = PLAN_DISPLAY_NAME[plan] || 'Discovery';
+    $('billing-plan-status').textContent = plan === 'free'
+      ? '$0/mes · siempre gratis para empezar'
+      : (BILLING_STATUS_LABEL[status?.status] || (status?.status ? status.status : 'Activo'));
+
+    const renewalBadge = $('billing-renewal-badge');
+    if (plan !== 'free' && status?.currentPeriodEnd) {
+      const d = new Date(status.currentPeriodEnd);
+      const dateStr = isNaN(d.getTime()) ? '' : d.toLocaleDateString('es-ES', { month: 'short', day: 'numeric', year: 'numeric' });
+      if (dateStr) {
+        renewalBadge.textContent = status.cancelAtPeriodEnd ? `Se cancela el ${dateStr}` : `Se renueva el ${dateStr}`;
+        renewalBadge.classList.remove('hidden');
+      } else {
+        renewalBadge.classList.add('hidden');
+      }
+    } else {
+      renewalBadge.classList.add('hidden');
+    }
+
+    if (quota) {
+      if (quota.unlimited) {
+        $('billing-quota-label').textContent = 'Ilimitado';
+        $('billing-quota-bar').style.width = '100%';
+      } else {
+        $('billing-quota-label').textContent = `${quota.used} de ${quota.limit} usadas`;
+        const pct = quota.limit > 0 ? Math.min(100, Math.round((quota.used / quota.limit) * 100)) : 0;
+        $('billing-quota-bar').style.width = pct + '%';
+      }
+    } else {
+      $('billing-quota-label').textContent = 'No disponible ahora';
+      $('billing-quota-bar').style.width = '0%';
+    }
+
+    const manageBtn = $('billing-manage-btn'), upgradeLink = $('billing-upgrade-link');
+    if (plan !== 'free') {
+      manageBtn.classList.remove('hidden');
+      upgradeLink.classList.add('hidden');
+    } else {
+      manageBtn.classList.add('hidden');
+      upgradeLink.classList.remove('hidden');
+    }
+
+    contentEl.classList.remove('hidden');
+  } catch (e) {
+    console.warn('No se pudo cargar el panel de facturación:', e.message);
+    errorEl.textContent = 'No se pudieron cargar los detalles de tu plan en este momento — intenta abrir este panel de nuevo en un momento.';
+    errorEl.classList.remove('hidden');
+  } finally {
+    loadingEl.classList.add('hidden');
+  }
 }
 
 function closeProfilePanel() {
@@ -1832,8 +2037,8 @@ async function sendPasswordReset() {
 // usuario puede actualizar su tarjeta, cambiar de plan o cancelar. No se
 // construye una interfaz de cancelación propia: el portal de Stripe ya lo
 // maneja de forma segura. Ver PRODUCTION_QUEUE.md sesión 13 parte 7.
-async function openManageSubscription() {
-  const btn = document.getElementById('manage-subscription-btn');
+async function openManageSubscription(btnId) {
+  const btn = document.getElementById(btnId || 'billing-manage-btn');
   const { data: { session } } = await sb.auth.getSession();
   if (!session) { showToast('Por favor inicia sesión de nuevo para administrar tu suscripción.', 'error'); return; }
 
@@ -2071,6 +2276,62 @@ const RESEARCH_MODES = {
 
 let currentResearchMode = 'ask';
 
+// Modos del Compañero de Investigación del Erudito, Formación+ — debe coincidir
+// con RESEARCH_COMPANION_MODES del backend en study.js. "Preguntar" es gratis
+// para todos.
+const FRONTEND_COMPANION_MODES = ['xref', 'context', 'themes', 'outline'];
+
+// Contenido de vista previa de modo bloqueado (Centro de Cuenta, 14 de agosto
+// de 2026). Texto breve de beneficio + un ejemplo estático claramente
+// etiquetado — texto bíblico real, no una estadística o afirmación
+// inventada, para que un usuario gratuito vea la forma de la función antes
+// de mejorar.
+const RESEARCH_MODE_PREVIEWS = {
+  xref: {
+    title: 'Referencias Cruzadas',
+    desc: 'Ve todos los demás lugares de las Escrituras que hablan del pasaje que estás estudiando, agrupados por tema — en lugar de leer un solo versículo aislado.',
+    sample: '<strong class="text-[#f2e5f0]/85">Juan 3:16</strong> — "Porque de tal manera amó Dios al mundo…"<br><span class="text-[#f2e5f0]/50">→ Romanos 5:8 (el amor de Dios mostrado en la muerte de Cristo)<br>→ 1 Juan 4:9-10 (el amor definido por el envío del Hijo)<br>→ Romanos 8:32 (Dios no escatimó a su propio Hijo)</span>'
+  },
+  context: {
+    title: 'Contexto Histórico y Cultural',
+    desc: 'Obtén el trasfondo histórico, cultural y geográfico detrás de un pasaje — quién lo escribió, a quién se dirigía y cómo lo habría entendido la audiencia original.',
+    sample: '<strong class="text-[#f2e5f0]/85">Daniel en el foso de los leones (Daniel 6)</strong><br><span class="text-[#f2e5f0]/50">Ambientado durante la administración persa de Babilonia bajo Darío el Medo. La "ley de los medos y los persas" que atrapó a Daniel refleja una característica real de los decretos reales persas, que una vez sellados no podían revocarse, ni siquiera por el propio rey.</span>'
+  },
+  themes: {
+    title: 'Temas Teológicos',
+    desc: 'Traza un tema — gracia, pacto, reino y más — a lo largo de todo un libro o pasaje, con versículos de apoyo para cada hilo.',
+    sample: '<strong class="text-[#f2e5f0]/85">Romanos 1–8</strong><br><span class="text-[#f2e5f0]/50">→ Pecaminosidad universal (1:18-3:20)<br>→ Justificación por fe (3:21-5:21)<br>→ Unión con Cristo / libertad del pecado (cap. 6)<br>→ Vida en el Espíritu (cap. 8)</span>'
+  },
+  outline: {
+    title: 'Esquema de Estudio y Sermón',
+    desc: 'Genera un esquema listo para enseñar para cualquier pasaje — título, puntos principales, referencias cruzadas de apoyo y preguntas de aplicación.',
+    sample: '<strong class="text-[#f2e5f0]/85">Las Bienaventuranzas (Mateo 5:1-12)</strong><br><span class="text-[#f2e5f0]/50">I. El Carácter del Pueblo del Reino (vv. 3-6)<br>II. La Conducta del Pueblo del Reino (vv. 7-9)<br>III. El Costo del Pueblo del Reino (vv. 10-12)<br>+ preguntas de aplicación para cada punto</span>'
+  }
+};
+
+// Alterna entre el panel de vista previa bloqueada y la tarjeta de pregunta
+// real, según el modo de investigación seleccionado y el plan resuelto del
+// usuario.
+function updateResearchModePreview() {
+  const preview = $('research-mode-locked-preview');
+  const card = $('ask-question-card');
+  if (!preview || !card) return;
+  const locked = FRONTEND_COMPANION_MODES.includes(currentResearchMode) && !planAtLeast('formation');
+  if (locked) {
+    const info = RESEARCH_MODE_PREVIEWS[currentResearchMode];
+    if (info) {
+      $('research-preview-title').textContent = info.title;
+      $('research-preview-desc').textContent = info.desc;
+      $('research-preview-sample').innerHTML = info.sample;
+    }
+    preview.classList.remove('hidden');
+    card.classList.add('hidden');
+  } else {
+    preview.classList.add('hidden');
+    card.classList.remove('hidden');
+  }
+}
+
 document.querySelectorAll('.research-mode-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     currentResearchMode = btn.dataset.mode;
@@ -2081,6 +2342,7 @@ document.querySelectorAll('.research-mode-btn').forEach(btn => {
     askBtnLabel.textContent = cfg.btnLabel;
     responseArea.classList.add('hidden');
     askAnother.classList.add('hidden');
+    updateResearchModePreview();
   });
 });
 
