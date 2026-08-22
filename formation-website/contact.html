@@ -325,7 +325,7 @@
           </div>
           <h3 class="font-headline font-bold text-[#f2e5f0] text-lg mb-2">Email Support</h3>
           <p class="text-[#f2e5f0]/55 text-sm mb-4 leading-relaxed">The best way to reach us. We read every message and respond personally.</p>
-          <a href="mailto:support@formationbible.com" class="text-[#FFB4A4] font-bold text-sm hover:underline block mb-3">support@formationbible.com</a>
+          <a href="mailto:contact@bereandefense.com" class="text-[#FFB4A4] font-bold text-sm hover:underline block mb-3">contact@bereandefense.com</a>
           <span class="response-badge">
             <span class="material-symbols-outlined text-xs" style="font-size:14px;">schedule</span>
             Within 24–48 hours
@@ -476,7 +476,7 @@
               </div>
               <div>
                 <p class="text-xs text-[#f2e5f0]/40 uppercase tracking-widest mb-0.5">Support Email</p>
-                <a href="mailto:support@formationbible.com" class="text-[#FFB4A4] text-sm font-medium hover:underline">support@formationbible.com</a>
+                <a href="mailto:contact@bereandefense.com" class="text-[#FFB4A4] text-sm font-medium hover:underline">contact@bereandefense.com</a>
               </div>
               <div>
                 <p class="text-xs text-[#f2e5f0]/40 uppercase tracking-widest mb-0.5">Mailing Address</p>
@@ -610,7 +610,7 @@
       formData.forEach(function(v, k) { data[k] = v; });
 
       try {
-        var res = await fetch('https://formsubmit.co/ajax/support@formationbible.com', {
+        var res = await fetch('https://formsubmit.co/ajax/contact@bereandefense.com', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
           body: JSON.stringify(data)
@@ -626,7 +626,7 @@
           btn.textContent = origText;
         }
       } catch(err) {
-        alert('Failed to send. Please try again or email support@formationbible.com directly.');
+        alert('Failed to send. Please try again or email contact@bereandefense.com directly.');
         btn.disabled = false;
         btn.textContent = origText;
       }
