@@ -1226,6 +1226,42 @@
         class="text-left text-sm font-label text-[#FFB4A4]/70 hover:text-[#FFB4A4] transition-colors flex items-center gap-2">
         ↩ Cerrar Sesión
       </button>
+      <button onclick="openDeleteAccountModal()"
+        class="text-left text-xs font-label text-[#f2e5f0]/25 hover:text-[#ff7c7c] transition-colors flex items-center gap-2 mt-1">
+        🗑 Eliminar Cuenta
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ── Modal de confirmación para eliminar cuenta ────────────────────
+     Eliminación de cuenta autoservicio (ago 2026). Llama a DELETE
+     /api/user/account, que cancela cualquier suscripción activa de Stripe
+     y elimina la cuenta permanentemente. El caso 409 (el usuario es dueño
+     de un grupo) muestra el mensaje de error del backend tal cual, ya que
+     explica exactamente qué hacer. -->
+<div id="delete-account-overlay" class="hidden fixed inset-0 z-[160] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm" onclick="if(event.target===this) closeDeleteAccountModal()">
+  <div class="w-full max-w-md bg-[#2A0E2D] border border-[#f2e5f0]/15 rounded-3xl shadow-2xl p-6">
+    <h3 class="font-headline text-xl font-bold text-[#f2e5f0] mb-3">¿Eliminar tu cuenta?</h3>
+    <p class="text-sm text-[#f2e5f0]/70 leading-relaxed mb-4">
+      Esto elimina permanentemente tu cuenta, notas e historial de lectura, y cualquier suscripción activa se cancela de inmediato. Esta acción no se puede deshacer.
+    </p>
+    <p class="text-sm text-[#f2e5f0]/70 leading-relaxed mb-4">
+      Considera <button onclick="closeDeleteAccountModal(); downloadStudyPassport('markdown');" class="text-[#E9C349] hover:underline">descargar tu Pasaporte de Estudio</button> primero si quieres conservar una copia de tus notas.
+    </p>
+    <label class="flex items-start gap-2 mb-5 cursor-pointer">
+      <input type="checkbox" id="delete-account-confirm-checkbox" onchange="document.getElementById('delete-account-confirm-btn').disabled = !this.checked" class="mt-1">
+      <span class="text-xs text-[#f2e5f0]/60">Entiendo que esto es permanente y no se puede deshacer.</span>
+    </label>
+    <p id="delete-account-error" class="hidden text-xs text-[#ff7c7c] leading-relaxed mb-4"></p>
+    <div class="flex gap-3">
+      <button onclick="closeDeleteAccountModal()" class="flex-1 text-center text-sm font-label font-bold py-2.5 rounded-lg border border-[#f2e5f0]/15 text-[#f2e5f0]/80 hover:border-[#f2e5f0]/30 transition-colors">
+        Cancelar
+      </button>
+      <button id="delete-account-confirm-btn" onclick="deleteAccountConfirmed()" disabled
+        class="flex-1 text-center text-sm font-label font-bold py-2.5 rounded-lg bg-[#8B2E2E] text-white hover:brightness-110 transition-all disabled:opacity-40 disabled:cursor-not-allowed">
+        Eliminar Mi Cuenta
+      </button>
     </div>
   </div>
 </div>
@@ -2185,6 +2221,60 @@ function signOutFromPanel() {
     askAnother.classList.add('hidden');
     showAuth();
   }, 350);
+}
+
+// Eliminar cuenta — autoservicio, ago 2026. Ver DELETE /api/user/account
+// (userService.deleteAccount) para lo que ocurre realmente en el servidor.
+function openDeleteAccountModal() {
+  document.getElementById('delete-account-confirm-checkbox').checked = false;
+  document.getElementById('delete-account-confirm-btn').disabled = true;
+  document.getElementById('delete-account-error').classList.add('hidden');
+  document.getElementById('delete-account-overlay').classList.remove('hidden');
+}
+
+function closeDeleteAccountModal() {
+  document.getElementById('delete-account-overlay').classList.add('hidden');
+}
+
+async function deleteAccountConfirmed() {
+  const btn = document.getElementById('delete-account-confirm-btn');
+  const errEl = document.getElementById('delete-account-error');
+  errEl.classList.add('hidden');
+  const originalText = btn.textContent;
+  btn.disabled = true;
+  btn.textContent = 'Eliminando…';
+
+  try {
+    const { data: { session } } = await sb.auth.getSession();
+    if (!session) { showToast('Inicia sesión de nuevo para eliminar tu cuenta.', 'error'); return; }
+
+    const res = await fetch(`${BACKEND_URL}/api/user/account`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${session.access_token}`,
+      },
+      body: JSON.stringify({ confirm: true }),
+    });
+    const data = await res.json().catch(() => ({}));
+
+    if (!res.ok) {
+      errEl.textContent = data.error || 'No se pudo eliminar tu cuenta. Inténtalo de nuevo.';
+      errEl.classList.remove('hidden');
+      btn.disabled = false;
+      btn.textContent = originalText;
+      return;
+    }
+
+    closeDeleteAccountModal();
+    await sb.auth.signOut();
+    window.location.href = '/index.html';
+  } catch (err) {
+    errEl.textContent = 'Error de red — inténtalo de nuevo.';
+    errEl.classList.remove('hidden');
+    btn.disabled = false;
+    btn.textContent = originalText;
+  }
 }
 
 sb.auth.onAuthStateChange((_e, session) => { session ? showStudy(session) : showAuth(); });
