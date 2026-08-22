@@ -51,7 +51,7 @@
       <div class="md:col-span-1">
         <div class="text-xl font-headline font-bold text-[#FFB4A4] mb-4">Formación Bíblica</div>
         <p class="text-[#f2e5f0]/40 text-xs leading-relaxed font-body">Herramientas de estudio bíblico fundamentadas en las Escrituras. Sin presión. Sin requisitos previos. Solo la Palabra.</p>
-        <a href="https://formationbible.com" class="inline-block mt-4 text-[10px] font-label uppercase tracking-widest text-[#e9c349] hover:text-[#FFB4A4] transition-colors">🌐 Also in English →</a>
+        <a href="https://formationbible.com" class="inline-block mt-4 text-[10px] font-label uppercase tracking-widest text-[#e9c349] hover:text-[#FFB4A4] transition-colors">🌐 También en Inglés →</a>
       </div>
 
       <!-- Producto -->
