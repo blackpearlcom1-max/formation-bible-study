@@ -25,7 +25,7 @@
       <a href="/about.html"       data-nav="acerca"          class="nav-link font-label uppercase tracking-widest text-xs transition-colors duration-300">Acerca de</a>
       <a href="/demo"             data-nav="demo"            class="nav-link font-label uppercase tracking-widest text-xs transition-colors duration-300">Ver la Demo</a>
     </div>
-    <a href="/beta.html" class="bg-gradient-to-br from-[#FFB4A4] to-[#6E2414] text-[#5D1809] px-6 py-2.5 rounded-full font-bold text-sm hover:brightness-110 transition-all shadow-lg">Regístrate Gratis →</a>
+    <a id="nav-cta" href="/beta.html" class="bg-gradient-to-br from-[#FFB4A4] to-[#6E2414] text-[#5D1809] px-6 py-2.5 rounded-full font-bold text-sm hover:brightness-110 transition-all shadow-lg">Regístrate Gratis →</a>
     <button id="nav-toggle" class="md:hidden text-[#f2e5f0] ml-4" aria-label="Abrir menú">
       <span class="material-symbols-outlined">menu</span>
     </button>
@@ -37,7 +37,7 @@
     <a href="/about.html"    class="block text-[#f2e5f0]/60 font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4]">Acerca de</a>
     <a href="/demo"          class="block text-[#f2e5f0]/60 font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4]">Ver la Demo</a>
     <a href="/beta.html"     class="block text-[#FFB4A4] font-label uppercase tracking-widest text-xs font-bold">✨ Pregunta la Palabra</a>
-    <a href="/beta.html"     class="block text-[#E8816A] font-label uppercase tracking-widest text-xs font-bold">Regístrate Gratis →</a>
+    <a id="nav-cta-mobile" href="/beta.html" class="block text-[#E8816A] font-label uppercase tracking-widest text-xs font-bold">Regístrate Gratis →</a>
   </div>
 </nav>`;
 
@@ -63,7 +63,7 @@
           <li><a href="/how_it_works.html" class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Cómo Funciona</a></li>
           <li><a href="/study-library.html" class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Biblioteca de Estudios</a></li>
           <li><a href="/faq.html"          class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Preguntas Frecuentes</a></li>
-          <li><a href="/beta.html"         class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Regístrate Gratis</a></li>
+          <li><a id="footer-cta" href="/beta.html" class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Regístrate Gratis</a></li>
         </ul>
       </div>
 
@@ -133,6 +133,46 @@
     });
   }
 
+
+  /* ─── AUTH-AWARE CTA ─────────────────────────────────────────────────── *
+   * Marketing pages (this file) are separate DOM contexts from beta.html,
+   * but same-origin, so a signed-in Supabase session in localStorage is
+   * still readable here. This is a read-only session check — it does NOT
+   * touch login/signup/session logic itself, only swaps CTA copy so a
+   * returning logged-in member doesn't see "Sign Up Free" again.
+   * Fails silently on any error (network, SDK load, etc.) — nav still
+   * renders and works normally either way. */
+  var SUPABASE_URL  = 'https://tdlaxuquplqejvijqiow.supabase.co';
+  var SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRkbGF4dXF1cGxxZWp2aWpxaW93Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgxMTQ5NDksImV4cCI6MjA5MzY5MDk0OX0._-I3akq5PV0JqCdSV3mSMP03g1VRmWxxROsDo5UpaaY';
+  var LOGGED_IN_LABEL = 'Continue Studying';
+
+  function swapCtaLabel(id, keepArrow) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.textContent = LOGGED_IN_LABEL + (keepArrow ? ' →' : '');
+  }
+
+  function checkAuthAndUpdateCta() {
+    function afterSdkReady() {
+      try {
+        var client = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+        client.auth.getSession().then(function (res) {
+          var session = res && res.data && res.data.session;
+          if (!session) return;
+          swapCtaLabel('nav-cta', true);
+          swapCtaLabel('nav-cta-mobile', true);
+          swapCtaLabel('footer-cta', false);
+        }).catch(function () {});
+      } catch (e) { /* fail silently, nav still works */ }
+    }
+    if (window.supabase) { afterSdkReady(); return; }
+    var s = document.createElement('script');
+    s.src = 'https://unpkg.com/@supabase/supabase-js@2.39.0/dist/umd/supabase.js';
+    s.onload = afterSdkReady;
+    s.onerror = function () {};
+    document.head.appendChild(s);
+  }
+
   /* ─── NAV BEHAVIOURS ─────────────────────────────────────────────────── */
   function initNavBehaviours() {
     var toggle = document.getElementById('nav-toggle');
@@ -161,6 +201,7 @@
     if (footerPlaceholder) footerPlaceholder.outerHTML = FOOTER_HTML;
     setActiveNav();
     initNavBehaviours();
+    checkAuthAndUpdateCta();
   }
 
   if (document.readyState === 'loading') {
