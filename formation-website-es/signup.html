@@ -95,9 +95,12 @@
   </style>
 </head>
 <body class="font-body text-on-background min-h-screen flex flex-col selection:bg-primary selection:text-on-primary">
+<style>.skip-link{position:absolute;left:-9999px;top:0;background:#3D1540;color:#FFB4A4;padding:12px 20px;z-index:9999;border-radius:0 0 8px 0;font-weight:600;text-decoration:none;}.skip-link:focus{left:0;}</style>
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
 <div class="grain-overlay"></div>
 
-<main class="flex-grow flex items-center justify-center px-6 py-12 relative overflow-hidden">
+<main class="flex-grow flex items-center justify-center px-6 py-12 relative overflow-hidden" id="main-content">
   <!-- Brillos de fondo -->
   <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-primary/8 blur-[120px]"></div>
   <div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-secondary/8 blur-[120px]"></div>

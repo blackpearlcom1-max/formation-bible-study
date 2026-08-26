@@ -257,6 +257,9 @@
   </style>
 </head>
 <body class="font-body text-on-background selection:bg-primary/30 min-h-screen flex flex-col">
+<style>.skip-link{position:absolute;left:-9999px;top:0;background:#3D1540;color:#FFB4A4;padding:12px 20px;z-index:9999;border-radius:0 0 8px 0;font-weight:600;text-decoration:none;}.skip-link:focus{left:0;}</style>
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
 
 <!-- ─── Card Gate Modal ─────────────────────────────────────────────────── -->
 <div id="card-gate-overlay" role="dialog" aria-modal="true" aria-labelledby="cg-title">
@@ -413,7 +416,7 @@
 </nav>
 
 <!-- ── Contenido Principal ──────────────────────────────────── -->
-<main class="flex-1 pt-24 pb-20 px-4 relative z-10">
+<main class="flex-1 pt-24 pb-20 px-4 relative z-10" id="main-content">
 
   <!-- PANTALLA DE AUTH -->
   <div id="auth-screen" class="max-w-md mx-auto mt-16">
