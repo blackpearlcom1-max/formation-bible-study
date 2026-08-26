@@ -821,6 +821,7 @@
 
       <!-- Plan picker (shown when no active plan) -->
       <div id="plan-picker">
+        <button id="plan-picker-back" onclick="backToActivePlan()" class="hidden mb-4 text-[11px] font-label text-[#f2e5f0]/40 hover:text-[#E9C349] transition-colors">← Back to my current plan</button>
         <p class="text-[#f2e5f0]/50 font-body text-sm mb-6 text-center">Choose a reading plan to get started.</p>
         <div id="plan-cards" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
       </div>
@@ -835,7 +836,7 @@
               <div id="plan-active-name" class="font-label text-xs uppercase tracking-widest text-[#E9C349] font-bold mb-1"></div>
               <div id="plan-active-desc" class="text-[#f2e5f0]/50 text-xs"></div>
             </div>
-            <button onclick="abandonPlan()" class="text-[#f2e5f0]/25 hover:text-[#ff7c7c] text-[11px] transition-colors">Change plan</button>
+            <button onclick="showPlanPicker()" class="text-[#f2e5f0]/25 hover:text-[#ff7c7c] text-[11px] transition-colors">Change plan</button>
           </div>
           <!-- Progress bar -->
           <div class="h-1.5 bg-[#f2e5f0]/10 rounded-full overflow-hidden mb-1">
@@ -958,6 +959,12 @@
         <div id="gtab-content-members" class="hidden">
           <div id="group-members-list" class="space-y-2"></div>
           <button id="leave-group-btn" onclick="leaveGroupConfirm()" class="mt-6 w-full py-2.5 rounded-xl border border-[#ff7c7c]/30 text-[#ff7c7c]/60 font-label font-bold text-xs hover:border-[#ff7c7c]/60 hover:text-[#ff7c7c] transition-all">Leave Group</button>
+          <!-- Delete Group — admin only. Added 2026-08-26 (Manus authenticated
+               re-audit): there was previously no way for a group's creator to
+               permanently remove it, only Leave (which just removes that one
+               member). Hidden for non-admins by deleteGroupBtn.classList.toggle
+               in loadGroupMembers() below. -->
+          <button id="delete-group-btn" onclick="deleteGroupConfirm()" class="hidden mt-2 w-full py-2.5 rounded-xl border border-[#ff7c7c]/50 bg-[#ff7c7c]/5 text-[#ff7c7c] font-label font-bold text-xs hover:bg-[#ff7c7c]/15 transition-all">🗑 Delete Group</button>
 
           <!-- Report this group (roadmap 3.5 — see SAFETY_PASTORAL_POLICY.md item 4).
                Logged only — Formation does not investigate, contact, or remove leaders. -->
@@ -1260,7 +1267,7 @@
     <!-- Language -->
     <div class="border-t border-[#f2e5f0]/10 pt-4">
       <p class="font-label text-[10px] uppercase tracking-widest text-[#f2e5f0]/30 mb-3">Language</p>
-      <a href="https://formacion-biblica.com/beta"
+      <a href="https://formacion-biblica.com/beta" onclick="return confirmLanguageSwitch(event)"
         class="flex items-center gap-2 text-sm font-label text-[#f2e5f0]/55 hover:text-[#E9C349] transition-colors">
         🌐 Switch to Español
       </a>
@@ -2006,6 +2013,25 @@ function openProfilePanel() {
 const PLAN_DISPLAY_NAME = { free: 'Discovery', formation: 'Formation', plus: 'Formation Plus', pro: 'Formation Pro' };
 const BILLING_STATUS_LABEL = { active: 'Active', trialing: 'Trial', past_due: 'Payment issue — please update your card', canceled: 'Canceled', incomplete: 'Incomplete', incomplete_expired: 'Incomplete', unpaid: 'Payment issue — please update your card' };
 
+// Found + fixed 2026-08-26 (Manus authenticated re-audit): "Switch to Español"
+// previously navigated straight to formacion-biblica.com/beta with zero warning.
+// Formation's EN and ES sites are on entirely separate domains, so the Supabase
+// session (stored per-origin in localStorage) cannot follow — the user landed on
+// a fresh Spanish login screen with no explanation, looking like a broken link
+// rather than an intentional separate sign-in. A true single-sign-on handoff
+// across domains would require passing auth tokens between origins, which is
+// Supabase auth-flow territory (Human Validation Zone — needs sign-off before
+// building). Until that's decided, this at least makes the separation an
+// honest, explicit choice instead of a silent surprise.
+function confirmLanguageSwitch(evt) {
+  const ok = confirm(
+    'Formación Bíblica (Spanish) is a separate account from this English site — ' +
+    'you\'ll need to sign in there too. Continue to Formación Bíblica?'
+  );
+  if (!ok && evt) evt.preventDefault();
+  return ok;
+}
+
 async function loadBillingPanel() {
   const loadingEl = $('billing-loading'), contentEl = $('billing-content'), errorEl = $('billing-error');
   if (!loadingEl || !contentEl) return; // panel not present (shouldn't happen, but don't hard-fail the whole drawer)
@@ -2694,12 +2720,21 @@ function renderResponse(data) {
   else summarySection.classList.add('hidden');
 
   versesGrid.innerHTML = '';
-  const verses = data.verses || [];
+  // Only render verses the backend actually validated against live Scripture text
+  // (v.found !== false AND real text present). A reference Claude cited but that
+  // failed live validation (invalid book/chapter/verse, hallucinated citation) must
+  // never reach the user — showing a bare reference with no text is worse than
+  // omitting it, and defeats the whole point of the validation step. Found real bug
+  // 2026-08-26: "John 17:33" (John 17 only has 26 verses) was rendered as an empty
+  // card because this filter didn't exist — backend correctly flagged it found:false,
+  // frontend ignored that flag.
+  const allVerses = data.verses || [];
+  const verses = allVerses.filter(v => v.found !== false && !!(v.text || v.content));
   if (verses.length > 0) {
     verses.forEach(v => {
       const el = document.createElement('div');
       el.className = 'verse-card';
-      el.innerHTML = `<div class="font-label text-[11px] uppercase tracking-widest text-[#E9C349] font-bold mb-2">${escHtml(v.reference||v.ref||'')}</div>${(v.text||v.content) ? `<div class="text-on-surface-variant font-body text-sm leading-relaxed">${escHtml(v.text||v.content)}</div>` : ''}`;
+      el.innerHTML = `<div class="font-label text-[11px] uppercase tracking-widest text-[#E9C349] font-bold mb-2">${escHtml(v.reference||v.ref||'')}</div><div class="text-on-surface-variant font-body text-sm leading-relaxed">${escHtml(v.text||v.content)}</div>`;
       versesGrid.appendChild(el);
     });
     versesSection.classList.remove('hidden');
@@ -3208,9 +3243,11 @@ function initPlansTab() {
   }
 }
 
-function renderPlanPicker() {
+function renderPlanPicker(fromActivePlan) {
   $('plan-picker').classList.remove('hidden');
   $('plan-active').classList.add('hidden');
+  const backBtn = $('plan-picker-back');
+  if (backBtn) backBtn.classList.toggle('hidden', !fromActivePlan);
   const container = $('plan-cards');
   container.innerHTML = '';
   READING_PLANS.forEach(plan => {
@@ -3228,16 +3265,40 @@ function renderPlanPicker() {
 }
 
 function startPlan(planId) {
+  const active = getActivePlan();
+  if (active && active.planId && active.planId !== planId) {
+    if (!confirm('Switch to a different plan? Your progress on the current plan will be reset.')) return;
+  }
   localStorage.setItem(LS_PLAN, JSON.stringify({ planId, startDate: new Date().toISOString().slice(0,10) }));
   localStorage.removeItem(LS_DONE);
   renderActivePlan({ planId, startDate: new Date().toISOString().slice(0,10) });
 }
 
+// Found + fixed 2026-08-26 (Manus authenticated re-audit): "Change plan" used to
+// call abandonPlan() directly — a native confirm() that said "your progress will
+// be reset" BEFORE the user could even see what other plans exist. That's a scary,
+// premature commitment just to browse. Now "Change plan" opens the picker to browse
+// freely (no data touched, no confirm), and the reset confirmation only fires inside
+// startPlan() above, at the moment a *different* plan is actually chosen — the point
+// where data loss would really happen. backToActivePlan() lets the user leave the
+// picker without switching, since browsing is no longer destructive by itself.
+function showPlanPicker() {
+  renderPlanPicker(true);
+}
+
+function backToActivePlan() {
+  const active = getActivePlan();
+  if (active) renderActivePlan(active);
+  else renderPlanPicker(false);
+}
+
 function abandonPlan() {
-  if (!confirm('Switch to a different plan? Your progress will be reset.')) return;
+  // Kept for backward compatibility — no longer wired to any button, but a
+  // caller elsewhere in this file (or a future one) may still reference it.
+  if (!confirm('Switch to a different plan? Your progress on the current plan will be reset.')) return;
   localStorage.removeItem(LS_PLAN);
   localStorage.removeItem(LS_DONE);
-  renderPlanPicker();
+  renderPlanPicker(false);
 }
 
 function renderActivePlan({ planId, startDate }) {
@@ -3681,8 +3742,10 @@ async function loadGroupMembers() {
     `;
     list.appendChild(el);
   });
-  // Show leave button only for non-admins (or admin if they want to disband)
+  // Show leave button always; Delete Group only for the group's admin.
   $('leave-group-btn').classList.toggle('hidden', false);
+  const deleteBtn = $('delete-group-btn');
+  if (deleteBtn) deleteBtn.classList.toggle('hidden', currentGroupRole !== 'admin');
 }
 
 async function leaveGroupConfirm() {
@@ -3690,6 +3753,22 @@ async function leaveGroupConfirm() {
   try {
     await groupFetch(`/${currentGroupId}/leave`, 'DELETE');
     showToast('You left the group', 'success');
+    showGroupsLanding();
+  } catch (err) {
+    showToast('Error: ' + err.message, 'error');
+  }
+}
+
+// Added 2026-08-26 (Manus authenticated re-audit) — admin-only, irreversible.
+// Double-confirms with the group's real name in the prompt to reduce the risk
+// of an accidental destructive click for something with no undo.
+async function deleteGroupConfirm() {
+  if (currentGroupRole !== 'admin') return;
+  const name = currentGroupData?.name || 'this group';
+  if (!confirm(`Permanently delete "${name}"? This removes it for every member and cannot be undone.`)) return;
+  try {
+    await groupFetch(`/${currentGroupId}`, 'DELETE');
+    showToast('Group deleted', 'success');
     showGroupsLanding();
   } catch (err) {
     showToast('Error: ' + err.message, 'error');
