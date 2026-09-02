@@ -4294,7 +4294,13 @@ document.querySelectorAll('.report-reason-btn').forEach(btn => {
 });
 
 // ─── Card Gate ──────────────────────────────────────────────────────────────
-// Shows after: 2 complete free sessions (≥3rd visit) AND ≥1 Ask the Word query used.
+// Shows after: 7 calendar days since account signup (Supabase auth user.created_at —
+// server-authoritative, not client-resettable like the old visit/ATW localStorage
+// counters it replaces). Changed 2026-09-02 per the Duolingo-strategy review: the old
+// "3rd visit + 1 ATW question" trigger fired before a new user could reach the "free
+// win" the marketing copy already promised (a completed 7-day first study). vc/atw
+// counters below are kept for analytics (first_ai_question GA4 event) but no longer
+// gate anything.
 // Uses Stripe SetupIntent — saves card, no charge. Dismisses permanently once saved.
 // "Remind me tomorrow" snoozes for 24h.
 
@@ -4310,9 +4316,10 @@ function cardGateShouldShow() {
   if (localStorage.getItem(cgKey('saved'))) return false;          // card already saved
   const snooze = parseInt(localStorage.getItem(cgKey('snooze')) || '0', 10);
   if (snooze && Date.now() < snooze) return false;                 // snoozed
-  const visits = parseInt(localStorage.getItem(cgKey('vc')) || '0', 10);
-  const atw    = parseInt(localStorage.getItem(cgKey('atw')) || '0', 10);
-  return visits >= 3 && atw >= 1;
+  const createdAt = currentSession.user?.created_at;
+  if (!createdAt) return false;                                    // no signup date — fail open, don't gate
+  const daysSinceSignup = (Date.now() - new Date(createdAt).getTime()) / 86400000;
+  return daysSinceSignup >= 7;
 }
 
 let _cgVisitCounted = false;   // guard: only increment once per page load
