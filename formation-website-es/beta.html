@@ -4174,15 +4174,23 @@ function cgKey(suffix) {
   return `fbs_cg_${suffix}_${uid}`;
 }
 
-function cardGateShouldShow() {
+async function cardGateShouldShow() {
   if (!currentSession) return false;
   if (localStorage.getItem(cgKey('saved'))) return false;
   const snooze = parseInt(localStorage.getItem(cgKey('snooze')) || '0', 10);
   if (snooze && Date.now() < snooze) return false;
-  const createdAt = currentSession.user?.created_at;
-  if (!createdAt) return false;
-  const daysSinceSignup = (Date.now() - new Date(createdAt).getTime()) / 86400000;
-  return daysSinceSignup >= 7;
+  // Eligibility (7 days since signup) is decided server-side, from the backend's
+  // own clock and Supabase's authoritative created_at — not the browser's Date.now().
+  try {
+    const res = await fetch(`${BACKEND_URL}/api/billing/card-gate-status`, {
+      headers: { Authorization: `Bearer ${currentSession.access_token}` },
+    });
+    if (!res.ok) return false;
+    const data = await res.json();
+    return !!data.eligible;
+  } catch (err) {
+    return false;
+  }
 }
 
 let _cgVisitCounted = false;   // guard: only increment once per page load
@@ -4205,7 +4213,7 @@ function cardGateIncrementATW() {
 }
 
 async function checkCardGate() {
-  if (!cardGateShouldShow()) return;
+  if (!(await cardGateShouldShow())) return;
   const overlay = document.getElementById('card-gate-overlay');
   if (overlay.classList.contains('open')) return;
   await openCardGate();
