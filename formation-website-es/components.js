@@ -92,6 +92,7 @@
           <li><a href="/cookie_policy.html"  class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Política de Cookies</a></li>
           <li><a href="/billing_terms.html"  class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Términos de Facturación</a></li>
           <li><a href="/ai_disclaimer.html"  class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Aviso de IA</a></li>
+          <li><a href="/creditos-biblicos"   class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Créditos Bíblicos</a></li>
         </ul>
       </div>
 

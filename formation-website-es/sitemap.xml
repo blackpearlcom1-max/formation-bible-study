@@ -542,6 +542,14 @@
     <priority>0.7</priority>
   </url>
 
+  <!-- Bible translation credits / Créditos bíblicos -->
+  <url>
+    <loc>https://formacion-biblica.com/creditos-biblicos</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
   <!-- Terms of Service / Términos de Servicio -->
   <url>
     <loc>https://formacion-biblica.com/terms</loc>
