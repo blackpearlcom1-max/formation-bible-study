@@ -13,3 +13,23 @@ https://www.formacion-biblica.com/* https://formacion-biblica.com/:splat 301!
 /suscribir       /pricing         301
 /planes-de-lectura   /reading-plans   301
 /guias-de-estudio    /study-guides    301
+
+# ─── 2026-09-10: GSC "Not found (404)" cleanup (20 stale URLs) ──────────────
+# Legacy /formation-website/ path-prefix URLs (pre-rename structure)
+/formation-website/index.html          /                            301
+/formation-website/about.html          /about                       301
+/formation-website/pricing.html        /pricing                     301
+/formation-website/contact.html        /contact                     301
+/formation-website/features.html       /features                    301
+/formation-website/signup.html         /signup                      301
+/formation-website/terms.html          /terms                       301
+/formation-website/privacy_policy.html /privacy_policy              301
+/formation-website/cookie_policy.html  /cookie_policy               301
+/formation-website/beta.html           /beta                        301
+/formation-website/*                   /:splat                      301
+
+# Other legacy/renamed slugs
+/registro.html      /signup                       301
+/join                /signup                       301
+/millennium-revelation-20.html   /milenio-en-apocalipsis-20   301
+/mes                 /reading-plans                301

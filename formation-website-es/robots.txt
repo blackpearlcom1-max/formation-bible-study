@@ -8,6 +8,7 @@ Allow: /
 # Disallow form confirmation pages and internal paths
 Disallow: /success
 Disallow: /.netlify/
+Disallow: /cdn-cgi/
 
 # ─── AI Search & LLM Crawlers ────────────────────────────────────────────────
 # Explicitly allow all AI crawlers for maximum AI search visibility (AEO/GEO)
