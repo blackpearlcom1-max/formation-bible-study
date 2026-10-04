@@ -732,25 +732,31 @@
           <div class="flex flex-wrap border-b border-[#f2e5f0]/10 bg-black/10">
             <button class="evidence-tab active px-4 py-3 text-xs font-label uppercase tracking-widest border-b-2 border-transparent text-on-surface-variant" data-tab="scripture">Direct Scripture</button>
             <button class="evidence-tab px-4 py-3 text-xs font-label uppercase tracking-widest border-b-2 border-transparent text-on-surface-variant" data-tab="crossref">Cross-References</button>
-            <button class="evidence-tab px-4 py-3 text-xs font-label uppercase tracking-widest border-b-2 border-transparent text-on-surface-variant" data-tab="context">Lexical Context</button>
-            <button class="evidence-tab px-4 py-3 text-xs font-label uppercase tracking-widest border-b-2 border-transparent text-on-surface-variant" data-tab="commentary">Commentary</button>
+            <button class="evidence-tab px-4 py-3 text-xs font-label uppercase tracking-widest border-b-2 border-transparent text-on-surface-variant" data-tab="context">Context in Scripture</button>
             <button class="evidence-tab px-4 py-3 text-xs font-label uppercase tracking-widest border-b-2 border-transparent text-on-surface-variant" data-tab="disputed">Disputed View</button>
           </div>
           <div class="px-6 py-5">
             <div class="evidence-panel active" data-panel="scripture"><p id="evidence-scripture" class="text-sm text-on-surface-variant leading-relaxed"></p></div>
             <div class="evidence-panel" data-panel="crossref"><ul id="evidence-crossref" class="text-sm text-on-surface-variant leading-relaxed space-y-2 list-disc list-inside"></ul></div>
             <div class="evidence-panel" data-panel="context"><p id="evidence-context" class="text-sm text-on-surface-variant leading-relaxed"></p></div>
-            <div class="evidence-panel" data-panel="commentary"><p id="evidence-commentary" class="text-sm text-on-surface-variant leading-relaxed"></p></div>
             <div class="evidence-panel" data-panel="disputed"><p id="evidence-disputed" class="text-sm text-on-surface-variant leading-relaxed"></p></div>
           </div>
         </div>
 
+        <div id="outside-section" class="hidden bg-[#4A1D4D]/70 backdrop-blur-xl border border-[#E9C349]/30 rounded-3xl overflow-hidden shadow-xl">
+          <div class="px-6 py-4 border-b border-[#f2e5f0]/10">
+            <span class="text-[#E9C349] font-label text-xs uppercase tracking-widest font-bold">Outside the Bible text</span>
+            <p class="text-on-surface-variant text-xs mt-1">Not from the Bible text. Interpretation or tradition. Not checked here.</p>
+          </div>
+          <ul id="outside-list" class="px-6 py-5 text-sm text-on-surface-variant leading-relaxed space-y-3 list-disc list-inside"></ul>
+        </div>
+
         <div id="verification-section" class="bg-[#4A1D4D]/70 backdrop-blur-xl border border-[#f2e5f0]/10 rounded-3xl overflow-hidden shadow-xl">
           <div class="px-6 py-4 border-b border-[#f2e5f0]/10">
-            <span class="text-[#FFB4A4] font-label text-xs uppercase tracking-widest font-bold">✔ Verification</span>
+            <span class="text-[#FFB4A4] font-label text-xs uppercase tracking-widest font-bold">ℹ Scope of this answer</span>
           </div>
           <div class="px-6 py-5 flex items-start gap-3">
-            <span id="verification-icon" class="text-lg flex-shrink-0 mt-0.5">🟡</span>
+            <span id="verification-icon" class="text-lg flex-shrink-0 mt-0.5">📖</span>
             <span id="verification-text" class="text-on-surface-variant font-body text-sm leading-relaxed"></span>
           </div>
         </div>
@@ -1476,7 +1482,7 @@ const fbHelpfulBtn = $('fb-helpful'), fbUnhelpfulBtn = $('fb-unhelpful');
 const flagReasonPanel = $('flag-reason-panel'), flagCancelBtn = $('flag-cancel-btn');
 const evidenceDrawerSection = $('evidence-drawer-section');
 const evidenceScripture = $('evidence-scripture'), evidenceCrossref = $('evidence-crossref');
-const evidenceContext = $('evidence-context'), evidenceCommentary = $('evidence-commentary'), evidenceDisputed = $('evidence-disputed');
+const evidenceContext = $('evidence-context'), evidenceDisputed = $('evidence-disputed');
 
 // ─── Tab Switching ─────────────────────────────────────────
 function switchTab(name) {
@@ -2745,37 +2751,23 @@ function renderResponse(data) {
   // in which case the drawer is simply hidden rather than shown empty.
   renderEvidenceDrawer(data.evidence || null);
 
-  if (data.verification || data.verified !== undefined) {
-    const rawV = data.verification;
-    let vText, verified;
-    if (rawV && typeof rawV === 'object') {
-      // Backend returns {accurate, confidence, notes}
-      if (rawV.accurate === null && !rawV.notes) {
-        // Empty verification — hide it
-        verificationSection.classList.add('hidden');
-        rawV; // skip rest
-      } else {
-        verified = rawV.accurate !== false;
-        const confidence = rawV.confidence ? ` (${rawV.confidence} confidence)` : '';
-        const notes = rawV.notes ? ` — ${rawV.notes}` : '';
-        vText = rawV.accurate === true
-          ? `Scripturally sound${confidence}${notes}`
-          : rawV.accurate === false
-            ? `Review with discernment${confidence}${notes}`
-            : (rawV.notes || 'Verification completed');
-        verificationIcon.textContent = verified ? '🟢' : '🟡';
-        verificationText.textContent = vText;
-        verificationSection.classList.remove('hidden');
-      }
-    } else {
-      vText = (typeof rawV === 'string' && rawV)
-        ? rawV
-        : (data.verified ? 'Theologically verified against Scripture.' : 'Could not fully verify — review with discernment.');
-      verificationIcon.textContent = (data.verified !== false && !String(vText).toLowerCase().includes('could not')) ? '🟢' : '🟡';
-      verificationText.textContent = vText;
-      verificationSection.classList.remove('hidden');
-    }
-  } else verificationSection.classList.add('hidden');
+  // Scope statement (Oct 2026 "text first, outside material labeled" policy).
+  // Never shows a "verified" badge: the server says what was and was not checked.
+  {
+    const sc = data.scope && data.scope.statement;
+    const vn = data.verification && typeof data.verification === 'object' ? data.verification.notes : '';
+    const scopeText = sc || vn || "Scripture check: quoted verses and references were compared with the Berean Standard Bible. History, tradition, original-language claims, and scholars' views are not checked by this app.";
+    verificationIcon.textContent = '📖';
+    verificationText.textContent = scopeText;
+    verificationSection.classList.remove('hidden');
+    const outList = document.getElementById('outside-list');
+    const outSec = document.getElementById('outside-section');
+    const items = Array.isArray(data.outside) ? data.outside.filter(o => o && o.text) : [];
+    outList.innerHTML = items.map(o =>
+      `<li>${escHtml(o.text)}${o.label ? ' <span class="text-[#E9C349] text-xs font-label uppercase tracking-widest">[' + escHtml(o.label) + ']</span>' : ''}</li>`
+    ).join('');
+    outSec.classList.toggle('hidden', items.length === 0);
+  }
 
   cachedIndicator.innerHTML = data.cached
     ? '<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#3fb950]/10 border border-[#3fb950]/25 text-[#3fb950] font-label text-[10px] font-bold uppercase tracking-widest">⚡ Cached</span>'
@@ -2798,18 +2790,16 @@ function renderEvidenceDrawer(evidence) {
   const hasScripture  = !!evidence.scripture;
   const hasCrossref   = Array.isArray(evidence.crossref) && evidence.crossref.length > 0;
   const hasContext    = !!evidence.context;
-  const hasCommentary = !!evidence.commentary;
   const hasDisputed   = !!evidence.disputed;
 
   // Nothing usable at all — hide rather than show an empty drawer
-  if (!hasScripture && !hasCrossref && !hasContext && !hasCommentary && !hasDisputed) {
+  if (!hasScripture && !hasCrossref && !hasContext && !hasDisputed) {
     evidenceDrawerSection.classList.add('hidden');
     return;
   }
 
   evidenceScripture.textContent = hasScripture ? evidence.scripture : '';
   evidenceContext.textContent = hasContext ? evidence.context : '';
-  evidenceCommentary.textContent = hasCommentary ? evidence.commentary : '';
   evidenceDisputed.textContent = hasDisputed ? evidence.disputed : '';
 
   evidenceCrossref.innerHTML = hasCrossref
