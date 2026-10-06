@@ -1312,7 +1312,7 @@
       <p id="lex-definition" class="text-on-surface-variant font-body text-sm leading-relaxed mb-4"></p>
     </div>
     <div class="flex flex-wrap gap-2 pt-3 border-t border-[#f2e5f0]/10">
-      <span class="text-[10px] uppercase tracking-widest text-[#f2e5f0]/30 font-semibold self-center mr-1">Estudia más →</span>
+      <span class="text-[10px] uppercase tracking-widest text-[#f2e5f0]/30 font-semibold self-center mr-1">Enlaces externos →</span>
       <a id="lex-biblehub-link" href="#" target="_blank" rel="noopener" class="reader-btn text-xs px-3 py-1.5">BibleHub</a>
       <a id="lex-blb-link" href="#" target="_blank" rel="noopener" class="reader-btn text-xs px-3 py-1.5">Blue Letter Bible</a>
       <a id="lex-step-link" href="#" target="_blank" rel="noopener" class="reader-btn text-xs px-3 py-1.5">STEPBible</a>
@@ -3922,7 +3922,7 @@ function openLexicon(word) {
   $('lex-loading').classList.remove('hidden');
   $('lex-biblehub-link').href = `https://biblehub.com/search.php?q=${enc}`;
   $('lex-blb-link').href = `https://www.blueletterbible.org/search/search.cfm?Criteria=${enc}&t=KJV`;
-  $('lex-step-link').href = `https://www.stepbible.org/?q=version=ESV|reference=Gen.1|strong=H${enc}`;
+  $('lex-step-link').href = `https://www.stepbible.org/?q=version=SpaRV|text=${enc}`;
   $('lexicon-overlay').classList.remove('hidden');
   document.body.style.overflow = 'hidden';
   fetchLexiconData(word);
@@ -3937,7 +3937,7 @@ async function fetchLexiconData(word) {
       const meanings = data[0]?.meanings || [];
       const defs = meanings.flatMap(m => m.definitions.slice(0,1).map(d => `(${m.partOfSpeech}) ${d.definition}`));
       if (defs.length > 0) {
-        $('lex-strongs').textContent = 'Léxico Inglés';
+        $('lex-strongs').textContent = 'Diccionario de inglés';
         $('lex-definition').textContent = defs.slice(0, 2).join(' • ');
         $('lex-body').classList.remove('hidden');
       } else {
@@ -3953,8 +3953,8 @@ async function fetchLexiconData(word) {
 }
 
 function showLexiconFallback(word) {
-  $('lex-strongs').textContent = 'Estudio en Idioma Original';
-  $('lex-definition').textContent = `Usa los enlaces para buscar "${word}" en la Concordancia Strong's y herramientas interlineales.`;
+  $('lex-strongs').textContent = 'Búsqueda de palabras';
+  $('lex-definition').textContent = `No se encontró una definición. Estos son enlaces externos: úsalos para buscar "${word}" en Bible Hub, Blue Letter Bible o STEP Bible.`;
   $('lex-body').classList.remove('hidden');
 }
 

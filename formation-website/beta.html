@@ -1365,7 +1365,7 @@
     </div>
     <!-- Always-visible external links -->
     <div class="flex flex-wrap gap-2 pt-3 border-t border-[#f2e5f0]/10">
-      <span class="text-[10px] uppercase tracking-widest text-[#f2e5f0]/30 font-semibold self-center mr-1">Study deeper →</span>
+      <span class="text-[10px] uppercase tracking-widest text-[#f2e5f0]/30 font-semibold self-center mr-1">Outside links →</span>
       <a id="lex-biblehub-link" href="#" target="_blank" rel="noopener"
         class="reader-btn text-xs px-3 py-1.5">BibleHub</a>
       <a id="lex-blb-link" href="#" target="_blank" rel="noopener"
@@ -4020,7 +4020,7 @@ function openLexicon(word) {
   // Set external links immediately
   $('lex-biblehub-link').href = `https://biblehub.com/search.php?q=${enc}`;
   $('lex-blb-link').href = `https://www.blueletterbible.org/search/search.cfm?Criteria=${enc}&t=KJV`;
-  $('lex-step-link').href = `https://www.stepbible.org/?q=version=KJV|reference=Gen.1|strong=H${enc}`;
+  $('lex-step-link').href = `https://www.stepbible.org/?q=version=KJV|text=${enc}`;
   $('lexicon-overlay').classList.remove('hidden');
   document.body.style.overflow = 'hidden';
   // Try free lexicon lookup
@@ -4038,7 +4038,7 @@ async function fetchLexiconData(word) {
       const meanings = entry?.meanings || [];
       const defs = meanings.flatMap(m => m.definitions.slice(0,1).map(d => `(${m.partOfSpeech}) ${d.definition}`));
       if (defs.length > 0) {
-        $('lex-strongs').textContent = 'English Lexicon';
+        $('lex-strongs').textContent = 'English dictionary';
         $('lex-definition').textContent = defs.slice(0, 2).join(' • ');
         $('lex-body').classList.remove('hidden');
       } else {
@@ -4054,8 +4054,8 @@ async function fetchLexiconData(word) {
 }
 
 function showLexiconFallback(word) {
-  $('lex-strongs').textContent = 'Original Language Study';
-  $('lex-definition').textContent = `Use the links below to look up "${word}" in the Strong's Concordance, lexicons, and interlinear tools.`;
+  $('lex-strongs').textContent = 'Word lookup';
+  $('lex-definition').textContent = `No dictionary entry found. These are outside links: use them to look up "${word}" on Bible Hub, Blue Letter Bible, or STEP Bible.`;
   $('lex-body').classList.remove('hidden');
 }
 
