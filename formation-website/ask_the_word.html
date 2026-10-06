@@ -21,7 +21,7 @@
   <meta name="msvalidate.01" content="54A0DE1D6E89B3C428FFAF7954F47043" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
   <title>How Ask the Word Works — Formation Bible Study | Text-First Bible Answers</title>
-  <meta name="description" content="Ask the Word is an AI Bible study assistant that works from the Bible text first. Learn how it works, what is compared with Scripture, what is labeled 'Not checked here', and what it will not do."/>
+  <meta name="description" content="Ask the Word is an AI Bible study assistant that answers any question from Scripture's perspective, working from the Bible text first. Learn how it works, what is compared with Scripture, what is labeled 'Not checked here', and what it will not do."/>
 
   <!-- Canonical URL -->
   <link rel="canonical" href="https://www.formationbible.com/ask_the_word"/>
@@ -48,7 +48,7 @@
     "@type": "FAQPage",
     "name": "How Ask the Word Works — Formation Bible Study",
     "url": "https://www.formationbible.com/ask_the_word",
-    "description": "Ask the Word is an AI assistant (Anthropic's Claude model) that answers from the Bible text first. Quoted verses and references are compared with the Bible text. History, tradition, original-language claims and scholars' views are not checked and are labeled 'Not checked here'.",
+    "description": "Ask the Word is an AI assistant (Anthropic's Claude model) that answers any question from Scripture's perspective, using the Berean Standard Bible text first. Quoted verses and references are compared with the Bible text. History, tradition, original-language claims and scholars' views are not checked and are labeled 'Not checked here'.",
     "isPartOf": { "@type": "WebSite", "name": "Formation Bible Study", "url": "https://www.formationbible.com" },
     "mainEntity": [
       {
@@ -64,7 +64,7 @@
         "name": "Where do the answers come from?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "From the Bible text and the AI model. When you name a reference, the app fetches that passage from the Berean Standard Bible (public domain) and the answer is built from it. If you don't name a reference, the AI answers from its general training under the same rules. There is no commentary library behind it. Anything about history, tradition, Greek or Hebrew, or scholars' views is not checked by the app and is placed in a block labeled 'Not checked here'."
+          "text": "From the Bible text and the AI model. When you name a reference, the app fetches that passage from the Berean Standard Bible (public domain) and the answer is built from it. If you don't name a reference, the AI chooses relevant passages itself and answers under the same rules. Ask the Word answers any question from Scripture's perspective; if the Bible does not speak directly to your question, the answer says so in plain words. There is no commentary library behind it. Anything about history, tradition, Greek or Hebrew, or scholars' views is not checked by the app and is placed in a block labeled 'Not checked here'."
         }
       },
       {
@@ -173,7 +173,7 @@
         Ask the Word<br/><span class="shimmer-text italic font-light">shows its work.</span>
       </h1>
       <p class="text-xl md:text-2xl text-on-surface-variant leading-relaxed font-light max-w-2xl" data-animate="fade-up" data-delay="300">
-        Ask the Word is an AI assistant that starts from the Bible text. When your question names a passage, the answer is built from that passage in the Berean Standard Bible. Anything it says from outside the text, like history, tradition, or Greek and Hebrew, is labeled so you know it has not been checked.
+        Ask the Word is an AI assistant that starts from the Bible text. Ask it any question and it answers from Scripture's perspective, and tells you plainly when the Bible does not speak directly to it. When your question names a passage, the answer is built from that passage in the Berean Standard Bible. Anything it says from outside the text, like history, tradition, or Greek and Hebrew, is labeled so you know it has not been checked.
       </p>
     </div>
     <div class="absolute -top-10 -right-20 w-96 h-96 bg-primary-container/20 blur-[100px] rounded-full -z-10"></div>
@@ -269,7 +269,7 @@
           </div>
           <div>
             <h3 class="font-headline text-xl font-bold text-on-surface mb-2">You ask a question in plain language</h3>
-            <p class="text-on-surface-variant leading-relaxed">Type it the way you'd ask a trusted pastor — <em class="text-primary">"What does John 1:1 mean when it says 'the Word was God'?"</em> or <em class="text-primary">"What is the connection between Passover and the Last Supper?"</em></p>
+            <p class="text-on-surface-variant leading-relaxed">Type it the way you'd ask a trusted pastor — <em class="text-primary">"What does John 1:1 mean when it says 'the Word was God'?"</em> <em class="text-primary">"What is the connection between Passover and the Last Supper?"</em> or even an everyday question like <em class="text-primary">"How should I think about work stress?"</em> Ask the Word answers it through Scripture, and says so when the Bible does not speak directly to it.</p>
           </div>
         </div>
 
@@ -325,7 +325,7 @@
         <div class="bg-surface-container-highest p-8 rounded-2xl border border-[#f2e5f0]/10 text-center" data-animate="fade-up" data-delay="0">
           <span class="material-symbols-outlined text-4xl text-secondary mb-5 block" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">menu_book</span>
           <h3 class="font-headline text-xl font-bold text-on-surface mb-3">The Berean Standard Bible</h3>
-          <p class="text-on-surface-variant text-sm leading-relaxed">Formation's English Bible text. The Berean Standard Bible is public domain (CC0). When you name a reference, the answer is built from that passage. In Spanish, the app uses the Reina-Valera 1909, also public domain.</p>
+          <p class="text-on-surface-variant text-sm leading-relaxed">Formation's English Bible text. The Berean Standard Bible is public domain (CC0). When you name a reference, the answer is built from that passage; when you don't, the AI picks relevant passages itself. In Spanish, the app uses the Reina-Valera 1909, also public domain.</p>
           <div class="mt-5 inline-block px-3 py-1 bg-secondary/10 border border-secondary/30 rounded-full text-secondary text-xs font-label uppercase tracking-widest">Primary Source</div>
         </div>
 
@@ -362,6 +362,13 @@
               <div>
                 <p class="font-semibold text-on-surface">Pass off outside claims as checked Scripture</p>
                 <p class="text-on-surface-variant text-sm mt-1">Only quoted verses and references are compared with the Bible text. History, tradition, original-language claims and scholars' views are not, and they are always labeled "Not checked here".</p>
+              </div>
+            </li>
+            <li class="flex items-start gap-4">
+              <span class="material-symbols-outlined text-primary flex-shrink-0 mt-0.5" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">block</span>
+              <div>
+                <p class="font-semibold text-on-surface">Give medical, legal or financial instructions</p>
+                <p class="text-on-surface-variant text-sm mt-1">You can ask about any topic. For medical, legal or financial questions, Ask the Word recommends a qualified professional and then shows what Scripture says. It does not tell you what to decide.</p>
               </div>
             </li>
             <li class="flex items-start gap-4">

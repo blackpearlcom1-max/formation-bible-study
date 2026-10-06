@@ -555,7 +555,6 @@
         <select id="chapter-select" onchange="loadChapter()" aria-label="Chapter" class="reader-select w-20"></select>
         <select id="translation-select" onchange="loadChapter()" aria-label="Translation" class="reader-select w-20">
           <option value="BSB">BSB</option>
-          <option value="KJV">KJV</option>
         </select>
         <div class="flex gap-2">
           <button onclick="prevChapter()" class="reader-btn">◀</button>
@@ -1215,7 +1214,6 @@
       <select id="profile-translation-select"
         class="w-full bg-[#4A1D4D]/60 border border-[#f2e5f0]/15 rounded-xl px-3 py-2.5 text-[#f2e5f0] text-sm font-body focus:outline-none focus:border-[#E9C349]/50 transition-colors">
         <option value="BSB">BSB — Berean Standard Bible</option>
-        <option value="KJV">KJV — King James Version</option>
       </select>
     </div>
 
@@ -1568,7 +1566,7 @@ function initBibleReader() {
   if (last) {
     bookSel.value = last.bookId || 'GEN';
     populateChapters(last.chapters || 50, last.chapter || 1);
-    $('translation-select').value = last.translation || 'BSB';
+    $('translation-select').value = normTranslation(last.translation);
     if (!$('translation-select').value) $('translation-select').value = 'BSB';
     loadChapter();
   } else {
@@ -1627,10 +1625,13 @@ function nextChapter() {
   }
 }
 
+// English is BSB only. Anything else a visitor saved earlier (e.g. a removed translation) falls back to BSB.
+function normTranslation() { return 'BSB'; }
+
 async function loadChapter() {
   const book = getCurrentBook();
   const chapter = parseInt($('chapter-select').value) || 1;
-  const translation = $('translation-select').value;
+  const translation = normTranslation($('translation-select').value);
   const chapterId = `${book.id}.${chapter}`;
   clearVerseSelection();
   $('chapter-placeholder').classList.add('hidden');
@@ -1992,7 +1993,7 @@ function openProfilePanel() {
   const meta  = session.user.user_metadata || {};
   const email = session.user.email || '';
   const name  = meta.display_name || meta.full_name || '';
-  const trans = meta.default_translation || 'BSB';
+  const trans = normTranslation(meta.default_translation);
 
   $('profile-name-input').value = name;
   $('profile-translation-select').value = trans;
@@ -3369,7 +3370,7 @@ function readNow(bookId, chapter) {
   bookSel.value = bookId;
   const book = BOOKS.find(b => b.id === bookId);
   if (book) populateChapters(book.ch, parseInt(chapter));
-  $('translation-select').value = $('translation-select').value || 'BSB';
+  $('translation-select').value = normTranslation($('translation-select').value);
   loadChapter();
   switchTab('read');
 }
@@ -4019,8 +4020,8 @@ function openLexicon(word) {
   $('lex-loading').classList.remove('hidden');
   // Set external links immediately
   $('lex-biblehub-link').href = `https://biblehub.com/search.php?q=${enc}`;
-  $('lex-blb-link').href = `https://www.blueletterbible.org/search/search.cfm?Criteria=${enc}&t=KJV`;
-  $('lex-step-link').href = `https://www.stepbible.org/?q=version=KJV|text=${enc}`;
+  $('lex-blb-link').href = `https://www.blueletterbible.org/search/search.cfm?Criteria=${enc}&t=WEB`;
+  $('lex-step-link').href = `https://www.stepbible.org/?q=version=BSB|text=${enc}`;
   $('lexicon-overlay').classList.remove('hidden');
   document.body.style.overflow = 'hidden';
   // Try free lexicon lookup
