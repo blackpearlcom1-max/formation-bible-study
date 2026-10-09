@@ -2064,13 +2064,17 @@ async function loadBillingPanel() {
     const quota  = quotaRes.ok  ? await quotaRes.json()  : null;
 
     const plan = status?.plan || currentUserPlan || 'free';
+    // Complimentary grant (decided server-side; the client never sees who is on the list).
+    const comped = status?.comped === true;
     $('billing-plan-name').textContent = PLAN_DISPLAY_NAME[plan] || 'Discovery';
-    $('billing-plan-status').textContent = plan === 'free'
-      ? '$0/mo · always free to start'
-      : (BILLING_STATUS_LABEL[status?.status] || (status?.status ? status.status : 'Active'));
+    $('billing-plan-status').textContent = comped
+      ? 'Pro plan (complimentary)'
+      : plan === 'free'
+        ? '$0/mo · always free to start'
+        : (BILLING_STATUS_LABEL[status?.status] || (status?.status ? status.status : 'Active'));
 
     const renewalBadge = $('billing-renewal-badge');
-    if (plan !== 'free' && status?.currentPeriodEnd) {
+    if (!comped && plan !== 'free' && status?.currentPeriodEnd) {
       const d = new Date(status.currentPeriodEnd);
       const dateStr = isNaN(d.getTime()) ? '' : d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
       if (dateStr) {
@@ -2098,7 +2102,11 @@ async function loadBillingPanel() {
     }
 
     const manageBtn = $('billing-manage-btn'), upgradeLink = $('billing-upgrade-link');
-    if (plan !== 'free') {
+    if (comped) {
+      // Nothing to manage and nothing to upgrade to.
+      manageBtn.classList.add('hidden');
+      upgradeLink.classList.add('hidden');
+    } else if (plan !== 'free') {
       manageBtn.classList.remove('hidden');
       upgradeLink.classList.add('hidden');
     } else {
@@ -2180,6 +2188,12 @@ async function openManageSubscription(btnId) {
       body: JSON.stringify({ returnUrl: window.location.href }),
     });
     const data = await res.json();
+    if (data.comped) {
+      showToast('Your Pro plan is complimentary — there is no billing to manage.', 'success');
+      btn.disabled = false;
+      btn.textContent = originalText;
+      return;
+    }
     if (!res.ok || data.error) {
       showToast(data.error || 'Could not open subscription management. Please try again.', 'error');
       btn.disabled = false;
