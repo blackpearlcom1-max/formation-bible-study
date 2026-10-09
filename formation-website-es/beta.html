@@ -1329,6 +1329,23 @@
 const SUPABASE_URL  = 'https://tdlaxuquplqejvijqiow.supabase.co';
 const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRkbGF4dXF1cGxxZWp2aWpxaW93Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgxMTQ5NDksImV4cCI6MjA5MzY5MDk0OX0._-I3akq5PV0JqCdSV3mSMP03g1VRmWxxROsDo5UpaaY';
 const BACKEND_URL   = 'https://formation-backend-production.up.railway.app';
+// Dile al backend que este es el sitio en español para que sus mensajes de error
+// lleguen en español (X-App-Lang). Solo se añade a las llamadas al backend.
+(function () {
+  var _fetch = window.fetch;
+  window.fetch = function (input, init) {
+    try {
+      var url = typeof input === 'string' ? input : (input && input.url) || '';
+      if (url.indexOf(BACKEND_URL) === 0) {
+        init = Object.assign({}, init);
+        var h = new Headers(init.headers || (typeof input !== 'string' && input.headers) || {});
+        h.set('X-App-Lang', 'es');
+        init.headers = h;
+      }
+    } catch (e) { /* nunca bloquear una llamada por esto */ }
+    return _fetch.call(this, input, init);
+  };
+})();
 
 const { createClient } = supabase;
 const sb = createClient(SUPABASE_URL, SUPABASE_ANON, {

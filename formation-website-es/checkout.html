@@ -709,6 +709,23 @@
     // Widget name: "Formación Checkout" | Mode: Invisible | Domains: formationbible.com, formacion-biblica.com, fbsapp.pages.dev, fbsapp-es.pages.dev
     // After creating: copy Site Key below, copy Secret Key to Railway env as TURNSTILE_SECRET_KEY
     const BACKEND_URL = 'https://formation-backend-production.up.railway.app';
+// Dile al backend que este es el sitio en español para que sus mensajes de error
+// lleguen en español (X-App-Lang). Solo se añade a las llamadas al backend.
+(function () {
+  var _fetch = window.fetch;
+  window.fetch = function (input, init) {
+    try {
+      var url = typeof input === 'string' ? input : (input && input.url) || '';
+      if (url.indexOf(BACKEND_URL) === 0) {
+        init = Object.assign({}, init);
+        var h = new Headers(init.headers || (typeof input !== 'string' && input.headers) || {});
+        h.set('X-App-Lang', 'es');
+        init.headers = h;
+      }
+    } catch (e) { /* nunca bloquear una llamada por esto */ }
+    return _fetch.call(this, input, init);
+  };
+})();
     const TURNSTILE_SITE_KEY = '0x4AAAAAADndd0n_FPDJi3Oj'; // CF test key — replace with production key
     let turnstileToken = null;
     let turnstileWidgetId = null;
