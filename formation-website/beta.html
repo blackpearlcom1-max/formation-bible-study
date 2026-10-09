@@ -2776,7 +2776,7 @@ function renderResponse(data) {
   {
     const sc = data.scope && data.scope.statement;
     const vn = data.verification && typeof data.verification === 'object' ? data.verification.notes : '';
-    const scopeText = sc || vn || "Scripture check: quoted verses and references were compared with the Berean Standard Bible. History, tradition, original-language claims, and scholars' views are not checked by this app.";
+    const scopeText = sc || vn || "Scripture check: the verse references an answer cites are checked against the Berean Standard Bible; wording inside quotation marks may be paraphrased, so read the passage itself. History, tradition, original-language claims, and scholars' views are not checked by this app.";
     verificationIcon.textContent = '📖';
     verificationText.textContent = scopeText;
     verificationSection.classList.remove('hidden');

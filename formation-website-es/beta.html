@@ -2725,7 +2725,7 @@ function renderResponse(data) {
   {
     const sc = data.scope && data.scope.statement;
     const vn = data.verification && typeof data.verification === 'object' ? data.verification.notes : '';
-    const scopeText = sc || vn || 'Verificación de la Escritura: los versículos citados y las referencias se compararon con la Reina-Valera 1909. La historia, la tradición, las afirmaciones sobre idiomas originales y las opiniones de eruditos no son verificadas por esta app.';
+    const scopeText = sc || vn || 'Verificación de la Escritura: las referencias de versículos que cita una respuesta se comprueban con la Reina-Valera 1909; las palabras entre comillas pueden estar parafraseadas, así que lee el pasaje mismo. La historia, la tradición, las afirmaciones sobre idiomas originales y las opiniones de eruditos no son verificadas por esta app.';
     verificationIcon.textContent = '📖';
     verificationText.textContent = scopeText;
     verificationSection.classList.remove('hidden');
