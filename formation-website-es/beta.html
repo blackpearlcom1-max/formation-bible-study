@@ -3944,36 +3944,15 @@ function openLexicon(word) {
   $('lex-step-link').href = `https://www.stepbible.org/?q=version=SpaRV|text=${enc}`;
   $('lexicon-overlay').classList.remove('hidden');
   document.body.style.overflow = 'hidden';
-  fetchLexiconData(word);
-}
-
-async function fetchLexiconData(word) {
-  try {
-    const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(word.toLowerCase())}`);
-    $('lex-loading').classList.add('hidden');
-    if (res.ok) {
-      const data = await res.json();
-      const meanings = data[0]?.meanings || [];
-      const defs = meanings.flatMap(m => m.definitions.slice(0,1).map(d => `(${m.partOfSpeech}) ${d.definition}`));
-      if (defs.length > 0) {
-        $('lex-strongs').textContent = 'Diccionario de inglés';
-        $('lex-definition').textContent = defs.slice(0, 2).join(' • ');
-        $('lex-body').classList.remove('hidden');
-      } else {
-        showLexiconFallback(word);
-      }
-    } else {
-      showLexiconFallback(word);
-    }
-  } catch(e) {
-    $('lex-loading').classList.add('hidden');
-    showLexiconFallback(word);
-  }
+  showLexiconFallback(word);
 }
 
 function showLexiconFallback(word) {
+  // No se consulta ningún servicio de terceros: la palabra solo sale de la página
+  // por los enlaces externos que el lector decida abrir.
+  $('lex-loading').classList.add('hidden');
   $('lex-strongs').textContent = 'Búsqueda de palabras';
-  $('lex-definition').textContent = `No se encontró una definición. Estos son enlaces externos: úsalos para buscar "${word}" en Bible Hub, Blue Letter Bible o STEP Bible.`;
+  $('lex-definition').textContent = `Estos son enlaces externos. Úsalos para buscar "${word}" en Bible Hub, Blue Letter Bible o STEP Bible.`;
   $('lex-body').classList.remove('hidden');
 }
 

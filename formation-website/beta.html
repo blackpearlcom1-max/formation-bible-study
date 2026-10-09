@@ -4043,39 +4043,15 @@ function openLexicon(word) {
   $('lex-step-link').href = `https://www.stepbible.org/?q=version=BSB|text=${enc}`;
   $('lexicon-overlay').classList.remove('hidden');
   document.body.style.overflow = 'hidden';
-  // Try free lexicon lookup
-  fetchLexiconData(word);
-}
-
-async function fetchLexiconData(word) {
-  try {
-    // Use Free Dictionary API as a lightweight fallback for word info
-    const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(word.toLowerCase())}`);
-    $('lex-loading').classList.add('hidden');
-    if (res.ok) {
-      const data = await res.json();
-      const entry = data[0];
-      const meanings = entry?.meanings || [];
-      const defs = meanings.flatMap(m => m.definitions.slice(0,1).map(d => `(${m.partOfSpeech}) ${d.definition}`));
-      if (defs.length > 0) {
-        $('lex-strongs').textContent = 'English dictionary';
-        $('lex-definition').textContent = defs.slice(0, 2).join(' • ');
-        $('lex-body').classList.remove('hidden');
-      } else {
-        showLexiconFallback(word);
-      }
-    } else {
-      showLexiconFallback(word);
-    }
-  } catch(e) {
-    $('lex-loading').classList.add('hidden');
-    showLexiconFallback(word);
-  }
+  showLexiconFallback(word);
 }
 
 function showLexiconFallback(word) {
+  // No third-party lookup is made: the word never leaves the page except through
+  // the outside links the reader chooses to open.
+  $('lex-loading').classList.add('hidden');
   $('lex-strongs').textContent = 'Word lookup';
-  $('lex-definition').textContent = `No dictionary entry found. These are outside links: use them to look up "${word}" on Bible Hub, Blue Letter Bible, or STEP Bible.`;
+  $('lex-definition').textContent = `These are outside links. Use them to look up "${word}" on Bible Hub, Blue Letter Bible, or STEP Bible.`;
   $('lex-body').classList.remove('hidden');
 }
 
