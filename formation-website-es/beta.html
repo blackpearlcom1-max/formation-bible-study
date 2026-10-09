@@ -1196,7 +1196,7 @@
       <div id="billing-content" class="hidden bg-[#3D1540]/60 border border-[#f2e5f0]/10 rounded-xl p-4 flex flex-col gap-3">
         <div class="flex items-start justify-between gap-2">
           <div>
-            <p class="font-label text-sm font-bold text-[#f2e5f0]" id="billing-plan-name">Discovery</p>
+            <p class="font-label text-sm font-bold text-[#f2e5f0]" id="billing-plan-name">Descubrimiento</p>
             <p class="font-label text-[10px] uppercase tracking-widest text-[#f2e5f0]/40 mt-0.5" id="billing-plan-status"></p>
           </div>
           <span id="billing-renewal-badge" class="hidden text-right font-label text-[10px] text-[#f2e5f0]/40 leading-snug"></span>
@@ -2006,7 +2006,7 @@ function openProfilePanel() {
 // Facturación" reenvía al Portal de Clientes de Stripe vía
 // openManageSubscription(); los usuarios gratuitos ven un enlace "Mejorar"
 // en su lugar, ya que aún no hay nada que administrar.
-const PLAN_DISPLAY_NAME = { free: 'Discovery', formation: 'Formación', plus: 'Formación Plus', pro: 'Formación Pro' };
+const PLAN_DISPLAY_NAME = { free: 'Descubrimiento', formation: 'Formación', plus: 'Formación Plus', pro: 'Formación Pro' };
 const BILLING_STATUS_LABEL = { active: 'Activo', trialing: 'Prueba', past_due: 'Problema de pago — actualiza tu tarjeta', canceled: 'Cancelado', incomplete: 'Incompleto', incomplete_expired: 'Incompleto', unpaid: 'Problema de pago — actualiza tu tarjeta' };
 
 // Corregido 2026-08-26 (auditoría autenticada de Manus): "Cambiar a Inglés"
@@ -2051,7 +2051,7 @@ async function loadBillingPanel() {
     const plan = status?.plan || currentUserPlan || 'free';
     // Plan de cortesía (lo decide el servidor; el cliente nunca ve quién está en la lista).
     const comped = status?.comped === true;
-    $('billing-plan-name').textContent = PLAN_DISPLAY_NAME[plan] || 'Discovery';
+    $('billing-plan-name').textContent = PLAN_DISPLAY_NAME[plan] || 'Descubrimiento';
     $('billing-plan-status').textContent = comped
       ? 'Plan Pro (de cortesía)'
       : plan === 'free'
