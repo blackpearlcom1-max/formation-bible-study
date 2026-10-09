@@ -282,7 +282,7 @@
 
   // Helper: resuelve la URL de redirección según el plan seleccionado
   function getRedirectUrl(plan) {
-    return (plan && plan !== 'free') ? CHECKOUT_URL : BETA_URL;
+    return (plan && plan !== 'free' && plan !== 'gratis') ? CHECKOUT_URL : BETA_URL;
   }
 
   // ── Al cargar: manejar callback de enlace mágico y sesión existente ─────
@@ -314,7 +314,7 @@
     }
 
     // Mostrar insignia de plan
-    if (plan && plan !== 'free') {
+    if (plan && plan !== 'free' && plan !== 'gratis') {
       var planNames = { formation: 'Formación Bíblica — $7/mes', plus: 'Formación Bíblica Plus — $12/mes', pro: 'Formación Bíblica Pro — $29/mes' };
       var badge = document.getElementById('plan-badge');
       var planNameEl = document.getElementById('plan-name');
@@ -328,7 +328,7 @@
   // ── Google OAuth ─────────────────────────────────────────────────────────
   async function signInWithGoogle() {
     var plan = new URLSearchParams(window.location.search).get('plan');
-    if (plan && plan !== 'free') localStorage.setItem('pendingPlan', plan);
+    if (plan && plan !== 'free' && plan !== 'gratis') localStorage.setItem('pendingPlan', plan);
     if (typeof gtag === 'function') gtag('event', 'signup_started', { method: 'google', plan: plan || 'free' });
     const { error } = await sb.auth.signInWithOAuth({
       provider: 'google',
@@ -350,7 +350,7 @@
     var formEl = document.getElementById(formId);
 
     var plan = new URLSearchParams(window.location.search).get('plan');
-    if (plan && plan !== 'free') localStorage.setItem('pendingPlan', plan);
+    if (plan && plan !== 'free' && plan !== 'gratis') localStorage.setItem('pendingPlan', plan);
 
     var email = emailInput.value.trim();
     submitBtn.textContent = 'Enviando…';

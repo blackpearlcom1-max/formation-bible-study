@@ -7,7 +7,7 @@
 https://www.formacion-biblica.com/* https://formacion-biblica.com/:splat 301!
 
 # ─── Shortcut / Alias Redirects ──────────────────────────────────────────────
-/registro        /signup          301
+/registro        /signup?plan=free          301
 /unirse          /signup          301
 /planes          /pricing         301
 /suscribir       /pricing         301
@@ -29,7 +29,7 @@ https://www.formacion-biblica.com/* https://formacion-biblica.com/:splat 301!
 /formation-website/*                   /:splat                      301
 
 # Other legacy/renamed slugs
-/registro.html      /signup                       301
+/registro.html      /signup?plan=free                       301
 /join                /signup                       301
 /millennium-revelation-20.html   /milenio-en-apocalipsis-20   301
 /mes                 /reading-plans                301
