@@ -4,6 +4,7 @@
 # ─── Standard Search Crawlers ───────────────────────────────────────────────
 User-agent: *
 Allow: /
+Disallow: /cdn-cgi/
 Disallow: /checkout
 Disallow: /signup
 
