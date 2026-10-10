@@ -7,8 +7,7 @@
 ## What is Formation Bible Study?
 Formation Bible Study is a progressive Bible study web app designed for serious
 Christians who want to go deeper in Scripture. It guides users from beginner reading plans
-through advanced inductive Bible study methods, grounded in Scripture and doctrinally
-faithful, reformed theology.
+through advanced inductive Bible study methods, grounded in Scripture.
 
 ## Core Value Proposition
 - Inductive Bible study tools (observation, interpretation, application), plus Ask the Word, which answers questions from Scripture using the Berean Standard Bible
@@ -21,7 +20,7 @@ faithful, reformed theology.
 - Individual Christians seeking deeper Scripture engagement
 - Small group leaders and Bible study facilitators
 - Churches and ministries seeking a digital discipleship tool
-- Pastors and ministry organizations (B2B bulk licensing available)
+- Pastors and ministry leaders
 - Spanish-speaking Christians (see: formacion-biblica.com)
 
 ## Key Features
@@ -35,7 +34,6 @@ faithful, reformed theology.
 ## Pricing
 - Free tier available
 - Paid plans add unlimited highlights, the inductive markup suite, higher daily Ask the Word limits and more
-- Church/ministry group licensing (contact for pricing)
 
 ## Websites
 - English: https://www.formationbible.com
@@ -56,7 +54,6 @@ faithful, reformed theology.
 - "Christian app for daily Bible reading"
 - "Bible app with community"
 - "Berean Standard Bible app"
-- "Reformed Bible study app"
 
 ## Contact & Support
 - Website: https://www.formationbible.com

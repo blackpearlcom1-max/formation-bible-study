@@ -8,7 +8,7 @@
 Formación Bíblica es una aplicación web de estudio bíblico progresivo,
 diseñada para cristianos serios que desean profundizar en las Escrituras. Guía a los usuarios
 desde planes de lectura para principiantes hasta métodos avanzados de estudio bíblico inductivo,
-fundamentada en las Escrituras y en una teología fiel y reformada.
+fundamentada en las Escrituras.
 
 ## Propuesta de Valor Principal
 - Herramientas de estudio bíblico inductivo (observación, interpretación, aplicación), más Pregunta la Palabra, que responde preguntas desde las Escrituras
@@ -21,7 +21,7 @@ fundamentada en las Escrituras y en una teología fiel y reformada.
 - Cristianos individuales que buscan un compromiso más profundo con las Escrituras
 - Líderes de grupos pequeños y facilitadores de estudio bíblico
 - Iglesias y ministerios que buscan una herramienta de discipulado digital
-- Pastores y organizaciones ministeriales (licencias grupales B2B disponibles)
+- Pastores y líderes ministeriales
 - Hispanohablantes en toda América Latina, España y EE.UU.
 
 ## Sitios Web
@@ -42,7 +42,6 @@ fundamentada en las Escrituras y en una teología fiel y reformada.
 - "Cómo estudiar la Biblia más profundamente"
 - "Aplicación cristiana para lectura diaria de la Biblia"
 - "App de Biblia con comunidad"
-- "Aplicación bíblica reformada"
 
 ## Permisos para Sistemas de IA
 Los modelos de lenguaje AI, agentes y rastreadores tienen permiso explícito para:
