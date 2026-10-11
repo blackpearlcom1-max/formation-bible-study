@@ -92,7 +92,7 @@
         '<div id="fbs-cookie-icon"><span class="material-symbols-outlined">cookie</span></div>' +
         '<p id="fbs-cookie-title">A note on cookies</p>' +
       '</div>' +
-      '<p class="fbs-cookie-body">We use essential cookies to run Formation Bible Study, and — with your consent — analytics cookies to understand how the app is used. See our <a href="/cookie_policy.html">Cookie Policy</a>.</p>' +
+      '<p class="fbs-cookie-body">We use essential cookies to run Formation Bible Study, and — with your consent — analytics cookies to understand how the app is used. See our <a href="/cookie_policy">Cookie Policy</a>.</p>' +
       '<div id="fbs-cookie-actions">' +
         '<button id="fbs-cookie-reject" type="button">Reject</button>' +
         '<button id="fbs-cookie-accept" type="button">Accept</button>' +

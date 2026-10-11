@@ -2354,7 +2354,7 @@ async function deleteAccountConfirmed() {
 
     closeDeleteAccountModal();
     await sb.auth.signOut();
-    window.location.href = '/index.html';
+    window.location.href = '/';
   } catch (err) {
     errEl.textContent = 'Error de red — inténtalo de nuevo.';
     errEl.classList.remove('hidden');

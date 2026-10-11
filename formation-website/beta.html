@@ -2370,7 +2370,7 @@ async function deleteAccountConfirmed() {
 
     closeDeleteAccountModal();
     await sb.auth.signOut();
-    window.location.href = '/index.html';
+    window.location.href = '/';
   } catch (err) {
     errEl.textContent = 'Network error — please try again.';
     errEl.classList.remove('hidden');

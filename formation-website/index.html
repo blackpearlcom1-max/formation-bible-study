@@ -16,7 +16,7 @@
     const { data: { session } } = await _sb.auth.getSession();
     if (session) {
       // Logged in — go to the app. beta.html will snap URL back to / on load.
-      window.location.replace('/beta.html');
+      window.location.replace('/beta');
       return;
     }
   } catch(e) { /* fall through to marketing page on any error */ }

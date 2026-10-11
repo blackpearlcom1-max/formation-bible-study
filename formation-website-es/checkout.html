@@ -976,7 +976,7 @@
 
       // Free plan — skip payment (no Turnstile needed for free signup)
       if (currentPlan === 'free') {
-        window.location.href = 'signup.html?plan=free';
+        window.location.href = '/signup?plan=free';
         return;
       }
 
@@ -1103,7 +1103,7 @@
           // Existing user upgrading — send straight to the app, no signup welcome page needed
           setTimeout(() => { window.location.href = 'https://formacion-biblica.com'; }, 1200);
         } else {
-          setTimeout(() => { window.location.href = 'signup.html?welcome=1&plan=' + currentPlan; }, 1200);
+          setTimeout(() => { window.location.href = '/signup?welcome=1&plan=' + currentPlan; }, 1200);
         }
 
       } catch (err) {

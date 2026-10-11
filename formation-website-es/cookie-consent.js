@@ -92,7 +92,7 @@
         '<div id="fbs-cookie-icon"><span class="material-symbols-outlined">cookie</span></div>' +
         '<p id="fbs-cookie-title">Sobre las cookies</p>' +
       '</div>' +
-      '<p class="fbs-cookie-body">Usamos cookies esenciales para operar Formación Bíblica y, con su consentimiento, cookies analíticas para entender cómo se usa la app. Consulte nuestra <a href="/cookie_policy.html">Política de Cookies</a>.</p>' +
+      '<p class="fbs-cookie-body">Usamos cookies esenciales para operar Formación Bíblica y, con su consentimiento, cookies analíticas para entender cómo se usa la app. Consulte nuestra <a href="/cookie_policy">Política de Cookies</a>.</p>' +
       '<div id="fbs-cookie-actions">' +
         '<button id="fbs-cookie-reject" type="button">Rechazar</button>' +
         '<button id="fbs-cookie-accept" type="button">Aceptar</button>' +
