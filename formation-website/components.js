@@ -18,27 +18,27 @@
   var NAV_HTML = `
 <nav id="main-nav" class="fixed top-0 w-full z-50 bg-[#3D1540]/80 backdrop-blur-xl shadow-[0_20px_40px_-5px_rgba(61,21,64,0.3)]">
   <div class="flex justify-between items-center w-full px-8 py-4 max-w-7xl mx-auto">
-    <a href="/index.html" class="text-2xl font-headline font-black text-[#FFB4A4] no-underline">Formation Bible Study</a>
+    <a href="/" class="text-2xl font-headline font-black text-[#FFB4A4] no-underline">Formation Bible Study</a>
     <div class="hidden md:flex items-center space-x-8">
-      <a href="/index.html"       data-nav="home"     class="nav-link font-label uppercase tracking-widest text-xs transition-colors duration-300">Home</a>
-      <a href="/features.html"    data-nav="features"  class="nav-link font-label uppercase tracking-widest text-xs transition-colors duration-300">Features</a>
-      <a href="/pricing.html"     data-nav="pricing"   class="nav-link font-label uppercase tracking-widest text-xs transition-colors duration-300">Pricing</a>
-      <a href="/about.html"       data-nav="about"     class="nav-link font-label uppercase tracking-widest text-xs transition-colors duration-300">About</a>
+      <a href="/"       data-nav="home"     class="nav-link font-label uppercase tracking-widest text-xs transition-colors duration-300">Home</a>
+      <a href="/features"    data-nav="features"  class="nav-link font-label uppercase tracking-widest text-xs transition-colors duration-300">Features</a>
+      <a href="/pricing"     data-nav="pricing"   class="nav-link font-label uppercase tracking-widest text-xs transition-colors duration-300">Pricing</a>
+      <a href="/about"       data-nav="about"     class="nav-link font-label uppercase tracking-widest text-xs transition-colors duration-300">About</a>
       <a href="/demo"             data-nav="demo"      class="nav-link font-label uppercase tracking-widest text-xs transition-colors duration-300">Try the Demo</a>
     </div>
-    <a id="nav-cta" href="/beta.html" class="bg-gradient-to-br from-[#FFB4A4] to-[#6E2414] text-[#5D1809] px-6 py-2.5 rounded-full font-bold text-sm hover:brightness-110 transition-all shadow-lg">Sign Up Free →</a>
+    <a id="nav-cta" href="/beta" class="bg-gradient-to-br from-[#FFB4A4] to-[#6E2414] text-[#5D1809] px-6 py-2.5 rounded-full font-bold text-sm hover:brightness-110 transition-all shadow-lg">Sign Up Free →</a>
     <button id="nav-toggle" class="md:hidden text-[#f2e5f0] ml-4" aria-label="Open menu">
       <span class="material-symbols-outlined">menu</span>
     </button>
   </div>
   <div id="mobile-menu" class="hidden flex-col px-8 pb-6 space-y-4 bg-[#3D1540]/95 backdrop-blur-xl md:hidden">
-    <a href="/index.html"    class="block text-[#f2e5f0]/60 font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4]">Home</a>
-    <a href="/features.html" class="block text-[#f2e5f0]/60 font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4]">Features</a>
-    <a href="/pricing.html"  class="block text-[#f2e5f0]/60 font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4]">Pricing</a>
-    <a href="/about.html"    class="block text-[#f2e5f0]/60 font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4]">About</a>
+    <a href="/"    class="block text-[#f2e5f0]/60 font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4]">Home</a>
+    <a href="/features" class="block text-[#f2e5f0]/60 font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4]">Features</a>
+    <a href="/pricing"  class="block text-[#f2e5f0]/60 font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4]">Pricing</a>
+    <a href="/about"    class="block text-[#f2e5f0]/60 font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4]">About</a>
     <a href="/demo"          class="block text-[#f2e5f0]/60 font-label uppercase tracking-widest text-xs hover:text-[#FFB4A4]">Try the Demo</a>
-    <a href="/beta.html"     class="block text-[#FFB4A4] font-label uppercase tracking-widest text-xs font-bold">✨ Ask the Word</a>
-    <a id="nav-cta-mobile" href="/beta.html" class="block text-[#E8816A] font-label uppercase tracking-widest text-xs font-bold">Sign Up Free →</a>
+    <a href="/beta"     class="block text-[#FFB4A4] font-label uppercase tracking-widest text-xs font-bold">✨ Ask the Word</a>
+    <a id="nav-cta-mobile" href="/beta" class="block text-[#E8816A] font-label uppercase tracking-widest text-xs font-bold">Sign Up Free →</a>
   </div>
 </nav>`;
 
@@ -59,12 +59,12 @@
       <div>
         <p class="font-label text-[10px] uppercase tracking-[0.2em] text-[#f2e5f0]/30 mb-5">Product</p>
         <ul class="space-y-3">
-          <li><a href="/features.html"    class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Features</a></li>
-          <li><a href="/pricing.html"     class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Pricing</a></li>
-          <li><a href="/how_it_works.html" class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">How It Works</a></li>
-          <li><a href="/study-library.html" class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Study Library</a></li>
-          <li><a href="/faq.html"         class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">FAQ</a></li>
-          <li><a id="footer-cta" href="/beta.html" class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Sign Up Free</a></li>
+          <li><a href="/features"    class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Features</a></li>
+          <li><a href="/pricing"     class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Pricing</a></li>
+          <li><a href="/how_it_works" class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">How It Works</a></li>
+          <li><a href="/study-library" class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Study Library</a></li>
+          <li><a href="/faq"         class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">FAQ</a></li>
+          <li><a id="footer-cta" href="/beta" class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Sign Up Free</a></li>
         </ul>
       </div>
 
@@ -72,15 +72,15 @@
       <div>
         <p class="font-label text-[10px] uppercase tracking-[0.2em] text-[#f2e5f0]/30 mb-5">Resources</p>
         <ul class="space-y-3">
-          <li><a href="/about.html"            class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">About Us</a></li>
-          <li><a href="/mission.html"          class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Our Mission</a></li>
-          <li><a href="/statement_of_faith.html" class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Statement of Faith</a></li>
-          <li><a href="/study-guides.html"      class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Study Guides</a></li>
-          <li><a href="/inductive-study-romans.html" class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Guide: Studying Romans</a></li>
-          <li><a href="/color-coding-bible.html" class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Guide: Color-Coding Your Bible</a></li>
-          <li><a href="/greek-interlinear-beginners.html" class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Guide: Greek Interlinear for Beginners</a></li>
-          <li><a href="/help.html"             class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Help Center</a></li>
-          <li><a href="/contact.html"          class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Contact</a></li>
+          <li><a href="/about"            class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">About Us</a></li>
+          <li><a href="/mission"          class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Our Mission</a></li>
+          <li><a href="/statement_of_faith" class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Statement of Faith</a></li>
+          <li><a href="/study-guides"      class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Study Guides</a></li>
+          <li><a href="/inductive-study-romans" class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Guide: Studying Romans</a></li>
+          <li><a href="/color-coding-bible" class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Guide: Color-Coding Your Bible</a></li>
+          <li><a href="/greek-interlinear-beginners" class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Guide: Greek Interlinear for Beginners</a></li>
+          <li><a href="/help"             class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Help Center</a></li>
+          <li><a href="/contact"          class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Contact</a></li>
         </ul>
       </div>
 
@@ -88,11 +88,11 @@
       <div>
         <p class="font-label text-[10px] uppercase tracking-[0.2em] text-[#f2e5f0]/30 mb-5">Legal</p>
         <ul class="space-y-3">
-          <li><a href="/privacy_policy.html" class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Privacy Policy</a></li>
-          <li><a href="/terms.html"          class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Terms of Service</a></li>
-          <li><a href="/cookie_policy.html"  class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Cookie Policy</a></li>
-          <li><a href="/billing_terms.html"  class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Billing Terms</a></li>
-          <li><a href="/ai_disclaimer.html"  class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">AI Disclaimer</a></li>
+          <li><a href="/privacy_policy" class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Privacy Policy</a></li>
+          <li><a href="/terms"          class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Terms of Service</a></li>
+          <li><a href="/cookie_policy"  class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Cookie Policy</a></li>
+          <li><a href="/billing_terms"  class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">Billing Terms</a></li>
+          <li><a href="/ai_disclaimer"  class="text-[#f2e5f0]/50 text-sm font-body hover:text-[#E8816A] transition-all">AI Disclaimer</a></li>
         </ul>
       </div>
 
