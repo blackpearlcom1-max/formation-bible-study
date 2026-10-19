@@ -750,7 +750,7 @@
         <div id="outside-section" class="hidden bg-[#4A1D4D]/70 backdrop-blur-xl border border-[#E9C349]/30 rounded-3xl overflow-hidden shadow-xl">
           <div class="px-6 py-4 border-b border-[#f2e5f0]/10">
             <span class="text-[#E9C349] font-label text-xs uppercase tracking-widest font-bold">Outside the Bible text</span>
-            <p class="text-on-surface-variant text-xs mt-1">Not from the Bible text. Interpretation or tradition. Not checked here.</p>
+            <p class="text-on-surface-variant text-xs mt-1">Not in the text: interpretation or tradition. Check it against Scripture.</p>
           </div>
           <ul id="outside-list" class="px-6 py-5 text-sm text-on-surface-variant leading-relaxed space-y-3 list-disc list-inside"></ul>
         </div>
@@ -2776,7 +2776,7 @@ function renderResponse(data) {
   {
     const sc = data.scope && data.scope.statement;
     const vn = data.verification && typeof data.verification === 'object' ? data.verification.notes : '';
-    const scopeText = sc || vn || "Scripture check: the verse references an answer cites are checked against the Berean Standard Bible; wording inside quotation marks may be paraphrased, so read the passage itself. History, tradition, original-language claims, and scholars' views are not checked by this app.";
+    const scopeText = sc || vn || "Scripture check: the verse references an answer cites are checked against the Berean Standard Bible; wording inside quotation marks may be paraphrased, so read the passage itself. Answers can contain mistakes; Scripture is the authority.";
     verificationIcon.textContent = '📖';
     verificationText.textContent = scopeText;
     verificationSection.classList.remove('hidden');
@@ -2784,7 +2784,7 @@ function renderResponse(data) {
     const outSec = document.getElementById('outside-section');
     const items = Array.isArray(data.outside) ? data.outside.filter(o => o && o.text) : [];
     outList.innerHTML = items.map(o =>
-      `<li>${escHtml(o.text)}${o.label ? ' <span class="text-[#E9C349] text-xs font-label uppercase tracking-widest">[' + escHtml(o.label) + ']</span>' : ''}</li>`
+      `<li>${escHtml(o.text)}${o.label ? ' <span class="text-[#E9C349] text-xs font-label uppercase tracking-widest">[' + escHtml(String(o.label).replace(/:\s*$/, '')) + ']</span>' : ''}</li>`
     ).join('');
     outSec.classList.toggle('hidden', items.length === 0);
   }
