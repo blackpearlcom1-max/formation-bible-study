@@ -34,3 +34,11 @@
 
 /*.svg
   Cache-Control: public, max-age=31536000, immutable, s-maxage=604800
+
+# Campaign landing page: keep out of search, no referrer leakage
+/iglesia
+  X-Robots-Tag: noindex, nofollow
+  Referrer-Policy: same-origin
+
+/iglesia.html
+  X-Robots-Tag: noindex, nofollow

@@ -57,3 +57,11 @@
 # Security Contact File
 /.well-known/security.txt
   Cache-Control: public, max-age=3600
+
+# Campaign landing page: keep out of search, no referrer leakage
+/church
+  X-Robots-Tag: noindex, nofollow
+  Referrer-Policy: same-origin
+
+/church.html
+  X-Robots-Tag: noindex, nofollow
